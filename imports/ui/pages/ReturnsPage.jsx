@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // Components
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Button } from "reactstrap";
 import Page from "../components/Page.jsx";
 import MerchantOrders from "../components/MerchantOrders";
 import SupportModal from "../components/SupportModal";
@@ -13,12 +13,13 @@ import SupportModal from "../components/SupportModal";
 class ReturnsPage extends Component {
   constructor(props) {
     super(props);
-    // Initialize State
+
     this.state = {
       lastOrder: null,
       error: null,
       showModal: false
     };
+
     this.toggleModal = this.toggleModal.bind(this);
   }
 
@@ -37,7 +38,6 @@ class ReturnsPage extends Component {
 
   render() {
     const { lastOrder, error, showModal } = this.state;
-    console.log("lastOrder:", lastOrder);
     return (
       <Page>
         <div>

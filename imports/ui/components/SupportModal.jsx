@@ -14,7 +14,7 @@ const SupportModal = ({ showModal, toggleModal }) =>
         </p>
       </div>
       <div>
-        <Button size="lg">Call Us</Button>
+        <Button size="lg" color="primary">Call Us</Button>
       </div>
       <div>
         <Button onClick={toggleModal} color="link">
