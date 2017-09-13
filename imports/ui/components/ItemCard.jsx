@@ -14,7 +14,7 @@ const ItemCard = ({ items }) =>
           </div>
           <div>Size {size}</div>
           <div>Colour {color}</div>
-          <div>Return Quantity {`${0} of ${quantityPurchased}`}</div>
+          <div>Return Quantity {`${0} of ${quantityPurchased}`} →</div>
         </Card>
     )}
   </div>;

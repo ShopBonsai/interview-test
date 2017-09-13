@@ -5,9 +5,10 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // Components
-import { Button } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Page from "../components/Page.jsx";
 import MerchantOrders from "../components/MerchantOrders";
+import SupportModal from "../components/SupportModal";
 
 class ReturnsPage extends Component {
   constructor(props) {
@@ -15,8 +16,10 @@ class ReturnsPage extends Component {
     // Initialize State
     this.state = {
       lastOrder: null,
-      error: null
+      error: null,
+      showModal: false
     };
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentDidMount() {
@@ -28,8 +31,12 @@ class ReturnsPage extends Component {
     });
   }
 
+  toggleModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
   render() {
-    const { lastOrder, error } = this.state;
+    const { lastOrder, error, showModal } = this.state;
     console.log("lastOrder:", lastOrder);
     return (
       <Page>
@@ -37,11 +44,11 @@ class ReturnsPage extends Component {
           <p>←</p>
           <p>1 of 3</p>
           <p>How many items would you like to return?</p>
-          <Button color="primary">Talk to someone</Button>
+          <Button color="primary" onClick={this.toggleModal}>
+            Talk to someone
+          </Button>
         </div>
-        <div>
-          {error && <p>{error}</p>}
-        </div>
+        <SupportModal showModal={showModal} toggleModal={this.toggleModal} />
         <div>
           {lastOrder
             ? <MerchantOrders lastOrder={lastOrder} />
