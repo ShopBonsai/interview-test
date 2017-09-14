@@ -5,8 +5,41 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
+import { Alert, Row, Col, Button } from "reactstrap";
 import Page from "../components/Page.jsx";
+
+class HelpButton extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <Button color="primary" onClick={this.props.onClick}>Talk to Someone</Button>{' '}
+      </div>
+      );
+  }
+}
+
+class HelpModal extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <Row>
+          <Button color="primary">Call Us</Button>{' '}
+        </Row>
+        <Row>
+          <Button color="primary" onClick={this.props.onClick}>Close</Button>{' '}
+        </Row>
+      </div>
+      );
+  }
+}
 
 class ReturnsPage extends Component {
   constructor(props) {
@@ -14,7 +47,8 @@ class ReturnsPage extends Component {
     // Initialize State
     this.initialState = {
       lastOrder: null,
-      error: null
+      error: null,
+      showHelp: false
     };
     this.state = this.initialState;
   }
@@ -28,12 +62,29 @@ class ReturnsPage extends Component {
     });
   }
 
+  openHelp(e) {
+    this.setState(() => ({ showHelp: true }));
+  }
+
+  closeHelp(e) {
+    this.setState(() => ({ showHelp: false }));
+  }
+
   render() {
     const { lastOrder, error } = this.state;
+
+    if (this.state.showHelp) {
+      var help = React.createElement(HelpModal, {onClick: this.closeHelp.bind(this)});
+    } else {
+      var help = null;
+    }
+
     return (
       <Page>
         <Row>
           <Col>
+            <HelpButton onClick={() => this.openHelp()}/>
+            {help}
             <Alert className="mt-3">
               I would highly recommend understanding the structure of the order
               object first and how it should relate to the designs.
