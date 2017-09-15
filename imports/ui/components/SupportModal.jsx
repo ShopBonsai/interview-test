@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
+import { Modal, Button } from "reactstrap";
 
 const SupportModal = ({ showModal, toggleModal }) =>
   <Modal isOpen={showModal}>
