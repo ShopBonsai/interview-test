@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
+import lastOrderReducer from "./lastOrderReducer";
+
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  lastOrder: lastOrderReducer
 });
 
 export default rootReducer;

@@ -9,16 +9,12 @@ const ReturnsDrawer = ({ showDrawer, right, toggleDrawer }) =>
       <Button onClick={toggleDrawer}>←</Button>
     </div>
     <div>Return Quantity</div>
-    <div className="btn-group-vertical">
-      <button type="button" className="btn">
-        1
-      </button>
-      <button type="button" className="btn">
-        2
-      </button>
-      <button type="button" className="btn">
-        3
-      </button>
+    <div>
+      <ul>
+        <li>1. Placeholder</li>
+        <li>2. Placeholder</li>
+        <li>3. Placeholder</li>
+      </ul>
     </div>
     <div>
       <Button size="lg" color="primary">

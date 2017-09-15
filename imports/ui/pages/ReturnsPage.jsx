@@ -2,7 +2,7 @@
 
 // Framework
 import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
+import { connect } from "react-redux";
 
 // Components
 import { Button } from "reactstrap";
@@ -12,13 +12,14 @@ import MerchantOrders from "../components/MerchantOrders";
 import SupportModal from "../components/SupportModal";
 import Drawer from "../components/Drawer";
 
+// Actions
+import * as actions from "../redux/actions";
+
 class ReturnsPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      lastOrder: null,
-      error: null,
       showModal: false,
       showDrawer: false
     };
@@ -28,12 +29,7 @@ class ReturnsPage extends Component {
   }
 
   componentDidMount() {
-    Meteor.call("orders.getLastOrder", (error, response) => {
-      if (error) {
-        this.setState({ error });
-      }
-      this.setState({ lastOrder: response });
-    });
+    this.props.fetchLastOrder();
   }
 
   toggleModal() {
@@ -45,20 +41,23 @@ class ReturnsPage extends Component {
   }
 
   render() {
-    const { lastOrder, error, showModal, showDrawer } = this.state;
+    const { lastOrder } = this.props;
     const { toggleModal, toggleDrawer } = this;
+    const { showModal, showDrawer } = this.state;
     return (
       <Page>
         <div>
-          <p>←</p>
+          <div>←</div>
           <Header
             currentPage={1}
             totalPages={3}
             headerText={"How many items would you like to return?"}
           />
-          <Button color="primary" onClick={toggleModal}>
-            Talk to someone
-          </Button>
+          <div>
+            <Button color="primary" onClick={toggleModal}>
+              Talk to someone
+            </Button>
+          </div>
         </div>
         <Drawer right={true} showDrawer={showDrawer} />
         <SupportModal showModal={showModal} toggleModal={toggleModal} />
@@ -78,4 +77,9 @@ class ReturnsPage extends Component {
   }
 }
 
-export default ReturnsPage;
+const mapStateToProps = state => {
+  const { lastOrder } = state;
+  return { lastOrder };
+};
+
+export default connect(mapStateToProps, actions)(ReturnsPage);
