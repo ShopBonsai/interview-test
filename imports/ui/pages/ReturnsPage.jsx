@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // Components
-import { Alert, Row, Col, Button, Card } from "reactstrap";
+import { Alert, Row, Col, Button, Card, ListGroup, ListGroupItem } from "reactstrap";
 import Page from "../components/Page.jsx";
 
 class HelpButton extends Component {
@@ -30,6 +30,7 @@ class HelpModal extends Component {
   render() {
     return (
       <div>
+        <Card>
         <Row>
           <h1>Need a hand?</h1>
         </Row>
@@ -43,7 +44,28 @@ class HelpModal extends Component {
         <Row>
           <Button color="primary" onClick={this.props.onClick}>Close</Button>{' '}
         </Row>
+        </Card>
       </div>
+      );
+  }
+}
+
+class ReturnDrawer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <p onClick={this.props.onClick}> back </p>
+        <h3> Return Quantity </h3>
+        <ListGroup>
+          <ListGroupItem>1</ListGroupItem>
+          <ListGroupItem>2</ListGroupItem>
+          <ListGroupItem>2</ListGroupItem>
+        </ListGroup>
+        </div>
       );
   }
 }
@@ -71,14 +93,15 @@ class ProductCard extends Component {
     super(props);
     // Initialize State
     this.initialState = {
-      numReturns: 0
+      numReturns: 0,
+      showDrawer: 0
     };
     this.state = this.initialState;
   }
 
   render() {
     const product = this.props.products;
-
+    
     return (
       <div>
         <Card>
@@ -87,10 +110,10 @@ class ProductCard extends Component {
           <p>{product.name}</p>
           <p>Size {product.size}</p>
           <p>Color {product.color}</p>
-          <p>Return Quantity {this.state.numReturns} of {product.quantityPurchased} ></p>
+          <p onClick={this.toggleDrawer}>Return Quantity {this.state.numReturns} of {product.quantityPurchased} ></p>
         </Card>
       </div>
-      );
+    );
   }
 }
 
@@ -101,7 +124,9 @@ class ReturnsPage extends Component {
     this.initialState = {
       lastOrder: null,
       error: null,
-      showHelp: false
+      showHelp: 0,
+      showDrawer: 0,
+      quantities: null
     };
     this.state = this.initialState;
   }
@@ -115,29 +140,56 @@ class ReturnsPage extends Component {
     });
   }
 
-  openHelp(e) {
-    this.setState(() => ({ showHelp: true }));
+  componentDidMount() {
+    // keep track of the quantities purchased of each item
+    const ord = this.state.lastOrder;
+      if (ord !== null) {
+        var quantities = new Array();
+        for (var i in ord.merchantOrders) {
+          for (var j in ord.merchantOrders[i].items) {
+            quantities.push(ord.merchantOrders[i].items[j].quantityPurchased)
+          }
+        }
+        this.setState(() => ({ quantities: quantities }));
+      }
   }
 
-  closeHelp(e) {
-    this.setState(() => ({ showHelp: false }));
+  toggleHelp() {
+    var toggle = 0;
+    if (this.state.showHelp == 0) {
+      toggle = 1;
+    }
+    this.setState(() => ({ showHelp: toggle }))
+  }
+
+  toggleDrawer() {
+    var toggle = 0;
+    if (this.state.showDrawer == 0) {
+      toggle = 1;
+    }
+    this.setState(() => ({ showDrawer: toggle }))
   }
 
   render() {
     const { lastOrder, error } = this.state;
+
     var SellerGroups = null;
     if (lastOrder !== null) {
-      console.log(lastOrder.merchantOrders)
       const sellers = lastOrder.merchantOrders;
       SellerGroups = sellers.map(sellers =>
               <SellerGroup key={sellers.name} seller={sellers.name} products={sellers.items} />)
-      console.log(SellerGroups)
     }
     
-    if (this.state.showHelp) {
-      var help = React.createElement(HelpModal, {onClick: this.closeHelp.bind(this)});
+    if (this.state.showHelp == 1) {
+      var help = React.createElement(HelpModal, {onClick: this.toggleHelp.bind(this)});
     } else {
       var help = null;
+    }
+
+    if (this.state.showDrawer == 1) {
+      var drawer = React.createElement(ReturnDrawer, {onClick: this.toggleDrawer.bind(this)});
+    } else {
+      var drawer = null;
     }
 
     return (
@@ -151,9 +203,12 @@ class ReturnsPage extends Component {
           </Row>
           <Row>
             <Col>
-              <HelpButton onClick={() => this.openHelp()}/>
+              <HelpButton onClick={() => this.toggleHelp()}/>
               {help}
             </Col>
+          </Row>
+          <Row>
+            {drawer}
           </Row>
           <Row>
             <Col>
