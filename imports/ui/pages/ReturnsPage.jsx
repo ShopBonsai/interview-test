@@ -56,15 +56,17 @@ class ReturnDrawer extends Component {
   }
 
   render() {
+    const quant = [...Array(this.props.quantity).keys()];
+    console.log(quant)
+ 
     return (
       <div>
-        <p onClick={this.props.onClick}> back </p>
+        <Button onClick={this.props.onClick}> back </Button>
         <h3> Return Quantity </h3>
         <ListGroup>
-          <ListGroupItem>1</ListGroupItem>
-          <ListGroupItem>2</ListGroupItem>
-          <ListGroupItem>2</ListGroupItem>
-        </ListGroup>
+         {quant.map(quant =>
+              <Button key={quant}>{quant + 1}</Button>)}
+         </ListGroup>
         </div>
       );
   }
@@ -80,9 +82,11 @@ class SellerGroup extends Component {
 
     return (
       <div>
-        <h1>{this.props.seller}</h1>
+        <h5>{this.props.seller}</h5>
         {products.map(products =>
-              <ProductCard key={products.name} products={products} />)}
+              <ProductCard key={products.name} products={products} 
+              toggleDrawer={this.props.toggleDrawer}
+              updateSelectedItem={this.props.updateSelectedItem} />)}
       </div>
       );
   }
@@ -91,12 +95,11 @@ class SellerGroup extends Component {
 class ProductCard extends Component {
   constructor(props) {
     super(props);
-    // Initialize State
-    this.initialState = {
-      numReturns: 0,
-      showDrawer: 0
-    };
-    this.state = this.initialState;
+  }
+
+  handleClick() {
+    this.props.toggleDrawer();
+    this.props.updateSelectedItem(this.props.products.name);
   }
 
   render() {
@@ -108,9 +111,10 @@ class ProductCard extends Component {
           <p>C${product.pricePerItem}</p>
           <p>{product.brand}</p>
           <p>{product.name}</p>
-          <p>Size {product.size}</p>
-          <p>Color {product.color}</p>
-          <p onClick={this.toggleDrawer}>Return Quantity {this.state.numReturns} of {product.quantityPurchased} ></p>
+          <Button>Size {product.size}</Button>
+          <Button>Color {product.color}</Button>
+          <Button onClick={this.handleClick.bind(this)}>Return Quantity 
+            0 of {product.quantityPurchased} ></Button>
         </Card>
       </div>
     );
@@ -126,7 +130,8 @@ class ReturnsPage extends Component {
       error: null,
       showHelp: 0,
       showDrawer: 0,
-      quantities: null
+      quantities: null,
+      selectedItem: null
     };
     this.state = this.initialState;
   }
@@ -137,21 +142,30 @@ class ReturnsPage extends Component {
         this.setState(() => ({ error: error }));
       }
       this.setState(() => ({ lastOrder: response }));
-    });
-  }
 
-  componentDidMount() {
-    // keep track of the quantities purchased of each item
-    const ord = this.state.lastOrder;
-      if (ord !== null) {
-        var quantities = new Array();
-        for (var i in ord.merchantOrders) {
-          for (var j in ord.merchantOrders[i].items) {
-            quantities.push(ord.merchantOrders[i].items[j].quantityPurchased)
+      // Set up initial quantity purchased for each item
+      if (response) {
+        var quantities = {};
+        for (var i in response.merchantOrders) {
+          for (var j in response.merchantOrders[i].items) {
+            var name = response.merchantOrders[i].items[j].name;
+            quantities[name] = response.merchantOrders[i].items[j].quantityPurchased;
           }
         }
         this.setState(() => ({ quantities: quantities }));
       }
+    });
+  }
+
+  updateSelectedItem(name) {
+    this.setState(() => ({ selectedItem: name }));
+  }
+
+  updateReturnQuant(index, num) {
+    var oldQuant = this.state.quantities;
+    var newQuant = oldQuant.slice();
+    newQuant[index] = num;
+    this.setState(() => ({ quantities: newQuant }));
   }
 
   toggleHelp() {
@@ -177,7 +191,9 @@ class ReturnsPage extends Component {
     if (lastOrder !== null) {
       const sellers = lastOrder.merchantOrders;
       SellerGroups = sellers.map(sellers =>
-              <SellerGroup key={sellers.name} seller={sellers.name} products={sellers.items} />)
+              <SellerGroup key={sellers.name} seller={sellers.name}
+                products={sellers.items} toggleDrawer={this.toggleDrawer.bind(this)}
+                updateSelectedItem={this.updateSelectedItem.bind(this)} />)
     }
     
     if (this.state.showHelp == 1) {
@@ -187,19 +203,19 @@ class ReturnsPage extends Component {
     }
 
     if (this.state.showDrawer == 1) {
-      var drawer = React.createElement(ReturnDrawer, {onClick: this.toggleDrawer.bind(this)});
+      var drawer = React.createElement(ReturnDrawer, {onClick: this.toggleDrawer.bind(this), quantity: this.state.quantities[this.state.selectedItem]});
     } else {
       var drawer = null;
     }
 
     return (
       <Page>
-        <Col sm="5">
+        <Col sm="6">
           <Row>
             <p>1 of 3</p>
           </Row>
           <Row>
-            <h4>How many items would you like to return?</h4>
+            <h5>How many items would you like to return?</h5>
           </Row>
           <Row>
             <Col>
