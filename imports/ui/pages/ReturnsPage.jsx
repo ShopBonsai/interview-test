@@ -9,6 +9,7 @@ import { Button } from "reactstrap";
 import Page from "../components/Page.jsx";
 import MerchantOrders from "../components/MerchantOrders";
 import SupportModal from "../components/SupportModal";
+import Drawer from "../components/Drawer";
 
 class ReturnsPage extends Component {
   constructor(props) {
@@ -17,10 +18,12 @@ class ReturnsPage extends Component {
     this.state = {
       lastOrder: null,
       error: null,
-      showModal: false
+      showModal: false,
+      showDrawer: false
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
   componentDidMount() {
@@ -36,22 +39,31 @@ class ReturnsPage extends Component {
     this.setState({ showModal: !this.state.showModal });
   }
 
+  toggleDrawer() {
+    this.setState({ showDrawer: !this.state.showDrawer });
+  }
+
   render() {
-    const { lastOrder, error, showModal } = this.state;
+    const { lastOrder, error, showModal, showDrawer } = this.state;
+    const { toggleModal, toggleDrawer } = this;
     return (
       <Page>
         <div>
           <p>←</p>
           <p>1 of 3</p>
           <p>How many items would you like to return?</p>
-          <Button color="primary" onClick={this.toggleModal}>
+          <Button color="primary" onClick={toggleModal}>
             Talk to someone
           </Button>
         </div>
-        <SupportModal showModal={showModal} toggleModal={this.toggleModal} />
+        <Drawer right={true} showDrawer={showDrawer} />
+        <SupportModal showModal={showModal} toggleModal={toggleModal} />
         <div>
           {lastOrder
-            ? <MerchantOrders lastOrder={lastOrder} />
+            ? <MerchantOrders
+                lastOrder={lastOrder}
+                toggleDrawer={toggleDrawer}
+              />
             : <p>Loading in 2017, lol</p>}
         </div>
         <div>

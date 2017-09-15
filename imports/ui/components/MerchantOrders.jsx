@@ -2,12 +2,12 @@ import React from "react";
 
 import ItemCard from "../components/ItemCard";
 
-const MerchantOrders = ({ lastOrder: { merchantOrders } }) =>
+const MerchantOrders = ({ lastOrder: { merchantOrders }, toggleDrawer }) =>
   <div>
     {merchantOrders.map(({ name, items }, index) =>
       <div key={index}>
-        <p>{name}</p>
-        <ItemCard items={items} />
+        <div>{name}</div>
+        <ItemCard items={items} toggleDrawer={toggleDrawer} />
       </div>
     )}
   </div>;
