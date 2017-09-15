@@ -2,7 +2,10 @@
 
 // Framework
 import React, { Component } from "react";
+
+// Libraries
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 // Components
 import { Button } from "reactstrap";
@@ -80,6 +83,11 @@ class ReturnsPage extends Component {
 const mapStateToProps = state => {
   const { lastOrder } = state;
   return { lastOrder };
+};
+
+ReturnsPage.propTypes = {
+  fetchLastOrder: PropTypes.func,
+  lastOrder: PropTypes.array
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);

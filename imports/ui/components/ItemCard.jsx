@@ -1,7 +1,12 @@
+// Framework
 import React, { Component } from "react";
 
-import { Card, Button } from "reactstrap";
+// Libraries
+import PropTypes from "prop-types";
+
+// Components
 import Drawer from "../components/Drawer";
+import { Card, Button } from "reactstrap";
 
 const ItemCard = ({ items, toggleDrawer }) =>
   <div>
@@ -24,5 +29,10 @@ const ItemCard = ({ items, toggleDrawer }) =>
         </Card>
     )}
   </div>;
+
+ItemCard.propTypes = {
+  items: PropTypes.array,
+  toggleDrawer: PropTypes.func
+};
 
 export default ItemCard;

@@ -1,5 +1,10 @@
+// Framework
 import React from "react";
 
+// Libraries
+import PropTypes from "prop-types";
+
+// Components
 import Drawer from "react-motion-drawer";
 import { Button } from "reactstrap";
 
@@ -22,5 +27,11 @@ const ReturnsDrawer = ({ showDrawer, right, toggleDrawer }) =>
       </Button>
     </div>
   </Drawer>;
+
+ReturnsDrawer.propTypes = {
+  showDrawer: PropTypes.bool,
+  right: PropTypes.bool,
+  toggleDrawer: PropTypes.func
+};
 
 export default ReturnsDrawer;
