@@ -7,6 +7,7 @@ import { Meteor } from "meteor/meteor";
 // Components
 import { Button } from "reactstrap";
 import Page from "../components/Page.jsx";
+import Header from "../components/Header";
 import MerchantOrders from "../components/MerchantOrders";
 import SupportModal from "../components/SupportModal";
 import Drawer from "../components/Drawer";
@@ -50,8 +51,11 @@ class ReturnsPage extends Component {
       <Page>
         <div>
           <p>←</p>
-          <p>1 of 3</p>
-          <p>How many items would you like to return?</p>
+          <Header
+            currentPage={1}
+            totalPages={3}
+            headerText={"How many items would you like to return?"}
+          />
           <Button color="primary" onClick={toggleModal}>
             Talk to someone
           </Button>
