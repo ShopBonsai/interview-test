@@ -53,11 +53,23 @@ class HelpModal extends Component {
 class ReturnDrawer extends Component {
   constructor(props) {
     super(props);
+    this.initialState = {
+      returnQuantity: 1
+    };
+    this.state = this.initialState;
+  }
+
+  setQuantity(quant) {
+    this.setState(() => ({ returnQuantity: quant }));
+  }
+
+  handleChangesButton() {
+    this.props.onClick();
+    this.props.updateReturnQuant(this.state.returnQuantity);
   }
 
   render() {
-    const quant = [...Array(this.props.quantity).keys()];
-    console.log(quant)
+    const quant = [...Array(this.props.initialQuantity).keys()];
  
     return (
       <div>
@@ -65,8 +77,9 @@ class ReturnDrawer extends Component {
         <h3> Return Quantity </h3>
         <ListGroup>
          {quant.map(quant =>
-              <Button key={quant}>{quant + 1}</Button>)}
+              <Button key={quant} onClick={()=>this.setQuantity(quant+1)}>{quant + 1}</Button>)}
          </ListGroup>
+         <Button color="primary" onClick={this.handleChangesButton.bind(this)}>Apply Changes</Button>
         </div>
       );
   }
@@ -86,7 +99,8 @@ class SellerGroup extends Component {
         {products.map(products =>
               <ProductCard key={products.name} products={products} 
               toggleDrawer={this.props.toggleDrawer}
-              updateSelectedItem={this.props.updateSelectedItem} />)}
+              updateSelectedItem={this.props.updateSelectedItem} 
+              quantities={this.props.quantities} />)}
       </div>
       );
   }
@@ -104,6 +118,12 @@ class ProductCard extends Component {
 
   render() {
     const product = this.props.products;
+
+    if (this.props.quantities !== null) {
+      var returnQuantity = this.props.quantities[product.name];
+    } else {
+      var returnQuantity = 1;
+    }
     
     return (
       <div>
@@ -114,7 +134,7 @@ class ProductCard extends Component {
           <Button>Size {product.size}</Button>
           <Button>Color {product.color}</Button>
           <Button onClick={this.handleClick.bind(this)}>Return Quantity 
-            0 of {product.quantityPurchased} ></Button>
+            {returnQuantity} of {product.quantityPurchased} ></Button>
         </Card>
       </div>
     );
@@ -130,7 +150,8 @@ class ReturnsPage extends Component {
       error: null,
       showHelp: 0,
       showDrawer: 0,
-      quantities: null,
+      initialQuantities: null,
+      returnQuantities: null,
       selectedItem: null
     };
     this.state = this.initialState;
@@ -152,7 +173,8 @@ class ReturnsPage extends Component {
             quantities[name] = response.merchantOrders[i].items[j].quantityPurchased;
           }
         }
-        this.setState(() => ({ quantities: quantities }));
+        this.setState(() => ({ initialQuantities: quantities,
+          returnQuantities: quantities }));
       }
     });
   }
@@ -161,11 +183,12 @@ class ReturnsPage extends Component {
     this.setState(() => ({ selectedItem: name }));
   }
 
-  updateReturnQuant(index, num) {
-    var oldQuant = this.state.quantities;
-    var newQuant = oldQuant.slice();
-    newQuant[index] = num;
-    this.setState(() => ({ quantities: newQuant }));
+  updateReturnQuant(quant) {
+    var oldQuants = this.state.returnQuantities;
+    var newQuants = Object.assign({}, oldQuants);
+    newQuants[this.state.selectedItem] = quant;
+    this.setState(() => ({ returnQuantities: newQuants }));
+
   }
 
   toggleHelp() {
@@ -193,7 +216,7 @@ class ReturnsPage extends Component {
       SellerGroups = sellers.map(sellers =>
               <SellerGroup key={sellers.name} seller={sellers.name}
                 products={sellers.items} toggleDrawer={this.toggleDrawer.bind(this)}
-                updateSelectedItem={this.updateSelectedItem.bind(this)} />)
+                updateSelectedItem={this.updateSelectedItem.bind(this)} quantities={this.state.returnQuantities} />)
     }
     
     if (this.state.showHelp == 1) {
@@ -203,7 +226,11 @@ class ReturnsPage extends Component {
     }
 
     if (this.state.showDrawer == 1) {
-      var drawer = React.createElement(ReturnDrawer, {onClick: this.toggleDrawer.bind(this), quantity: this.state.quantities[this.state.selectedItem]});
+      var drawer = React.createElement(ReturnDrawer, 
+        {onClick: this.toggleDrawer.bind(this),
+          initialQuantity: this.state.initialQuantities[this.state.selectedItem],
+          quantity: this.state.returnQuantities[this.state.selectedItem],
+          updateReturnQuant: this.updateReturnQuant.bind(this)});
     } else {
       var drawer = null;
     }
