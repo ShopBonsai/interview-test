@@ -7,9 +7,13 @@ import PropTypes from "prop-types";
 // Components
 import ItemCard from "../components/ItemCard";
 
-const MerchantOrders = ({ lastOrder, toggleDrawer, onReturnQuantityClick }) =>
+const MerchantOrders = ({
+  orderDetails,
+  toggleDrawer,
+  onReturnQuantityClick
+}) =>
   <div>
-    {lastOrder.map(({ name, items }, index) =>
+    {orderDetails.map(({ name, items }, index) =>
       <div key={index}>
         <div>
           {name}
@@ -24,7 +28,7 @@ const MerchantOrders = ({ lastOrder, toggleDrawer, onReturnQuantityClick }) =>
   </div>;
 
 MerchantOrders.propTypes = {
-  lastOrder: PropTypes.array,
+  orderDetails: PropTypes.array,
   toggleDrawer: PropTypes.func,
   onReturnQuantityClick: PropTypes.func
 };

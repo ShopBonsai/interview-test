@@ -50,9 +50,10 @@ class ReturnsPage extends Component {
   }
 
   render() {
-    const { lastOrder } = this.props;
+    const { orderDetails } = this.props;
     const { showModal, showDrawer } = this.state;
     const { toggleModal, toggleDrawer, onReturnQuantityClick } = this;
+    console.log(orderDetails);
     return (
       <Page>
         <div>
@@ -75,9 +76,9 @@ class ReturnsPage extends Component {
         />
         <SupportModal showModal={showModal} toggleModal={toggleModal} />
         <div>
-          {lastOrder
+          {orderDetails
             ? <MerchantOrders
-                lastOrder={lastOrder}
+                orderDetails={orderDetails}
                 toggleDrawer={toggleDrawer}
                 onReturnQuantityClick={onReturnQuantityClick}
               />
@@ -91,14 +92,14 @@ class ReturnsPage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { lastOrder } = state;
-  return { lastOrder };
+const mapStateToProps = ({ lastOrder }) => {
+  const { orderDetails } = lastOrder;
+  return { orderDetails };
 };
 
 ReturnsPage.propTypes = {
   fetchLastOrder: PropTypes.func,
-  lastOrder: PropTypes.array,
+  orderDetails: PropTypes.array,
   openReturnsDrawer: PropTypes.func
 };
 

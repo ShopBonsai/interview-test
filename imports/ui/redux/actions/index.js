@@ -16,9 +16,5 @@ export const fetchLastOrder = () => dispatch => {
 
 export const openReturnsDrawer = (id, purchaseQuantity) => dispatch => {
   const returnItem = { id, purchaseQuantity, returnQuantity: 0 };
-  console.log("openReturnDrawer action creator payload:", returnItem);
-  return dispatch({
-    type: OPEN_RETURNS_DRAWER,
-    payload: returnItem
-  });
+  return dispatch({ type: OPEN_RETURNS_DRAWER, payload: returnItem });
 };
