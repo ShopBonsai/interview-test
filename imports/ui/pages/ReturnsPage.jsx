@@ -37,7 +37,7 @@ class ReturnsPage extends Component {
   }
 
   onReturnQuantityClick(id, purchaseQuantity) {
-    console.log("id & purchaseQuantity", id, purchaseQuantity);
+    this.props.openReturnsDrawer(id, purchaseQuantity);
     this.setState({ showDrawer: !this.state.showDrawer });
   }
 
@@ -68,7 +68,11 @@ class ReturnsPage extends Component {
             </Button>
           </div>
         </div>
-        <Drawer right={true} showDrawer={showDrawer} />
+        <Drawer
+          right={true}
+          showDrawer={showDrawer}
+          toggleDrawer={toggleDrawer}
+        />
         <SupportModal showModal={showModal} toggleModal={toggleModal} />
         <div>
           {lastOrder
@@ -94,7 +98,8 @@ const mapStateToProps = state => {
 
 ReturnsPage.propTypes = {
   fetchLastOrder: PropTypes.func,
-  lastOrder: PropTypes.array
+  lastOrder: PropTypes.array,
+  openReturnsDrawer: PropTypes.func
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);
