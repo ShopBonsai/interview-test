@@ -16,7 +16,8 @@ class HelpButton extends Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.props.onClick}>Talk to Someone</Button>{' '}
+        <button onClick={this.props.onClick}
+          className="help-button">Talk to Someone</button>{' '}
       </div>
       );
   }
@@ -63,6 +64,7 @@ class ReturnDrawer extends Component {
     this.setState(() => ({ returnQuantity: quant }));
   }
 
+  // when apply changes is clicked, hide drawer and update return quantities
   handleChangesButton() {
     this.props.onClick();
     this.props.updateReturnQuant(this.state.returnQuantity);
@@ -95,12 +97,16 @@ class SellerGroup extends Component {
 
     return (
       <div>
-        <h5>{this.props.seller}</h5>
-        {products.map(products =>
-              <ProductCard key={products.name} products={products} 
-              toggleDrawer={this.props.toggleDrawer}
-              updateSelectedItem={this.props.updateSelectedItem} 
-              quantities={this.props.quantities} />)}
+        <section className="seller-group">
+          <section className="seller-group-header">
+            <h5>{this.props.seller}</h5>
+           </section>
+            {products.map(products =>
+                  <ProductCard key={products.name} products={products} 
+                  toggleDrawer={this.props.toggleDrawer}
+                  updateSelectedItem={this.props.updateSelectedItem} 
+                  quantities={this.props.quantities} />)}
+        </section>
       </div>
       );
   }
@@ -127,15 +133,22 @@ class ProductCard extends Component {
     
     return (
       <div>
-        <Card>
-          <p>C${product.pricePerItem}</p>
-          <p>{product.brand}</p>
-          <p>{product.name}</p>
-          <Button>Size {product.size}</Button>
-          <Button>Color {product.color}</Button>
-          <Button onClick={this.handleClick.bind(this)}>Return Quantity 
-            {returnQuantity} of {product.quantityPurchased} ></Button>
-        </Card>
+        <section className="product-card">
+          <section className="product-card-left" />
+          <section className="product-card-right">
+            <div className="product-card-header">
+              <p className="product-price">C${product.pricePerItem}</p>
+              <p className="product-brand">{product.brand}</p>
+              <p className="product-name">{product.name}</p>
+            </div>
+            <Card>
+              <Button>Size {product.size}</Button>
+              <Button>Color {product.color}</Button>
+              <Button onClick={this.handleClick.bind(this)}>Return Quantity 
+                {returnQuantity} of {product.quantityPurchased} ></Button>
+            </Card>
+          </section>
+        </section>
       </div>
     );
   }
@@ -173,12 +186,16 @@ class ReturnsPage extends Component {
             quantities[name] = response.merchantOrders[i].items[j].quantityPurchased;
           }
         }
+        // keep initial quantities separate so the drawer can render the correct
+        // number of options
         this.setState(() => ({ initialQuantities: quantities,
           returnQuantities: quantities }));
       }
     });
   }
 
+  // when return quantities is selected for an item, that item becomes the
+  // currently selected item so that the drawer knows which item to display
   updateSelectedItem(name) {
     this.setState(() => ({ selectedItem: name }));
   }
@@ -237,32 +254,40 @@ class ReturnsPage extends Component {
 
     return (
       <Page>
-        <Col sm="6">
-          <Row>
-            <p>1 of 3</p>
-          </Row>
-          <Row>
-            <h5>How many items would you like to return?</h5>
-          </Row>
-          <Row>
-            <Col>
-              <HelpButton onClick={() => this.toggleHelp()}/>
-              {help}
-            </Col>
-          </Row>
-          <Row>
-            {drawer}
-          </Row>
-          <Row>
-            <Col>
-              {SellerGroups}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              {error}
-            </Col>
-          </Row>
+        <Col sm="5">
+          <main className="main">
+            <section className="returns-header">
+              <button className="back-button">&larr;</button>
+              <Row>
+                <p className="page-count">1 of 3</p>
+              </Row>
+              <Row>
+                <h5 className="returns-header-text">How many items would you like to return?</h5>
+              </Row>
+            </section>
+            <Row>
+              <Col>
+                <HelpButton onClick={() => this.toggleHelp()}
+                  className="help-button" />
+                {help}
+              </Col>
+            </Row>
+            <section className="item-list">
+              <Row>
+                {drawer}
+              </Row>
+              <Row>
+                <Col>
+                  {SellerGroups}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {error}
+                </Col>
+              </Row>
+            </section>
+          </main>
         </Col>
       </Page>
     );
