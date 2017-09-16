@@ -2,10 +2,114 @@ button {
 	outline: none !important;
 	background: none;
 	border: none;
+	display: block;
 }
 
 .main {
 	background-color: #F4F5F6;
+}
+
+.show-help {
+	position: absolute;
+	width: 94%;
+	height: 100%;
+	background-color: gray;
+	opacity: 0.8;
+	z-index: 15;
+}
+
+.help-modal {
+	position: absolute;
+	margin: auto;
+	width: 80%;
+	height: 500px;
+	left: 0;
+	right: 0;
+	top: -125px;
+	background-color: white;
+	padding: 30px;
+	z-index: 20;
+	border-radius: 15px;
+}
+
+.help-modal-content {
+
+}
+
+.help-modal-text1 {
+	text-align: center;
+}
+
+.help-modal-text2 {
+	text-align: center;
+	width: 73%;
+	color: #88919A;
+	margin: auto;
+	margin-bottom: 40px;
+}
+
+.call-us-button {
+	background-color: #0068FF;
+	color: white;
+	width: 70%;
+	height: 90px;
+	border-radius: 80px;
+	margin: auto;
+}
+
+.close-help-button {
+	color: #88919A;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.close-help-button:hover {
+	color: #0068FF;
+}
+
+.return-drawer {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background-color: white;
+	z-index: 20;
+}
+
+.return-drawer-title {
+	margin-top: 30px;
+	margin-bottom: 15px;
+}
+
+.return-picker {
+	margin: auto; margin-left: 0;
+	width: 90%;
+}
+
+.return-picker-button {
+	border: solid;
+	border-width: 1px;
+	border-color: #CACED1;
+	padding-top: 5px; padding-bottom: 10px; padding-left: 20px;
+	text-align: left;
+}
+
+.return-picker-button:hover {
+	background-color: #CACED1;
+}
+
+.return-picker-button:focus {
+	color: #0068FF;
+}
+
+.apply-changes-button {
+	background-color: #0068FF;
+	position: absolute;
+	bottom: 10px;
+	color: white;
+	width: 90%;
+	height: 90px;
+	border-radius: 10px;
+	margin: auto;
 }
 
 .back-button {
@@ -40,7 +144,6 @@ button {
 }
 
 .help-button {
-	display: block;
 	position: absolute;
 	background-color: #333333;
 	color: white;
@@ -71,29 +174,47 @@ button {
 
 .seller-group {
 	position: relative;
+	display: inline-block;
+	width: 100%;
 }
 
 .seller-group-header {
 	padding: 10px;
+	position: relative;
 }
 
 .product-card {
 	margin-bottom: 10px;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #CACED1;
 }
 
 .product-card-header {
 	padding: 20px;
+	position: relative;
 }
 
 .product-card-left {
-	width: 40%;
+	width: 50%;
+	height: 100%;
+	border-radius: 5px;
 	float: left;
+	position: absolute;
+	background-color: #FAFAFA;
 }
 
 .product-card-right {
 	width: 60%;
+	border-radius: 5px;
 	background-color: white;
 	float: right;
+	position: relative;
+	border-left: solid;
+	border-width: 0.4px;
+	border-color: #CACED1;
 }
 
 .product-price {
@@ -108,4 +229,47 @@ button {
 
 .product-name {
 	color: #929AA2;
+	margin-bottom: 0;
+}
+
+.product-button {
+	padding-top: 20px; padding-left: 25px; padding-right: 25px;
+	width: 100%;
+	border-top: solid;
+	border-width: 0.4px;
+	border-color: #CACED1;
+}
+
+.product-button:hover {
+	background-color: #CACED1;;
+}
+
+.product-button-title {
+	float: left;
+}
+
+.product-button-value {
+	float: right;
+	color: #929AA2;
+}
+
+.footer {
+	display: inline-block;
+	width: 100%;
+	height: 70px;
+	position: relative;
+	margin-top: 20px;
+	background-color: #0E70FF;
+	color: white;
+	padding-left: 30px; padding-right: 30px;
+	line-height: 70px;
+}
+
+.footer-text {
+	float: left;
+}
+
+.footer-button {
+	float: right;
+	color: white;
 }

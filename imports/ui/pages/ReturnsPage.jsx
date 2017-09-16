@@ -30,22 +30,14 @@ class HelpModal extends Component {
 
   render() {
     return (
-      <div>
-        <Card>
-        <Row>
-          <h1>Need a hand?</h1>
-        </Row>
-        <Row>
-          <p>Push the call button and we'll gladly put you in touch with one of our
+      <div className="help-modal">
+      <div className="help-modal-content">
+          <h5 className="help-modal-text1">Need a hand?</h5>
+          <p className="help-modal-text2">Push the call button and we'll gladly put you in touch with one of our
           knowledgeable reps.</p>
-        </Row>
-        <Row>
-          <Button color="primary">Call Us</Button>{' '}
-        </Row>
-        <Row>
-          <Button color="primary" onClick={this.props.onClick}>Close</Button>{' '}
-        </Row>
-        </Card>
+          <button className="call-us-button">Call Us</button>
+          <button className="close-help-button" onClick={this.props.onClick}>Close</button>
+      </div>
       </div>
       );
   }
@@ -74,14 +66,15 @@ class ReturnDrawer extends Component {
     const quant = [...Array(this.props.initialQuantity).keys()];
  
     return (
-      <div>
-        <Button onClick={this.props.onClick}> back </Button>
-        <h3> Return Quantity </h3>
-        <ListGroup>
+      <div className="return-drawer">
+      <button className="back-button" onClick={this.props.onClick}>&larr;</button>
+        <h3 className="return-drawer-title"> Return Quantity </h3>
+        <ListGroup className="return-picker">
          {quant.map(quant =>
-              <Button key={quant} onClick={()=>this.setQuantity(quant+1)}>{quant + 1}</Button>)}
+              <button key={quant} className="return-picker-button"
+                onClick={()=>this.setQuantity(quant+1)}>{quant + 1}</button>)}
          </ListGroup>
-         <Button color="primary" onClick={this.handleChangesButton.bind(this)}>Apply Changes</Button>
+         <button className="apply-changes-button" onClick={this.handleChangesButton.bind(this)}>Apply Changes</button>
         </div>
       );
   }
@@ -96,18 +89,16 @@ class SellerGroup extends Component {
     const products = this.props.products;
 
     return (
-      <div>
-        <section className="seller-group">
-          <section className="seller-group-header">
-            <h5>{this.props.seller}</h5>
-           </section>
-            {products.map(products =>
-                  <ProductCard key={products.name} products={products} 
-                  toggleDrawer={this.props.toggleDrawer}
-                  updateSelectedItem={this.props.updateSelectedItem} 
-                  quantities={this.props.quantities} />)}
-        </section>
-      </div>
+      <section className="seller-group">
+        <section className="seller-group-header">
+          <h5>{this.props.seller}</h5>
+         </section>
+          {products.map(products =>
+                <ProductCard key={products.name} products={products} 
+                toggleDrawer={this.props.toggleDrawer}
+                updateSelectedItem={this.props.updateSelectedItem} 
+                quantities={this.props.quantities} />)}
+      </section>
       );
   }
 }
@@ -132,24 +123,25 @@ class ProductCard extends Component {
     }
     
     return (
-      <div>
-        <section className="product-card">
-          <section className="product-card-left" />
-          <section className="product-card-right">
-            <div className="product-card-header">
-              <p className="product-price">C${product.pricePerItem}</p>
-              <p className="product-brand">{product.brand}</p>
-              <p className="product-name">{product.name}</p>
-            </div>
-            <Card>
-              <Button>Size {product.size}</Button>
-              <Button>Color {product.color}</Button>
-              <Button onClick={this.handleClick.bind(this)}>Return Quantity 
-                {returnQuantity} of {product.quantityPurchased} ></Button>
-            </Card>
-          </section>
+      <section className="product-card">
+        <section className="product-card-left" />
+        <section className="product-card-right">
+          <div className="product-card-header">
+            <p className="product-price">C${product.pricePerItem}</p>
+            <p className="product-brand">{product.brand}</p>
+            <p className="product-name">{product.name}</p>
+          </div>
+            <button className="product-button">
+              <p className="product-button-title">Size</p> 
+              <p className="product-button-value">{product.size}</p></button>
+            <button className="product-button">
+              <p className="product-button-title">Color</p>
+              <p className="product-button-value">{product.color}</p></button>
+            <button className="product-button" onClick={this.handleClick.bind(this)}>
+              <p className="product-button-title">Return Quantity</p>
+              <p className="product-button-value">{returnQuantity} of {product.quantityPurchased} ></p></button>
         </section>
-      </div>
+      </section>
     );
   }
 }
@@ -238,7 +230,9 @@ class ReturnsPage extends Component {
     
     if (this.state.showHelp == 1) {
       var help = React.createElement(HelpModal, {onClick: this.toggleHelp.bind(this)});
+      var showHelp = React.createElement('div', {className: 'show-help'});
     } else {
+      var showHelp = null;
       var help = null;
     }
 
@@ -255,7 +249,9 @@ class ReturnsPage extends Component {
     return (
       <Page>
         <Col sm="5">
+          {drawer}
           <main className="main">
+          {showHelp}
             <section className="returns-header">
               <button className="back-button">&larr;</button>
               <Row>
@@ -274,9 +270,6 @@ class ReturnsPage extends Component {
             </Row>
             <section className="item-list">
               <Row>
-                {drawer}
-              </Row>
-              <Row>
                 <Col>
                   {SellerGroups}
                 </Col>
@@ -287,6 +280,10 @@ class ReturnsPage extends Component {
                 </Col>
               </Row>
             </section>
+            <footer className="footer">
+              <p className="footer-text">Terms and Conditions</p>
+              <button className="footer-button">&rarr;</button>
+            </footer>
           </main>
         </Col>
       </Page>
