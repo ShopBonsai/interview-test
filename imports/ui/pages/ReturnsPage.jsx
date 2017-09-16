@@ -8,6 +8,9 @@ import { Meteor } from "meteor/meteor";
 import { Alert, Row, Col, Button, Card, ListGroup, ListGroupItem } from "reactstrap";
 import Page from "../components/Page.jsx";
 
+// Animation
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 class HelpButton extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +34,9 @@ class HelpModal extends Component {
   render() {
     return (
       <div className="help-modal">
+      <div className="help-modal-header">
+        <img alt="Help Guy" src="/images/unnamed.jpg" className="help-guy-image" />
+      </div>
       <div className="help-modal-content">
           <h5 className="help-modal-text1">Need a hand?</h5>
           <p className="help-modal-text2">Push the call button and we'll gladly put you in touch with one of our
@@ -66,8 +72,8 @@ class ReturnDrawer extends Component {
     const quant = [...Array(this.props.initialQuantity).keys()];
  
     return (
-      <div className="return-drawer">
-      <button className="back-button" onClick={this.props.onClick}>&larr;</button>
+      <div key="return-drawer" className="return-drawer">
+        <button className="back-button" onClick={this.props.onClick}>&larr;</button>
         <h3 className="return-drawer-title"> Return Quantity </h3>
         <ListGroup className="return-picker">
          {quant.map(quant =>
@@ -75,7 +81,7 @@ class ReturnDrawer extends Component {
                 onClick={()=>this.setQuantity(quant+1)}>{quant + 1}</button>)}
          </ListGroup>
          <button className="apply-changes-button" onClick={this.handleChangesButton.bind(this)}>Apply Changes</button>
-        </div>
+      </div>
       );
   }
 }
@@ -284,7 +290,12 @@ class ReturnsPage extends Component {
     return (
       <Page>
         <Col sm="5">
-          {drawer}
+          <ReactCSSTransitionGroup
+            transitionName="slide-in-left"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}> 
+            {drawer}
+          </ReactCSSTransitionGroup>
           <main className="main">
           {showHelp}
             <section className="returns-header">
