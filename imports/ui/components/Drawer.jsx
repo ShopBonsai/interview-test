@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import Drawer from "react-motion-drawer";
 import { Button } from "reactstrap";
 
-const ReturnsDrawer = ({ showDrawer, right, toggleDrawer }) =>
+const ReturnsDrawer = ({ showDrawer, right, toggleDrawer, returns }) =>
   <Drawer open={showDrawer} right={right} className="drawer">
     <div>
       <Button onClick={toggleDrawer}>←</Button>
@@ -29,8 +29,9 @@ const ReturnsDrawer = ({ showDrawer, right, toggleDrawer }) =>
   </Drawer>;
 
 ReturnsDrawer.propTypes = {
-  showDrawer: PropTypes.bool,
   right: PropTypes.bool,
+  returns: PropTypes.object,
+  showDrawer: PropTypes.bool,
   toggleDrawer: PropTypes.func
 };
 

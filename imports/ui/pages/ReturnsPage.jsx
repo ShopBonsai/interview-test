@@ -50,10 +50,10 @@ class ReturnsPage extends Component {
   }
 
   render() {
-    const { orderDetails } = this.props;
+    const { orderDetails, returns } = this.props;
     const { showModal, showDrawer } = this.state;
     const { toggleModal, toggleDrawer, onReturnQuantityClick } = this;
-    console.log(orderDetails);
+    console.log(returns);
     return (
       <Page>
         <div>
@@ -71,6 +71,7 @@ class ReturnsPage extends Component {
         </div>
         <Drawer
           right={true}
+          returns={returns}
           showDrawer={showDrawer}
           toggleDrawer={toggleDrawer}
         />
@@ -101,7 +102,7 @@ ReturnsPage.propTypes = {
   fetchLastOrder: PropTypes.func,
   orderDetails: PropTypes.array,
   openReturnsDrawer: PropTypes.func,
-  returns: PropTypes.array
+  returns: PropTypes.object
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);
