@@ -93,14 +93,15 @@ class ReturnsPage extends Component {
 }
 
 const mapStateToProps = ({ lastOrder }) => {
-  const { orderDetails } = lastOrder;
-  return { orderDetails };
+  const { orderDetails, returns } = lastOrder;
+  return { orderDetails, returns };
 };
 
 ReturnsPage.propTypes = {
   fetchLastOrder: PropTypes.func,
   orderDetails: PropTypes.array,
-  openReturnsDrawer: PropTypes.func
+  openReturnsDrawer: PropTypes.func,
+  returns: PropTypes.array
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);
