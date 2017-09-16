@@ -50,7 +50,7 @@ class ReturnsPage extends Component {
   }
 
   render() {
-    const { orderDetails, returns } = this.props;
+    const { orderDetails, returns, openDrawerFor } = this.props;
     const { showModal, showDrawer } = this.state;
     const { toggleModal, toggleDrawer, onReturnQuantityClick } = this;
     console.log(returns);
@@ -94,15 +94,16 @@ class ReturnsPage extends Component {
 }
 
 const mapStateToProps = ({ lastOrder }) => {
-  const { orderDetails, returns } = lastOrder;
-  return { orderDetails, returns };
+  const { orderDetails, returns, openDrawerFor } = lastOrder;
+  return { orderDetails, returns, openDrawerFor };
 };
 
 ReturnsPage.propTypes = {
   fetchLastOrder: PropTypes.func,
   orderDetails: PropTypes.array,
   openReturnsDrawer: PropTypes.func,
-  returns: PropTypes.object
+  returns: PropTypes.array,
+  openDrawerFor: PropTypes.string
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);

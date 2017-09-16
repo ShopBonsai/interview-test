@@ -3,10 +3,8 @@ import { FETCH_LAST_ORDER, OPEN_RETURNS_DRAWER } from "../constants/";
 
 const initialState = {
   orderDetails: [],
-  returns: {
-    items: [],
-    openDrawerFor: null
-  }
+  returns: [],
+  openDrawerFor: ""
 };
 
 const lastOrderReducer = (state = initialState, action) => {
@@ -19,10 +17,8 @@ const lastOrderReducer = (state = initialState, action) => {
     case OPEN_RETURNS_DRAWER:
       return {
         ...state,
-        returns: {
-          items: [...state.returns.items, action.payload],
-          openDrawerFor: action.payload.id
-        }
+        returns: [...state.returns, action.payload],
+        openDrawerFor: action.payload.id
       };
     default:
       return state;

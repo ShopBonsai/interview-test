@@ -15,11 +15,7 @@ const ReturnsDrawer = ({ showDrawer, right, toggleDrawer, returns }) =>
     </div>
     <div>Return Quantity</div>
     <div>
-      <ul>
-        <li>1. Placeholder</li>
-        <li>2. Placeholder</li>
-        <li>3. Placeholder</li>
-      </ul>
+      <ul />
     </div>
     <div>
       <Button size="lg" color="primary">
@@ -30,7 +26,7 @@ const ReturnsDrawer = ({ showDrawer, right, toggleDrawer, returns }) =>
 
 ReturnsDrawer.propTypes = {
   right: PropTypes.bool,
-  returns: PropTypes.object,
+  returns: PropTypes.array,
   showDrawer: PropTypes.bool,
   toggleDrawer: PropTypes.func
 };
