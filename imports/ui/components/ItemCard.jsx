@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import Drawer from "../components/Drawer";
 import { Card, Button } from "reactstrap";
 
-const ItemCard = ({ items, toggleDrawer }) =>
+const ItemCard = ({ items, toggleDrawer, onReturnQuantityClick }) =>
   <div>
     {items.map(
       ({ pricePerItem, brand, name, size, color, quantityPurchased }, index) =>
@@ -22,7 +22,9 @@ const ItemCard = ({ items, toggleDrawer }) =>
           <div>Colour {color}</div>
           <div>
             Return Quantity
-            <Button onClick={toggleDrawer}>
+            <Button
+              onClick={() => onReturnQuantityClick(name, quantityPurchased)}
+            >
               {`${0} of ${quantityPurchased}`} →
             </Button>
           </div>
@@ -32,7 +34,8 @@ const ItemCard = ({ items, toggleDrawer }) =>
 
 ItemCard.propTypes = {
   items: PropTypes.array,
-  toggleDrawer: PropTypes.func
+  toggleDrawer: PropTypes.func,
+  onReturnQuantityClick: PropTypes.func
 };
 
 export default ItemCard;

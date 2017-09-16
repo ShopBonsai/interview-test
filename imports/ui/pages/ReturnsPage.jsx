@@ -29,10 +29,16 @@ class ReturnsPage extends Component {
 
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchLastOrder();
+  }
+
+  onReturnQuantityClick(id, purchaseQuantity) {
+    console.log("id & purchaseQuantity", id, purchaseQuantity);
+    this.setState({ showDrawer: !this.state.showDrawer });
   }
 
   toggleModal() {
@@ -45,8 +51,8 @@ class ReturnsPage extends Component {
 
   render() {
     const { lastOrder } = this.props;
-    const { toggleModal, toggleDrawer } = this;
     const { showModal, showDrawer } = this.state;
+    const { toggleModal, toggleDrawer, onReturnQuantityClick } = this;
     return (
       <Page>
         <div>
@@ -69,6 +75,7 @@ class ReturnsPage extends Component {
             ? <MerchantOrders
                 lastOrder={lastOrder}
                 toggleDrawer={toggleDrawer}
+                onReturnQuantityClick={onReturnQuantityClick}
               />
             : <p>Loading in 2017, lol</p>}
         </div>
