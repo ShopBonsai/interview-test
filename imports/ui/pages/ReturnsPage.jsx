@@ -125,6 +125,14 @@ class ProductCard extends Component {
     this.setState(() => ({ selectProduct: toggle }))
   }
 
+  checkLength(str) {
+    if (str.length > 21) {
+      return str.slice(0, 21) + "...";
+    } else {
+      return str;
+    }
+  }
+
   render() {
     const product = this.props.products;
 
@@ -138,12 +146,16 @@ class ProductCard extends Component {
       var returnQuantityButton = <button className="product-button" onClick={this.handleClick.bind(this)}>
               <p className="product-button-title">Return Quantity</p>
               <p className="product-button-value">{returnQuantity} of {product.quantityPurchased} ></p></button>;
-      var selectProductButtonClassName = 'select-product-button select-product-button-active';
+
+      var selectProductButton = <button className="select-product-button select-product-button-active"
+        onClick={this.toggleSelectProduct.bind(this)}><p className="checkmark">&#10003;</p></button>
     } else {
       var returnQuantityButton = <button className="product-button">
               <p className="product-button-title">Return Quantity</p>
               <p className="product-button-value">0 of {product.quantityPurchased} ></p></button>;
-      var selectProductButtonClassName = 'select-product-button';
+
+      var selectProductButton = <button className="select-product-button"
+        onClick={this.toggleSelectProduct.bind(this)} />
     }
 
     return (
@@ -151,10 +163,10 @@ class ProductCard extends Component {
         <section className="product-card-left" />
         <section className="product-card-right">
           <div className="product-card-header">
-            <button className={selectProductButtonClassName} onClick={this.toggleSelectProduct.bind(this)} />
+            {selectProductButton}
             <p className="product-price">C${product.pricePerItem}</p>
-            <p className="product-brand">{product.brand}</p>
-            <p className="product-name">{product.name}</p>
+            <p className="product-brand">{this.checkLength(product.brand)}</p>
+            <p className="product-name">{this.checkLength(product.name)}</p>
           </div>
             <button className="product-button">
               <p className="product-button-title">Size</p> 

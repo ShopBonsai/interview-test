@@ -68,9 +68,9 @@ button {
 }
 
 .return-drawer {
-	position: fixed;
+	position: absolute;
 	height: 100%;
-	width: 100%;
+	width: 100%;	
 	background-color: white;
 	z-index: 20;
 }
@@ -87,10 +87,11 @@ button {
 
 .return-picker-button {
 	border: solid;
-	border-width: 1px;
-	border-color: #CACED1;
-	padding-top: 5px; padding-bottom: 10px; padding-left: 20px;
+	padding-top: 20px; padding-bottom: 20px; padding-left: 20px;
 	text-align: left;
+	width: 100%;
+	border-width: 0.4px;
+	border-color: #CACED1;
 }
 
 .return-picker-button:hover {
@@ -109,7 +110,7 @@ button {
 	width: 90%;
 	height: 90px;
 	border-radius: 10px;
-	margin: auto;
+	margin: auto; margin-bottom: 20px;
 }
 
 .back-button {
@@ -183,11 +184,19 @@ button {
 	position: relative;
 }
 
+.checkmark {
+	color: blue;
+	font-size: 15px;
+	font-weight: 900;
+	position: relative;
+	bottom: 1px; right: 1px;
+}
+
 .select-product-button {
 	position: relative;
 	float: right;
-	height: 20px;
-	width: 20px;
+	height: 25px;
+	width: 25px;
 	border: solid;
 	border-radius: 5px;
 	border-color: #C1C6CA;
