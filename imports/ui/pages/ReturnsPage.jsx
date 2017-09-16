@@ -53,7 +53,7 @@ class ReturnDrawer extends Component {
   constructor(props) {
     super(props);
     this.initialState = {
-      returnQuantity: 1
+      returnQuantity: this.props.quantity
     };
     this.state = this.initialState;
   }
@@ -69,17 +69,35 @@ class ReturnDrawer extends Component {
   }
 
   render() {
-    const quant = [...Array(this.props.initialQuantity).keys()];
+    const quantArr = [...Array(this.props.initialQuantity).keys()];
+
+    // generate quantities; figure out which quantity
+    // is currently selected, then highlight and add a checkmark
+    var quant = quantArr.map(function(curr) {
+      console.log(this.state.returnQuantity)
+      if (this.state.returnQuantity == curr+1) {
+        return (
+          <button key={curr} 
+            className="return-picker-button return-picker-button-active"
+            onClick={()=>this.setQuantity(curr+1)}>{curr+1}
+              <p className="quantity-checkmark">&#10003;</p></button>
+          );
+      } else {
+        return (
+          <button key={curr} 
+            className="return-picker-button"
+            onClick={()=>this.setQuantity(curr+1)}>{curr+1}</button>
+          );
+      }
+    }, this);
  
     return (
       <div key="return-drawer" className="return-drawer">
         <button className="back-button" onClick={this.props.onClick}>&larr;</button>
         <h3 className="return-drawer-title"> Return Quantity </h3>
         <ListGroup className="return-picker">
-         {quant.map(quant =>
-              <button key={quant} className="return-picker-button"
-                onClick={()=>this.setQuantity(quant+1)}>{quant + 1}</button>)}
-         </ListGroup>
+          {quant}
+        </ListGroup>
          <button className="apply-changes-button" onClick={this.handleChangesButton.bind(this)}>Apply Changes</button>
       </div>
       );
@@ -154,7 +172,7 @@ class ProductCard extends Component {
               <p className="product-button-value">{returnQuantity} of {product.quantityPurchased} ></p></button>;
 
       var selectProductButton = <button className="select-product-button select-product-button-active"
-        onClick={this.toggleSelectProduct.bind(this)}><p className="checkmark">&#10003;</p></button>
+        onClick={this.toggleSelectProduct.bind(this)}><p className="product-checkmark">&#10003;</p></button>
     } else {
       var returnQuantityButton = <button className="product-button">
               <p className="product-button-title">Return Quantity</p>
@@ -212,17 +230,20 @@ class ReturnsPage extends Component {
 
       // Set up initial quantity purchased for each item
       if (response) {
-        var quantities = {};
+        var initialQuantities = {};
+        var returnQuantities = {};
         for (var i in response.merchantOrders) {
           for (var j in response.merchantOrders[i].items) {
             var name = response.merchantOrders[i].items[j].name;
-            quantities[name] = response.merchantOrders[i].items[j].quantityPurchased;
+            initialQuantities[name] = response.merchantOrders[i].items[j].quantityPurchased;
+            // initial return quantity for an item defaults to 1
+            returnQuantities[name] = 1;
           }
         }
         // keep initial quantities separate so the drawer can render the correct
         // number of options
-        this.setState(() => ({ initialQuantities: quantities,
-          returnQuantities: quantities }));
+        this.setState(() => ({ initialQuantities: initialQuantities,
+          returnQuantities: returnQuantities }));
       }
     });
   }
@@ -297,7 +318,12 @@ class ReturnsPage extends Component {
             {drawer}
           </ReactCSSTransitionGroup>
           <main className="main">
-          {showHelp}
+          <ReactCSSTransitionGroup
+            transitionName="fade-in"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}> 
+            {showHelp}
+          </ReactCSSTransitionGroup>
             <section className="returns-header">
               <button className="back-button">&larr;</button>
               <Row>
@@ -311,7 +337,12 @@ class ReturnsPage extends Component {
               <Col>
                 <HelpButton onClick={() => this.toggleHelp()}
                   className="help-button" />
-                {help}
+                <ReactCSSTransitionGroup
+                  transitionName="fade-in"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={500}> 
+                  {help}
+                </ReactCSSTransitionGroup>
               </Col>
             </Row>
             <section className="item-list">
