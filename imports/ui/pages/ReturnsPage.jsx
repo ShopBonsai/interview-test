@@ -39,8 +39,8 @@ class HelpModal extends Component {
       </div>
       <div className="help-modal-content">
           <h5 className="help-modal-text1">Need a hand?</h5>
-          <p className="help-modal-text2">Push the call button and we'll gladly put you in touch with one of our
-          knowledgeable reps.</p>
+          <p className="help-modal-text2">Push the call button and we'll gladly 
+            put you in touch with one of our knowledgeable reps.</p>
           <button className="call-us-button">Call Us</button>
           <button className="close-help-button" onClick={this.props.onClick}>Close</button>
       </div>
@@ -97,7 +97,8 @@ class ReturnDrawer extends Component {
         <ListGroup className="return-picker">
           {quant}
         </ListGroup>
-         <button className="apply-changes-button" onClick={this.handleChangesButton.bind(this)}>Apply Changes</button>
+         <button className="apply-changes-button"
+          onClick={this.handleChangesButton.bind(this)}>Apply Changes</button>
       </div>
       );
   }
@@ -114,13 +115,15 @@ class SellerGroup extends Component {
     return (
       <section className="seller-group">
         <section className="seller-group-header">
-          <h5>{this.props.seller}</h5>
+          <h5 className="seller-name">{this.props.seller}</h5>
+          <p className="return-count">{this.props.sellerNumber} of {this.props.sellerCount}</p>
          </section>
           {products.map(products =>
                 <ProductCard key={products.name} products={products} 
                 toggleDrawer={this.props.toggleDrawer}
                 updateSelectedItem={this.props.updateSelectedItem} 
-                quantities={this.props.quantities} />)}
+                quantities={this.props.quantities} 
+                updateReturnQuant={this.props.updateReturnQuant} />)}
       </section>
       );
   }
@@ -135,15 +138,25 @@ class ProductCard extends Component {
     this.state = this.initialState;
   }
 
-  handleClick() {
-    this.props.toggleDrawer();
+  updateSelectedItem() {
     this.props.updateSelectedItem(this.props.products.name);
   }
 
+  handleClick() {
+    this.props.toggleDrawer();
+    this.updateSelectedItem();
+  }
+
+  // selects the product for return, when toggled
+  // set the return quantity to default either 1 or 0
   toggleSelectProduct() {
+    this.updateSelectedItem();
     var toggle = 0;
     if (this.state.selectProduct == 0) {
       toggle = 1;
+      this.props.updateReturnQuant(1, this.props.products.name);
+    } else {
+      this.props.updateReturnQuant(0, this.props.products.name);
     }
     this.setState(() => ({ selectProduct: toggle }))
   }
@@ -166,16 +179,23 @@ class ProductCard extends Component {
     }
 
     if (this.state.selectProduct == 1) {
-      var returnQuantityButton = <button className="product-button" onClick={this.handleClick.bind(this)}>
+      var returnQuantityButton = <button className="product-button"
+                onClick={this.handleClick.bind(this)}>
               <p className="product-button-title">Return Quantity</p>
-              <p className="product-button-value">{returnQuantity} of {product.quantityPurchased} ></p></button>;
+              <p className="product-button-value">
+                {returnQuantity} of {product.quantityPurchased} &nbsp;&nbsp;></p>
+              </button>;
 
-      var selectProductButton = <button className="select-product-button select-product-button-active"
-        onClick={this.toggleSelectProduct.bind(this)}><p className="product-checkmark">&#10003;</p></button>
+      var selectProductButton = <button
+          className="select-product-button select-product-button-active"
+        onClick={this.toggleSelectProduct.bind(this)}>
+          <p className="product-checkmark">&#10003;</p>
+        </button>;
     } else {
       var returnQuantityButton = <button className="product-button">
               <p className="product-button-title">Return Quantity</p>
-              <p className="product-button-value">0 of {product.quantityPurchased} ></p></button>;
+              <p className="product-button-value">0 of {product.quantityPurchased} &nbsp;&nbsp;></p>
+            </button>;
 
       var selectProductButton = <button className="select-product-button"
         onClick={this.toggleSelectProduct.bind(this)} />
@@ -235,8 +255,8 @@ class ReturnsPage extends Component {
           for (var j in response.merchantOrders[i].items) {
             var name = response.merchantOrders[i].items[j].name;
             initialQuantities[name] = response.merchantOrders[i].items[j].quantityPurchased;
-            // initial return quantity for an item defaults to 1
-            returnQuantities[name] = 1;
+            // initial return quantity for an item defaults to 0
+            returnQuantities[name] = 0;
           }
         }
         // keep initial quantities separate so the drawer can render the correct
@@ -253,10 +273,14 @@ class ReturnsPage extends Component {
     this.setState(() => ({ selectedItem: name }));
   }
 
-  updateReturnQuant(quant) {
+  updateReturnQuant(quant, itemName) {
     var oldQuants = this.state.returnQuantities;
     var newQuants = Object.assign({}, oldQuants);
-    newQuants[this.state.selectedItem] = quant;
+    if (itemName) {
+      newQuants[itemName] = quant;
+    } else {
+      newQuants[this.state.selectedItem] = quant;
+    }
     this.setState(() => ({ returnQuantities: newQuants }));
 
   }
@@ -280,13 +304,19 @@ class ReturnsPage extends Component {
   render() {
     const { lastOrder, error } = this.state;
 
+    var sellerCount = 0;
+
     var SellerGroups = null;
     if (lastOrder !== null) {
       const sellers = lastOrder.merchantOrders;
-      SellerGroups = sellers.map(sellers =>
+      sellerCount = Object.keys(sellers).length;
+      SellerGroups = sellers.map((sellers, i) =>
               <SellerGroup key={sellers.name} seller={sellers.name}
+                sellerNumber={i+1} sellerCount={sellerCount}
                 products={sellers.items} toggleDrawer={this.toggleDrawer.bind(this)}
-                updateSelectedItem={this.updateSelectedItem.bind(this)} quantities={this.state.returnQuantities} />)
+                updateSelectedItem={this.updateSelectedItem.bind(this)}
+                quantities={this.state.returnQuantities} 
+                updateReturnQuant={this.updateReturnQuant.bind(this)} />)
     }
     
     if (this.state.showHelp == 1) {
