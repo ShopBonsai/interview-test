@@ -50,10 +50,10 @@ class ReturnsPage extends Component {
   }
 
   render() {
-    const { orderDetails, returns, openDrawerFor } = this.props;
     const { showModal, showDrawer } = this.state;
+    const { orderDetails, returns, openDrawerFor } = this.props;
     const { toggleModal, toggleDrawer, onReturnQuantityClick } = this;
-    console.log(returns);
+    console.log("returns:", returns);
     return (
       <Page>
         <div>
@@ -74,6 +74,7 @@ class ReturnsPage extends Component {
           returns={returns}
           showDrawer={showDrawer}
           toggleDrawer={toggleDrawer}
+          openDrawerFor={openDrawerFor}
         />
         <SupportModal showModal={showModal} toggleModal={toggleModal} />
         <div>
