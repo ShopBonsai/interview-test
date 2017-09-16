@@ -74,7 +74,6 @@ class ReturnDrawer extends Component {
     // generate quantities; figure out which quantity
     // is currently selected, then highlight and add a checkmark
     var quant = quantArr.map(function(curr) {
-      console.log(this.state.returnQuantity)
       if (this.state.returnQuantity == curr+1) {
         return (
           <button key={curr} 
