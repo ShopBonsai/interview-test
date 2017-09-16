@@ -1,5 +1,7 @@
+// Framework
 import { Meteor } from "meteor/meteor";
 
+// Constants
 import { FETCH_LAST_ORDER, OPEN_RETURNS_DRAWER } from "../constants";
 
 export const fetchLastOrder = () => dispatch => {

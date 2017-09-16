@@ -1,3 +1,4 @@
+// Constants
 import { FETCH_LAST_ORDER, OPEN_RETURNS_DRAWER } from "../constants/";
 
 const initialState = {
@@ -11,6 +12,11 @@ const lastOrderReducer = (state = initialState, action) => {
       return {
         ...state,
         orderDetails: action.payload
+      };
+    case OPEN_RETURNS_DRAWER:
+      return {
+        ...state,
+        returns: action.payload
       };
     default:
       return state;
