@@ -106,11 +106,23 @@ class SellerGroup extends Component {
 class ProductCard extends Component {
   constructor(props) {
     super(props);
+    this.initialState = {
+      selectProduct: 0
+    };
+    this.state = this.initialState;
   }
 
   handleClick() {
     this.props.toggleDrawer();
     this.props.updateSelectedItem(this.props.products.name);
+  }
+
+  toggleSelectProduct() {
+    var toggle = 0;
+    if (this.state.selectProduct == 0) {
+      toggle = 1;
+    }
+    this.setState(() => ({ selectProduct: toggle }))
   }
 
   render() {
@@ -121,12 +133,25 @@ class ProductCard extends Component {
     } else {
       var returnQuantity = 1;
     }
-    
+
+    if (this.state.selectProduct == 1) {
+      var returnQuantityButton = <button className="product-button" onClick={this.handleClick.bind(this)}>
+              <p className="product-button-title">Return Quantity</p>
+              <p className="product-button-value">{returnQuantity} of {product.quantityPurchased} ></p></button>;
+      var selectProductButtonClassName = 'select-product-button select-product-button-active';
+    } else {
+      var returnQuantityButton = <button className="product-button">
+              <p className="product-button-title">Return Quantity</p>
+              <p className="product-button-value">0 of {product.quantityPurchased} ></p></button>;
+      var selectProductButtonClassName = 'select-product-button';
+    }
+
     return (
       <section className="product-card">
         <section className="product-card-left" />
         <section className="product-card-right">
           <div className="product-card-header">
+            <button className={selectProductButtonClassName} onClick={this.toggleSelectProduct.bind(this)} />
             <p className="product-price">C${product.pricePerItem}</p>
             <p className="product-brand">{product.brand}</p>
             <p className="product-name">{product.name}</p>
@@ -137,9 +162,7 @@ class ProductCard extends Component {
             <button className="product-button">
               <p className="product-button-title">Color</p>
               <p className="product-button-value">{product.color}</p></button>
-            <button className="product-button" onClick={this.handleClick.bind(this)}>
-              <p className="product-button-title">Return Quantity</p>
-              <p className="product-button-value">{returnQuantity} of {product.quantityPurchased} ></p></button>
+            {returnQuantityButton}
         </section>
       </section>
     );
