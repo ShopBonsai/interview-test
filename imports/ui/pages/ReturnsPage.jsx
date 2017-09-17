@@ -59,11 +59,11 @@ class ReturnsPage extends Component {
   }
 
   onReturnsDrawerSubmit(e, id) {
+    e.preventDefault();
     const { returnQuantity, showDrawer } = this.state;
     const data = { id, returnQuantity };
-    console.log("data to be sent to redux-->", data);
-    e.preventDefault();
     // Dispatch an action with data object.
+    this.props.updateReturnsQuantity(data);
     this.setState({ showDrawer: !showDrawer });
   }
 
@@ -129,7 +129,8 @@ ReturnsPage.propTypes = {
   orderDetails: PropTypes.array,
   fetchLastOrder: PropTypes.func,
   openDrawerFor: PropTypes.string,
-  openReturnsDrawer: PropTypes.func
+  openReturnsDrawer: PropTypes.func,
+  updateReturnsQuantity: PropTypes.func
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);

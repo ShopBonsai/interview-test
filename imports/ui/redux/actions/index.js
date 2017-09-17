@@ -2,7 +2,11 @@
 import { Meteor } from "meteor/meteor";
 
 // Constants
-import { FETCH_LAST_ORDER, OPEN_RETURNS_DRAWER } from "../constants";
+import {
+  FETCH_LAST_ORDER,
+  OPEN_RETURNS_DRAWER,
+  UPDATE_RETURNS_QUANTITY
+} from "../constants";
 
 export const fetchLastOrder = () => dispatch => {
   Meteor.call("orders.getLastOrder", (error, response) => {
@@ -16,7 +20,12 @@ export const fetchLastOrder = () => dispatch => {
   });
 };
 
-export const openReturnsDrawer = (id, purchaseQuantity) => dispatch => {
+export const openReturnsDrawer = (id, purchaseQuantity) => {
   const returnItem = { id, purchaseQuantity, returnQuantity: 0 };
-  return dispatch({ type: OPEN_RETURNS_DRAWER, payload: returnItem });
+  return { type: OPEN_RETURNS_DRAWER, payload: returnItem };
+};
+
+export const updateReturnsQuantity = data => {
+  console.log("data to be sent to reducer:", data);
+  return { type: UPDATE_RETURNS_QUANTITY, payload: data };
 };
