@@ -1,5 +1,9 @@
 // Constants
-import { FETCH_LAST_ORDER, OPEN_RETURNS_DRAWER } from "../constants/";
+import {
+  FETCH_LAST_ORDER,
+  OPEN_RETURNS_DRAWER,
+  UPDATE_RETURNS_QUANTITY
+} from "../constants/";
 
 const initialState = {
   orderDetails: [],
@@ -19,6 +23,17 @@ const lastOrderReducer = (state = initialState, action) => {
         ...state,
         returns: [...state.returns, action.payload],
         openDrawerFor: action.payload.id
+      };
+    case UPDATE_RETURNS_QUANTITY:
+      const updatedItems = state.returns.map(
+        item =>
+          item.id === action.payload.id
+            ? { ...item, returnQuantity: action.payload.returnQuantity }
+            : item
+      );
+      return {
+        ...state,
+        returns: updatedItems
       };
     default:
       return state;

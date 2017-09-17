@@ -26,6 +26,5 @@ export const openReturnsDrawer = (id, purchaseQuantity) => {
 };
 
 export const updateReturnsQuantity = data => {
-  console.log("data to be sent to reducer:", data);
   return { type: UPDATE_RETURNS_QUANTITY, payload: data };
 };
