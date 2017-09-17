@@ -24,11 +24,14 @@ class ReturnsPage extends Component {
 
     this.state = {
       showModal: false,
-      showDrawer: false
+      showDrawer: false,
+      returnQuantity: 0
     };
 
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.onReturnSubmit = this.onReturnSubmit.bind(this);
+    this.onReturnChange = this.onReturnChange.bind(this);
     this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
   }
 
@@ -39,6 +42,18 @@ class ReturnsPage extends Component {
   onReturnQuantityClick(id, purchaseQuantity) {
     this.props.openReturnsDrawer(id, purchaseQuantity);
     this.setState({ showDrawer: !this.state.showDrawer });
+  }
+
+  onReturnChange(e) {
+    this.setState({ returnQuantity: parseInt(e.target.value) });
+  }
+
+  onReturnSubmit(e, id) {
+    const { returnQuantity, showDrawer } = this.state;
+    const data = { id, returnQuantity };
+    e.preventDefault();
+    // Dispatch an action with data object.
+    this.setState({ showDrawer: !showDrawer });
   }
 
   toggleModal() {
@@ -52,7 +67,13 @@ class ReturnsPage extends Component {
   render() {
     const { showModal, showDrawer } = this.state;
     const { orderDetails, returns, openDrawerFor } = this.props;
-    const { toggleModal, toggleDrawer, onReturnQuantityClick } = this;
+    const {
+      toggleModal,
+      toggleDrawer,
+      onReturnQuantityClick,
+      onReturnSubmit,
+      onReturnChange
+    } = this;
     console.log("returns:", returns);
     return (
       <Page>
@@ -75,6 +96,8 @@ class ReturnsPage extends Component {
           showDrawer={showDrawer}
           toggleDrawer={toggleDrawer}
           openDrawerFor={openDrawerFor}
+          onReturnSubmit={onReturnSubmit}
+          onReturnChange={onReturnChange}
         />
         <SupportModal showModal={showModal} toggleModal={toggleModal} />
         <div>
