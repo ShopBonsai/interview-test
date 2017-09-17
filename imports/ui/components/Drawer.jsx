@@ -15,8 +15,8 @@ const ReturnsDrawer = props => {
     showDrawer,
     toggleDrawer,
     openDrawerFor,
-    onReturnSubmit,
-    onReturnChange
+    onReturnsDrawerSubmit,
+    onReturnsDrawerInputChange
   } = props;
 
   // Find the object in the array where id matches openDrawerFor and
@@ -33,7 +33,7 @@ const ReturnsDrawer = props => {
       <div>
         <Button onClick={toggleDrawer}>←</Button>
       </div>
-      <form onSubmit={e => onReturnSubmit(e, openDrawerFor)}>
+      <form onSubmit={e => onReturnsDrawerSubmit(e, openDrawerFor)}>
         {showDrawer &&
           createArrayForDrawerTarget().map((quantity, index) =>
             <div key={index}>
@@ -41,7 +41,7 @@ const ReturnsDrawer = props => {
                 type="radio"
                 value={quantity}
                 name="returnQuantity"
-                onClick={onReturnChange}
+                onClick={onReturnsDrawerInputChange}
               />
               {quantity}
             </div>
@@ -57,8 +57,9 @@ ReturnsDrawer.propTypes = {
   returns: PropTypes.array,
   showDrawer: PropTypes.bool,
   toggleDrawer: PropTypes.func,
-  onReturnSubmit: PropTypes.func,
-  openDrawerFor: PropTypes.string
+  openDrawerFor: PropTypes.string,
+  onReturnsDrawerSubmit: PropTypes.func,
+  onReturnsDrawerInputChange: PropTypes.func
 };
 
 export default ReturnsDrawer;

@@ -28,15 +28,25 @@ class ReturnsPage extends Component {
       returnQuantity: 0
     };
 
-    this.toggleModal = this.toggleModal.bind(this);
-    this.toggleDrawer = this.toggleDrawer.bind(this);
-    this.onReturnSubmit = this.onReturnSubmit.bind(this);
-    this.onReturnChange = this.onReturnChange.bind(this);
+    this.onToggleModal = this.onToggleModal.bind(this);
+    this.onToggleDrawer = this.onToggleDrawer.bind(this);
     this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
+    this.onReturnsDrawerSubmit = this.onReturnsDrawerSubmit.bind(this);
+    this.onReturnsDrawerInputChange = this.onReturnsDrawerInputChange.bind(
+      this
+    );
   }
 
   componentDidMount() {
     this.props.fetchLastOrder();
+  }
+
+  onToggleModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
+  onToggleDrawer() {
+    this.setState({ showDrawer: !this.state.showDrawer });
   }
 
   onReturnQuantityClick(id, purchaseQuantity) {
@@ -44,24 +54,17 @@ class ReturnsPage extends Component {
     this.setState({ showDrawer: !this.state.showDrawer });
   }
 
-  onReturnChange(e) {
+  onReturnsDrawerInputChange(e) {
     this.setState({ returnQuantity: parseInt(e.target.value) });
   }
 
-  onReturnSubmit(e, id) {
+  onReturnsDrawerSubmit(e, id) {
     const { returnQuantity, showDrawer } = this.state;
     const data = { id, returnQuantity };
+    console.log("data to be sent to redux-->", data);
     e.preventDefault();
     // Dispatch an action with data object.
     this.setState({ showDrawer: !showDrawer });
-  }
-
-  toggleModal() {
-    this.setState({ showModal: !this.state.showModal });
-  }
-
-  toggleDrawer() {
-    this.setState({ showDrawer: !this.state.showDrawer });
   }
 
   render() {
@@ -71,10 +74,9 @@ class ReturnsPage extends Component {
       toggleModal,
       toggleDrawer,
       onReturnQuantityClick,
-      onReturnSubmit,
-      onReturnChange
+      onReturnsDrawerSubmit,
+      onReturnsDrawerInputChange
     } = this;
-    console.log("returns:", returns);
     return (
       <Page>
         <div>
@@ -96,8 +98,8 @@ class ReturnsPage extends Component {
           showDrawer={showDrawer}
           toggleDrawer={toggleDrawer}
           openDrawerFor={openDrawerFor}
-          onReturnSubmit={onReturnSubmit}
-          onReturnChange={onReturnChange}
+          onReturnsDrawerSubmit={onReturnsDrawerSubmit}
+          onReturnsDrawerInputChange={onReturnsDrawerInputChange}
         />
         <SupportModal showModal={showModal} toggleModal={toggleModal} />
         <div>
@@ -123,11 +125,11 @@ const mapStateToProps = ({ lastOrder }) => {
 };
 
 ReturnsPage.propTypes = {
-  fetchLastOrder: PropTypes.func,
-  orderDetails: PropTypes.array,
-  openReturnsDrawer: PropTypes.func,
   returns: PropTypes.array,
-  openDrawerFor: PropTypes.string
+  orderDetails: PropTypes.array,
+  fetchLastOrder: PropTypes.func,
+  openDrawerFor: PropTypes.string,
+  openReturnsDrawer: PropTypes.func
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);
