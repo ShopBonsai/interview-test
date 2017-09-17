@@ -77,7 +77,6 @@ class ReturnsPage extends Component {
       onReturnsDrawerSubmit,
       onReturnsDrawerInputChange
     } = this;
-    console.log("returns", returns);
     return (
       <Page>
         <div>

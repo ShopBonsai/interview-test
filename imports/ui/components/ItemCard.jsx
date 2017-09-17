@@ -8,38 +8,36 @@ import PropTypes from "prop-types";
 import Drawer from "../components/Drawer";
 import { Card, Button } from "reactstrap";
 
-const ItemCard = ({ items, onReturnQuantityClick }) =>
+const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
   <div>
-    {items.map((item, index) =>
-      <Card key={index}>
-        <div>
-          <p>
-            C${item.pricePerItem}
-          </p>
-          <p>
-            {item.brand}
-          </p>
-          <p>
-            {item.name}
-          </p>
-        </div>
-        <div>
-          Size {item.size}
-        </div>
-        <div>
-          Colour {item.color}
-        </div>
-        <div>
-          Return Quantity
-          <Button
-            onClick={() =>
-              onReturnQuantityClick(item.name, item.quantityPurchased)}
-          >
-            {`${0} of ${item.quantityPurchased}`} →
-          </Button>
-        </div>
-      </Card>
-    )}
+    {items.map((item, index) => {
+      const returnItem = returns.find(purchase => purchase.id === item.name);
+      const returnQuantity = returnItem ? returnItem.returnQuantity : 0;
+      return (
+        <Card key={index}>
+          <div>
+            <p>C${item.pricePerItem}</p>
+            <p>{item.brand}</p>
+            <p>{item.name}</p>
+          </div>
+          <div>
+            Size {item.size}
+          </div>
+          <div>
+            Colour {item.color}
+          </div>
+          <div>
+            Return Quantity
+            <Button
+              onClick={() =>
+                onReturnQuantityClick(item.name, item.quantityPurchased)}
+            >
+              {`${returnQuantity} of ${item.quantityPurchased}`} →
+            </Button>
+          </div>
+        </Card>
+      );
+    })}
   </div>;
 
 ItemCard.propTypes = {
