@@ -109,8 +109,9 @@ class ReturnsPage extends Component {
               />
             : <p>Loading in 2017, lol</p>}
         </div>
-        <div>
-          <Button color="primary">Terms & Conditions →</Button>
+        <div className="terms-and-conditions-button">
+          Terms and Conditions
+          <i className="float-right fa fa-arrow-right" aria-hidden="true" />
         </div>
       </Page>
     );

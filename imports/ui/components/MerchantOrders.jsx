@@ -8,17 +8,22 @@ import PropTypes from "prop-types";
 import ItemCard from "../components/ItemCard";
 
 const MerchantOrders = ({ orderDetails, onReturnQuantityClick, returns }) =>
-  <div>
+  <div className="merchant-orders-container">
     {orderDetails.map(({ name, items }, index) =>
       <div key={index}>
-        <div>
-          {name}
+        <div className="merchant-orders-details">
+          <div className="merchant-orders-seller">
+            {name}
+          </div>
+          <div className="float-right merchant-orders-pagination">2 of 2</div>
         </div>
-        <ItemCard
-          items={items}
-          returns={returns}
-          onReturnQuantityClick={onReturnQuantityClick}
-        />
+        <div className="itemcard-container">
+          <ItemCard
+            items={items}
+            returns={returns}
+            onReturnQuantityClick={onReturnQuantityClick}
+          />
+        </div>
       </div>
     )}
   </div>;
