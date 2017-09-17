@@ -71,12 +71,13 @@ class ReturnsPage extends Component {
     const { showModal, showDrawer } = this.state;
     const { orderDetails, returns, openDrawerFor } = this.props;
     const {
-      toggleModal,
-      toggleDrawer,
+      onToggleModal,
+      onToggleDrawer,
       onReturnQuantityClick,
       onReturnsDrawerSubmit,
       onReturnsDrawerInputChange
     } = this;
+    console.log("returns", returns);
     return (
       <Page>
         <div>
@@ -87,7 +88,7 @@ class ReturnsPage extends Component {
             headerText={"How many items would you like to return?"}
           />
           <div>
-            <Button color="primary" onClick={toggleModal}>
+            <Button color="primary" onClick={onToggleModal}>
               Talk to someone
             </Button>
           </div>
@@ -96,17 +97,17 @@ class ReturnsPage extends Component {
           right={true}
           returns={returns}
           showDrawer={showDrawer}
-          toggleDrawer={toggleDrawer}
+          onToggleDrawer={onToggleDrawer}
           openDrawerFor={openDrawerFor}
           onReturnsDrawerSubmit={onReturnsDrawerSubmit}
           onReturnsDrawerInputChange={onReturnsDrawerInputChange}
         />
-        <SupportModal showModal={showModal} toggleModal={toggleModal} />
+        <SupportModal showModal={showModal} onToggleModal={onToggleModal} />
         <div>
           {orderDetails
             ? <MerchantOrders
+                returns={returns}
                 orderDetails={orderDetails}
-                toggleDrawer={toggleDrawer}
                 onReturnQuantityClick={onReturnQuantityClick}
               />
             : <p>Loading in 2017, lol</p>}

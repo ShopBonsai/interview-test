@@ -1,8 +1,13 @@
+// Framework
 import React from "react";
 
+// Libraries
+import PropTypes from "prop-types";
+
+// Components
 import { Modal, Button } from "reactstrap";
 
-const SupportModal = ({ showModal, toggleModal }) =>
+const SupportModal = ({ showModal, onToggleModal }) =>
   <Modal isOpen={showModal}>
     <div>📞😀</div>
     <div>
@@ -14,14 +19,21 @@ const SupportModal = ({ showModal, toggleModal }) =>
         </p>
       </div>
       <div>
-        <Button size="lg" color="primary">Call Us</Button>
+        <Button size="lg" color="primary">
+          Call Us
+        </Button>
       </div>
       <div>
-        <Button onClick={toggleModal} color="link">
+        <Button onClick={onToggleModal} color="link">
           Close
         </Button>
       </div>
     </div>
   </Modal>;
+
+SupportModal.propTypes = {
+  showModal: PropTypes.bool,
+  onToggleModal: PropTypes.func
+};
 
 export default SupportModal;

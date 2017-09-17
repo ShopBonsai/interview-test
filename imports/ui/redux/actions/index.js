@@ -1,12 +1,12 @@
 // Framework
 import { Meteor } from "meteor/meteor";
 
-// Constants
+// Action Types
 import {
   FETCH_LAST_ORDER,
   OPEN_RETURNS_DRAWER,
   UPDATE_RETURNS_QUANTITY
-} from "../constants";
+} from "../constants/actionTypes.js";
 
 export const fetchLastOrder = () => dispatch => {
   Meteor.call("orders.getLastOrder", (error, response) => {

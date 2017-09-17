@@ -1,9 +1,9 @@
-// Constants
+// Action Types
 import {
   FETCH_LAST_ORDER,
   OPEN_RETURNS_DRAWER,
   UPDATE_RETURNS_QUANTITY
-} from "../constants/";
+} from "../constants/actionTypes.js";
 
 const initialState = {
   orderDetails: [],
@@ -25,6 +25,8 @@ const lastOrderReducer = (state = initialState, action) => {
         openDrawerFor: action.payload.id
       };
     case UPDATE_RETURNS_QUANTITY:
+      // Map over returns array, find the item that matches the action.payload.id
+      // and updated its return quantity. Else, just return the item.
       const updatedItems = state.returns.map(
         item =>
           item.id === action.payload.id
