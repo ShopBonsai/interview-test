@@ -8,26 +8,27 @@ import PropTypes from "prop-types";
 import { Modal, Button } from "reactstrap";
 
 const SupportModal = ({ showModal, onToggleModal }) =>
-  <Modal isOpen={showModal}>
-    <div>📞😀</div>
+  <Modal isOpen={showModal} className="support-modal">
+    <div className="support-modal-icon">
+      <i className="fa fa-user-o fa-3x" aria-hidden="true" />
+    </div>
     <div>
-      <div>
-        <p>Need a hand?</p>
-        <p>
-          Push the call button and we'll gladly put you in touch with one of our
-          knowledgable reps.
-        </p>
-      </div>
-      <div>
-        <Button size="lg" color="primary">
-          Call Us
-        </Button>
-      </div>
-      <div>
-        <Button onClick={onToggleModal} color="link">
-          Close
-        </Button>
-      </div>
+      <div className="support-modal-header">Need a hand?</div>
+      <p className="support-modal-text">
+        Push the call button and we'll gladly put you in touch with one of our
+        knowledgable reps.
+      </p>
+    </div>
+    <div>
+      <button className="support-modal-button-primary">Call Us</button>
+    </div>
+    <div>
+      <button
+        onClick={onToggleModal}
+        className="support-modal-button-secondary"
+      >
+        Close
+      </button>
     </div>
   </Modal>;
 

@@ -42,6 +42,7 @@ const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
 
 ItemCard.propTypes = {
   items: PropTypes.array,
+  returns: PropTypes.array,
   onReturnQuantityClick: PropTypes.func
 };
 

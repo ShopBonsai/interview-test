@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 
 const Header = ({ currentPage, totalPages, headerText }) =>
   <div>
-    <p>
+    <p className="header-pagination">
       {currentPage} of {totalPages}
     </p>
-    <p>
+    <p className="header-text">
       {headerText}
     </p>
   </div>;
