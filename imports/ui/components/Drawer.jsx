@@ -13,8 +13,8 @@ const ReturnsDrawer = props => {
     right,
     returns,
     showDrawer,
-    toggleDrawer,
     openDrawerFor,
+    onToggleDrawer,
     onReturnsDrawerSubmit,
     onReturnsDrawerInputChange
   } = props;
@@ -31,7 +31,7 @@ const ReturnsDrawer = props => {
   return (
     <Drawer open={showDrawer} right={right} className="drawer">
       <div>
-        <Button onClick={toggleDrawer}>←</Button>
+        <Button onClick={onToggleDrawer}>←</Button>
       </div>
       <form onSubmit={e => onReturnsDrawerSubmit(e, openDrawerFor)}>
         {showDrawer &&
@@ -56,7 +56,7 @@ ReturnsDrawer.propTypes = {
   right: PropTypes.bool,
   returns: PropTypes.array,
   showDrawer: PropTypes.bool,
-  toggleDrawer: PropTypes.func,
+  onToggleDrawer: PropTypes.func,
   openDrawerFor: PropTypes.string,
   onReturnsDrawerSubmit: PropTypes.func,
   onReturnsDrawerInputChange: PropTypes.func
