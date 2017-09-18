@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 // Components
 import Drawer from "../components/Drawer";
-import { Card, Button } from "reactstrap";
 
 const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
   <div>
@@ -14,28 +13,41 @@ const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
       const returnItem = returns.find(purchase => purchase.id === item.name);
       const returnQuantity = returnItem ? returnItem.returnQuantity : 0;
       return (
-        <Card key={index}>
-          <div>
-            <p>C${item.pricePerItem}</p>
-            <p>{item.brand}</p>
-            <p>{item.name}</p>
+        <div key={index} className="itemcard-container">
+          <div className="itemcard-photo" />
+          <div className="itemcard-text-container float-right">
+            <div>
+              <p>
+                C${item.pricePerItem}
+                <div>
+                  <i className="fa fa-square-o fa-lg" aria-hidden="true" />
+                </div>
+              </p>
+              <p>
+                {item.brand}
+              </p>
+              <p>
+                {item.name}
+              </p>
+            </div>
+            <div>
+              Size <div>{item.size}</div>
+            </div>
+            <div>
+              Colour <div>{item.color}</div>
+            </div>
+            <div>
+              Return Quantity
+              <button
+                onClick={() =>
+                  onReturnQuantityClick(item.name, item.quantityPurchased)}
+              >
+                {`${returnQuantity} of ${item.quantityPurchased}`}{" "}
+                <i className="fa fa-chevron-right" aria-hidden="true" />
+              </button>
+            </div>
           </div>
-          <div>
-            Size {item.size}
-          </div>
-          <div>
-            Colour {item.color}
-          </div>
-          <div>
-            Return Quantity
-            <Button
-              onClick={() =>
-                onReturnQuantityClick(item.name, item.quantityPurchased)}
-            >
-              {`${returnQuantity} of ${item.quantityPurchased}`} →
-            </Button>
-          </div>
-        </Card>
+        </div>
       );
     })}
   </div>;

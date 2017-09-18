@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Components
-import { Button } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Header from "../components/Header";
 import MerchantOrders from "../components/MerchantOrders";

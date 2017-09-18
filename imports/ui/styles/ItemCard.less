@@ -1,3 +1,54 @@
 .itemcard-container {
   clear: both;
+  min-height: 300px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 5px rgba(136, 136, 136, 0.3);
+}
+
+.itemcard-photo {
+  border-right: 2px solid #eceeef;
+  background: @lighterGrey;
+  height: 100%;
+  width: 40%;
+  float: left;
+}
+
+.itemcard-text-container {
+  height: 100%;
+  width: 60%;
+
+  > div {
+    padding: 14px 35px;
+  }
+  > div:not(:last-child) {
+    border-bottom: 2px solid #eceeef;
+  }
+
+  > div:nth-child(1) > p > div,
+  > div:nth-child(2) > div,
+  > div:nth-child(3) > div,
+  > div:nth-child(4) > button {
+    float: right;
+    color: @mediumGrey;
+  }
+
+  > div:nth-child(4) > button {
+    border: none;
+    background: none;
+  }
+
+  p:first-child {
+    .bold18;
+  }
+  p:nth-child(2) {
+    .bold18;
+    color: @blue;
+    margin-bottom: 0px;
+  }
+  p:nth-child(3) {
+    font-size: 18px;
+    color: @mediumGrey;
+  }
 }

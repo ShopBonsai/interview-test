@@ -17,13 +17,11 @@ const MerchantOrders = ({ orderDetails, onReturnQuantityClick, returns }) =>
           </div>
           <div className="float-right merchant-orders-pagination">2 of 2</div>
         </div>
-        <div className="itemcard-container">
-          <ItemCard
-            items={items}
-            returns={returns}
-            onReturnQuantityClick={onReturnQuantityClick}
-          />
-        </div>
+        <ItemCard
+          items={items}
+          returns={returns}
+          onReturnQuantityClick={onReturnQuantityClick}
+        />
       </div>
     )}
   </div>;
