@@ -31,6 +31,7 @@ class ReturnsPage extends Component {
     this.onToggleDrawer = this.onToggleDrawer.bind(this);
     this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
     this.onReturnsDrawerSubmit = this.onReturnsDrawerSubmit.bind(this);
+    this.onItemReturnSelect = this.onItemReturnSelect.bind(this);
     this.onReturnsDrawerInputChange = this.onReturnsDrawerInputChange.bind(
       this
     );
@@ -46,6 +47,11 @@ class ReturnsPage extends Component {
 
   onToggleDrawer() {
     this.setState({ showDrawer: !this.state.showDrawer });
+  }
+
+  onItemReturnSelect(id) {
+    // this.props.action-creator()
+    console.log(id);
   }
 
   onReturnQuantityClick(id, purchaseQuantity) {
@@ -74,7 +80,8 @@ class ReturnsPage extends Component {
       onToggleDrawer,
       onReturnQuantityClick,
       onReturnsDrawerSubmit,
-      onReturnsDrawerInputChange
+      onReturnsDrawerInputChange,
+      onItemReturnSelect
     } = this;
     return (
       <Page>
@@ -104,6 +111,7 @@ class ReturnsPage extends Component {
             ? <MerchantOrders
                 returns={returns}
                 orderDetails={orderDetails}
+                onItemReturnSelect={onItemReturnSelect}
                 onReturnQuantityClick={onReturnQuantityClick}
               />
             : <p>Loading in 2017, lol</p>}

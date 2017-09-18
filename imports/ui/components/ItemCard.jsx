@@ -7,7 +7,12 @@ import PropTypes from "prop-types";
 // Components
 import Drawer from "../components/Drawer";
 
-const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
+const ItemCard = ({
+  items,
+  onReturnQuantityClick,
+  returns,
+  onItemReturnSelect
+}) =>
   <div>
     {items.map((item, index) => {
       const returnItem = returns.find(purchase => purchase.id === item.name);
@@ -19,10 +24,10 @@ const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
             <div>
               <p>
                 C${item.pricePerItem}
-                <div>
-                  <i className="fa fa-square-o fa-lg" aria-hidden="true" />
-                </div>
               </p>
+              <span onClick={() => onItemReturnSelect(item.name)}>
+                <i className="fa fa-square-o fa-lg" aria-hidden="true" />
+              </span>
               <p>
                 {item.brand}
               </p>
@@ -55,6 +60,7 @@ const ItemCard = ({ items, onReturnQuantityClick, returns }) =>
 ItemCard.propTypes = {
   items: PropTypes.array,
   returns: PropTypes.array,
+  onItemReturnSelect: PropTypes.func,
   onReturnQuantityClick: PropTypes.func
 };
 
