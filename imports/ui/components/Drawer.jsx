@@ -14,6 +14,7 @@ const ReturnsDrawer = props => {
     showDrawer,
     openDrawerFor,
     onToggleDrawer,
+    preSubmitQuantity,
     onReturnsDrawerSubmit,
     onReturnsDrawerInputChange
   } = props;
@@ -21,6 +22,8 @@ const ReturnsDrawer = props => {
   // Find the object in the array where id matches openDrawerFor and
   // pick purchaseQuantity off of it. Then, return a new array with length
   // equal to the purchaseQuantity of the matched object.
+
+  const returnItem = returns.find(({ id }) => id === openDrawerFor);
 
   const createArrayForDrawerTarget = () => {
     const { purchaseQuantity } = returns.find(({ id }) => id === openDrawerFor);
@@ -43,9 +46,13 @@ const ReturnsDrawer = props => {
             <div key={index}>
               <input
                 type="radio"
+                checked={
+                  returnItem.returnQuantity === index + 1 ||
+                  preSubmitQuantity === index + 1
+                }
                 value={quantity}
                 name="returnQuantity"
-                onClick={onReturnsDrawerInputChange}
+                onChange={onReturnsDrawerInputChange}
               />
               {quantity}
             </div>
@@ -62,6 +69,7 @@ ReturnsDrawer.propTypes = {
   showDrawer: PropTypes.bool,
   onToggleDrawer: PropTypes.func,
   openDrawerFor: PropTypes.string,
+  preSubmitQuantity: PropTypes.number,
   onReturnsDrawerSubmit: PropTypes.func,
   onReturnsDrawerInputChange: PropTypes.func
 };

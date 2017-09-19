@@ -46,7 +46,7 @@ class ReturnsPage extends Component {
   }
 
   onToggleDrawer() {
-    this.setState({ showDrawer: !this.state.showDrawer });
+    this.setState({ showDrawer: !this.state.showDrawer, returnQuantity: 0 });
   }
 
   onItemReturnSelect(id) {
@@ -66,11 +66,11 @@ class ReturnsPage extends Component {
     e.preventDefault();
     const { returnQuantity, showDrawer } = this.state;
     this.props.updateReturnsQuantity(id, returnQuantity);
-    this.setState({ showDrawer: !showDrawer });
+    this.setState({ showDrawer: !showDrawer, returnQuantity: 0 });
   }
 
   render() {
-    const { showModal, showDrawer } = this.state;
+    const { showModal, showDrawer, returnQuantity } = this.state;
     const { orderDetails, returns, openDrawerFor } = this.props;
     const {
       onToggleModal,
@@ -80,6 +80,7 @@ class ReturnsPage extends Component {
       onReturnsDrawerSubmit,
       onReturnsDrawerInputChange
     } = this;
+    console.log("returns:", returns);
     return (
       <Page>
         <div className="header">
@@ -101,6 +102,7 @@ class ReturnsPage extends Component {
           openDrawerFor={openDrawerFor}
           onReturnsDrawerSubmit={onReturnsDrawerSubmit}
           onReturnsDrawerInputChange={onReturnsDrawerInputChange}
+          preSubmitQuantity={returnQuantity}
         />
         <SupportModal showModal={showModal} onToggleModal={onToggleModal} />
         <div>
@@ -113,7 +115,10 @@ class ReturnsPage extends Component {
               />
             : <p>Loading in 2017, lol</p>}
         </div>
-        <div className="terms-and-conditions-button">
+        <div
+          className="terms-and-conditions-button"
+          onClick={() => alert("To infinity and beyond! 🚀")}
+        >
           Terms and Conditions
           <i className="float-right fa fa-arrow-right" aria-hidden="true" />
         </div>
