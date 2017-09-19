@@ -1,0 +1,41 @@
+.drawer {
+  background: white;
+  position: relative;
+
+  > div {
+    padding: 20px 15px;
+  }
+  > div:first-child {
+    cursor: pointer;
+    &:hover {
+      color: @blue;
+    }
+  }
+  > div:nth-child(2) {
+    .bold18;
+  }
+  > div:nth-child(2),
+  > form > div {
+    border-bottom: 2px solid @lighterGrey;
+  }
+
+  form > div {
+    padding: 10px 10px;
+    cursor: pointer;
+  }
+
+  button {
+    border: none;
+    background: @blue;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    padding: 20px 60px;
+    width: 50%;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+}

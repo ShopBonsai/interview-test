@@ -1,58 +1,139 @@
-// @flow
-
 // Framework
 import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
+
+// Libraries
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
+import Header from "../components/Header";
+import Drawer from "../components/Drawer";
+import SupportModal from "../components/SupportModal";
+import MerchantOrders from "../components/MerchantOrders";
+
+// Actions
+import * as actions from "../redux/actions";
 
 class ReturnsPage extends Component {
   constructor(props) {
     super(props);
-    // Initialize State
-    this.initialState = {
-      lastOrder: null,
-      error: null
+
+    this.state = {
+      showModal: false,
+      showDrawer: false,
+      preSubmitQuantity: 0
     };
-    this.state = this.initialState;
+
+    this.onToggleModal = this.onToggleModal.bind(this);
+    this.onToggleDrawer = this.onToggleDrawer.bind(this);
+    this.onItemReturnSelect = this.onItemReturnSelect.bind(this);
+    this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
+    this.onReturnsDrawerSubmit = this.onReturnsDrawerSubmit.bind(this);
+    this.onReturnsDrawerInputChange = this.onReturnsDrawerInputChange.bind(this);
   }
 
-  componentWillMount() {
-    Meteor.call("orders.getLastOrder", (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      }
-      this.setState(() => ({ lastOrder: response }));
-    });
+  componentDidMount() {
+    this.props.fetchLastOrder();
+  }
+
+  onToggleModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
+  onToggleDrawer() {
+    this.setState({ showDrawer: !this.state.showDrawer, preSubmitQuantity: 0 });
+  }
+
+  onItemReturnSelect(id) {
+    this.props.updateSelectedForReturn(id);
+  }
+
+  onReturnQuantityClick(id, purchaseQuantity) {
+    this.props.openReturnsDrawer(id, purchaseQuantity);
+    this.setState({ showDrawer: !this.state.showDrawer });
+  }
+
+  onReturnsDrawerInputChange(e) {
+    this.setState({ preSubmitQuantity: parseInt(e.target.value) });
+  }
+
+  onReturnsDrawerSubmit(e, id) {
+    const { preSubmitQuantity, showDrawer } = this.state;
+    e.preventDefault();
+    // Check if user actually selected an input.
+    if (preSubmitQuantity !== 0) {
+      this.props.updateReturnsQuantity(id, preSubmitQuantity);
+    }
+    this.setState({ showDrawer: !showDrawer, preSubmitQuantity: 0 });
   }
 
   render() {
-    const { lastOrder, error } = this.state;
+    const { orderDetails, returns, drawerTarget } = this.props;
+    const { showModal, showDrawer, preSubmitQuantity } = this.state;
+
     return (
       <Page>
-        <Row>
-          <Col>
-            <Alert className="mt-3">
-              I would highly recommend understanding the structure of the order
-              object first and how it should relate to the designs.
-            </Alert>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {JSON.stringify(lastOrder)}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {error}
-          </Col>
-        </Row>
+        <div className="header">
+          <i className="fa fa-arrow-left fa-2x" aria-hidden="true" />
+          <Header
+            totalPages={3}
+            currentPage={1}
+            headerText={"How many items would you like to return?"}
+          />
+        </div>
+        <button onClick={this.onToggleModal} className="support-button">
+          Talk to Someone
+        </button>
+        <Drawer
+          right={true}
+          returns={returns}
+          showDrawer={showDrawer}
+          drawerTarget={drawerTarget}
+          onToggleDrawer={this.onToggleDrawer}
+          preSubmitQuantity={preSubmitQuantity}
+          onReturnsDrawerSubmit={this.onReturnsDrawerSubmit}
+          onReturnsDrawerInputChange={this.onReturnsDrawerInputChange}
+        />
+        <SupportModal
+          showModal={showModal}
+          onToggleModal={this.onToggleModal}
+        />
+        <div>
+          {orderDetails
+            ? <MerchantOrders
+                returns={returns}
+                orderDetails={orderDetails}
+                onItemReturnSelect={this.onItemReturnSelect}
+                onReturnQuantityClick={this.onReturnQuantityClick}
+              />
+            : <p>Loading in 2017, lol</p>}
+        </div>
+        <div
+          className="terms-and-conditions-button"
+          onClick={() => alert("To infinity and beyond! 🚀")}
+        >
+          Terms and Conditions
+          <i className="float-right fa fa-arrow-right" aria-hidden="true" />
+        </div>
       </Page>
     );
   }
 }
 
-export default ReturnsPage;
+const mapStateToProps = ({ lastOrder }) => {
+  const { orderDetails, returns, drawerTarget } = lastOrder;
+  return { orderDetails, returns, drawerTarget };
+};
+
+ReturnsPage.propTypes = {
+  returns: PropTypes.array,
+  orderDetails: PropTypes.array,
+  fetchLastOrder: PropTypes.func,
+  drawerTarget: PropTypes.string,
+  openReturnsDrawer: PropTypes.func,
+  updateReturnsQuantity: PropTypes.func,
+  updateSelectedForReturn: PropTypes.func
+};
+
+export default connect(mapStateToProps, actions)(ReturnsPage);
