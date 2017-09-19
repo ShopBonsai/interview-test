@@ -24,7 +24,7 @@ class ReturnsPage extends Component {
     this.state = {
       showModal: false,
       showDrawer: false,
-      returnQuantity: 0
+      preSubmitQuantity: 0
     };
 
     this.onToggleModal = this.onToggleModal.bind(this);
@@ -46,7 +46,7 @@ class ReturnsPage extends Component {
   }
 
   onToggleDrawer() {
-    this.setState({ showDrawer: !this.state.showDrawer, returnQuantity: 0 });
+    this.setState({ showDrawer: !this.state.showDrawer, preSubmitQuantity: 0 });
   }
 
   onItemReturnSelect(id) {
@@ -59,18 +59,20 @@ class ReturnsPage extends Component {
   }
 
   onReturnsDrawerInputChange(e) {
-    this.setState({ returnQuantity: parseInt(e.target.value) });
+    this.setState({ preSubmitQuantity: parseInt(e.target.value) });
   }
 
   onReturnsDrawerSubmit(e, id) {
     e.preventDefault();
-    const { returnQuantity, showDrawer } = this.state;
-    this.props.updateReturnsQuantity(id, returnQuantity);
-    this.setState({ showDrawer: !showDrawer, returnQuantity: 0 });
+    const { preSubmitQuantity, showDrawer } = this.state;
+    if (preSubmitQuantity !== 0) {
+      this.props.updateReturnsQuantity(id, preSubmitQuantity);
+    }
+    this.setState({ showDrawer: !showDrawer, preSubmitQuantity: 0 });
   }
 
   render() {
-    const { showModal, showDrawer, returnQuantity } = this.state;
+    const { showModal, showDrawer, preSubmitQuantity } = this.state;
     const { orderDetails, returns, openDrawerFor } = this.props;
     const {
       onToggleModal,
@@ -102,7 +104,7 @@ class ReturnsPage extends Component {
           openDrawerFor={openDrawerFor}
           onReturnsDrawerSubmit={onReturnsDrawerSubmit}
           onReturnsDrawerInputChange={onReturnsDrawerInputChange}
-          preSubmitQuantity={returnQuantity}
+          preSubmitQuantity={preSubmitQuantity}
         />
         <SupportModal showModal={showModal} onToggleModal={onToggleModal} />
         <div>

@@ -26,8 +26,7 @@ const ReturnsDrawer = props => {
   const returnItem = returns.find(({ id }) => id === openDrawerFor);
 
   const createArrayForDrawerTarget = () => {
-    const { purchaseQuantity } = returns.find(({ id }) => id === openDrawerFor);
-    return Array(purchaseQuantity).fill().map((x, i) => i + 1);
+    return Array(returnItem.purchaseQuantity).fill().map((x, i) => i + 1);
   };
 
   return (
@@ -46,13 +45,13 @@ const ReturnsDrawer = props => {
             <div key={index}>
               <input
                 type="radio"
-                checked={
-                  returnItem.returnQuantity === index + 1 ||
-                  preSubmitQuantity === index + 1
-                }
                 value={quantity}
                 name="returnQuantity"
                 onChange={onReturnsDrawerInputChange}
+                checked={
+                  preSubmitQuantity === index + 1 ||
+                  returnItem.returnQuantity === index + 1
+                }
               />
               {quantity}
             </div>
