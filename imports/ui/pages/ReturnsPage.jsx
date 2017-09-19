@@ -82,17 +82,17 @@ class ReturnsPage extends Component {
     } = this;
     return (
       <Page>
-        <i className="fa fa-arrow-left fa-2x" aria-hidden="true" />
         <div className="header">
+          <i className="fa fa-arrow-left fa-2x" aria-hidden="true" />
           <Header
             currentPage={1}
             totalPages={3}
             headerText={"How many items would you like to return?"}
           />
-          <button onClick={onToggleModal} className="support-button">
-            Talk to Someone
-          </button>
         </div>
+        <button onClick={onToggleModal} className="support-button">
+          Talk to Someone
+        </button>
         <Drawer
           right={true}
           returns={returns}

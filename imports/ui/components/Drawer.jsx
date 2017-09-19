@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 // Components
 import Drawer from "react-motion-drawer";
-import { Button } from "reactstrap";
 
 const ReturnsDrawer = props => {
   const {
@@ -31,8 +30,13 @@ const ReturnsDrawer = props => {
   return (
     <Drawer open={showDrawer} right={right} className="drawer">
       <div>
-        <Button onClick={onToggleDrawer}>←</Button>
+        <i
+          onClick={onToggleDrawer}
+          className="fa fa-arrow-left"
+          aria-hidden="true"
+        />
       </div>
+      <div>Return Quantity</div>
       <form onSubmit={e => onReturnsDrawerSubmit(e, openDrawerFor)}>
         {showDrawer &&
           createArrayForDrawerTarget().map((quantity, index) =>
@@ -46,7 +50,7 @@ const ReturnsDrawer = props => {
               {quantity}
             </div>
           )}
-        <Button type="submit">Apply Changes</Button>
+        <button type="submit">Apply Changes</button>
       </form>
     </Drawer>
   );
