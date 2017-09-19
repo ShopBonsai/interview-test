@@ -29,9 +29,9 @@ class ReturnsPage extends Component {
 
     this.onToggleModal = this.onToggleModal.bind(this);
     this.onToggleDrawer = this.onToggleDrawer.bind(this);
+    this.onItemReturnSelect = this.onItemReturnSelect.bind(this);
     this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
     this.onReturnsDrawerSubmit = this.onReturnsDrawerSubmit.bind(this);
-    this.onItemReturnSelect = this.onItemReturnSelect.bind(this);
     this.onReturnsDrawerInputChange = this.onReturnsDrawerInputChange.bind(
       this
     );
@@ -50,8 +50,7 @@ class ReturnsPage extends Component {
   }
 
   onItemReturnSelect(id) {
-    // this.props.action-creator()
-    console.log(id);
+    this.props.updateSelectedForReturn(id);
   }
 
   onReturnQuantityClick(id, purchaseQuantity) {
@@ -66,9 +65,7 @@ class ReturnsPage extends Component {
   onReturnsDrawerSubmit(e, id) {
     e.preventDefault();
     const { returnQuantity, showDrawer } = this.state;
-    const data = { id, returnQuantity };
-    // Dispatch an action with data object.
-    this.props.updateReturnsQuantity(data);
+    this.props.updateReturnsQuantity(id, returnQuantity);
     this.setState({ showDrawer: !showDrawer });
   }
 
@@ -78,10 +75,10 @@ class ReturnsPage extends Component {
     const {
       onToggleModal,
       onToggleDrawer,
+      onItemReturnSelect,
       onReturnQuantityClick,
       onReturnsDrawerSubmit,
-      onReturnsDrawerInputChange,
-      onItemReturnSelect
+      onReturnsDrawerInputChange
     } = this;
     return (
       <Page>
@@ -136,7 +133,8 @@ ReturnsPage.propTypes = {
   fetchLastOrder: PropTypes.func,
   openDrawerFor: PropTypes.string,
   openReturnsDrawer: PropTypes.func,
-  updateReturnsQuantity: PropTypes.func
+  updateReturnsQuantity: PropTypes.func,
+  updateSelectedForReturn: PropTypes.func
 };
 
 export default connect(mapStateToProps, actions)(ReturnsPage);

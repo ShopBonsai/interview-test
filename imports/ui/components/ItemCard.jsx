@@ -17,6 +17,10 @@ const ItemCard = ({
     {items.map((item, index) => {
       const returnItem = returns.find(purchase => purchase.id === item.name);
       const returnQuantity = returnItem ? returnItem.returnQuantity : 0;
+      const isSelected =
+        returnItem && returnItem.isSelected
+          ? "fa fa-check-square-o fa-lg"
+          : "fa fa-square-o fa-lg";
       return (
         <div key={index} className="itemcard-container">
           <div className="itemcard-photo" />
@@ -24,10 +28,10 @@ const ItemCard = ({
             <div>
               <p>
                 C${item.pricePerItem}
+                <span onClick={() => onItemReturnSelect(item.name)}>
+                  <i className={isSelected} aria-hidden="true" />
+                </span>
               </p>
-              <span onClick={() => onItemReturnSelect(item.name)}>
-                <i className="fa fa-square-o fa-lg" aria-hidden="true" />
-              </span>
               <p>
                 {item.brand}
               </p>
