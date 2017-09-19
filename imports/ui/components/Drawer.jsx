@@ -12,18 +12,20 @@ const ReturnsDrawer = props => {
     right,
     returns,
     showDrawer,
-    openDrawerFor,
+    drawerTarget,
     onToggleDrawer,
     preSubmitQuantity,
     onReturnsDrawerSubmit,
     onReturnsDrawerInputChange
   } = props;
 
-  // Find the object in the array where id matches openDrawerFor and
+  // Find return item.
+
+  const returnItem = returns.find(({ id }) => id === drawerTarget);
+
+  // Find the object in the array where id matches drawerTarget and
   // pick purchaseQuantity off of it. Then, return a new array with length
   // equal to the purchaseQuantity of the matched object.
-
-  const returnItem = returns.find(({ id }) => id === openDrawerFor);
 
   const createArrayForDrawerTarget = () => {
     return Array(returnItem.purchaseQuantity).fill().map((x, i) => i + 1);
@@ -39,7 +41,7 @@ const ReturnsDrawer = props => {
         />
       </div>
       <div>Return Quantity</div>
-      <form onSubmit={e => onReturnsDrawerSubmit(e, openDrawerFor)}>
+      <form onSubmit={e => onReturnsDrawerSubmit(e, drawerTarget)}>
         {showDrawer &&
           createArrayForDrawerTarget().map((quantity, index) =>
             <div key={index}>
@@ -66,8 +68,8 @@ ReturnsDrawer.propTypes = {
   right: PropTypes.bool,
   returns: PropTypes.array,
   showDrawer: PropTypes.bool,
+  drawerTarget: PropTypes.string,
   onToggleDrawer: PropTypes.func,
-  openDrawerFor: PropTypes.string,
   preSubmitQuantity: PropTypes.number,
   onReturnsDrawerSubmit: PropTypes.func,
   onReturnsDrawerInputChange: PropTypes.func

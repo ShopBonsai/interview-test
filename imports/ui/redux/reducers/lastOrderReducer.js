@@ -9,7 +9,7 @@ import {
 const initialState = {
   orderDetails: [],
   returns: [],
-  openDrawerFor: ""
+  drawerTarget: ""
 };
 
 const lastOrderReducer = (state = initialState, action) => {
@@ -23,11 +23,12 @@ const lastOrderReducer = (state = initialState, action) => {
       return {
         ...state,
         returns: [...state.returns, action.payload],
-        openDrawerFor: action.payload.id
+        drawerTarget: action.payload.id
       };
     case UPDATE_RETURNS_QUANTITY:
       // Map over returns array, find the item that matches the action.payload.id
       // and updated its return quantity. Else, just return the item.
+
       const updatedReturnQuantityItems = state.returns.map(
         item =>
           item.id === action.payload.id

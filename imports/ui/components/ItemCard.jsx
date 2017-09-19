@@ -9,9 +9,9 @@ import Drawer from "../components/Drawer";
 
 const ItemCard = ({
   items,
-  onReturnQuantityClick,
   returns,
-  onItemReturnSelect
+  onItemReturnSelect,
+  onReturnQuantityClick
 }) =>
   <div>
     {items.map((item, index) => {
@@ -21,6 +21,7 @@ const ItemCard = ({
         returnItem && returnItem.isSelected
           ? "fa fa-check-square-o fa-lg"
           : "fa fa-square-o fa-lg";
+
       return (
         <div key={index} className="itemcard-container">
           <div className="itemcard-photo" />
@@ -32,18 +33,16 @@ const ItemCard = ({
                   <i className={isSelected} aria-hidden="true" />
                 </span>
               </p>
-              <p>
-                {item.brand}
-              </p>
-              <p>
-                {item.name}
-              </p>
+              <p>{item.brand}</p>
+              <p>{item.name}</p>
             </div>
             <div>
-              Size <div>{item.size}</div>
+              Size
+              <div>{item.size}</div>
             </div>
             <div>
-              Colour <div>{item.color}</div>
+              Colour
+              <div>{item.color}</div>
             </div>
             <div>
               Return Quantity

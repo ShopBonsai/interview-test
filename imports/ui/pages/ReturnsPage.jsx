@@ -1,5 +1,3 @@
-// @flow
-
 // Framework
 import React, { Component } from "react";
 
@@ -10,9 +8,9 @@ import PropTypes from "prop-types";
 // Components
 import Page from "../components/Page.jsx";
 import Header from "../components/Header";
-import MerchantOrders from "../components/MerchantOrders";
-import SupportModal from "../components/SupportModal";
 import Drawer from "../components/Drawer";
+import SupportModal from "../components/SupportModal";
+import MerchantOrders from "../components/MerchantOrders";
 
 // Actions
 import * as actions from "../redux/actions";
@@ -32,9 +30,7 @@ class ReturnsPage extends Component {
     this.onItemReturnSelect = this.onItemReturnSelect.bind(this);
     this.onReturnQuantityClick = this.onReturnQuantityClick.bind(this);
     this.onReturnsDrawerSubmit = this.onReturnsDrawerSubmit.bind(this);
-    this.onReturnsDrawerInputChange = this.onReturnsDrawerInputChange.bind(
-      this
-    );
+    this.onReturnsDrawerInputChange = this.onReturnsDrawerInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -63,8 +59,9 @@ class ReturnsPage extends Component {
   }
 
   onReturnsDrawerSubmit(e, id) {
-    e.preventDefault();
     const { preSubmitQuantity, showDrawer } = this.state;
+    e.preventDefault();
+    // Check if user actually selected an input.
     if (preSubmitQuantity !== 0) {
       this.props.updateReturnsQuantity(id, preSubmitQuantity);
     }
@@ -72,48 +69,43 @@ class ReturnsPage extends Component {
   }
 
   render() {
+    const { orderDetails, returns, drawerTarget } = this.props;
     const { showModal, showDrawer, preSubmitQuantity } = this.state;
-    const { orderDetails, returns, openDrawerFor } = this.props;
-    const {
-      onToggleModal,
-      onToggleDrawer,
-      onItemReturnSelect,
-      onReturnQuantityClick,
-      onReturnsDrawerSubmit,
-      onReturnsDrawerInputChange
-    } = this;
-    console.log("returns:", returns);
+
     return (
       <Page>
         <div className="header">
           <i className="fa fa-arrow-left fa-2x" aria-hidden="true" />
           <Header
-            currentPage={1}
             totalPages={3}
+            currentPage={1}
             headerText={"How many items would you like to return?"}
           />
         </div>
-        <button onClick={onToggleModal} className="support-button">
+        <button onClick={this.onToggleModal} className="support-button">
           Talk to Someone
         </button>
         <Drawer
           right={true}
           returns={returns}
           showDrawer={showDrawer}
-          onToggleDrawer={onToggleDrawer}
-          openDrawerFor={openDrawerFor}
-          onReturnsDrawerSubmit={onReturnsDrawerSubmit}
-          onReturnsDrawerInputChange={onReturnsDrawerInputChange}
+          drawerTarget={drawerTarget}
+          onToggleDrawer={this.onToggleDrawer}
           preSubmitQuantity={preSubmitQuantity}
+          onReturnsDrawerSubmit={this.onReturnsDrawerSubmit}
+          onReturnsDrawerInputChange={this.onReturnsDrawerInputChange}
         />
-        <SupportModal showModal={showModal} onToggleModal={onToggleModal} />
+        <SupportModal
+          showModal={showModal}
+          onToggleModal={this.onToggleModal}
+        />
         <div>
           {orderDetails
             ? <MerchantOrders
                 returns={returns}
                 orderDetails={orderDetails}
-                onItemReturnSelect={onItemReturnSelect}
-                onReturnQuantityClick={onReturnQuantityClick}
+                onItemReturnSelect={this.onItemReturnSelect}
+                onReturnQuantityClick={this.onReturnQuantityClick}
               />
             : <p>Loading in 2017, lol</p>}
         </div>
@@ -130,15 +122,15 @@ class ReturnsPage extends Component {
 }
 
 const mapStateToProps = ({ lastOrder }) => {
-  const { orderDetails, returns, openDrawerFor } = lastOrder;
-  return { orderDetails, returns, openDrawerFor };
+  const { orderDetails, returns, drawerTarget } = lastOrder;
+  return { orderDetails, returns, drawerTarget };
 };
 
 ReturnsPage.propTypes = {
   returns: PropTypes.array,
   orderDetails: PropTypes.array,
   fetchLastOrder: PropTypes.func,
-  openDrawerFor: PropTypes.string,
+  drawerTarget: PropTypes.string,
   openReturnsDrawer: PropTypes.func,
   updateReturnsQuantity: PropTypes.func,
   updateSelectedForReturn: PropTypes.func
