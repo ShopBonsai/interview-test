@@ -5,6 +5,12 @@
   > div {
     padding: 20px 15px;
   }
+  > div:first-child {
+    cursor: pointer;
+    &:hover {
+      color: @blue;
+    }
+  }
   > div:nth-child(2) {
     .bold18;
   }
@@ -15,6 +21,7 @@
 
   form > div {
     padding: 10px 10px;
+    cursor: pointer;
   }
 
   button {
@@ -29,5 +36,6 @@
     padding: 20px 60px;
     width: 50%;
     margin-bottom: 20px;
+    cursor: pointer;
   }
 }
