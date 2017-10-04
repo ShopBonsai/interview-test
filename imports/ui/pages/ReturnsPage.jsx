@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
+import { Alert } from "reactstrap";
 import Page from "../components/Page.jsx";
 
 class ReturnsPage extends Component {
@@ -30,27 +30,17 @@ class ReturnsPage extends Component {
 
   render() {
     const { lastOrder, error } = this.state;
+    const sellersWithItems = lastOrder && lastOrder.merchantOrders;
+    if (error) {
+      return (
+        <Alert>
+          <div>Oh no! Error!</div>
+          {error}
+        </Alert>
+      );
+    }
     return (
-      <Page>
-        <Row>
-          <Col>
-            <Alert className="mt-3">
-              I would highly recommend understanding the structure of the order
-              object first and how it should relate to the designs.
-            </Alert>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {JSON.stringify(lastOrder)}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {error}
-          </Col>
-        </Row>
-      </Page>
+        <Page sellersWithItems={sellersWithItems}></Page>
     );
   }
 }

@@ -1,3 +1,188 @@
+@import "./variables.less";
+
+.page.container-fluid {
+  padding-right: 0;
+  padding-left: 0;
+  background-color: @background-grey;
+}
 .page {
-  
+  position: relative;
+  text-align: center;
+  padding-bottom: 120px;
+  font-family: unset;
+  .page-header {
+    background-color: @white;
+    .left-arrow {
+      text-align: left;
+      padding: 35px 25px 40px 25px;
+      cursor: pointer;
+      img {
+        height: 28px;
+      }
+    }
+    .page-number {
+      color: @text-grey;
+      font-size: @main-font-size - 3px;
+    }
+    .page-title {
+      color: @title-grey;
+      font-weight: @almost-bold;
+      font-size: @title-size;
+      padding: 5px 0 95px 0;
+    }
+  }
+  .talk-btn {
+    border-radius: 40px;
+    border: 0;
+    height: 75px;
+    width: 285px;
+    background-color: @black;
+    color: white;
+    font-size: @main-font-size;
+    position: absolute;
+    z-index: 1;
+    top: 255px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .all-sellers-wrapper {
+    padding-top: 87px;
+    .seller-page {
+      .seller-header {
+        .space-between;
+        padding: 21px 20px;
+        .seller-name, .items-number {
+          font-size: @main-font-size;
+        }
+        .seller-name {
+          font-weight: @almost-bold;
+        }
+        .items-number {
+          color: @item-info-grey;
+        }
+      }
+      .items {
+        .item {
+          display: flex;
+          border-width: 1px;
+          border-style: solid;
+          border-color: @border-color;
+          box-shadow: 3px 3px 5px @shadow-color;
+          margin: 0px 10px 13px;
+          .left-box {
+            width: 40%;
+            background-color: @item-background-grey;
+          }
+          .right-box {
+            width: 60%;
+            background-color: @white;
+            padding: 16px 0;
+            row {
+              .space-between;
+              padding: 0px 30px;
+              .item-info-label, .item-info {
+                font-size: @main-font-size - 2px;
+              }
+              .item-info-label {
+                text-align: left;
+              }
+              .item-info {
+                color: @item-info-grey;
+                text-align: right;
+              }
+              .item-price {
+                color: @black;
+                padding-top: 12px;
+              }
+              .checkbox {
+                padding-top: 5px;
+                height: 45px;
+                cursor: pointer;
+              }
+              .brand, .name, .item-price {
+                font-weight: @almost-bold;
+                font-size: @main-font-size;
+              }
+              .brand {
+                color: @text-blue;
+                padding-top: 25px;
+              }
+              .item-info-label.name {
+                color: @item-info-grey;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .terms-wrapper {
+    .center-with-space-between;
+    background-color: @blue;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 30px;
+    .terms-title {
+      color: @white;
+      font-weight: 400;
+      font-size: @main-font-size;
+    }
+    .right-arrow {
+      height: 25px;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    .page-header {
+      .left-arrow {
+        padding-bottom: 20px;
+        img {
+          height: 20px;
+        }
+      }
+      .page-title {
+        font-size: @main-font-size-mobile + 4px;
+        padding-bottom: 80px;
+      }
+    }
+    .talk-btn {
+      top: 210px;
+      font-size: @main-font-size-mobile;
+    }
+    .all-sellers-wrapper {
+      .seller-page {
+        .seller-header {
+          padding: 10px 20px;
+          .seller-name, .items-number {
+            font-size: @main-font-size-mobile;
+          }
+        }
+        .items {
+          .item {
+            .left-box {
+              width: 0%;
+            }
+            .right-box {
+              width: 100%;
+              row {
+                .item-info-label, .item-info {
+                  font-size:  @main-font-size-mobile - 2px;
+                }
+                .brand, .name, .item-price {
+                  font-size: @main-font-size-mobile;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

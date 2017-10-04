@@ -1,0 +1,68 @@
+@import "./variables.less";
+
+// 'local' variables
+@drawer-padding: 25px;
+
+.quantity-selection {
+  .selected-quantity, .quantity-selection-btn {
+    display: inline-block;
+  }
+  .quantity-selection-btn {
+    padding-left: 20px;
+    vertical-align: baseline;
+    cursor: pointer;
+  }
+}
+.quantity-selection-drawer {
+  position: relative;
+  background-color: @white;
+  .left-arrow, .drawer-header, label {
+    padding-left: @drawer-padding;
+  }
+  .left-arrow, label, .apply-changes-btn {
+    cursor: pointer;
+  }
+  .left-arrow, .drawer-header {
+    text-align: left;
+  }
+  .left-arrow {
+    padding-top: 30px;
+    padding-bottom: 40px;
+    img {
+      height: 22px;
+    }
+  }
+  .drawer-header {
+    font-size: @main-font-size;
+    color: @black;
+    font-weight: @almost-bold;
+  }
+  label {
+    .center-with-space-between;
+    line-height: 1.7;
+    padding-right: @drawer-padding;
+    input {
+      visibility: hidden;
+    }
+    img {
+      height: 15px;
+    }
+  }
+  .checked-label {
+    color: @text-blue;
+  }
+  .not-checked-label {
+    color: @black;
+  }
+  .apply-changes-btn {
+    position: absolute;
+    bottom: 20px;
+    width: 85%;
+    left: 6%;
+    height: 75px;
+    border-radius: 7px;
+    border: 0;
+    background-color: @blue;
+    color: @white;
+  }
+}

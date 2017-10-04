@@ -19,6 +19,14 @@ The following should be noted:
 7. The quantity button should open the quantity selection drawer from the right side. (/docs/quantity-drawer.png)
 8. The `back arrow` button on the quantity drawer should close the drawer.
 
+**Updates based on the answers to my questions:**
+1. 'Help Modal': it should be a pop-up, it should not fill all screen;
+2. 'Return Quantity': the user should be able to select the quantity and click 'Apply Changes'. After that, numbers '2 of 4' (the ones near the Seller A), should change to his selected value (X of 4);
+3. 'Return Quantity' and 'Checkbox': when the user selects the quantity from the drawer, the checkbox should become checked and overall quantity should recalculate;
+4. 'Return Quantity' and 'Checkbox': when the user deselects the checkbox (which was previously checked), return quantity should become '0 of X' and overall quantity should recalculate;
+5. 'Checkbox': if the user goes to the page, does not select anything from the drawer and just clicks on the checkbox (which is not checked), the highest possible value for that item should be selected and overall quantity should recalculate.
+
+
 ### Help Modal
 ![Help Modal](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/help-modal.png)
 

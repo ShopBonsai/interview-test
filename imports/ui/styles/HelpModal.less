@@ -1,0 +1,89 @@
+@import "./variables.less";
+
+.help-modal-frame {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: @background-grey;
+  .help-modal {
+    .horizontally-centered;
+    margin-top: 40px;
+    width: 500px;
+    background-color: @white;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 25px;
+    border-color: @black;
+    .modal-header {
+      height: 205px;
+      background-color: @item-background-grey;
+      background-image: url("./images/logo.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 60px;
+      border-top-right-radius: inherit;
+      border-top-left-radius: inherit;
+    }
+    .modal-content {
+      .horizontally-centered;
+      padding: 60px 15px 35px 15px;
+      width: 85%;
+      border: 0px;
+      .modal-title {
+        font-size: @modal-title-size;
+        font-weight: @almost-bold;
+      }
+      .modal-text {
+        line-height: 1.5;
+        padding-top: 10px;
+        padding-bottom: 40px;
+        color: @item-info-grey;
+      }
+      .call-us-btn, .close-help-btn, .modal-text {
+        font-size: @main-font-size;
+      }
+      .call-us-btn, .close-help-btn  {
+        width: 340px;
+        height: 95px;
+        border: 0;
+        margin: auto;
+        border-radius: 50px;
+        cursor: pointer;
+      }
+      .call-us-btn {
+        background-color: @blue;
+        color: @white;
+      }
+      .close-help-btn {
+        background-color: @white;
+        color: @item-info-grey;
+      }
+    }
+  }
+}
+@media (max-width: 600px) {
+  .help-modal-frame {
+    .help-modal {
+      width: 100%;
+      .modal-header {
+        height: 140px;
+        background-size: 50px;
+      }
+      .modal-content {
+        padding: 40px 5px 35px 5px;
+        .modal-title {
+          font-size: @modal-title-size-mobile;
+        }
+        .modal-text, .call-us-btn, .close-help-btn {
+          font-size: @main-font-size-mobile - 3px;
+        }
+        .call-us-btn, .close-help-btn  {
+          width: 85%;
+          height: 65px;
+        }
+      }
+    }
+  }
+}

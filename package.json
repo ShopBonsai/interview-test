@@ -11,17 +11,24 @@
     "prepush": "meteor npm run lint"
   },
   "dependencies": {
-    "babel-runtime": "6.25.0",
-    "bootstrap": "4.0.0-alpha.6",
+    "autoprefixer": "^7.1.2",
+    "babel-runtime": "^6.25.0",
+    "bootstrap": "^4.0.0-alpha.6",
+    "jquery": ">=3.0.0",
     "meteor-node-stubs": "0.2.4",
-    "react": "15.6.1",
+    "popper.js": "^1.11.0",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.1",
     "react-addons-css-transition-group": "15.6.0",
     "react-addons-transition-group": "15.6.0",
-    "react-dom": "15.6.1",
-    "react-router": "4.2.0",
-    "react-router-dom": "4.2.2",
-    "react-transition-group": "1.1.2",
-    "reactstrap": "4.8.0"
+    "react-dom": "^15.6.1",
+    "react-motion-drawer": "^2.1.5",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-transition-group": "^1.1.2",
+    "reactstrap": "^4.8.0",
+    "redux": "^3.0.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
