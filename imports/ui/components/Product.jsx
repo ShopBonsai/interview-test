@@ -4,10 +4,15 @@ import React, { PureComponent } from "react";
 // Components
 import Button from "../components/Button.jsx";
 
+const cartOrders = []
+
 class Product extends PureComponent {
+
   handleBuyProduct = (e) => {
     e.preventDefault();
     sweetAlert(this.props.name + ' has been added to your cart.')
+    cartOrders.push(this.props)
+    console.log(cartOrders)
   };
 
   render() {

@@ -43,8 +43,29 @@ export const getOrderById = orderId => {
   }
 };
 
+/**
+ * Get orders
+ *
+ * @returns {Object} All order objects.
+ */
+
+export const getOrders = () => {
+  let orderData;
+  try {
+    orderData = Orders.find({}).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrders.findOrFetchError`,
+      `Could not find or fetch orders`,
+      error
+    );
+  }
+  return orderData;
+};
+
 // Register meteor methods.
 Meteor.methods({
-  "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getLastOrder":  getLastOrder,
+  "orders.getOrderById":  getOrderById,
+  "orders.getOrders":     getOrders,
 });
