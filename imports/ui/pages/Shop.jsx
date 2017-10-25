@@ -29,6 +29,7 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
+
     const { merchants, error } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
