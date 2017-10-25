@@ -45,6 +45,6 @@ export const getOrderById = orderId => {
 
 // Register meteor methods.
 Meteor.methods({
-  "orders.getLastOrder":  getLastOrder,
-  "orders.getOrderById":  getOrderById,
+  "orders.getLastOrder": getLastOrder,
+  "orders.getOrderById": getOrderById
 });
