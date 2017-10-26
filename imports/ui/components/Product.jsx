@@ -4,9 +4,15 @@ import React, { PureComponent } from "react";
 // Components
 import Button from "../components/Button.jsx";
 
+const cartOrders = []
+
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
+
+  handleBuyProduct = (e) => {
+    e.preventDefault();
+    sweetAlert(this.props.name + ' has been added to your cart.')
+    cartOrders.push(this.props)
+    console.log(cartOrders)
   };
 
   render() {
@@ -17,7 +23,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity,
     } = this.props;
 
     const info = [
@@ -26,7 +33,8 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: price },
+      { label: "Quantity", value: quantity },
     ];
 
     return (

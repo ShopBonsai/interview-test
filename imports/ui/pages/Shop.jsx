@@ -11,7 +11,8 @@ class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      merchants: [],
+      merchants:  [],
+      orders:     [],
       error: null
     };
   }
@@ -23,12 +24,14 @@ class Shop extends Component {
       } else {
         this.setState(() => ({ merchants: response }));
       }
+      console.log(this.state);
     });
   }
 
   goBack = () => this.props.history.push("/");
 
   render() {
+
     const { merchants, error } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
