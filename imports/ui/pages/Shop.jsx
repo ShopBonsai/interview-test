@@ -1,57 +1,58 @@
 // Framework
 import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
+import { connect } from "react-redux";
+
+// Redux actions
+import * as actions from "../actions";
 
 // Components
 import { Alert, Row, Col } from "reactstrap";
-import Page from "../components/Page.jsx";
+import Page from "../components/Page";
 import Product from "../components/Product";
+import Menu from "../components/Menu";
+import Cart from "../components/Cart";
 
 class Shop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      merchants: [],
-      error: null
-    };
-  }
-
   componentWillMount() {
-    Meteor.call("merchants.getMerchants", (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      } else {
-        this.setState(() => ({ merchants: response }));
-      }
-    });
+    this.props.fetchProducts();
   }
 
-  goBack = () => this.props.history.push("/");
+  goBack() {
+    this.props.history.push("/");
+  }
 
   render() {
-    const { merchants, error } = this.state;
+    const { products } = this.props;
 
-    const getProductsFromMerchant = ({ products, brands }) =>
-      products.map(({ belongsToBrand, ...product }) => ({
-        ...product,
-        brand: brands[belongsToBrand]
-      }));
-
-    const products = merchants.reduce(
-      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-      []
-    );
+    let content;
+    if (products.shown.length > 0) {
+      content = products.shown.map(product =>
+        <Product product={product} key={product.id} />
+      );
+    } else if (products.allArr.length > 0) {
+      content = (
+        <div className="center">
+          No products available that match the criteria
+        </div>
+      );
+    } else {
+      content = <div className="loader" />;
+    }
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="shop" history goBack={this.goBack.bind(this)}>
         <div className="shop-page">
-          {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
-          )}
+          <Menu filters={products.filters} />
+          <Cart />
+          {content}
         </div>
       </Page>
     );
   }
 }
 
-export default Shop;
+function mapStateToProps({ products }) {
+  return { products };
+}
+
+export default connect(mapStateToProps, actions)(Shop);

@@ -1,24 +1,25 @@
 // Framework
 import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+
+// Actions
+import * as actions from "../actions";
 
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
-  };
-
   render() {
     const {
       name = "Product",
+      id,
       image,
       brand,
       color,
       description,
       price,
       size
-    } = this.props;
+    } = this.props.product;
 
     const info = [
       { label: "Brand", value: brand },
@@ -45,8 +46,8 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
+          <Button onClick={() => this.props.addToCart(this.props.product)}>
+            Add to Cart
           </Button>
         </div>
       </div>
@@ -54,4 +55,4 @@ class Product extends PureComponent {
   }
 }
 
-export default Product;
+export default connect(null, actions)(Product);

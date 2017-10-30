@@ -7,6 +7,30 @@ import { Meteor } from "meteor/meteor";
 import { Orders } from "./collection";
 
 /**
+ * Create a new order
+ * 
+ * @param  {Object} items The items in { id: quantity } format
+ * @return {Number} The order id
+ */
+export const createOrder = items => {
+  const itemsArr = [];
+  for (const id of Object.keys(items)) {
+    itemsArr.push({ productId: id, quantity: items[id] });
+  }
+
+  try {
+    const orderId = Orders.insert({ items: itemsArr });
+    return orderId;
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:createOrder.insertError`,
+      `Could not insert order. Got error: ${error}`,
+      error
+    );
+  }
+};
+
+/**
  * Get the most recently created order, not safe for production
  *
  * @returns {Object} A single order object.
@@ -45,6 +69,7 @@ export const getOrderById = orderId => {
 
 // Register meteor methods.
 Meteor.methods({
+  "orders.createOrder": createOrder,
   "orders.getLastOrder": getLastOrder,
   "orders.getOrderById": getOrderById
 });

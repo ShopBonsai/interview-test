@@ -1,0 +1,9 @@
+export default {
+  // product actions
+  FILTER_PRODUCTS: "FILTER_PRODUCTS",
+  SET_ALL_PRODUCTS: "SET_ALL_PRODUCTS",
+  // cart actions
+  ADD_TO_CART: "ADD_TO_CART",
+  REMOVE_FROM_CART: "REMOVE_FROM_CART",
+  CLEAR_CART: "CLEAR_CART"
+};
