@@ -44,6 +44,11 @@ class Shop extends Component {
 
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
+        {products.length < 1 &&
+          <div className="spinner-box">
+            <div className="spinner" />
+          </div>}
+
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />
