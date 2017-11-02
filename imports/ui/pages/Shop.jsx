@@ -12,7 +12,8 @@ class Shop extends Component {
     super(props);
     this.state = {
       merchants: [],
-      error: null
+      error: null,
+      visits: 0
     };
   }
 
@@ -22,6 +23,22 @@ class Shop extends Component {
         this.setState(() => ({ error: error }));
       } else {
         this.setState(() => ({ merchants: response }));
+      }
+    });
+
+    Meteor.call("visits.logVisit", "Shop", (error, response) => {
+      if (error) {
+        // console.log(error);
+      } else {
+        // console.log(response);
+      }
+    });
+
+    Meteor.call("visits.getPageCount", "Shop", (error, response) => {
+      if (error) {
+        // console.log(error);
+      } else {
+        // console.log(response);
       }
     });
   }

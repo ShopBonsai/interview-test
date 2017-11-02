@@ -1,5 +1,6 @@
 // Framework
 import React from "react";
+import AccountsUIWrapper from "./login.jsx";
 
 const Header = ({ children, goBack }) =>
   <header>
@@ -11,6 +12,7 @@ const Header = ({ children, goBack }) =>
       {children}
     </h1>
     <div className="right-content" />
+    <AccountsUIWrapper />
   </header>;
 
 export default Header;
