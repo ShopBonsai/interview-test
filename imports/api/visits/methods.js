@@ -11,14 +11,14 @@ import { Visits } from "./collection";
  *
  * @returns The order id sting
  */
-export const logVisit = page => {
+export const logVisit = (page, username) => {
   try {
     //not familari with meteor, could not find documentation on where to get the request data
     // console.log(this.connection.httpHeaders.host);
     // let ip = this.connection.httpHeaders.methodClientIP(this);
     // let agent = this.connection.httpHeaders.get(this)["user-agent"];
 
-    return Visits.insert({ page, createOn: new Date() });
+    return Visits.insert({ page, username, createOn: new Date() });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:createOrder.insertError`,
