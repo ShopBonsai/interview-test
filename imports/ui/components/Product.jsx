@@ -1,6 +1,6 @@
 // Framework
 import React, { PureComponent } from "react";
-
+import NumericInput from "react-numeric-input";
 // Components
 import Button from "../components/Button.jsx";
 
@@ -17,17 +17,26 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity,
+      merchant
     } = this.props;
 
     const info = [
       { label: "Brand", value: brand },
       { label: "Name", value: name },
+      { label: "Merchant", value: merchant },
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: price },
+      {
+        label: "Qty",
+        value: <NumericInput min={1} max={quantity} value={1} />
+      }
     ];
+
+    const hasQty = quantity && quantity > 0;
 
     return (
       <div className="product">
@@ -45,8 +54,12 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
+          <Button
+            disabled={!hasQty}
+            className={`${hasQty ? "" : "disabled"}`}
+            onClick={this.handleBuyProduct}
+          >
+            {hasQty ? `Buy ${name}` : `${name} Out of Stock`}
           </Button>
         </div>
       </div>
