@@ -8,7 +8,8 @@
     "start": "MONGO_URL=mongodb://localhost:27017/interview meteor run",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-    "prepush": "meteor npm run lint"
+    "prepush": "meteor npm run lint",
+    "test": "jest"
   },
   "dependencies": {
     "babel-runtime": "6.25.0",
@@ -38,6 +39,7 @@
     "eslint-plugin-prettier": "2.1.2",
     "eslint-plugin-react": "7.1.0",
     "husky": "0.14.3",
+    "jest": "21.2.1",
     "prettier": "1.5.3"
   },
   "postcss": {
