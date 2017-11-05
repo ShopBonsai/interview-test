@@ -7,12 +7,14 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
+
 class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
       merchants: [],
-      error: null
+      error: null,
+      searchString: ""
     };
   }
 
@@ -28,6 +30,12 @@ class Shop extends Component {
 
   goBack = () => this.props.history.push("/");
 
+  handleSearch = () => {
+    this.setState({
+      searchString: this.refs.search.value
+    });
+  }
+
   render() {
     const { merchants, error } = this.state;
 
@@ -37,14 +45,33 @@ class Shop extends Component {
         brand: brands[belongsToBrand]
       }));
 
-    const products = merchants.reduce(
+    const _allProducts = merchants.reduce(
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []
     );
 
+    products = _allProducts;
+
+    let search = this.state.searchString.trim().toLowerCase();
+    if (search.length > 0) {
+      products = _allProducts.filter(function (product) {
+        return product.name.toLowerCase().match(search);
+      });
+    }
+
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
+        <div className="search">
+          <input
+            type="text"
+            value={this.searchString}
+            ref="search"
+            onChange={this.handleSearch}
+            placeholder="Search for name"
+          />
+        </div>
         <div className="shop-page">
+
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />
           )}
