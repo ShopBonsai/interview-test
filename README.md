@@ -15,7 +15,7 @@
   - `59 23 * * * path/to/db_backup.sh`
   - save
   - `crontab -l` to confirm it is running.
-##User Cart, with Quantity Selection and Live Cart Total
+## User Cart, with Quantity Selection and Live Cart Total
 ![cart_total](../master/gifsandpics/cart_total.gif)
 - Upon confirmation, removes items from Orders collection, saves cart total to User as `balance`
 ![user_balance](../master/gifsandpics/user_balance.png)
