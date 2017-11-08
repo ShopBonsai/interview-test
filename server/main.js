@@ -5,5 +5,4 @@ Meteor.users.allow({
   update: function(userId, user){
     return true;
   }
-});
-·
+})
