@@ -2,7 +2,7 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
-import { Accounts } from 'meteor/accounts-base';
+import { Accounts } from "meteor/accounts-base";
 import { Tracker } from "meteor/tracker";
 // Libraries
 import "bootstrap/dist/css/bootstrap.css";
