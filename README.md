@@ -4,7 +4,7 @@
 - Live search to filter products by brand and name
 - If user adds item to cart after using the search, adds search to DB i.e. you can track what users search for when they are actually buying items.
 ## Scheduled DB backups:
-![alt text](../db_backup.gif)
+![alt text](../master/gifsandpics/db_backup.gif)
 - Individual:
   - `chmod +x db_backup.sh`
   - `./db_backup.sh`
@@ -16,13 +16,13 @@
   - save
   - `crontab -l` to confirm it is running.
 ##User Cart, with Quantity Selection and Live Cart Total
-![alt text](../master/gifsandpics/cart_total.gif)
+![cart_total](../master/gifsandpics/cart_total.gif)
 - Upon confirmation, removes items from Orders collection, saves cart total to User as `balance`
-![alt text](../master/gifsandpics/user_balance.png)
+![user_balance](../master/gifsandpics/user_balance.png)
 -
 ## User Signup, Login
-  ![alt text](../master/gifsandpics/usersign.png)
-  ![alt text](../master/gifsandpics/userlogin.png)
+  ![usersign](../master/gifsandpics/user_sign.png)
+  ![userlogin](../master/gifsandpics/user_login.png)
   - stores password using bcrypt
 ## User Cart:
 ## Various Validations:
