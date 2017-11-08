@@ -17,11 +17,11 @@
   - `crontab -l` to confirm it is running.
 ## User Cart, with Quantity Selection and Live Cart Total
 ![cart_total](../master/gifsandpics/cart_total.gif)
-- Upon confirmation, removes items from Orders collection, saves cart total to User as `balance`
+- Upon confirmation, removes items from `Orders` collection, saves cart total to User as `balance`
 ![user_balance](../master/gifsandpics/user_balance.png)
 -
 ## User Signup, Login
-  ![usersign](../master/gifsandpics/user_sign.png)
+  ![usersign](../master/gifsandpics/user_signin.png)
   ![userlogin](../master/gifsandpics/user_login.png)
   - stores password using bcrypt
 ## User Cart:
