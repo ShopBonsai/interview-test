@@ -1,7 +1,7 @@
 // Framework
 import React from "react";
 
-const Header = ({ children, goBack }) =>
+const Header = ({ children, goBack}) =>
   <header>
     <button onClick={goBack} className="back-button">
       {/* Image added here to show image inclusion, prefer inline-SVG. */}

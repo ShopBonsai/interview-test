@@ -2,6 +2,7 @@
 
 // Framework
 import React from "react";
+import { Tracker } from "meteor/tracker";
 
 // Components
 import Header from "../components/Header.jsx";
