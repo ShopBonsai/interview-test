@@ -6,3 +6,4 @@ Meteor.users.allow({
     return true;
   }
 });
+·
