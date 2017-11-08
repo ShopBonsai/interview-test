@@ -1,3 +1,4 @@
 .meteor
 .git
 node_modules
+server/main.js

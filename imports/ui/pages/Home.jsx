@@ -4,6 +4,7 @@ import React, { PureComponent } from "react";
 // Components
 import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
+import { Accounts } from 'meteor/accounts-base';
 
 class Home extends PureComponent {
   render() {
