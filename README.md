@@ -1,6 +1,6 @@
 ## Live Search, Stored in DB Upon Purchase:
-![live_search](./master/gifsandpics/live_search.gif)
-![search_to_db](./master/gifsandpics/search_to_db.png)
+![live_search](../master/gifsandpics/live_search.gif)
+![search_to_db](../master/gifsandpics/search_to_db.png)
 - Live search to filter products by brand and name
 - If user adds item to cart after using the search, adds search to DB i.e. you can track what users search for when they are actually buying items.
 ## Scheduled DB backups:
@@ -16,13 +16,13 @@
   - save
   - `crontab -l` to confirm it is running.
 ##User Cart, with Quantity Selection and Live Cart Total
-![alt text](./master/gifsandpics/cart_total.gif)
+![alt text](../master/gifsandpics/cart_total.gif)
 - Upon confirmation, removes items from Orders collection, saves cart total to User as `balance`
-![alt text](./master/gifsandpics/user_balance.png)
+![alt text](../master/gifsandpics/user_balance.png)
 -
 ## User Signup, Login
-  ![alt text](./master/gifsandpics/usersign.png)
-  ![alt text](./master/gifsandpics/userlogin.png)
+  ![alt text](../master/gifsandpics/usersign.png)
+  ![alt text](../master/gifsandpics/userlogin.png)
   - stores password using bcrypt
 ## User Cart:
 ## Various Validations:
