@@ -36,7 +36,7 @@ ServiceConfiguration.configurations.upsert(
     $set: {
       loginStyle: "popup",
       clientId:
-      "252268818391-37vsccjprqjdgmb3q1hg6g0gvqpl93vs.apps.googleusercontent.com",
+        "252268818391-37vsccjprqjdgmb3q1hg6g0gvqpl93vs.apps.googleusercontent.com",
       secret: "H-yBS_NVCs-pSZ85_6r4Hvw1"
     }
   }
