@@ -1,6 +1,8 @@
 // Framework
 import React from "react";
 
+import Accounts from "./Accounts.jsx";
+
 const Header = ({ children, goBack }) =>
   <header>
     <button onClick={goBack} className="back-button">
@@ -10,7 +12,9 @@ const Header = ({ children, goBack }) =>
     <h1>
       {children}
     </h1>
-    <div className="right-content" />
+    <div className="right-content">
+      <Accounts />
+    </div>
   </header>;
 
 export default Header;
