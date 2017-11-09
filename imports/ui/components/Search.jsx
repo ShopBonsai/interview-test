@@ -18,7 +18,7 @@ class Search extends React.Component {
       />
       <button className="search-button" 
         onClick={() => {
-          this.props.onSearch(this.state.search)
+          this.props.onSearch(this.state.search.trim())
         }}
       >ok</button>
     </div>

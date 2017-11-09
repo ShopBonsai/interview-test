@@ -15,9 +15,13 @@ class Shop extends Component {
     super(props);
     this.state = {
       merchants: [],
+      merchantList: [],
+      brandList: [],
       error: null,
       loading: true,
       search: '',
+      merchantFilter: '',
+      brandFilter: '',
     };
     this.onSearch = this.onSearch.bind(this)
   }
@@ -28,7 +32,11 @@ class Shop extends Component {
       if (error) {
         this.setState(() => ({ error: error, loading: false }));
       } else {
-        this.setState(() => ({ merchants: response, loading: false }));
+        const merchantList = response.map(m => m.merchant).sort()
+        const brands = response.map(m => m.brands)
+          .reduce((acc, brands) => [...acc, ...brands], [])
+        const brandList = [... new Set(brands)].sort();
+        this.setState(() => ({ merchants: response, loading: false, merchantList, brandList }));
       }
     });
   }
@@ -64,26 +72,55 @@ class Shop extends Component {
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []
     );
-
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
-        { this.state.loading
-          ? <Loader/>
-          : <div className="shop-page">
-              <Search onSearch={this.onSearch} search={this.state.search}/>
-              {products.filter(product => {
+        <div className="shop-page">
+          <Search onSearch={this.onSearch} search={this.state.search}/>
+          <div className="shop-filter">
+            <select value={this.state.merchantFilter}
+              onChange={(e) => {
+                this.setState({merchantFilter: e.target.value})
+              }}
+            >
+              <option value="">Select Merchant</option>
+              { this.state.merchantList.map((merchant, index) => (
+                <option key={index}>{merchant}</option>
+              ))}
+            </select>
+            <select value={this.state.brandFilter}
+              onChange={(e) => {
+                this.setState({brandFilter: e.target.value})
+              }}>
+              <option value="">Select Brand</option>
+              { this.state.brandList.map((brand, index) => (
+                <option key={index}>{brand}</option>
+              ))}
+            </select>
+          </div>
+          { this.state.loading
+            ? <Loader/>
+            : products.filter(product => {
                 if (this.state.search === '') {
                   return true
                 }
-                return product.merchant.toLowerCase().match(this.state.search.toLocaleLowerCase())
-                  || product.brand.toLowerCase().match(this.state.search.toLocaleLowerCase())
-                  || product.name.toLowerCase().match(this.state.search.toLocaleLowerCase())
-              })
+                const search = this.state.search.toLocaleLowerCase()
+
+                return product.merchant.toLowerCase().match(search)
+                  || product.brand.toLowerCase().match(search)
+                  || product.name.toLowerCase().match(search)
+              }).filter(product => (
+                this.state.merchantFilter === ''
+                  || product.merchant.match(this.state.merchantFilter)
+              )).filter(product => (
+                this.state.brandFilter === ''
+                  || product.brand.match(this.state.brandFilter)
+              ))
               .map(({ id, ...product }) =>
                 <Product {...product} key={id} />
-              )}
-            </div>
-        }
+              )
+          }
+          
+        </div>
       </Page>
     );
   }
