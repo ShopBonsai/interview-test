@@ -6,6 +6,8 @@ import { Meteor } from "meteor/meteor";
 // Collections
 import { Merchants } from "./collection";
 
+import { createSearch } from "../searches/methods";
+
 /**
  * Get a merchant object by id
  *
@@ -90,8 +92,34 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const searchMerchants = ({ search }) => {
+  let merchantData;
+  try {
+    createSearch(search);
+    merchantData = Merchants.find(
+      { $text: { $search: search } },
+      {
+        fields: {
+          score: { $meta: "textScore" }
+        },
+        sort: {
+          score: { $meta: "textScore" }
+        }
+      }
+    ).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getMerchants.findOrFetchError`,
+      `Could not find or fetch merchants`,
+      error
+    );
+  }
+  return merchantData;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "merchants.searchMerchants": searchMerchants
 });
