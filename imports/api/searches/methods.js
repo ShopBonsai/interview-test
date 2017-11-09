@@ -10,9 +10,9 @@ import { Searches } from "./collection";
  * Log search client's request
  *
  */
-export const createSearch = (search) => {
+export const createSearch = search => {
   try {
-    return Searches.insert({search, createdAt: new Date()});
+    return Searches.insert({ search, createdAt: new Date() });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:createSearch.insertError`,

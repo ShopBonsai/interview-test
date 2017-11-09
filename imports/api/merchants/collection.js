@@ -8,8 +8,8 @@ export const Merchants = new Mongo.Collection("merchants");
 
 if (Meteor.isServer) {
   Merchants._ensureIndex({
-    "merchant": "text",
-    "brands": "text",
-    "products.name": "text",
+    merchant: "text",
+    brands: "text",
+    "products.name": "text"
   });
 }

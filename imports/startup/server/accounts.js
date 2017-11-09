@@ -1,5 +1,5 @@
 ServiceConfiguration.configurations.upsert(
-  { service: 'facebook' },
+  { service: "facebook" },
   {
     $set: {
       loginStyle: "popup",
@@ -9,7 +9,7 @@ ServiceConfiguration.configurations.upsert(
   }
 );
 ServiceConfiguration.configurations.upsert(
-  { service: 'twitter' },
+  { service: "twitter" },
   {
     $set: {
       loginStyle: "popup",
@@ -20,7 +20,7 @@ ServiceConfiguration.configurations.upsert(
 );
 
 ServiceConfiguration.configurations.upsert(
-  { service: 'github' },
+  { service: "github" },
   {
     $set: {
       loginStyle: "popup",
@@ -31,11 +31,12 @@ ServiceConfiguration.configurations.upsert(
 );
 
 ServiceConfiguration.configurations.upsert(
-  { service: 'google' },
+  { service: "google" },
   {
     $set: {
       loginStyle: "popup",
-      clientId: "252268818391-37vsccjprqjdgmb3q1hg6g0gvqpl93vs.apps.googleusercontent.com",
+      clientId:
+      "252268818391-37vsccjprqjdgmb3q1hg6g0gvqpl93vs.apps.googleusercontent.com",
       secret: "H-yBS_NVCs-pSZ85_6r4Hvw1"
     }
   }

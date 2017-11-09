@@ -6,7 +6,7 @@ import { Meteor } from "meteor/meteor";
 // Collections
 import { Merchants } from "./collection";
 
-import { createSearch } from "../searches/methods"
+import { createSearch } from "../searches/methods";
 
 /**
  * Get a merchant object by id
@@ -92,12 +92,12 @@ export const getMerchants = () => {
   return merchantData;
 };
 
-export const searchMerchants = ({search}) => {
+export const searchMerchants = ({ search }) => {
   let merchantData;
   try {
-    createSearch(search)
+    createSearch(search);
     merchantData = Merchants.find(
-      { $text: {$search: search} },
+      { $text: { $search: search } },
       {
         fields: {
           score: { $meta: "textScore" }
@@ -121,5 +121,5 @@ export const searchMerchants = ({search}) => {
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
   "merchants.getMerchants": getMerchants,
-  "merchants.searchMerchants": searchMerchants,
+  "merchants.searchMerchants": searchMerchants
 });
