@@ -50,7 +50,7 @@ class Shop extends Component {
       []
     );
 
-    products = _allProducts;
+    let products = _allProducts;
 
     let search = this.state.searchString.trim().toLowerCase();
     if (search.length > 0) {

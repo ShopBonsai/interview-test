@@ -8,6 +8,10 @@ class Product extends PureComponent {
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
+  
+  handleLikeProduct = () => {
+    alert("This button does nothing!");
+  };
 
   render() {
     const {
@@ -48,7 +52,13 @@ class Product extends PureComponent {
           <Button onClick={this.handleBuyProduct}>
             Buy {name}
           </Button>
+          <div>
+          <Button onClick={this.handleLikeProduct}>
+              <img src="http://flaticons.net/gd/makefg.php?i=icons/Election/Thumbs-Up.png&r=255&g=255&b=255" />
+          </Button>
+          </div>    
         </div>
+        
       </div>
     );
   }
