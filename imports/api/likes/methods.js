@@ -36,7 +36,7 @@ export const createLikeByProductId = productId => {
       );
     }
   }
-         
+
   try {
     let count = likes[0].count + 1;
     Likes.update(likes[0]._id, { $set: { count: count } });
@@ -48,7 +48,7 @@ export const createLikeByProductId = productId => {
       error
     );
   }
-}
+};
 
 // Register meteor methods.
 Meteor.methods({
