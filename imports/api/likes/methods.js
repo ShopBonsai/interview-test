@@ -43,15 +43,15 @@ export const createLikeByProductId = productId => {
     return count;    
   } catch (error) {
     throw new Meteor.Error(
-        `${__filename}:createLikeByProductId.updateError`,
-        `Could not update with product id: '${productId}'`,
-        error
+      `${__filename}:createLikeByProductId.updateError`,
+      `Could not update with product id: '${productId}'`,
+      error
     );
   }
 }
 
 // Register meteor methods.
 Meteor.methods({
-    "likes.getLikes": getLikes,
-    "likes.createLikeByProductId": createLikeByProductId
+  "likes.getLikes": getLikes,
+  "likes.createLikeByProductId": createLikeByProductId
 });
