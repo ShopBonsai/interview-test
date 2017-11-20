@@ -11,7 +11,10 @@ import Routes from "../../ui/Routes.jsx";
 
 // Actual Rendering Function
 const renderApp = () =>
-  render(<Routes />, document.getElementById("render-target"));
+  render(
+    <Routes />,
+    document.getElementById("render-target")
+  );
 
 // Start App
 Meteor.startup(() => {
