@@ -6,13 +6,16 @@ import { connect } from "react-redux"
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
+import Cart from "../components/Cart.jsx"
 import Product from "../components/Product";
 
 // State Selector
-import { stateSelector } from "../reducer/products"
+import { stateSelector as productState } from "../reducer/products"
+import { stateSelector as cartState } from "../reducer/cart"
 
 // Action
 import { getProducts } from "../actions/productActions"
+import { addToCart, removeFromCart } from "../actions/cartActions"
 
 class Shop extends Component {
   constructor(props) {
@@ -26,21 +29,23 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { products } = this.props;
+    const { products, cart, addToCart, removeFromCart } = this.props;
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
-          {products.data.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+          {products.data.map(({ ...product }) =>
+            <Product {...product} key={product.id} addToCart={addToCart} />
           )}
         </div>
+        <Cart removeFromCart={removeFromCart} {...cart} />
       </Page>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  products: stateSelector(state)
+  products: productState(state),
+  cart: cartState(state)
 })
 
-export default connect(mapStateToProps, { getProducts })(Shop);
+export default connect(mapStateToProps, { getProducts, addToCart, removeFromCart })(Shop);

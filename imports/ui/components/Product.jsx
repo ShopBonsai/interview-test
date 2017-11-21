@@ -5,9 +5,26 @@ import React, { PureComponent } from "react";
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.handleBuyProduct = this.handleBuyProduct.bind(this);
+  }
+
   handleBuyProduct = () => {
-    alert("This button does nothing!");
-  };
+    const {
+      name = "Product",
+      image,
+      brand,
+      color,
+      description,
+      price,
+      size,
+      id
+    } = this.props;
+    let product = { name, image, brand, color, description, price, size, id }
+    product.qty = Number(this.inputQty.value);
+    this.props.addToCart(product);
+  }
 
   render() {
     const {
@@ -17,7 +34,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      id
     } = this.props;
 
     const info = [
@@ -44,6 +62,10 @@ class Product extends PureComponent {
                 </div>
               </div>
             )}
+          </div>
+          <div className="qty">
+            <label>Quantity:</label>
+            <input ref={(input) => { this.inputQty = input }} type="number" defaultValue={1}/>
           </div>
           <Button onClick={this.handleBuyProduct}>
             Buy {name}

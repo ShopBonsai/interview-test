@@ -5,3 +5,13 @@ export const GET_MERCHANTS = {
 }
 
 export const FILL_PRODUCTS = "FILL_PRODUCTS"
+
+export const ADD_TO_CART = "ADD_TO_CART"
+
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
+
+export const CHECKOUT = {
+    REQUEST: "REQUEST_CHECKOUT",
+    SUCCESS: "RECEIVE_CHECKOUT_SUCCESS",
+    ERROR: "RECEIVE_CHECKOUT_ERROR"
+}
