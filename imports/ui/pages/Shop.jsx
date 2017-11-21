@@ -8,6 +8,8 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Cart from "../components/Cart.jsx"
 import Product from "../components/Product";
+import Spinner from 'react-spinner-material';
+
 
 // State Selector
 import { stateSelector as productState } from "../reducer/products"
@@ -33,12 +35,26 @@ class Shop extends Component {
     const { products, cart, addToCart, removeFromCart, checkout } = this.props;
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
-        <div className="shop-page">
-          {products.data.map(({ ...product }) =>
-            <Product {...product} key={product.id} addToCart={addToCart} />
-          )}
-        </div>
-        <Cart removeFromCart={removeFromCart} checkout={checkout} {...cart} />
+        {
+          products.loading &&
+          <div className="spinney">
+            <Spinner
+              size={120}
+              spinnerColor={"#333"}
+              spinnerWidth={2}
+              visible={true} />
+          </div>
+        }
+        {!products.loading &&
+          <div>
+            <div className="shop-page">
+              {products.data.map(({ ...product }) =>
+                <Product {...product} key={product.id} addToCart={addToCart} />
+              )}
+            </div>
+            <Cart removeFromCart={removeFromCart} checkout={checkout} {...cart} />
+          </div>
+        }
       </Page>
     );
   }

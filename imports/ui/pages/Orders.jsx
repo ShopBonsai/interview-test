@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 // Components
 import Page from "../components/Page.jsx";
+import Spinner from 'react-spinner-material';
 
 // State Selector
 import { stateSelector as ordersState } from "../reducer/orders"
@@ -22,36 +23,48 @@ class Orders extends Component {
         const { orders, loading } = this.props;
         return (
             <Page pageTitle="orders" history goBack={this.goBack}>
-                    <div className="orders-page">
-                        <div className="heading">
-                            <div className="id">ORDER ID</div>
-                            <div className="status">STATUS</div>
-                        </div>
-                        <br />
-                        {orders.data.map(({ ...order }) =>
-                            <div className="order" key={order._id}>
-                                <hr />
-                                <div className="pane">
-                                    <div className="id">{order._id}</div>
-                                    <div className="status">{order.status}</div>
-                                </div>
-                                <div className="details">
-                                    {"items"}
-                                    {order.products.map(({ ...product }) =>
-                                        <div className="item" key={product.id}>
-                                            <div className="name">{product.name}</div>
-                                            <div className="price">{product.qty + " x $" + product.price}</div>
-                                        </div>
-                                    )}
+                <div className="orders-page">
+                    {
+                        loading &&
+                        <Spinner
+                            size={120}
+                            spinnerColor={"#333"}
+                            spinnerWidth={2}
+                            visible={true} />
+                    }
+                    {!loading &&
+                        <div className="orders-page">
+                            <div className="heading">
+                                <div className="id">ORDER ID</div>
+                                <div className="status">STATUS</div>
+                            </div>
+                            <br />
+                            {orders.data.map(({ ...order }) =>
+                                <div className="order" key={order._id}>
                                     <hr />
-                                    <div className="total">
-                                        <div>Total</div>
-                                        <div>{"$" + Math.round(100 * order.total) / 100}</div>
+                                    <div className="pane">
+                                        <div className="id">{order._id}</div>
+                                        <div className="status">{order.status}</div>
+                                    </div>
+                                    <div className="details">
+                                        {"items"}
+                                        {order.products.map(({ ...product }) =>
+                                            <div className="item" key={product.id}>
+                                                <div className="name">{product.name}</div>
+                                                <div className="price">{product.qty + " x $" + product.price}</div>
+                                            </div>
+                                        )}
+                                        <hr />
+                                        <div className="total">
+                                            <div>Total</div>
+                                            <div>{"$" + Math.round(100 * order.total) / 100}</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
+                            )}
+                        </div>
+                    }
+                </div>
             </Page>
         )
     }
