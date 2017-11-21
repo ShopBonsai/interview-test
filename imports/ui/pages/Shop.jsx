@@ -16,6 +16,7 @@ import { stateSelector as cartState } from "../reducer/cart"
 // Action
 import { getProducts } from "../actions/productActions"
 import { addToCart, removeFromCart } from "../actions/cartActions"
+import { checkout } from "../actions/orderActions"
 
 class Shop extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { products, cart, addToCart, removeFromCart } = this.props;
+    const { products, cart, addToCart, removeFromCart, checkout } = this.props;
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
@@ -37,7 +38,7 @@ class Shop extends Component {
             <Product {...product} key={product.id} addToCart={addToCart} />
           )}
         </div>
-        <Cart removeFromCart={removeFromCart} {...cart} />
+        <Cart removeFromCart={removeFromCart} checkout={checkout} {...cart} />
       </Page>
     );
   }
@@ -48,4 +49,4 @@ const mapStateToProps = (state) => ({
   cart: cartState(state)
 })
 
-export default connect(mapStateToProps, { getProducts, addToCart, removeFromCart })(Shop);
+export default connect(mapStateToProps, { getProducts, addToCart, removeFromCart, checkout })(Shop);

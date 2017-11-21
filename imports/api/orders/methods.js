@@ -36,12 +36,13 @@ export const getLastOrder = () => {
  *  "id": "2b9c51f8-f09c-4bc7-99e3-4ce1b3431c91",
  *  "customerUserId": "2b9c51f8-f09c-4bc7-99e3-4ce1b3431c92",
  *  "status": "RECEIVED"
+ *  "total": 1200
  *  "products": [
  *    {
 *        "belongsToBrand": 2,
 *        "id": "2b9c51f8-f09c-4bc7-99e3-4ce1b3431c99",
 *        "name": "CULPA Shoes",
-*        "price": 654.5,
+*        "price": 400,
 *        "description": "Do proident est ut do dolor eiusmod.",
 *        "color": "velit",
 *        "size": "S",
@@ -52,7 +53,7 @@ export const getLastOrder = () => {
 *        "belongsToBrand": 1,
 *        "id": "d564d010-24bf-4236-aa3e-4994912a4b4d",
 *        "name": "TEMPOR Slippers",
-*        "price": 863.3,
+*        "price": 800,
 *        "description": "Commodo amet eu cillum nostrud consectetur incididunt magna est velit commodo id pariatur ut irure.",
 *        "color": "sunt",
 *        "size": "L",
@@ -91,9 +92,29 @@ export const createOrder = order => {
   }
 };
 
+/**
+ * Get all orders for current user
+ *
+ * @returns [Array] of Order Objects.
+ */
+export const getOrders = () => {
+  let orders
+  try {
+    orders = Orders.find({}).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrders.findOrFetchError`,
+      `Could not fetch orders`,
+      error
+    );
+  }
+  return orders;
+}
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
   "orders.getOrderById": getOrderById,
-  "orders.createOrder": createOrder
+  "orders.createOrder": createOrder,
+  "orders.getOrders": getOrders
 });

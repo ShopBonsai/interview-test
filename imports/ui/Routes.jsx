@@ -27,6 +27,7 @@ const store = createStore(
 // Pages
 import Shop from "./pages/Shop.jsx";
 import Home from "./pages/Home.jsx";
+import Orders from "./pages/Orders.jsx"
 
 const Routes = () =>
   <Provider store={store}>
@@ -34,6 +35,7 @@ const Routes = () =>
       <div>
         <Route exact path="/" component={Home} />
         <Route path="/shop" component={Shop} />
+        <Route path="/orders" component={Orders} />
       </div>
     </ConnectedRouter>
   </Provider>;
