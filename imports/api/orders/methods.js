@@ -98,7 +98,7 @@ export const createOrder = order => {
  * @returns [Array] of Order Objects.
  */
 export const getOrders = () => {
-  let orders
+  let orders;
   try {
     orders = Orders.find({}).fetch();
   } catch (error) {
@@ -109,7 +109,7 @@ export const getOrders = () => {
     );
   }
   return orders;
-}
+};
 
 // Register meteor methods.
 Meteor.methods({

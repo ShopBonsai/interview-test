@@ -5,7 +5,7 @@ const products = (state = [], action) => {
   let products = [...state];
   switch (action.type) {
     case CHECKOUT.SUCCESS:
-      return []
+      return [];
     case ADD_TO_CART:
       let product = products.find(
         product => product.id == action.productInfo.id
@@ -26,11 +26,11 @@ const products = (state = [], action) => {
 const total = (state = 0, action) => {
   switch (action.type) {
     case CHECKOUT.SUCCESS:
-      return 0
+      return 0;
     case ADD_TO_CART:
-      return state + (action.productInfo.price * action.productInfo.qty);
+      return state + action.productInfo.price * action.productInfo.qty;
     case REMOVE_FROM_CART:
-      return state - (action.productInfo.price * action.productInfo.qty);
+      return state - action.productInfo.price * action.productInfo.qty;
     default:
       return state;
   }
@@ -39,25 +39,25 @@ const total = (state = 0, action) => {
 const loading = (state = false, action) => {
   switch (action.type) {
     case CHECKOUT.REQUEST:
-      return true
+      return true;
     case CHECKOUT.SUCCESS:
     case CHECKOUT.ERROR:
-      return false
+      return false;
     default:
-      return state
+      return state;
   }
-}
+};
 
 const error = (state = null, action) => {
   switch (action.type) {
     case CHECKOUT.ERROR:
-      return action.error
+      return action.error;
     case CHECKOUT.SUCCESS:
-      return null
+      return null;
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default combineReducers({ products, total, loading, error });
 
