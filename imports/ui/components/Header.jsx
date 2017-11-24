@@ -10,7 +10,9 @@ const Header = ({ children, goBack }) =>
     <h1>
       {children}
     </h1>
-    <div className="right-content" />
+    <div className="right-content">
+        <h3>cart</h3>
+    </div>
   </header>;
 
 export default Header;
