@@ -1,7 +1,7 @@
 const initialState = {
-  isLoading: false,
-  hasError: false,
-  objects: []
+  loading: false,
+  error: false,
+  orders: []
 };
 
 export default function ordersReducer(state = initialState, action) {
