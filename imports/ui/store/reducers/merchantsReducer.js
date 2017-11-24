@@ -1,19 +1,36 @@
+import * as types from "../types";
+
 const initialState = {
   loading: false,
   error: null,
-  objects: []
+  merchants: [],
+  products: []
 };
 
 export default function merchantsReducer(state = initialState, action) {
   switch (action.type) {
-    case "FETCH_MERCHANTS_SUCCESS": {
+    case types.FETCH_MERCHANTS_SUCCESS: {
+      const merchants = [...action.merchants];
+
+      const getProductsFromMerchant = ({ products, brands }) =>
+        products.map(({ belongsToBrand, ...product }) => ({
+          ...product,
+          brand: brands[belongsToBrand]
+        }));
+
+      const products = merchants.reduce(
+        (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
+        []
+      );
+
       return Object.assign({}, state, {
         loading: false,
         error: null,
-        objects: [...action.merchants]
+        merchants,
+        products
       });
     }
-    case "FETCH_MERCHANTS_FAILURE": {
+    case types.FETCH_MERCHANTS_FAILURE: {
       return Object.assign({}, state, {
         loading: false,
         error: action.error

@@ -1,4 +1,4 @@
-import { apply, put, takeEvery } from "redux-saga/effects";
+import { apply, put, takeEvery, all } from "redux-saga/effects";
 import * as types from "./types";
 
 function* fetchMerchants() {

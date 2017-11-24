@@ -1,50 +1,19 @@
 // Framework
 import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
+import { connect } from "react-redux";
 
 // Components
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
 class Shop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      merchants: [],
-      error: null
-    };
-  }
-
-  componentWillMount() {
-    Meteor.call("merchants.getMerchants", (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      } else {
-        this.setState(() => ({ merchants: response }));
-      }
-    });
-  }
-
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { merchants, error } = this.state;
-
-    const getProductsFromMerchant = ({ products, brands }) =>
-      products.map(({ belongsToBrand, ...product }) => ({
-        ...product,
-        brand: brands[belongsToBrand]
-      }));
-
-    const products = merchants.reduce(
-      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-      []
-    );
-
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
-          {products.map(({ id, ...product }) =>
+          {this.props.products.map(({ id, ...product }) =>
             <Product {...product} key={id} />
           )}
         </div>
@@ -53,4 +22,9 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+const mapStateToProps = state => ({
+  products: state.merchants.products,
+  error: state.merchants.error
+});
+
+export default connect(mapStateToProps)(Shop);
