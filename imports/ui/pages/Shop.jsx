@@ -6,8 +6,18 @@ import { connect } from "react-redux";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
+import * as types from "../store/types.js";
+
 class Shop extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   goBack = () => this.props.history.push("/");
+
+  componentWillMount() {
+    this.props.dispatch({ type: types.FETCH_MERCHANTS });
+  }
 
   render() {
     return (
