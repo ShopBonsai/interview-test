@@ -5,6 +5,7 @@ import { Meteor } from "meteor/meteor";
 
 // Collections
 import { Orders } from "./collection";
+import { getMerchants } from "../merchants/collection";
 
 /**
  * Get the most recently created order, not safe for production
@@ -34,6 +35,50 @@ export const getLastOrder = () => {
 export const getOrderById = orderId => {
   try {
     return Products.findOne(orderId);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrderById.findOrFetchError`,
+      `Could not find or fetch product with order id: '${orderId}'`,
+      error
+    );
+  }
+};
+
+export const mapOrdersFromMerchants = () => {
+  try {
+    const getProductsFromMerchant = ({ products, brands }) =>
+      products.map(({ belongsToBrand, ...product }) => ({
+        ...product,
+        brand: brands[belongsToBrand]
+      }));
+
+    const products = getMerchants().reduce(
+      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
+      []
+    );
+
+    return products;
+  } catch (err) {
+    throw new Meteor.Error(
+      `${__filename}:mapOrdersFromMerchants.findOrFetchError`,
+      `Could not retrieve orders from merchants' collection`,
+      error
+    );
+  }
+};
+
+/**
+ * Get an order by id
+ *
+ * @returns {Object} A single order object.
+ */
+export const addNewOrder = orderArr => {
+  try {
+    const inventory = mapOrdersFromMerchants();
+    
+    orderArr.forEach(item => {
+      Merchants.findOne();
+    });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
