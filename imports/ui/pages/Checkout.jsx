@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Page from "../components/Page.jsx";
 import * as types from "../store/types";
@@ -18,17 +18,39 @@ class Checkout extends Component {
   render() {
     return (
       <Page pageTitle="checkout" history goBack={this.goBack}>
-        <table>
+        <table className="cart-table">
           <thead>
-            <th>
-              <td>
-
-              </td>
-            </th>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Price
+              </th>
+              <th>
+                Qty
+              </th>
+              <th>
+                Total
+              </th>
+            </tr>
           </thead>
-          {this.props.cart.map(({ id, ...product }) =>
-
-          )}
+          <tbody>
+            <tr>
+              <td>
+                A very expensive shirt
+              </td>
+              <td>
+                $100.20
+              </td>
+              <td>
+                2
+              </td>
+              <td>
+                $200.40
+              </td>
+            </tr>
+          </tbody>
         </table>
       </Page>
     );
@@ -37,10 +59,8 @@ class Checkout extends Component {
 
 (Checkout).propTypes = {};
 
-const mapStateToProps = (state, ownProps) => {
-  state.orders.cart.reduce((ord, acc) => {
-    acc[ord.id] ? acc[ord.id].push(ord) : acc[ord.id] = [ord];
-  }, {})
-};
+const mapStateToProps = (state, ownProps) => ({
+  cart: state.orders.cart
+});
 
 export default connect(mapStateToProps)(Checkout);
