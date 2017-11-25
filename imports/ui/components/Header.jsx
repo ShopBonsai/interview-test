@@ -1,6 +1,7 @@
 // Framework
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Header = ({ children, goBack, cartCount }) =>
   <header>
@@ -12,14 +13,16 @@ const Header = ({ children, goBack, cartCount }) =>
       {children}
     </h1>
     <div className="right-content">
-      <h3>
-        cart ({cartCount})
-      </h3>
+      <Link to="/checkout">
+        <h3>
+          cart ({cartCount})
+        </h3>
+      </Link>
     </div>
   </header>;
 
 const mapStateToProps = state => ({
-  cartCount: state.orders.cart.length || 0
+  cartCount: state.orders.cartCount
 });
 
 export default connect(mapStateToProps)(Header);

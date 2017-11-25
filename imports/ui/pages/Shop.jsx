@@ -28,12 +28,13 @@ class Shop extends Component {
             <Product
               {...product}
               key={id}
-              addToCart={quantity =>
+              addToCart={() =>
                 this.props.dispatch({
                   type: types.SAVE_TO_CART,
                   productId: id,
-                  quantity,
-                  totalPrice: quantity * product.price
+                  quantity: 1,
+                  price: product.price,
+                  name: product.name
                 })}
             />
           )}

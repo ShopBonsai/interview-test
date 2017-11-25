@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Page from "../components/Page.jsx";
+import CheckoutRow from "../components/CheckoutRow.jsx";
 import * as types from "../store/types";
 
 class Checkout extends Component {
@@ -36,20 +37,13 @@ class Checkout extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                A very expensive shirt
-              </td>
-              <td>
-                $100.20
-              </td>
-              <td>
-                2
-              </td>
-              <td>
-                $200.40
-              </td>
-            </tr>
+            {this.props.cart.map(({ id, ...props }) =>
+              <CheckoutRow
+                key={id}
+                {...props}
+                totalPrice={props.quantity * props.price}
+              />
+            )}
           </tbody>
         </table>
       </Page>

@@ -26,15 +26,11 @@ function* fetchMerchants() {
   }
 }
 
-function* addItemToCart({ productId, quantity, totalPrice }) {
+function* addItemToCart({ type, ...item }) {
   try {
     yield put({
       type: types.ADD_TO_CART,
-      item: {
-        productId,
-        quantity,
-        totalPrice
-      }
+      item
     });
     const cart = yield select(state => state.orders.cart);
     localStorage.setItem("cart", Base64.encode(JSON.stringify(cart)));
