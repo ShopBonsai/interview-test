@@ -17,6 +17,13 @@ class Checkout extends Component {
     this.props.dispatch({ type: types.START_LOAD_CART });
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.success) {
+      alert("SHIPMENT IS ON THE WAY!")
+      this.props.history.push('/shop');
+    }
+  }
+
   goBack = () => this.props.history.push("/shop");
 
   render() {
@@ -63,8 +70,9 @@ class Checkout extends Component {
 
 Checkout.propTypes = {};
 
-const mapStateToProps = (state, ownProps) => ({
-  cart: state.orders.cart
+const mapStateToProps = (state) => ({
+  cart: state.orders.cart,
+  success: state.orders.success
 });
 
 export default connect(mapStateToProps)(Checkout);

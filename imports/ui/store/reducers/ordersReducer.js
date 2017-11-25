@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   error: false,
   cart: [],
-  cartCount: 0
+  cartCount: 0,
+  success: false
 };
 
 export default function ordersReducer(state = initialState, action) {
@@ -31,6 +32,14 @@ export default function ordersReducer(state = initialState, action) {
         ...state,
         cart: [...action.cart],
         cartCount: isNaN(action.cartCount) ? 0 : action.cartCount
+      };
+    }
+    case types.PROCESS_CHECKOUT_SUCCESS: {
+      return {
+        ...state,
+        cart: [],
+        cartCount: 0,
+        success: true
       };
     }
     default:
