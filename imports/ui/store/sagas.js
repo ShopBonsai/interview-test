@@ -53,6 +53,16 @@ function* loadCartToStore() {
   }
 }
 
+function* processCheckout() {
+  try {
+    const cart = yield select(state => state.orders.cart);
+    yield cps([Meteor, Meteor.call], "orders.addNewOrder", cart);
+    yield put({ type: types.PROCESS_CHECKOUT_SUCCESS });
+  } catch (e) {
+    yield put({ type: types.PROCESS_CHECKOUT_FAILURE, e });
+  }
+}
+
 /**
  *   Saga Watchers
  */
@@ -61,6 +71,7 @@ function* watchFetchMerchants() {
   yield takeEvery(types.FETCH_MERCHANTS, fetchMerchants);
   yield takeEvery(types.SAVE_TO_CART, addItemToCart);
   yield takeLatest(types.START_LOAD_CART, loadCartToStore);
+  yield takeEvery(types.PROCESS_CHECKOUT, processCheckout);
 }
 
 /**

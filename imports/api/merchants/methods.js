@@ -69,11 +69,25 @@ export const getMerchantById = merchantId => {
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getMerchantById.findOrFetchError`,
-      `Could not find or fetch merchant with order id: '${merchantId}'`,
+      `Could not find or fetch merchant with merchant id: '${merchantId}'`,
       error
     );
   }
   return merchant;
+};
+
+export const getProductById = (productId) => {
+  let product;
+  try {
+    product = Merchants.findOne({ "products.id": productId }, { products: 1 });
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getProductById.findOrFetchError`,
+      `Could not find or fetch product with product id: '${productId}'`,
+      error
+    );
+  }
+  return product.products[0];
 };
 
 export const getMerchants = () => {

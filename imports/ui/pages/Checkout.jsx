@@ -42,7 +42,10 @@ class Checkout extends Component {
               )}
             </tbody>
           </table>
-          <Button className="cart-purchase-button" onClick={this.processCheckout}>
+          <Button
+            className="cart-purchase-button"
+            onClick={this.processCheckout}
+          >
             Purchase
           </Button>
         </div>
@@ -54,7 +57,7 @@ class Checkout extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-
+    this.props.dispatch({ type: types.PROCESS_CHECKOUT });
   };
 }
 

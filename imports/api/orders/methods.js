@@ -5,7 +5,8 @@ import { Meteor } from "meteor/meteor";
 
 // Collections
 import { Orders } from "./collection";
-import { getMerchants } from "../merchants/collection";
+import { Merchants } from "../merchants/collection";
+import { getMerchants, getProductById } from "../merchants/methods";
 
 /**
  * Get the most recently created order, not safe for production
@@ -34,7 +35,7 @@ export const getLastOrder = () => {
  */
 export const getOrderById = orderId => {
   try {
-    return Products.findOne(orderId);
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
@@ -46,7 +47,7 @@ export const getOrderById = orderId => {
 
 export const mapOrdersFromMerchants = () => {
   try {
-    const getProductsFromMerchant = ({ products, brands }) =>
+    const getProductsFromMerchant = ({ products, brands, _id }) =>
       products.map(({ belongsToBrand, ...product }) => ({
         ...product,
         brand: brands[belongsToBrand]
@@ -74,22 +75,49 @@ export const mapOrdersFromMerchants = () => {
  */
 export const addNewOrder = orderArr => {
   try {
-    const inventory = mapOrdersFromMerchants();
-    
+    if (verifyOrderToInventory(orderArr)) {
+      return new Meteor.Error(`Not enough inventory quantity`);
+    }
+
     orderArr.forEach(item => {
-      Merchants.findOne();
+      const inventoryProduct = getProductById(item.productId);
+      const newQtyRemaining = inventoryProduct.quantity - item.quantity;
+      Merchants.update(
+        { "products.id": item.productId },
+        { $set: { "products.$.quantity": newQtyRemaining } }
+      );
+    });
+    Orders.insert({
+      products: orderArr,
+      customer: "Anonymous",
+      purchaseDate: Date.now()
     });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
+      `Could not find or fetch product with order`,
       error
     );
+  }
+};
+
+export const verifyOrderToInventory = orderArr => {
+  try {
+    const check = orderArr.filter(item => {
+      const inventoryProduct = getProductById(item.productId);
+      if (inventoryProduct.quantity < item.quantity) {
+        return true;
+      }
+    });
+    return check.length !== 0;
+  } catch (error) {
+    throw new Meteor.Error(`${__filename}:verifyOrderToInventory`, error);
   }
 };
 
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.addNewOrder": addNewOrder
 });
