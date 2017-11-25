@@ -9,15 +9,7 @@ const initialState = {
 export default function ordersReducer(state = initialState, action) {
   switch (action.type) {
     case types.ADD_TO_CART: {
-      const { productId, quantity, totalPrice } = action;
-      const newCart = [
-        ...state.cart,
-        {
-          productId,
-          quantity,
-          totalPrice
-        }
-      ];
+      const newCart = [...state.cart, { ...action.item }];
       return { ...state, cart: newCart };
     }
     default:

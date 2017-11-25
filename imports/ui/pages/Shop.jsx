@@ -15,8 +15,9 @@ class Shop extends Component {
 
   goBack = () => this.props.history.push("/");
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch({ type: types.FETCH_MERCHANTS });
+    this.props.dispatch({ type: types.START_LOAD_CART });
   }
 
   render() {
@@ -24,7 +25,17 @@ class Shop extends Component {
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
           {this.props.products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+            <Product
+              {...product}
+              key={id}
+              addToCart={quantity =>
+                this.props.dispatch({
+                  type: types.SAVE_TO_CART,
+                  productId: id,
+                  quantity,
+                  totalPrice: quantity * product.price
+                })}
+            />
           )}
         </div>
       </Page>

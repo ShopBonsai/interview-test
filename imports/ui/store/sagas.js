@@ -1,4 +1,13 @@
-import { cps, put, takeEvery, all, select } from "redux-saga/effects";
+import {
+  cps,
+  put,
+  takeEvery,
+  all,
+  select,
+  apply,
+  takeLatest
+} from "redux-saga/effects";
+import base64url from "base64url";
 import * as types from "./types";
 
 /**
@@ -17,7 +26,7 @@ function* fetchMerchants() {
   }
 }
 
-function* addItemToCart(productId, quantity, totalPrice) {
+function* addItemToCart({ productId, quantity, totalPrice }) {
   yield put({
     type: types.ADD_TO_CART,
     item: {
@@ -29,8 +38,14 @@ function* addItemToCart(productId, quantity, totalPrice) {
   const cart = yield select(state => state.orders.cart);
   yield apply(localStorage, localStorage.setItem, [
     "cart",
-    JSON.stringify(cart)
+    base64url(JSON.stringify(cart))
   ]);
+}
+
+function* loadCartToStore() {
+  let cart = yield apply(localStorage, localStorage.getItem, ["cart"]);
+  cart = JSON.parse(base64url.decode(cart));
+  yield put({ type: types.LOAD_CART, cart });
 }
 
 /**
@@ -39,6 +54,8 @@ function* addItemToCart(productId, quantity, totalPrice) {
 
 function* watchFetchMerchants() {
   yield takeEvery(types.FETCH_MERCHANTS, fetchMerchants);
+  yield takeEvery(types.SAVE_TO_CART, addItemToCart);
+  yield takeLatest(types.START_LOAD_CART, loadCartToStore);
 }
 
 /**

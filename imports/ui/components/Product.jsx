@@ -5,8 +5,9 @@ import React, { PureComponent } from "react";
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
+  handleBuyProduct = (e) => {
+    e.stopPropagation();
+    this.props.addToCart(1);
   };
 
   render() {
