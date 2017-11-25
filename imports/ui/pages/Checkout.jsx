@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Page from "../components/Page.jsx";
 import CheckoutRow from "../components/CheckoutRow.jsx";
 import * as types from "../store/types";
+import Button from "../components/Button";
 
 class Checkout extends Component {
   constructor(props) {
@@ -21,25 +22,28 @@ class Checkout extends Component {
   render() {
     return (
       <Page pageTitle="checkout" history goBack={this.goBack}>
-        <table className="cart-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.cart.map(({ id, ...props }) =>
-              <CheckoutRow
-                key={id}
-                {...props}
-                totalPrice={props.quantity * props.price}
-              />
-            )}
-          </tbody>
-        </table>
+        <div className="cart-container">
+          <table className="cart-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.cart.map(({ id, ...props }) =>
+                <CheckoutRow
+                  key={id}
+                  {...props}
+                  totalPrice={props.quantity * props.price}
+                />
+              )}
+            </tbody>
+          </table>
+          <Button className="cart-purchase-button">Purchase</Button>
+        </div>
       </Page>
     );
   }
