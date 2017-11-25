@@ -1,5 +1,9 @@
-import { cps, put, takeEvery, all } from "redux-saga/effects";
+import { cps, put, takeEvery, all, select } from "redux-saga/effects";
 import * as types from "./types";
+
+/**
+ *   SAGAS!
+ */
 
 function* fetchMerchants() {
   try {
@@ -13,9 +17,33 @@ function* fetchMerchants() {
   }
 }
 
+function* addItemToCart(productId, quantity, totalPrice) {
+  yield put({
+    type: types.ADD_TO_CART,
+    item: {
+      productId,
+      quantity,
+      totalPrice
+    }
+  });
+  const cart = yield select(state => state.orders.cart);
+  yield apply(localStorage, localStorage.setItem, [
+    "cart",
+    JSON.stringify(cart)
+  ]);
+}
+
+/**
+ *   Saga Watchers
+ */
+
 function* watchFetchMerchants() {
   yield takeEvery(types.FETCH_MERCHANTS, fetchMerchants);
 }
+
+/**
+ *   Exported Root Saga
+ */
 
 export default function* rootSaga() {
   yield all([watchFetchMerchants()]);

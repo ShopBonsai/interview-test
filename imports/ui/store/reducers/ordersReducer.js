@@ -1,12 +1,25 @@
+import * as types from "../types";
+
 const initialState = {
   loading: false,
   error: false,
-  orders: []
+  cart: []
 };
 
 export default function ordersReducer(state = initialState, action) {
   switch (action.type) {
-    case "TEST":
+    case types.ADD_TO_CART: {
+      const { productId, quantity, totalPrice } = action;
+      const newCart = [
+        ...state.cart,
+        {
+          productId,
+          quantity,
+          totalPrice
+        }
+      ];
+      return { ...state, cart: newCart };
+    }
     default:
       return state;
   }
