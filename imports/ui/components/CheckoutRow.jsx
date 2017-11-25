@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as Currency from 'currency-formatter';
 
 export default function CheckoutRow(props) {
   const cost = "$" + props.price;
@@ -9,13 +10,13 @@ export default function CheckoutRow(props) {
         {props.name}
       </td>
       <td>
-        {props.price}
+        {Currency.format(props.price, {locale: 'en-CA'})}
       </td>
       <td>
         {props.quantity}
       </td>
       <td>
-        {props.totalPrice}
+        {Currency.format(props.totalPrice, {locale: 'en-CA'})}
       </td>
     </tr>
   );
