@@ -11,7 +11,8 @@ class Shop extends Component {
     super(props);
     this.state = {
       merchants: [],
-      error: null
+      error: null,
+      loading: true
     };
   }
 
@@ -25,10 +26,15 @@ class Shop extends Component {
     });
   }
 
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: false }), 800); // simulates loading of data
+  }
+
   goBack = () => this.props.history.push("/");
   handleBuyProduct = () => this.props.history.push("/confirmation");
 
   render() {
+    const { loading } = this.state;
     const { merchants, error } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
@@ -41,6 +47,18 @@ class Shop extends Component {
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []
     );
+
+    if (loading) {
+      return (
+        <Page pageTitle="Shop" history goBack={this.goBack}>
+        <div className="loading-page">
+          <i className="fa fa-spinner fa-spin fa-3x fa-fw" aria-hidden="true" />
+          <br /> <br />
+          <span class="sr-only">Loading...</span>
+        </div>
+      </Page>
+      );
+    }
 
     return (
       <Page pageTitle="Shop" history goBack={this.goBack}>

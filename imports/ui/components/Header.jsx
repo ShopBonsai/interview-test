@@ -10,7 +10,7 @@ const Header = ({ children, goBack, goCart }) =>
     <h1>
       {children}
     </h1>
-    <i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+    <i className="fa fa-shopping-cart fa-2x" aria-hidden="true" />
     {/* <div className="right-content" /> */}
   </header>;
 
