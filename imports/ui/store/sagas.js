@@ -7,7 +7,7 @@ import {
   apply,
   takeLatest
 } from "redux-saga/effects";
-import base64url from "base64url";
+import { Base64 } from "js-base64";
 import * as types from "./types";
 
 /**
@@ -27,25 +27,30 @@ function* fetchMerchants() {
 }
 
 function* addItemToCart({ productId, quantity, totalPrice }) {
-  yield put({
-    type: types.ADD_TO_CART,
-    item: {
-      productId,
-      quantity,
-      totalPrice
-    }
-  });
-  const cart = yield select(state => state.orders.cart);
-  yield apply(localStorage, localStorage.setItem, [
-    "cart",
-    base64url(JSON.stringify(cart))
-  ]);
+  try {
+    yield put({
+      type: types.ADD_TO_CART,
+      item: {
+        productId,
+        quantity,
+        totalPrice
+      }
+    });
+    const cart = yield select(state => state.orders.cart);
+    localStorage.setItem("cart", Base64.encode(JSON.stringify(cart)));
+  } catch (e) {
+    yield put({ type: types.SAVE_TO_CART_ERROR });
+  }
 }
 
 function* loadCartToStore() {
-  let cart = yield apply(localStorage, localStorage.getItem, ["cart"]);
-  cart = JSON.parse(base64url.decode(cart));
-  yield put({ type: types.LOAD_CART, cart });
+  try {
+    let cart = localStorage.getItem("cart");
+    cart = JSON.parse(Base64.decode(cart));
+    yield put({ type: types.LOAD_CART, cart });
+  } catch (e) {
+    yield put({ type: types.LOAD_CART_ERROR });
+  }
 }
 
 /**

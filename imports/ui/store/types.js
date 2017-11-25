@@ -8,3 +8,5 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const PERSIST_CART = "PERSIST_CART";
 export const LOAD_CART = "LOAD_CART";
 export const START_LOAD_CART = "START_LOAD_CART";
+export const SAVE_TO_CART_ERROR = "SAVE_TO_CART_ERROR";
+export const LOAD_CART_ERROR = "LOAD_CART_ERROR";

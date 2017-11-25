@@ -12,6 +12,9 @@ export default function ordersReducer(state = initialState, action) {
       const newCart = [...state.cart, { ...action.item }];
       return { ...state, cart: newCart };
     }
+    case types.LOAD_CART: {
+      return { ...state, cart: [...action.cart] };
+    }
     default:
       return state;
   }
