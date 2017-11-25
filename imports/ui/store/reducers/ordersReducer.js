@@ -11,10 +11,9 @@ export default function ordersReducer(state = initialState, action) {
   switch (action.type) {
     case types.ADD_TO_CART: {
       let notUpdated = true;
-      const updatedCart = state.cart.map(el => {
+      let updatedCart = state.cart.map(el => {
         if (el.productId === action.item.productId) {
           notUpdated = false;
-          const merge = { quantity: el.quantity + 1 };
           return { ...el, quantity: el.quantity + 1 };
         } else {
           return { ...el };
@@ -28,7 +27,11 @@ export default function ordersReducer(state = initialState, action) {
       };
     }
     case types.LOAD_CART: {
-      return { ...state, cart: [...action.cart] };
+      return {
+        ...state,
+        cart: [...action.cart],
+        cartCount: isNaN(action.cartCount) ? 0 : action.cartCount
+      };
     }
     default:
       return state;

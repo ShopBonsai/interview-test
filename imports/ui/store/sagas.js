@@ -33,7 +33,9 @@ function* addItemToCart({ type, ...item }) {
       item
     });
     const cart = yield select(state => state.orders.cart);
+    const cartCount = yield select(state => state.orders.cartCount);
     localStorage.setItem("cart", Base64.encode(JSON.stringify(cart)));
+    localStorage.setItem("cartN", Base64.encode(cartCount.toString()));
   } catch (e) {
     yield put({ type: types.SAVE_TO_CART_ERROR });
   }
@@ -42,8 +44,10 @@ function* addItemToCart({ type, ...item }) {
 function* loadCartToStore() {
   try {
     let cart = localStorage.getItem("cart");
+    let cartCount = localStorage.getItem("cartN");
     cart = JSON.parse(Base64.decode(cart));
-    yield put({ type: types.LOAD_CART, cart });
+    cartCount = Number(Base64.decode(cartCount));
+    yield put({ type: types.LOAD_CART, cart, cartCount });
   } catch (e) {
     yield put({ type: types.LOAD_CART_ERROR });
   }

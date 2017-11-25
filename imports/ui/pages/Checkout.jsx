@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import Page from "../components/Page.jsx";
 import CheckoutRow from "../components/CheckoutRow.jsx";
 import * as types from "../store/types";
@@ -16,24 +16,18 @@ class Checkout extends Component {
     this.props.dispatch({ type: types.START_LOAD_CART });
   }
 
+  goBack = () => this.props.history.push("/shop");
+
   render() {
     return (
       <Page pageTitle="checkout" history goBack={this.goBack}>
         <table className="cart-table">
           <thead>
             <tr>
-              <th>
-                Name
-              </th>
-              <th>
-                Price
-              </th>
-              <th>
-                Qty
-              </th>
-              <th>
-                Total
-              </th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +45,7 @@ class Checkout extends Component {
   }
 }
 
-(Checkout).propTypes = {};
+Checkout.propTypes = {};
 
 const mapStateToProps = (state, ownProps) => ({
   cart: state.orders.cart

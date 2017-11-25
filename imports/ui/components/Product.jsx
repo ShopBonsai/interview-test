@@ -1,6 +1,8 @@
 // Framework
 import React, { PureComponent } from "react";
 
+import * as Currency from "currency-formatter";
+
 // Components
 import Button from "../components/Button.jsx";
 
@@ -27,7 +29,7 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: Currency.format(price, { locale: "en-CA" }) }
     ];
 
     return (
