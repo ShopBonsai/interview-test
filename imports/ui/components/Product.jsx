@@ -1,14 +1,12 @@
 // Framework
 import React, { PureComponent } from "react";
+import { Meteor } from "meteor/meteor";
+import { withRouter } from "react-router";
 
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
-  };
-
   render() {
     const {
       name = "Product",
@@ -45,8 +43,12 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
+          <Button
+            onClick={() => {
+              this.props.history.push("/confirmation");
+            }}
+          >
+            Add {name} to cart
           </Button>
         </div>
       </div>
@@ -54,4 +56,4 @@ class Product extends PureComponent {
   }
 }
 
-export default Product;
+export default withRouter(Product);

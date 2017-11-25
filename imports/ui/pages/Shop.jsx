@@ -1,6 +1,5 @@
 // Framework
 import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
 
 // Components
 import { Alert, Row, Col } from "reactstrap";
@@ -27,6 +26,7 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
+  handleBuyProduct = () => this.props.history.push("/confirmation");
 
   render() {
     const { merchants, error } = this.state;
@@ -43,10 +43,10 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="Shop" history goBack={this.goBack}>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+            <Product {...product} key={id} history />
           )}
         </div>
       </Page>
