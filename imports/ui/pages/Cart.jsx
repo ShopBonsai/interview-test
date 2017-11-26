@@ -6,11 +6,14 @@ import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
 
 class Home extends PureComponent {
+  goBack = () => this.props.history.push("/shop");
+  goCart = () => this.props.history.push("/cart");
+
   render() {
     return (
-      <Page>
+      <Page pageTitle="Cart" history goBack={this.goBack} goCart={this.goCart}>
         <div className="home-page">
-          <h2 className="title">This is the confirmation page</h2>
+          <h2>This is the cart page</h2>
           <Button
             onClick={() => {
               this.props.history.push("/shop");

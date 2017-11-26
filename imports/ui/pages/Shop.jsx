@@ -12,7 +12,8 @@ class Shop extends Component {
     this.state = {
       merchants: [],
       error: null,
-      loading: true
+      loading: true,
+      data: "poo"
     };
   }
 
@@ -24,6 +25,13 @@ class Shop extends Component {
         this.setState(() => ({ merchants: response }));
       }
     });
+    Meteor.call("merchants.alert"), (error, response) => {
+      if (error) {
+        this.setState(() => ({ error: error }));
+      } else {
+        this.setState(() => ({ data: response }));
+      }
+    };
   }
 
   componentDidMount() {
@@ -31,11 +39,12 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
-  handleBuyProduct = () => this.props.history.push("/confirmation");
+  goCart = () => this.props.history.push("/cart");
 
   render() {
     const { loading } = this.state;
     const { merchants, error } = this.state;
+    const { data } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
@@ -50,21 +59,32 @@ class Shop extends Component {
 
     if (loading) {
       return (
-        <Page pageTitle="Shop" history goBack={this.goBack}>
-        <div className="loading-page">
-          <i className="fa fa-spinner fa-spin fa-3x fa-fw" aria-hidden="true" />
-          <br /> <br />
-          <span class="sr-only">Loading...</span>
-        </div>
-      </Page>
+        <Page
+          pageTitle="Shop"
+          history
+          goBack={this.goBack}
+          goCart={this.goCart}
+        >
+          <div className="loading-page">
+            <i
+              className="fa fa-spinner fa-spin fa-3x fa-fw"
+              aria-hidden="true"
+            />
+            <br /> <br />
+            <span className="sr-only">Loading...</span>
+          </div>
+        </Page>
       );
     }
 
     return (
-      <Page pageTitle="Shop" history goBack={this.goBack}>
+      <Page pageTitle="Shop" history goBack={this.goBack} goCart={this.goCart}>
         <div className="shop-page">
+          <h1>
+            {data}
+          </h1>
           {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} history />
+            <Product {...product} key={id} history data />
           )}
         </div>
       </Page>

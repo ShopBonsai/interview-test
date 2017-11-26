@@ -45,7 +45,11 @@ class Product extends PureComponent {
           </div>
           <Button
             onClick={() => {
-              this.props.history.push("/confirmation");
+              // db.collection("orders").insert({
+              //   _id: "Ricky",
+              //   title: "MongoDB Overview"
+              // });
+              alert(data);
             }}
           >
             Add {name} to cart

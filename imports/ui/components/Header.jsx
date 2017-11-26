@@ -1,5 +1,6 @@
 // Framework
 import React from "react";
+import { withRouter } from "react-router";
 
 const Header = ({ children, goBack, goCart }) =>
   <header>
@@ -10,8 +11,12 @@ const Header = ({ children, goBack, goCart }) =>
     <h1>
       {children}
     </h1>
-    <i className="fa fa-shopping-cart fa-2x" aria-hidden="true" />
+    <i
+      className="fa fa-shopping-cart fa-2x"
+      aria-hidden="true"
+      onClick={goCart}
+    />
     {/* <div className="right-content" /> */}
   </header>;
 
-export default Header;
+export default withRouter(Header);

@@ -9,7 +9,7 @@ import Footer from "../components/Footer.jsx";
 
 export const Page = ({ children, pageTitle, history, goBack, goCart }) =>
   <div className="page">
-    <Header goBack={goBack} goCart={goCart}>
+    <Header goBack={goBack} goCart={goCart} history>
       {pageTitle}
     </Header>
     <main>
