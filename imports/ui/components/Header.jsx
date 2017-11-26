@@ -15,7 +15,11 @@ const Header = ({ children, goBack, cartCount }) =>
     <div className="right-content">
       <Link to="/checkout">
         <h3>
-          cart ({cartCount})
+          {cartCount === 0
+            ? <span>cart</span>
+            : <span>
+                cart ({cartCount})
+              </span>}
         </h3>
       </Link>
     </div>

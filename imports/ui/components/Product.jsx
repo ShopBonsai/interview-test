@@ -1,5 +1,6 @@
 // Framework
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
 import * as Currency from "currency-formatter";
 
@@ -56,5 +57,15 @@ class Product extends PureComponent {
     );
   }
 }
+
+Product.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string,
+  brand: PropTypes.string,
+  color: PropTypes.string,
+  description: PropTypes.string,
+  price: PropTypes.number,
+  size: PropTypes.string
+};
 
 export default Product;

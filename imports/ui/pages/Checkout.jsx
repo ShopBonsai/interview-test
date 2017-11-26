@@ -9,8 +9,6 @@ import Button from "../components/Button";
 class Checkout extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   componentDidMount() {
@@ -19,8 +17,8 @@ class Checkout extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.success) {
-      alert("SHIPMENT IS ON THE WAY!")
-      this.props.history.push('/shop');
+      alert("SHIPMENT IS ON THE WAY!");
+      this.props.history.push("/shop");
     }
   }
 
@@ -29,33 +27,35 @@ class Checkout extends Component {
   render() {
     return (
       <Page pageTitle="checkout" history goBack={this.goBack}>
-        <div className="cart-container">
-          <table className="cart-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.cart.map(({ id, ...props }) =>
-                <CheckoutRow
-                  key={id}
-                  {...props}
-                  totalPrice={props.quantity * props.price}
-                />
-              )}
-            </tbody>
-          </table>
-          <Button
-            className="cart-purchase-button"
-            onClick={this.processCheckout}
-          >
-            Purchase
-          </Button>
-        </div>
+        {this.props.cart.length > 0
+          ? <div className="cart-container">
+              <table className="cart-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.props.cart.map(({ id, ...props }) =>
+                    <CheckoutRow
+                      key={id}
+                      {...props}
+                      totalPrice={props.quantity * props.price}
+                    />
+                  )}
+                </tbody>
+              </table>
+              <Button
+                className="cart-purchase-button"
+                onClick={this.processCheckout}
+              >
+                Purchase
+              </Button>
+            </div>
+          : <div className="cart-container">Your cart is empty!</div>}
       </Page>
     );
   }
@@ -68,9 +68,12 @@ class Checkout extends Component {
   };
 }
 
-Checkout.propTypes = {};
+Checkout.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  cart: PropTypes.array.isRequired
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   cart: state.orders.cart,
   success: state.orders.success
 });
