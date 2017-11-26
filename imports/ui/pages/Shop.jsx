@@ -13,7 +13,7 @@ class Shop extends Component {
       merchants: [],
       error: null,
       loading: true,
-      data: "poo"
+      data: null
     };
   }
 
@@ -25,13 +25,14 @@ class Shop extends Component {
         this.setState(() => ({ merchants: response }));
       }
     });
-    Meteor.call("merchants.alert"), (error, response) => {
+    Meteor.call("merchants.alert", (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
         this.setState(() => ({ data: response }));
+        console.log(response)
       }
-    };
+    });
   }
 
   componentDidMount() {
@@ -71,7 +72,7 @@ class Shop extends Component {
               aria-hidden="true"
             />
             <br /> <br />
-            <span className="sr-only">Loading...</span>
+            <span>Loading...</span>
           </div>
         </Page>
       );

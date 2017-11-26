@@ -2,11 +2,24 @@
 import React, { PureComponent } from "react";
 import { Meteor } from "meteor/meteor";
 import { withRouter } from "react-router";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 // Components
-import Button from "../components/Button.jsx";
+import Button from "./Button.jsx";
+import QuantitySelector from "./QuantitySelector.jsx";
 
 class Product extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quanitity: 0
+    };
+  }
+
+  onQuantitySelect(quantity) {
+    this.setState({ quanitity: quantity });
+  }
+
   render() {
     const {
       name = "Product",
@@ -43,13 +56,28 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
+          <span>
+            quantity {this.state.quanitity}
+          </span>
+          <span>
+            name {name}
+          </span>
+          <span>
+            price {price}
+          </span>
+
+          <MuiThemeProvider>
+            <QuantitySelector
+              onQuantitySelect={this.onQuantitySelect.bind(this)}
+            />
+          </MuiThemeProvider>
+          <br />
           <Button
             onClick={() => {
               // db.collection("orders").insert({
               //   _id: "Ricky",
               //   title: "MongoDB Overview"
               // });
-              alert(data);
             }}
           >
             Add {name} to cart
