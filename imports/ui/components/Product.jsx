@@ -1,12 +1,16 @@
 // Framework
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+
+import * as Currency from "currency-formatter";
 
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
+  handleBuyProduct = (e) => {
+    e.stopPropagation();
+    this.props.addToCart(1);
   };
 
   render() {
@@ -26,7 +30,7 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: Currency.format(price, { locale: "en-CA" }) }
     ];
 
     return (
@@ -53,5 +57,15 @@ class Product extends PureComponent {
     );
   }
 }
+
+Product.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string,
+  brand: PropTypes.string,
+  color: PropTypes.string,
+  description: PropTypes.string,
+  price: PropTypes.number,
+  size: PropTypes.string
+};
 
 export default Product;

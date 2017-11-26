@@ -1,52 +1,42 @@
 // Framework
 import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
+import { connect } from "react-redux";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
+
+import * as types from "../store/types.js";
 
 class Shop extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      merchants: [],
-      error: null
-    };
-  }
-
-  componentWillMount() {
-    Meteor.call("merchants.getMerchants", (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      } else {
-        this.setState(() => ({ merchants: response }));
-      }
-    });
   }
 
   goBack = () => this.props.history.push("/");
 
+  componentDidMount() {
+    this.props.dispatch({ type: types.FETCH_MERCHANTS });
+    this.props.dispatch({ type: types.START_LOAD_CART });
+  }
+
   render() {
-    const { merchants, error } = this.state;
-
-    const getProductsFromMerchant = ({ products, brands }) =>
-      products.map(({ belongsToBrand, ...product }) => ({
-        ...product,
-        brand: brands[belongsToBrand]
-      }));
-
-    const products = merchants.reduce(
-      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-      []
-    );
-
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
-          {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+          {this.props.products.map(({ id, ...product }) =>
+            <Product
+              {...product}
+              key={id}
+              addToCart={() =>
+                this.props.dispatch({
+                  type: types.SAVE_TO_CART,
+                  productId: id,
+                  quantity: 1,
+                  price: product.price,
+                  name: product.name
+                })}
+            />
           )}
         </div>
       </Page>
@@ -54,4 +44,9 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+const mapStateToProps = state => ({
+  products: state.merchants.products,
+  error: state.merchants.error
+});
+
+export default connect(mapStateToProps)(Shop);
