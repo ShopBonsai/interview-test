@@ -16,9 +16,8 @@ import { getMerchants, getProductById } from "../merchants/methods";
 export const getLastOrder = () => {
   const options = { sort: { createdAt: -1 }, limit: 1 };
   try {
-    const lastOrderCursor = Products.find({}, options);
-    const lastOrder = lastOrderCursor.fetch()[0];
-    return lastOrder;
+    const lastOrderCursor = Orders.find({}, options);
+    return lastOrderCursor.fetch()[0];
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getLastOrder.findOrFetchError`,
@@ -40,29 +39,6 @@ export const getOrderById = orderId => {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
       `Could not find or fetch product with order id: '${orderId}'`,
-      error
-    );
-  }
-};
-
-export const mapOrdersFromMerchants = () => {
-  try {
-    const getProductsFromMerchant = ({ products, brands, _id }) =>
-      products.map(({ belongsToBrand, ...product }) => ({
-        ...product,
-        brand: brands[belongsToBrand]
-      }));
-
-    const products = getMerchants().reduce(
-      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-      []
-    );
-
-    return products;
-  } catch (err) {
-    throw new Meteor.Error(
-      `${__filename}:mapOrdersFromMerchants.findOrFetchError`,
-      `Could not retrieve orders from merchants' collection`,
       error
     );
   }

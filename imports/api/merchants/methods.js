@@ -76,7 +76,7 @@ export const getMerchantById = merchantId => {
   return merchant;
 };
 
-export const getProductById = (productId) => {
+export const getProductById = productId => {
   let product;
   try {
     product = Merchants.findOne({ "products.id": productId }, { products: 1 });

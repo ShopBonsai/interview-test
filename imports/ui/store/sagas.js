@@ -13,6 +13,9 @@ import * as types from "./types";
  *   SAGAS!
  */
 
+/**
+ * Retrieve list of merchants from server
+ */
 function* fetchMerchants() {
   try {
     const merchants = yield cps(
@@ -25,6 +28,10 @@ function* fetchMerchants() {
   }
 }
 
+/**
+ * Add an item to cart in both the Redux side and the localStorage side
+ * @param item
+ */
 function* addItemToCart({ type, ...item }) {
   try {
     yield put({
@@ -40,6 +47,9 @@ function* addItemToCart({ type, ...item }) {
   }
 }
 
+/**
+ * Fetch cart data from localStorage and load to Store
+ */
 function* loadCartToStore() {
   try {
     let cart = localStorage.getItem("cart");
@@ -52,6 +62,10 @@ function* loadCartToStore() {
   }
 }
 
+/**
+ * Take the Cart from Redux Store and send to backend for process,
+ * if successful, clear localStorage of cart data
+ */
 function* processCheckout() {
   try {
     const cart = yield select(state => state.orders.cart);
