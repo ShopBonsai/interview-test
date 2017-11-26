@@ -10,7 +10,7 @@ The end user will see a 'cart' link in the header on the top right. As expected,
 
 
 In addition to being saved to the redux store, the cart is also copied to Local Storage, which means a user can get back to where they left off between sessions.
-![](./lib/cart filled.png)
+![](lib/cart-filled.png)
 
 
 After clicking the cart link, it'll take you to the checkout page, where the user will see a list of their items. 
