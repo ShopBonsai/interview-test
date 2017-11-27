@@ -33,7 +33,7 @@ export const getLastOrder = () => {
  */
 export const getOrderById = orderId => {
   try {
-    return Products.findOne(orderId);
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
@@ -46,5 +46,5 @@ export const getOrderById = orderId => {
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
 });

@@ -8,11 +8,15 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Button from "./Button.jsx";
 import QuantitySelector from "./QuantitySelector.jsx";
 
+//database
+import { Orders } from "../../api/orders/collection";
+
 class Product extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      quanitity: 0
+      quanitity: 0,
+      currentOrder: {}
     };
   }
 
@@ -39,6 +43,8 @@ class Product extends PureComponent {
       { label: "Size", value: size },
       { label: "Price", value: price }
     ];
+
+    let order = { title: "Ricky is awesome" };
 
     return (
       <div className="product">
@@ -74,10 +80,11 @@ class Product extends PureComponent {
           <br />
           <Button
             onClick={() => {
-              // db.collection("orders").insert({
-              //   _id: "Ricky",
-              //   title: "MongoDB Overview"
-              // });
+              try {
+                return Orders.insert(order);
+              } catch (error) {
+                throw new Meteor.Error("there was an error", error);
+              }
             }}
           >
             Add {name} to cart
