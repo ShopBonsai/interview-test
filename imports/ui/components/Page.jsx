@@ -7,13 +7,19 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
+// Material UI
+
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+
 export const Page = ({ children, pageTitle, history, goBack, goCart }) =>
   <div className="page">
     <Header goBack={goBack} goCart={goCart} history>
       {pageTitle}
     </Header>
     <main>
-      {children}
+      <MuiThemeProvider>
+        {children}
+      </MuiThemeProvider>
     </main>
     <Footer />
   </div>;

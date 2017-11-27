@@ -13,7 +13,8 @@ class Shop extends Component {
       merchants: [],
       error: null,
       loading: true,
-      data: null
+      data: null,
+      order: []
     };
   }
 
@@ -30,7 +31,7 @@ class Shop extends Component {
         this.setState(() => ({ error: error }));
       } else {
         this.setState(() => ({ data: response }));
-        console.log(response)
+        console.log(response);
       }
     });
   }
@@ -41,6 +42,13 @@ class Shop extends Component {
 
   goBack = () => this.props.history.push("/");
   goCart = () => this.props.history.push("/cart");
+
+  onAddToCart(cartItem) {
+    let { order } = this.state;
+
+    order.push(cartItem);
+    console.log(order)
+  }
 
   render() {
     const { loading } = this.state;
@@ -85,7 +93,13 @@ class Shop extends Component {
             {data}
           </h1>
           {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} history data />
+            <Product
+              {...product}
+              key={id}
+              history
+              data
+              onAddToCart={this.onAddToCart.bind(this)}
+            />
           )}
         </div>
       </Page>
