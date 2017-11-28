@@ -11,7 +11,6 @@ import QuantitySelector from "./QuantitySelector.jsx";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
-import RaisedButton from "material-ui/RaisedButton";
 
 //database
 import { Orders } from "../../api/orders/collection";
@@ -116,11 +115,6 @@ class Product extends PureComponent {
           <Button
             label="Dialog"
             onClick={() => {
-              // try {
-              //   return Orders.insert(order);
-              // } catch (error) {
-              //   throw new Meteor.Error("there was an error", error);
-              // }
               if (quantity === 0) {
                 alert("Quantity not selected!");
               } else {

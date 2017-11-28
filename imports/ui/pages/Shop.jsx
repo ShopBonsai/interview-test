@@ -5,6 +5,10 @@ import React, { Component } from "react";
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
+import Cart from "./Cart.jsx";
+
+// database
+import { Orders } from "../../api/orders/collection";
 
 class Shop extends Component {
   constructor(props) {
@@ -41,13 +45,18 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
-  goCart = () => this.props.history.push("/cart");
+  goCart = () => {
+    try {
+      Orders.insert(this.state.order), this.props.history.push("/cart");
+    } catch (error) {
+      throw new Meteor.Error("there was an error", error);
+    }
+  };
 
   onAddToCart(cartItem) {
     let { order } = this.state;
-
     order.push(cartItem);
-    console.log(order)
+    // this.props.getOrder(order);
   }
 
   render() {
