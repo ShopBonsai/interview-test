@@ -98,6 +98,9 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
+          <span>
+            quantity in cart {this.state.quanitity}
+          </span>
           <QuantitySelector
             onQuantitySelect={this.onQuantitySelect.bind(this)}
           />

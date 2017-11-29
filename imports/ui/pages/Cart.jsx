@@ -4,6 +4,7 @@ import React, { PureComponent } from "react";
 // Components
 import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
+import CartPage from "../components/CartPage.jsx";
 
 class Home extends PureComponent {
   constructor(props) {
@@ -32,14 +33,14 @@ class Home extends PureComponent {
   render() {
     let { order } = this.state;
     return (
-      <Page pageTitle="Cart" history goBack={this.goBack} goCart={this.goCart}>
+      <CartPage pageTitle="Cart" history goBack={this.goBack}>
         <div className="home-page">
           <div>
-          {/* {order[0].name} */}
-          {/* {order.map((item, i) => <div key={i}> {item.name}  
+            {/* {order[0].name} */}
+            {/* {order.map((item, i) => <div key={i}> {item.name}  
                       {item.price} {item.quantity}</div>)} */}
-                      {/* {this.state.order[0]} */}
-            </div>
+            {/* {this.state.order[0]} */}
+          </div>
           <Button
             onClick={() => {
               this.props.history.push("/shop");
@@ -48,7 +49,7 @@ class Home extends PureComponent {
             Go shopping
           </Button>
         </div>
-      </Page>
+      </CartPage>
     );
   }
 }
