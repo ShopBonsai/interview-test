@@ -17,8 +17,8 @@ class Shop extends Component {
       merchants: [],
       error: null,
       loading: true,
-      data: null,
-      order: []
+      order: [],
+      cartQuantity: 0
     };
   }
 
@@ -28,14 +28,6 @@ class Shop extends Component {
         this.setState(() => ({ error: error }));
       } else {
         this.setState(() => ({ merchants: response }));
-      }
-    });
-    Meteor.call("merchants.alert", (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      } else {
-        this.setState(() => ({ data: response }));
-        console.log(response);
       }
     });
   }
@@ -56,13 +48,14 @@ class Shop extends Component {
   onAddToCart(cartItem) {
     let { order } = this.state;
     order.push(cartItem);
-    // this.props.getOrder(order);
+    this.setState({ cartQuantity: this.state.order.length });
   }
 
   render() {
     const { loading } = this.state;
     const { merchants, error } = this.state;
-    const { data } = this.state;
+    const { order } = this.state;
+    const { cartQuantity } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
@@ -96,17 +89,19 @@ class Shop extends Component {
     }
 
     return (
-      <Page pageTitle="Shop" history goBack={this.goBack} goCart={this.goCart}>
+      <Page
+        pageTitle="Shop"
+        history
+        goBack={this.goBack}
+        goCart={this.goCart}
+        cartNumber={cartQuantity}
+      >
         <div className="shop-page">
-          <h1>
-            {data}
-          </h1>
           {products.map(({ id, ...product }) =>
             <Product
               {...product}
               key={id}
               history
-              data
               onAddToCart={this.onAddToCart.bind(this)}
             />
           )}

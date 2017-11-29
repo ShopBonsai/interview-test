@@ -8,6 +8,9 @@ header {
     background: transparent;
     padding: 0;
     width: 0;
+    &:hover{
+        cursor: pointer;
+    }
   }
 
   h1 {
@@ -16,10 +19,24 @@ header {
     display: flex;
     align-items: center;
     margin: 0;
+    // padding-left: 47%;
+    // padding-right: 40%;
   }
 
-  .fa-shopping-cart{
+  .fa-shopping-cart {
     padding-right: 30px;
+    padding-left: 10px;
+    font-size: 150%;
+    padding-top: 3px;
+   
+    &:hover {
+      color: blue;
+      cursor: pointer;
+    }
+  }
+  .right-content{
+    font-size: 18px;
+    padding-bottom: 3px;
   }
 
 }

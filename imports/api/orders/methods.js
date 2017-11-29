@@ -11,10 +11,10 @@ import { Orders } from "./collection";
  *
  * @returns {Object} A single order object.
  */
-export const getLastOrder = () => {
-  const options = { sort: { createdAt: -1 }, limit: 1 };
+export const getLastOrder = async () => {
+  const options = { sort: { $natural: -1 }, limit: 2 };
   try {
-    const lastOrderCursor = Products.find({}, options);
+    const lastOrderCursor = await Orders.find({}, options);
     const lastOrder = lastOrderCursor.fetch()[0];
     return lastOrder;
   } catch (error) {

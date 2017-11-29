@@ -98,16 +98,6 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <span>
-            quantity {this.state.quanitity}
-          </span>
-          <span>
-            name {name}
-          </span>
-          <span>
-            price {price}
-          </span>
-
           <QuantitySelector
             onQuantitySelect={this.onQuantitySelect.bind(this)}
           />
@@ -126,13 +116,13 @@ class Product extends PureComponent {
           </Button>
           <div>
             <Dialog
-              title="Dialog With Actions"
+              title="Great Choice!"
               actions={actions}
               modal={false}
               open={this.state.open}
               onRequestClose={this.handleClose}
             >
-              Do you want to add {quantity} {name} into your cart?.
+              Are you sure you want to add {quantity} {name} into your cart?.
             </Dialog>
           </div>
         </div>

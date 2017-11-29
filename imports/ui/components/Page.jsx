@@ -11,9 +11,16 @@ import Footer from "../components/Footer.jsx";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-export const Page = ({ children, pageTitle, history, goBack, goCart }) =>
+export const Page = ({
+  children,
+  pageTitle,
+  history,
+  goBack,
+  goCart,
+  cartNumber
+}) =>
   <div className="page">
-    <Header goBack={goBack} goCart={goCart} history>
+    <Header goBack={goBack} goCart={goCart} history cartNumber={cartNumber}>
       {pageTitle}
     </Header>
     <main>
