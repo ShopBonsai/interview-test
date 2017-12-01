@@ -48,14 +48,9 @@ class Product extends PureComponent {
           this.props.onAddToCart({
             name: name,
             price: price,
-            quantitiy: quantity
+            quantity: quantity,
           });
-          console.log({
-            name: name,
-            price: price,
-            quantitiy: quantity
-          });
-          this.handleClose()
+          this.handleClose();
         }}
       />
     ];

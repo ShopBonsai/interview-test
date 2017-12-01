@@ -46,16 +46,12 @@ class Shop extends Component {
   };
 
   onAddToCart(cartItem) {
-    let { order } = this.state;
-    order.push(cartItem);
+    this.state.order.push(cartItem);
     this.setState({ cartQuantity: this.state.order.length });
   }
 
   render() {
-    const { loading } = this.state;
-    const { merchants, error } = this.state;
-    const { order } = this.state;
-    const { cartQuantity } = this.state;
+    const { merchants, error, loading, order, cartQuantity } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({

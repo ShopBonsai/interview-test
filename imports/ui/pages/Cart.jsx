@@ -5,11 +5,13 @@ import React, { PureComponent } from "react";
 import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
 import CartPage from "../components/CartPage.jsx";
+import CartInfo from "../components/CartInfo.jsx";
+import UserForm from "../components/UserForm.jsx";
 import { Step, Stepper, StepLabel } from "material-ui/Stepper";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 
-class Home extends PureComponent {
+class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,13 +23,20 @@ class Home extends PureComponent {
   }
 
   componentWillMount() {
+    const { order } = this.state;
+
     Meteor.call("orders.getLastOrder", (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
         console.log(error);
       } else {
-        this.setState(() => ({ order: response }));
-        console.log(this.state.order[0].name);
+        let array = [];
+        for (key in response) {
+          array.push(response[key]);
+        }
+        array.splice(-1, 1);
+        this.setState({ order: array });
+        console.log(response)
       }
     });
   }
@@ -51,23 +60,13 @@ class Home extends PureComponent {
   };
 
   getStepContent(stepIndex) {
+    let { order } = this.state;
+
     switch (stepIndex) {
       case 0:
-        return (
-          <table class="table table-hover table-bordered">
-          <thead>
-            <th>Food Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Sub Total</th>
-          </thead>
-          <tbody id="order-details">
-          </tbody>
-        </table>
-        );
+        return <CartInfo CartInfo={order} />;
       case 1:
-        return "What is an ad group anyways?";
+        return <UserForm />;
       case 2:
         return "This is the bit I really care about!";
       default:
@@ -76,13 +75,13 @@ class Home extends PureComponent {
   }
 
   render() {
-    const { finished, stepIndex } = this.state;
+    const { finished, stepIndex, order } = this.state;
     const contentStyle = { margin: "0 16px" };
 
-    let { order } = this.state;
     return (
       <CartPage pageTitle="Cart" history goBack={this.goBack}>
         <div className="CartHomePage">
+          {/* this is the Material UI stepper */}
           <div style={{ width: "100%", maxWidth: 700, margin: "auto" }}>
             <Stepper activeStep={stepIndex}>
               <Step>
@@ -110,9 +109,7 @@ class Home extends PureComponent {
                     to reset the example.
                   </p>
                 : <div>
-                    <p>
-                      {this.getStepContent(stepIndex)}
-                    </p>
+                    {this.getStepContent(stepIndex)}
                     <div style={{ marginTop: 12 }}>
                       <FlatButton
                         label="Back"
@@ -129,16 +126,14 @@ class Home extends PureComponent {
                   </div>}
             </div>
           </div>
-          <div>
-            {/* {order[0].name} */}
-            {/* {order.map((item, i) => <div key={i}> {item.name}  
-                      {item.price} {item.quantity}</div>)} */}
-            {/* {this.state.order[0]} */}
-          </div>
+
+          {/* ^this is the Material UI */}
+
+          <div />
         </div>
       </CartPage>
     );
   }
 }
 
-export default Home;
+export default Cart;
