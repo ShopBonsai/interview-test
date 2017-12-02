@@ -11,6 +11,10 @@ import { Step, Stepper, StepLabel } from "material-ui/Stepper";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 
+//database
+import { Orders } from "../../api/orders/collection";
+
+
 class Cart extends PureComponent {
   constructor(props) {
     super(props);
@@ -19,7 +23,13 @@ class Cart extends PureComponent {
       error: null,
       finished: false,
       stepIndex: 0,
-      orderID: null
+      orderID: null,
+      userFirstName: null,
+      userLastName: null,
+      userEmail: null,
+      userPostalCode: null,
+      userAddress: null,
+      userSpecialNote: null
     };
   }
 
@@ -47,11 +57,60 @@ class Cart extends PureComponent {
   goCart = () => this.props.history.push("/cart");
 
   handleNext = () => {
-    const { stepIndex } = this.state;
+    const {
+      stepIndex,
+      userFirstName,
+      userLastName,
+      userEmail,
+      userAddress,
+      userPostalCode,
+      userSpecialNote,
+      orderID
+    } = this.state;
+
     this.setState({
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 2
     });
+    if (
+      stepIndex === 1 &&
+      userFirstName &&
+      userLastName &&
+      userEmail &&
+      userAddress &&
+      userPostalCode
+    ) {
+      let UserInfo = {
+        FirstName: userFirstName,
+        LastName: userLastName,
+        Email: userEmail,
+        Address: userAddress,
+        PostalCode: userPostalCode,
+        SpecialNote: userSpecialNote
+      };
+      Orders.update(
+        {
+          _id: orderID
+        },
+        {
+          $set: {
+            UserInfo: UserInfo
+          }
+        }
+      );
+    } else if (
+      stepIndex === 1 &&
+      !userFirstName &&
+      !userLastName &&
+      !userEmail &&
+      !userAddress &&
+      !userPostalCode
+    ) {
+      alert("Oops, did you forget to enter something?");
+      this.setState({
+        stepIndex: 1
+      });
+    }
   };
 
   handlePrev = () => {
@@ -59,6 +118,25 @@ class Cart extends PureComponent {
     if (stepIndex > 0) {
       this.setState({ stepIndex: stepIndex - 1 });
     }
+  };
+
+  getUserFirstName = userInfo => {
+    this.setState({ userFirstName: userInfo });
+  };
+  getUserLastName = userInfo => {
+    this.setState({ userLastName: userInfo });
+  };
+  getUserEmail = userInfo => {
+    this.setState({ userEmail: userInfo });
+  };
+  getUserPostalCode = userInfo => {
+    this.setState({ userPostalCode: userInfo });
+  };
+  getUserAddress = userInfo => {
+    this.setState({ userAddress: userInfo });
+  };
+  getSpecialNote = userInfo => {
+    this.setState({ userSpecialNote: userInfo });
   };
 
   getStepContent(stepIndex) {
@@ -69,7 +147,17 @@ class Cart extends PureComponent {
       case 0:
         return <CartInfo CartInfo={order} />;
       case 1:
-        return <UserForm OrderID={orderID} />;
+        return (
+          <UserForm
+            OrderID={orderID}
+            getUserFirstName={this.getUserFirstName}
+            getUserLastName={this.getUserLastName}
+            getUserEmail={this.getUserEmail}
+            getUserPostalCode={this.getUserPostalCode}
+            getUserAddress={this.getUserAddress}
+            getSpecialNote={this.getSpecialNote}
+          />
+        );
       case 2:
         return "This is the bit I really care about!";
       default:
