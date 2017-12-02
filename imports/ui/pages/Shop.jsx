@@ -7,7 +7,7 @@ import { Form, FormGroup, Label, Input } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
-const ALL_SIZES_VALUE = 'all';
+const ALL_SIZES_VALUE = "all";
 
 class Shop extends Component {
   constructor(props) {
@@ -66,8 +66,8 @@ class Shop extends Component {
 
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
-        <div className="shop-page">
-          {this.sizes.size > 0 &&
+        {products.length > 0 &&
+          <div className="shop-page">
             <div className="filters">
               <h2 className="filters-title">Filters</h2>
                 <Form className="filters-form" inline>
@@ -82,12 +82,16 @@ class Shop extends Component {
 
                 </Form>
             </div>
-          }
 
-          {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
-          )}
-        </div>
+            <h5 className="shop-page-counter">
+              Available items: {products.length}
+            </h5>
+
+            {products.map(({ id, ...product }) =>
+              <Product {...product} key={id} />
+            )}
+          </div>
+        }
       </Page>
     );
   }
