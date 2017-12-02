@@ -3,6 +3,7 @@ import { Table } from "reactstrap";
 
 const CartInfo = ({ CartInfo }) => {
   let total = 0;
+  let counter = 1;
 
   if (CartInfo) {
     CartInfo.map((item, i) => {
@@ -22,7 +23,9 @@ const CartInfo = ({ CartInfo }) => {
           <tbody>
             {CartInfo.map((item, i) =>
               <tr key={i}>
-                <th scope="row">1</th>
+                <th scope="row">
+                  {counter++}
+                </th>
                 <td>
                   {CartInfo[i].name}
                 </td>

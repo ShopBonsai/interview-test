@@ -18,7 +18,8 @@ class Cart extends PureComponent {
       order: [],
       error: null,
       finished: false,
-      stepIndex: 0
+      stepIndex: 0,
+      orderID: null
     };
   }
 
@@ -31,12 +32,13 @@ class Cart extends PureComponent {
         console.log(error);
       } else {
         let array = [];
+        let Id = null;
         for (key in response) {
           array.push(response[key]);
         }
         array.splice(-1, 1);
         this.setState({ order: array });
-        console.log(response)
+        this.setState({ orderID: response._id });
       }
     });
   }
@@ -61,12 +63,13 @@ class Cart extends PureComponent {
 
   getStepContent(stepIndex) {
     let { order } = this.state;
+    let { orderID } = this.state;
 
     switch (stepIndex) {
       case 0:
         return <CartInfo CartInfo={order} />;
       case 1:
-        return <UserForm />;
+        return <UserForm OrderID={orderID} />;
       case 2:
         return "This is the bit I really care about!";
       default:
