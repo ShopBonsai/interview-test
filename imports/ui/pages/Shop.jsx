@@ -28,6 +28,8 @@ class Shop extends Component {
         this.setState(() => ({ error: error }));
       } else {
         this._allProducts = response.reduce((acc, merchant) => [...acc, ...this.getProductsFromMerchant(merchant)], []);
+        
+        // store only available sizes from products
         this._allProducts.forEach(product => this.sizes.add(product.size));
 
         this.setState(() => ({
