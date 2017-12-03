@@ -11,9 +11,27 @@ import {buyProduct} from '../redux/actions/purchase';
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+
+  constructor() {
+    super();
+    this.state = {
+      purchased: false
+    }
+  }
+
   handleBuyProduct = id => {
-    this.props.buyProduct(id);
+    this.props.buyProduct(id)
+      .then(res => {
+        if (!res.error) {
+          // Set state to sho user that he has bought a product
+          this.triggerPurchase(true);
+          // Set default state;
+          setTimeout(this.triggerPurchase.bind(this, false), 4000);
+        }
+      });
   };
+
+  triggerPurchase = (state) => this.setState({purchased: state});
 
   render() {
     const {
@@ -26,6 +44,10 @@ class Product extends PureComponent {
       size
     } = this.props;
 
+    const {
+      purchased
+    } = this.state
+
     const info = [
       { label: "Brand", value: brand },
       { label: "Name", value: name },
@@ -34,6 +56,9 @@ class Product extends PureComponent {
       { label: "Size", value: size },
       { label: "Price", value: price }
     ];
+
+    // Button name depends on user action
+    const buttonName = purchased ? `Purchased` : `Buy ${name}` ;
 
     return (
       <div className="product">
@@ -51,8 +76,8 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct.bind(this, {name, brand, size})}>
-            Buy {name}
+          <Button className={purchased ? 'success' : ''} onClick={this.handleBuyProduct.bind(this, {name, brand, size})}>
+            {buttonName}
           </Button>
         </div>
       </div>
@@ -66,5 +91,6 @@ const mapDispatchToProps = dispatch => {
     buyProduct : product =>  dispatch(buyProduct(product))
   }
 }
+
 
 export default connect(null, mapDispatchToProps)(Product) ;
