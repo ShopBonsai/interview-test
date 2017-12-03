@@ -1,25 +1,28 @@
-
 // GET Actions type
-import {BUY_PRODUCT} from '../actions/purchase';
+import { BUY_PRODUCT } from "../actions/purchase";
 
 // Create default state for purchases
 const defaultState = {
-  list : []
-}
+  list: []
+};
 
 // Purchase reducer
 
-export default function purchasedReducer(state = defaultState, {type, payload}) {
+export default function purchasedReducer(
+  state = defaultState,
+  { type, payload }
+) {
   /**
    * According to the action type make manipulation
    */
-  switch(type) {
+  switch (type) {
     /**
      * In this case we added purchase to existing purchases
      */
-    case BUY_PRODUCT : {
-      return {list : [...state.list, payload]}
+    case BUY_PRODUCT: {
+      return { list: [...state.list, payload] };
     }
-    default: return state;
+    default:
+      return state;
   }
 }

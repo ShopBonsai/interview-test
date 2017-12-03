@@ -1,17 +1,15 @@
-import {SET_USER} from '../actions/user';
+import { SET_USER } from "../actions/user";
 
 // Create default state for USER
-const defaultState = {
-  
-}
+const defaultState = {};
 
-
-export default function userReducer(state = defaultState, {type, payload}) {
-  switch(type) {
+export default function userReducer(state = defaultState, { type, payload }) {
+  switch (type) {
     // Set current user
-    case SET_USER : {
-      return payload
+    case SET_USER: {
+      return payload;
     }
-    default: return state;
+    default:
+      return state;
   }
 }

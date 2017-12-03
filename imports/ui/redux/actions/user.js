@@ -1,31 +1,28 @@
-
-import {call} from '../../meteorHelper';
-import cookie from 'js-cookie';
-
+import { call } from "../../meteorHelper";
+import cookie from "js-cookie";
 
 // user cookie name
-const userCookie = 'test-user-id';
+const userCookie = "test-user-id";
 
 // Action Types
-export const SET_USER = 'SET_USER';
-
+export const SET_USER = "SET_USER";
 
 /**
- * Get user from DB, if it doesn't exist in the session, create it
+ * Get user from DB, if it doesn"t exist in the session, create it
  * @param {number} id 
  * @return {Promise} 
  */
-export const getUser = (id) => (dispatch, getState) => {
-  const {user} = getState();
+export const getUser = id => (dispatch, getState) => {
+  const { user } = getState();
 
   // Get user ID
-  const userID = id || user._id || cookie.get(userCookie)
-
+  const userID = id || user._id || cookie.get(userCookie);
 
   // Make request to create or to get user
-  let userResult = call(!userID ? 
-      'users.createUser' :
-      'users.getUserByID', userID);
+  let userResult = call(
+    !userID ? "users.createUser" : "users.getUserByID",
+    userID
+  );
 
   /**
    * Handle response, add cookie and set user to the store
@@ -33,13 +30,12 @@ export const getUser = (id) => (dispatch, getState) => {
    */
   return userResult
     .then(result => {
-      cookie.set(userCookie, result._id, {expires: 1});
+      cookie.set(userCookie, result._id, { expires: 1 });
       dispatch(setUser(result));
-      return result
+      return result;
     })
-    .catch(alert)
-}
-
+    .catch(alert);
+};
 
 /**
  * Update user data
@@ -50,30 +46,31 @@ export const updateUser = user => (dispatch, getState) => {
     user = getState().user;
   }
 
-  return call('users.updateUserByID', user)
+  return call("users.updateUserByID", user)
     .then(result => {
-      dispatch(setUser(result))
+      dispatch(setUser(result));
     })
-    .catch(alert)
-}
+    .catch(alert);
+};
 
 /**
  * Add product to user favourites
  * @param {Promise<Object>} addToFavorites
  */
 
- export const addToFavorites = product => (dispatch, getState) => {
-   debugger;
-   const {user} = getState();
-   
-  const favorites = [...user.favorites, product];
+export const addToFavorites = product => (dispatch, getState) => {
+  const { user } = getState();
+  const favorites =
+    user.favorites.indexOf(product) >= 0
+      ? user.favorites.filter(el => el !== product)
+      : [...user.favorites, product];
 
-  return dispatch(updateUser({...user, favorites}))
- }
+  return dispatch(updateUser({ ...user, favorites }));
+};
 
-export const setUser = (user) => {
+export const setUser = user => {
   return {
     payload: user,
     type: SET_USER
-  }
-}
+  };
+};

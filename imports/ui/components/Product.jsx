@@ -2,47 +2,43 @@
 import React, { PureComponent } from "react";
 
 // React-Redux
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 // Redux action
-import {buyProduct} from "../redux/actions/purchase";
-import {addToFavorites} from "../redux/actions/user";
+import { buyProduct } from "../redux/actions/purchase";
+import { addToFavorites } from "../redux/actions/user";
 
 // Components
 import Button from "../components/Button.jsx";
 import Like from "../components/Like.jsx";
 class Product extends PureComponent {
-
   constructor() {
     super();
     this.state = {
       purchased: false,
       purchasedFailed: null
-    }
+    };
   }
 
   handleBuyProduct = id => {
-    this.props.buyProduct(id)
-      .then(res => {
-        if (!res.error) {
-          // Set state to show user that he has bought a product
-          this.setState({purchased: true})
-          // Set default state
-          setTimeout(this.setState.bind(this, {purchased: false}), 4000);
-        } else {
-          // Set state to show user that his purchased has failed
-          this.setState({purchasedFailed: true})
-          // Set default state
-          setTimeout(this.setState.bind(this, {purchasedFailed: false}), 4000);
-        }
-      });
+    this.props.buyProduct(id).then(res => {
+      if (!res.error) {
+        // Set state to show user that he has bought a product
+        this.setState({ purchased: true });
+        // Set default state
+        setTimeout(this.setState.bind(this, { purchased: false }), 4000);
+      } else {
+        // Set state to show user that his purchased has failed
+        this.setState({ purchasedFailed: true });
+        // Set default state
+        setTimeout(this.setState.bind(this, { purchasedFailed: false }), 4000);
+      }
+    });
   };
 
   handleLike = product => {
     this.props.likeProduct(product);
-  }
-
-  triggerPurchase = (state) => this.setState({purchased: state});
+  };
 
   render() {
     const {
@@ -57,9 +53,7 @@ class Product extends PureComponent {
       id
     } = this.props;
 
-    const {
-      purchased
-    } = this.state
+    const { purchased } = this.state;
 
     const info = [
       { label: "Brand", value: brand },
@@ -71,13 +65,13 @@ class Product extends PureComponent {
     ];
 
     // Button name depends on user action
-    const buttonName = purchased ? `Purchased` : `Buy ${name}` ;
+    const buttonName = purchased ? `Purchased` : `Buy ${name}`;
 
     return (
       <div className="product">
         <img alt={name} src={image} />
-        <Like liked={liked} onClick={this.handleLike.bind(this, id)} />
         <div className="details">
+          <Like liked={liked} onClick={this.handleLike.bind(this, id)} />
           <div className="info">
             {info.map(({ label, value }) =>
               <div className="info-row" key={`${name}-${label}-${value}`}>
@@ -90,7 +84,10 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button className={purchased ? 'success' : ''} onClick={this.handleBuyProduct.bind(this, {name, brand, size})}>
+          <Button
+            className={purchased ? "success" : ""}
+            onClick={this.handleBuyProduct.bind(this, { name, brand, size })}
+          >
             {buttonName}
           </Button>
         </div>
@@ -99,13 +96,11 @@ class Product extends PureComponent {
   }
 }
 
-
 const mapDispatchToProps = dispatch => {
   return {
-    buyProduct : product =>  dispatch(buyProduct(product)),
-    likeProduct : product => dispatch(addToFavorites(product))
-  }
-}
+    buyProduct: product => dispatch(buyProduct(product)),
+    likeProduct: product => dispatch(addToFavorites(product))
+  };
+};
 
-
-export default connect(null, mapDispatchToProps)(Product) ;
+export default connect(null, mapDispatchToProps)(Product);

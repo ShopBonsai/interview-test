@@ -2,11 +2,11 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 //Redux
-import {getUser} from "../redux/actions/user";
-import {getProducts} from "../redux/actions/products";
+import { getUser } from "../redux/actions/user";
+import { getMerchants } from "../redux/actions/merchants";
 
 // Components
 import { Alert, Row, Col } from "reactstrap";
@@ -24,9 +24,8 @@ class Shop extends Component {
   componentDidMount() {
     // Get currnet USER and Products
     this.props.getUser();
-    this.props.getProducts();
+    this.props.getMerchants();
   }
-
 
   goBack = () => this.props.history.push("/");
 
@@ -46,7 +45,7 @@ class Shop extends Component {
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
-            <Product {...{...product, id}} key={id} />
+            <Product {...{ ...product, id }} key={id} />
           )}
         </div>
       </Page>
@@ -55,18 +54,27 @@ class Shop extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
+  // Map action to to dispatch it from the component
   return {
     getUser: id => dispatch(getUser(id)),
-    getProducts: () => dispatch(getProducts())
-  }
-}
+    getMerchants: () => dispatch(getMerchants())
+  };
+};
 
-const mapStateToProps = ({products, user}) => {
-  console.log(products, user);
+const mapStateToProps = ({ merchants, user }) => {
+  // Map data to match liked products
+  const mappedMerchants = merchants.map(({ ...merch, products }) => ({
+    ...merch,
+    products: products.map(prod => ({
+      ...prod,
+      liked: user.favorites.indexOf(prod.id) >= 0
+    }))
+  }));
+
   return {
-    merchants: products.merchants
-  }
-}
+    merchants: mappedMerchants
+  };
+};
 
+// Connect action and state to the Component
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);
-
