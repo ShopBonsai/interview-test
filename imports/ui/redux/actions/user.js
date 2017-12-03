@@ -25,7 +25,7 @@ export const getUser = (id) => (dispatch, getState) => {
   // Make request to create or to get user
   let userResult = call(!userID ? 
       'users.createUser' :
-      'users.getUser', userID);
+      'users.getUserByID', userID);
 
   /**
    * Handle response, add cookie and set user to the store
@@ -37,7 +37,21 @@ export const getUser = (id) => (dispatch, getState) => {
       dispatch(setUser(result));
       return result
     })
-    .catch(error => alert(error))
+    .catch(alert)
+}
+
+export const updateUser = user => (dispatch, getState) => {
+  if (!user) {
+    user = getState().user;
+  }
+
+  return call('users.updateUserByID', user)
+    .then(result => {
+      dispatch(setUser(result))
+    })
+    .catch(aler)
+
+
 }
 
 export const setUser = (user) => {

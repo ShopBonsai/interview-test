@@ -8,7 +8,7 @@ import { Users } from "./collection";
 
 
 /**
- * Create a purchase
+ * Create a user
  * 
  * @return {Object} A user
  */
@@ -30,7 +30,12 @@ import { Users } from "./collection";
     }
  }
 
- export const getUser = (_id) => {
+ /**
+  * Get user by ID
+  * @param {User} _id 
+  */
+
+ export const getUserByID = (_id) => {
   try {
     const getUser = Users.findOne({_id});
     return getUser;
@@ -39,6 +44,22 @@ import { Users } from "./collection";
   }
 }
 
+
+/**
+  * Update user by ID
+  * @param {User} _id 
+  */
+
+  export const updateUserByID = (user) => {
+    try {
+      const getUser = Users.update(user._id, user);
+      return {
+        user
+      };
+    } catch(error) {
+      return {error};
+    }
+  }
 
 // Register meteor methods.
 Meteor.methods({
