@@ -1,14 +1,21 @@
 import React from "react";
 import { Table } from "reactstrap";
 
-const CartInfo = ({ CartInfo }) => {
+const CartInfo = ({ CartInfo, getOrderTotal }) => {
+  let subTotal = 0;
   let total = 0;
   let counter = 1;
 
   if (CartInfo) {
     CartInfo.map((item, i) => {
-      total += CartInfo[i].price * CartInfo[i].quantity;
+      subTotal += CartInfo[i].price * CartInfo[i].quantity;
     });
+
+    if (subTotal) {
+      total = Math.round(subTotal * 1.13 * 100) / 100;
+      getOrderTotal(total);
+    }
+
     return (
       <div>
         <Table>
@@ -41,10 +48,10 @@ const CartInfo = ({ CartInfo }) => {
         </Table>
         <div className="Subtotal">
           <div>
-            SubTotal = {total}
+            SubTotal = {subTotal}
           </div>
           <div>
-            Total = {Math.round(total * 1.13 * 100) / 100}
+            Total = {total}
           </div>
         </div>
       </div>

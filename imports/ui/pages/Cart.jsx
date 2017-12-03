@@ -12,8 +12,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 
 //database
-import { Orders } from "../../api/orders/collection";
-
+import { Customers } from "../../api/customers/collection";
 
 class Cart extends PureComponent {
   constructor(props) {
@@ -29,7 +28,8 @@ class Cart extends PureComponent {
       userEmail: null,
       userPostalCode: null,
       userAddress: null,
-      userSpecialNote: null
+      userSpecialNote: null,
+      orderTotal: 0
     };
   }
 
@@ -55,6 +55,13 @@ class Cart extends PureComponent {
 
   goBack = () => this.props.history.push("/shop");
   goCart = () => this.props.history.push("/cart");
+  addUser = UserInfo => {
+    try {
+      Customers.insert(UserInfo);
+    } catch (error) {
+      throw new Meteor.Error("there was an error", error);
+    }
+  };
 
   handleNext = () => {
     const {
@@ -65,14 +72,18 @@ class Cart extends PureComponent {
       userAddress,
       userPostalCode,
       userSpecialNote,
-      orderID
+      orderID,
+      orderTotal
     } = this.state;
 
     this.setState({
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 2
     });
-    if (
+    if (stepIndex === 0) {
+      this.setState({ orderTotal });
+      console.log(this.state.orderTotal);
+    } else if (
       stepIndex === 1 &&
       userFirstName &&
       userLastName &&
@@ -86,25 +97,17 @@ class Cart extends PureComponent {
         Email: userEmail,
         Address: userAddress,
         PostalCode: userPostalCode,
-        SpecialNote: userSpecialNote
+        SpecialNote: userSpecialNote,
+        Orders: orderID
       };
-      Orders.update(
-        {
-          _id: orderID
-        },
-        {
-          $set: {
-            UserInfo: UserInfo
-          }
-        }
-      );
+      this.addUser(UserInfo);
     } else if (
       stepIndex === 1 &&
-      !userFirstName &&
-      !userLastName &&
-      !userEmail &&
-      !userAddress &&
-      !userPostalCode
+      (!userFirstName ||
+        !userLastName ||
+        !userEmail ||
+        !userAddress ||
+        !userPostalCode)
     ) {
       alert("Oops, did you forget to enter something?");
       this.setState({
@@ -138,6 +141,9 @@ class Cart extends PureComponent {
   getSpecialNote = userInfo => {
     this.setState({ userSpecialNote: userInfo });
   };
+  getOrderTotal = orderInfo => {
+    this.state.orderTotal = orderInfo;
+  };
 
   getStepContent(stepIndex) {
     let { order } = this.state;
@@ -145,11 +151,10 @@ class Cart extends PureComponent {
 
     switch (stepIndex) {
       case 0:
-        return <CartInfo CartInfo={order} />;
+        return <CartInfo CartInfo={order} getOrderTotal={this.getOrderTotal} />;
       case 1:
         return (
           <UserForm
-            OrderID={orderID}
             getUserFirstName={this.getUserFirstName}
             getUserLastName={this.getUserLastName}
             getUserEmail={this.getUserEmail}
