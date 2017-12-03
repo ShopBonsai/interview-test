@@ -15,7 +15,8 @@ class Product extends PureComponent {
   constructor() {
     super();
     this.state = {
-      purchased: false
+      purchased: false,
+      purchasedFailed: null
     }
   }
 
@@ -23,10 +24,15 @@ class Product extends PureComponent {
     this.props.buyProduct(id)
       .then(res => {
         if (!res.error) {
-          // Set state to sho user that he has bought a product
-          this.triggerPurchase(true);
-          // Set default state;
-          setTimeout(this.triggerPurchase.bind(this, false), 4000);
+          // Set state to show user that he has bought a product
+          this.setState({purchased: true})
+          // Set default state
+          setTimeout(this.setState.bind(this, {purchased: false}), 4000);
+        } else {
+          // Set state to show user that his purchased has failed
+          this.setState({purchasedFailed: true})
+          // Set default state
+          setTimeout(this.setState.bind(this, {purchasedFailed: false}), 4000);
         }
       });
   };
