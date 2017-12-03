@@ -3,6 +3,11 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
 
+// Redux
+import {Provider} from 'react-redux';
+
+// Redux Store
+import {store} from '../../ui/redux/store';
 // Libraries
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -11,7 +16,10 @@ import Routes from "../../ui/Routes.jsx";
 
 // Actual Rendering Function
 const renderApp = () =>
-  render(<Routes />, document.getElementById("render-target"));
+  render(
+  <Provider store={store}>
+    <Routes />
+  </Provider>, document.getElementById("render-target"));
 
 // Start App
 Meteor.startup(() => {
