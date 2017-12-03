@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 
 // Redux Store
 import {store} from '../../ui/redux/store';
+
 // Libraries
 import "bootstrap/dist/css/bootstrap.css";
 
