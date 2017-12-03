@@ -6,6 +6,7 @@ import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
 
 class Home extends PureComponent {
+
   render() {
     return (
       <Page>

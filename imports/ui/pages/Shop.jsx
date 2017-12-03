@@ -2,6 +2,12 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
+import {connect} from 'react-redux'
+
+//Redux
+import {getUser} from '../redux/actions/user';
+
+
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
@@ -14,6 +20,11 @@ class Shop extends Component {
       merchants: [],
       error: null
     };
+  }
+
+  componentDidMount() {
+    // Get currnet USER;
+    this.props.getUser();
   }
 
   componentWillMount() {
@@ -54,4 +65,11 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+const mapDispatchToProps = dispatch => {
+  return {
+    getUser: id => dispatch(getUser(id))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Shop);
+

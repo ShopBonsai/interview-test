@@ -13,13 +13,18 @@ import { Users } from "./collection";
  * @return {Object} A user
  */
 
- export const createUser = ({user = {}}) => {
+ export const createUser = (user) => {
     try {
+      user = user || {
+        likes: [],
+        createdAt : new Date(),
+      }
       const getUser = Users.insert(user);
+
       return {
         success: true,
-        userID: getUser
-        };
+        _id: getUser
+      };
     } catch(error) {
       return {success: false, error};
     }
@@ -37,6 +42,6 @@ import { Users } from "./collection";
 
 // Register meteor methods.
 Meteor.methods({
-  "purchases.createUser": createPurchase,
-  "purchases.getUser": getUSer,
+  "users.createUser": createUser,
+  "users.getUser": getUser,
 });

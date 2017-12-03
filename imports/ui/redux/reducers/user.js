@@ -1,12 +1,17 @@
-// Import UID to make unique id
-import uid from 'uid';
+import {SET_USER} from '../actions/user';
 
 // Create default state for USER
 const defaultState = {
-  id: uid(10) 
+  
 }
 
-// Reducer that define our user
+
 export default function userReducer(state = defaultState, {type, payload}) {
-  return state;
+  switch(type) {
+    // Set current user
+    case SET_USER : {
+      return payload
+    }
+    default: return state;
+  }
 }
