@@ -40,6 +40,11 @@ export const getUser = (id) => (dispatch, getState) => {
     .catch(alert)
 }
 
+
+/**
+ * Update user data
+ * @param {Promise<Object>} user 
+ */
 export const updateUser = user => (dispatch, getState) => {
   if (!user) {
     user = getState().user;
@@ -49,10 +54,22 @@ export const updateUser = user => (dispatch, getState) => {
     .then(result => {
       dispatch(setUser(result))
     })
-    .catch(aler)
-
-
+    .catch(alert)
 }
+
+/**
+ * Add product to user favourites
+ * @param {Promise<Object>} addToFavorites
+ */
+
+ export const addToFavorites = product => (dispatch, getState) => {
+   debugger;
+   const {user} = getState();
+   
+  const favorites = [...user.favorites, product];
+
+  return dispatch(updateUser({...user, favorites}))
+ }
 
 export const setUser = (user) => {
   return {

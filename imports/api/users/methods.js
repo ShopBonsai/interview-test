@@ -16,15 +16,11 @@ import { Users } from "./collection";
  export const createUser = (user) => {
     try {
       user = user || {
-        likes: [],
+        favorites: [],
         createdAt : new Date(),
       }
-      const getUser = Users.insert(user);
-
-      return {
-        success: true,
-        _id: getUser
-      };
+      const userID = Users.insert(user);
+      return getUserByID(userID);
     } catch(error) {
       return {success: false, error};
     }
@@ -64,5 +60,6 @@ import { Users } from "./collection";
 // Register meteor methods.
 Meteor.methods({
   "users.createUser": createUser,
-  "users.getUser": getUser,
+  "users.getUserByID": getUserByID,
+  "users.updateUserByID": updateUserByID,
 });

@@ -2,14 +2,15 @@
 import React, { PureComponent } from "react";
 
 // React-Redux
-import {connect} from 'react-redux';
+import {connect} from "react-redux";
 
 // Redux action
-import {buyProduct} from '../redux/actions/purchase';
+import {buyProduct} from "../redux/actions/purchase";
+import {addToFavorites} from "../redux/actions/user";
 
 // Components
 import Button from "../components/Button.jsx";
-
+import Like from "../components/Like.jsx";
 class Product extends PureComponent {
 
   constructor() {
@@ -37,6 +38,10 @@ class Product extends PureComponent {
       });
   };
 
+  handleLike = product => {
+    this.props.likeProduct(product);
+  }
+
   triggerPurchase = (state) => this.setState({purchased: state});
 
   render() {
@@ -47,7 +52,9 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      liked,
+      id
     } = this.props;
 
     const {
@@ -69,6 +76,7 @@ class Product extends PureComponent {
     return (
       <div className="product">
         <img alt={name} src={image} />
+        <Like liked={liked} onClick={this.handleLike.bind(this, id)} />
         <div className="details">
           <div className="info">
             {info.map(({ label, value }) =>
@@ -94,7 +102,8 @@ class Product extends PureComponent {
 
 const mapDispatchToProps = dispatch => {
   return {
-    buyProduct : product =>  dispatch(buyProduct(product))
+    buyProduct : product =>  dispatch(buyProduct(product)),
+    likeProduct : product => dispatch(addToFavorites(product))
   }
 }
 
