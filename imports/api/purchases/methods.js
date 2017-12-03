@@ -19,12 +19,16 @@ import { Purchases } from "./collection";
       product,
       created: new Date(),
     };
-  try {
-     const getPurchase = Purchases.insert(purchase);
-     return {success: !!getPurchase};
-   } catch(error) {
-     return {success: fallse, error};
-   }
+
+    try {
+      const getPurchase = Purchases.insert(purchase);
+      return {
+        success: true,
+        purchaseID: getPurchase
+        };
+    } catch(error) {
+      return {success: false, error};
+    }
  }
 
 

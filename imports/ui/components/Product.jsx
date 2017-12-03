@@ -1,12 +1,18 @@
 // Framework
 import React, { PureComponent } from "react";
 
+// React-Redux
+import {connect} from 'react-redux';
+
+// Redux action
+import {buyProduct} from '../redux/actions/purchase';
+
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
+  handleBuyProduct = id => {
+    this.props.buyProduct(id);
   };
 
   render() {
@@ -45,7 +51,7 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
+          <Button onClick={this.handleBuyProduct.bind(this, {name, brand, size})}>
             Buy {name}
           </Button>
         </div>
@@ -54,4 +60,11 @@ class Product extends PureComponent {
   }
 }
 
-export default Product;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    buyProduct : product =>  dispatch(buyProduct(product))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Product) ;
