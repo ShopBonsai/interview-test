@@ -10,7 +10,7 @@ import { Merchants } from "./collection";
  * Get a merchant object by id
  *
  * @returns {Object} The merchant object contains information in this order
- * 
+ *
  *  {
  *    "index": 1,
  *    "guid": "51053bbd-5909-432d-82d3-fafbf7a9da34",
@@ -57,9 +57,9 @@ import { Merchants } from "./collection";
  *    },
  *    "companyDescription": "Aute esse proident consectetur ea eiusmod labore eiusmod consequat consequat labore non mollit. Proident aliquip ea est magna reprehenderit mollit ipsum Lorem tempor aute non est. Minim occaecat aliquip excepteur consectetur eu nisi qui magna.\r\n"
  *  },
- * 
- * 
- * 
+ *
+ *
+ *
  */
 
 export const getMerchantById = merchantId => {
@@ -76,10 +76,14 @@ export const getMerchantById = merchantId => {
   return merchant;
 };
 
-export const getMerchants = () => {
+export const getMerchants = filters => {
   let merchantData;
   try {
-    merchantData = Merchants.find({}).fetch();
+    merchantData = Merchants.find({
+      merchant: { $regex: filters.merchant, $options: "i" },
+      brands: { $regex: filters.brand, $options: "i" },
+      "products.name": { $regex: filters.productName, $options: "i" }
+    }).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getMerchants.findOrFetchError`,
