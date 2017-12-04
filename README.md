@@ -1,11 +1,14 @@
 # Bonsai Interview Test
 
-Features implemented: I redesigned the splash page and added some smaller features like a cart and a major feature which was integrating Stripe and a complete purchasing process.
+Features implemented: I redesigned the splash page and added some smaller features like a cart, being able to choose the quantity of items you want to buy and a major feature which was integrating Stripe and a complete purchasing process.
 
 # Purchasing experience: Part 1
 ![Part 1 of purchasing experience](https://github.com/rickysychan/interview-test/blob/master/docs/part1.gif)
 # Purchasing experience: Part 2
 ![Part 1 of purchasing experience](https://github.com/rickysychan/interview-test/blob/master/docs/part2.gif)
+
+# A note to the reviewer
+Hey! I had a lot of fun doing this tech interview. I wish more companies did tech interviews this way. Anyways, if you would like to reach me I am at rickysychan@gmail.com. 
 
 
 ## Install
