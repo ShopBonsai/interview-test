@@ -33,6 +33,7 @@ class UserForm extends React.Component {
   render() {
     return (
       <div>
+        <h2>How should we reach you?</h2>
         First Name
         <br />
         <TextField onChange={this.handleFirstNameChange} hintText="Steven" />
@@ -41,14 +42,14 @@ class UserForm extends React.Component {
         <br />
         <TextField onChange={this.handleLastNameChange} hintText="Morrison" />
         <br />
-        Address
+        Email
         <br />
         <TextField
           onChange={this.handleEmailChange}
           hintText="Steve@gmail.com"
         />
         <br />
-        Email
+        Address
         <br />
         <TextField
           onChange={this.handleAddressChange}

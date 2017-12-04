@@ -18,6 +18,7 @@ const CartInfo = ({ CartInfo, getOrderTotal }) => {
 
     return (
       <div>
+        <h2>Your Cart</h2>
         <Table>
           <thead>
             <tr>

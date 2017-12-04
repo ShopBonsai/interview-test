@@ -1,5 +1,6 @@
 // Framework
 import React, { PureComponent } from "react";
+import { withRouter } from "react-router";
 
 // Components
 import Page from "../components/Page.jsx";
@@ -7,6 +8,9 @@ import Button from "../components/Button.jsx";
 import CartPage from "../components/CartPage.jsx";
 import CartInfo from "../components/CartInfo.jsx";
 import UserForm from "../components/UserForm.jsx";
+import StripeCheckout from "../components/StripeCheckout.js";
+
+//Material UI
 import { Step, Stepper, StepLabel } from "material-ui/Stepper";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
@@ -18,18 +22,20 @@ class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      order: [],
+      customerInfo: null,
       error: null,
       finished: false,
-      stepIndex: 0,
+      order: [],
+      orderComplete: true,
       orderID: null,
+      orderTotal: 0,
       userFirstName: null,
       userLastName: null,
       userEmail: null,
       userPostalCode: null,
       userAddress: null,
       userSpecialNote: null,
-      orderTotal: 0
+      stepIndex: 0
     };
   }
 
@@ -52,15 +58,25 @@ class Cart extends PureComponent {
       }
     });
   }
-
   goBack = () => this.props.history.push("/shop");
   goCart = () => this.props.history.push("/cart");
+  goShop = () => this.props.history.push("/shop");
+
+  checkOrder = status => {
+    this.setState({ orderComplete: status });
+  };
   addUser = UserInfo => {
     try {
       Customers.insert(UserInfo);
     } catch (error) {
       throw new Meteor.Error("there was an error", error);
     }
+  };
+
+  getCustomerInfo = OrderID => {
+    let customerInfo = Customers.findOne({ Orders: OrderID });
+    this.setState({ customerInfo: customerInfo });
+    console.log(customerInfo);
   };
 
   handleNext = () => {
@@ -82,7 +98,6 @@ class Cart extends PureComponent {
     });
     if (stepIndex === 0) {
       this.setState({ orderTotal });
-      console.log(this.state.orderTotal);
     } else if (
       stepIndex === 1 &&
       userFirstName &&
@@ -101,6 +116,7 @@ class Cart extends PureComponent {
         Orders: orderID
       };
       this.addUser(UserInfo);
+      this.getCustomerInfo(orderID);
     } else if (
       stepIndex === 1 &&
       (!userFirstName ||
@@ -146,8 +162,7 @@ class Cart extends PureComponent {
   };
 
   getStepContent(stepIndex) {
-    let { order } = this.state;
-    let { orderID } = this.state;
+    let { order, orderID, orderTotal, customerInfo } = this.state;
 
     switch (stepIndex) {
       case 0:
@@ -164,9 +179,18 @@ class Cart extends PureComponent {
           />
         );
       case 2:
-        return "This is the bit I really care about!";
+        return (
+          <StripeCheckout
+            orderTotal={orderTotal}
+            CartInfo={order}
+            getOrderTotal={this.getOrderTotal}
+            orderID={orderID}
+            customerInfo={customerInfo}
+            checkOrder={this.checkOrder}
+          />
+        );
       default:
-        return "You're a long way from home sonny jim!";
+        return "Oops How did you get here?";
     }
   }
 
@@ -187,39 +211,29 @@ class Cart extends PureComponent {
                 <StepLabel>Where should we send it to?</StepLabel>
               </Step>
               <Step>
-                <StepLabel>Enjoy!</StepLabel>
+                <StepLabel>Pay and Enjoy!</StepLabel>
               </Step>
             </Stepper>
             <div style={contentStyle}>
-              {finished
-                ? <p>
-                    <a
-                      href="#"
-                      onClick={event => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
-                    >
-                      Click here
-                    </a>{" "}
-                    to reset the example.
-                  </p>
-                : <div>
-                    {this.getStepContent(stepIndex)}
-                    <div style={{ marginTop: 12 }}>
-                      <FlatButton
-                        label="Back"
-                        disabled={stepIndex === 0}
-                        onClick={this.handlePrev}
-                        style={{ marginRight: 12 }}
-                      />
-                      <RaisedButton
-                        label={stepIndex === 2 ? "Finish" : "Next"}
-                        primary={true}
-                        onClick={this.handleNext}
-                      />
-                    </div>
-                  </div>}
+              <div>
+                {this.getStepContent(stepIndex)}
+                <div style={{ marginTop: 12 }}>
+                  <FlatButton
+                    label="Back"
+                    disabled={stepIndex === 0}
+                    onClick={this.handlePrev}
+                    style={{ marginRight: 12 }}
+                  />
+                  <RaisedButton
+                    label={stepIndex === 2 ? "Finish" : "Next"}
+                    primary={true}
+                    disabled={
+                      stepIndex === 2 ? this.state.orderComplete : false
+                    }
+                    onClick={stepIndex === 2 ? this.goShop : this.handleNext}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -232,4 +246,4 @@ class Cart extends PureComponent {
   }
 }
 
-export default Cart;
+export default withRouter(Cart);

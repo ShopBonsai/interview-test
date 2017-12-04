@@ -4,40 +4,15 @@
 import { Meteor } from "meteor/meteor";
 
 // Collections
-import { Users } from "./collection";
+import { Customers } from "./collection";
 
-/**
- * Get the most recently created order, not safe for production
- *
- * @returns {Object} A single order object.
- */
-export const getLastOrder = async () => {
-  const options = { sort: { $natural: -1 }, limit: 2 };
+export const getCustomerById = CustomerId => {
   try {
-    const lastOrderCursor = await Orders.find({}, options);
-    const lastOrder = lastOrderCursor.fetch()[0];
-    return lastOrder;
-  } catch (error) {
-    throw new Meteor.Error(
-      `${__filename}:getLastOrder.findOrFetchError`,
-      `Could not find or fetch product. Got error: ${error}`,
-      error
-    );
-  }
-};
-
-/**
- * Get an order by id
- *
- * @returns {Object} A single order object.
- */
-export const getOrderById = orderId => {
-  try {
-    return Orders.findOne(orderId);
+    return Customers.findOne({_id: CustomerId});
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
+      `Could not find or fetch product with order id: '${CustomerId}'`,
       error
     );
   }
@@ -45,6 +20,5 @@ export const getOrderById = orderId => {
 
 // Register meteor methods.
 Meteor.methods({
-  "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "customers.getCustomersById": getCustomerById
 });
