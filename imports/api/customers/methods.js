@@ -8,7 +8,7 @@ import { Customers } from "./collection";
 
 export const getCustomerById = CustomerId => {
   try {
-    return Customers.findOne({_id: CustomerId});
+    return Customers.findOne({ _id: CustomerId });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
