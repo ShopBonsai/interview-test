@@ -25,8 +25,7 @@
     "react-transition-group": "1.1.2",
     "reactstrap": "4.8.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "uid": "0.0.2"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
