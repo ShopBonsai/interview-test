@@ -7,6 +7,11 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
+/*
+  this is the shop component where the products 
+  is loaded from server  
+*/ 
+
 class Shop extends Component {
   constructor(props) {
     super(props);
