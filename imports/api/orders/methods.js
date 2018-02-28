@@ -59,7 +59,8 @@ export const finishPurchase = items => {
        amount});     
       return amountDue;
   } catch (error) {
-      throw new Meteor.Error( "error while saving order",error);}  
+      throw new Meteor.Error( "error while saving order",error);
+    }  
 } 
 
 
