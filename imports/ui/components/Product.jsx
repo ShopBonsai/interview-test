@@ -4,6 +4,11 @@ import React, { PureComponent } from "react";
 // Components
 import Button from "../components/Button";
 
+/*
+  This component is responsible for 
+   execute the flow of adding a product 
+   in the cart
+*/
 class Product extends PureComponent {
    constructor(props) {
     super(props);
@@ -13,12 +18,18 @@ class Product extends PureComponent {
     
   }
 
+  /* this function adds 
+     the quantity of each product
+  */ 
   handleIncreaseQuantity = () => {
     console.log('handle increase');
     const numItem = this.state.quantity + 1;
     this.setState(() => ({ quantity: numItem }));
   }
 
+  /* this function subtracts 
+     the quantity of each product
+  */ 
   handleDecreaseQuantity = () => {
     console.log('handle decrease');
      if(this.state.quantity > 1){
@@ -26,7 +37,11 @@ class Product extends PureComponent {
         this.setState(() => ({ quantity: numItem }));     
      }
   }
-
+  
+  /* this function mounts the product object, 
+     gets its respective quantity and add 
+     in the parent component(Shop) state through the 
+     addItem function  */
   handleBuyProduct = () => {
     const product = {
         id : this.props.id,

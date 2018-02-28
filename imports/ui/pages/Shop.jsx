@@ -6,6 +6,7 @@ import { Meteor } from "meteor/meteor";
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
+import Cart from '../components/Cart'
 
 /*
   This is the shop component where the products 
@@ -26,7 +27,7 @@ class Shop extends Component {
   }
   
   /* 
-    this method add each product and 
+    this function add each product and 
     its respective quantity in the 
     orderItems state attribute 
   */
@@ -39,6 +40,32 @@ class Shop extends Component {
    items.push(item);
    this.setState(() => ({ orderItems: items, numItems : items.length }));
    console.log(this.state.orderItems)
+  }
+
+  /*  this function makes the fade 
+      effect on Cart Component */ 
+  toggleFade = () => {
+    this.setState(() => ({fade: !this.state.fade}));
+    console.log(this.state.fade)    
+  }
+  
+  /*
+    this function renders the Cart component 
+    when the toggle button is clicked
+  */ 
+  renderCart = () => {  
+      console.log(this.state.fade);
+      if(this.state.fade){
+        /* the items are passed as props in the cart component */ 
+        return (
+          <div> 
+              <Cart items={this.state.orderItems} />
+           </div>
+        )
+      }else{
+        console.log(this.state.fade);
+        return null;
+      }
   }
 
   componentWillMount() {
@@ -54,7 +81,7 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { merchants, error } = this.state;
+    const { merchants, error, numItems } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
@@ -68,8 +95,9 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="shop" history goBack={this.goBack} item={numItems} toggleFade={this.toggleFade} >
         <div className="shop-page">
+          {this.renderCart()}
           {products.map(({ id, ...product }) =>
             // the addItem is passes as props in the Product component
             <Product {...product} key={id} addItem={this.addItem} />

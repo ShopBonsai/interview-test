@@ -7,10 +7,13 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
-export const Page = ({ children, pageTitle, history, goBack }) =>
+export const Page = ({ children, pageTitle, history, goBack, item, toggleFade }) =>
   <div className="page">
     <Header goBack={goBack}>
       {pageTitle}
+      <button onClick={toggleFade} className=" btn btn-success btn-toggle-cart">
+             toggle cart {item}
+      </button>
     </Header>
     <main>
       {children}
