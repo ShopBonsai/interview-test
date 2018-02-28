@@ -6,49 +6,77 @@ import { Meteor } from "meteor/meteor";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 import Loading from "../components/Loading";
+import Search from "../components/Search";
 
 class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      merchants: [],
+      products: [],
       error: null,
       loading: false
     };
   }
 
   componentWillMount() {
+    this.getAllProducts();
+  }
+
+  getAllProducts() {
     this.setState(() => ({ loading: true }));
     Meteor.call("merchants.getMerchants", (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ merchants: response }));
+        const getProductsFromMerchant = ({ products, brands }) =>
+          products.map(({ belongsToBrand, ...product }) => ({
+            ...product,
+            brand: brands[belongsToBrand]
+          }));
+
+        let products = response.reduce(
+          (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
+          []
+        );
+        this.setState(() => ({ products }));
       }
       this.setState(() => ({ loading: false }));
+    });
+  }
+
+  _onSearch(text) {
+    if (!text) {
+      this.getAllProducts();
+    }
+
+    Meteor.call("merchants.search", text, (error, response) => {
+      if (error) {
+        this.setState(() => ({ error: error }));
+      } else {
+        const getProductsFromMerchant = ({ products, brands }) =>
+          products.map(({ belongsToBrand, ...product }) => ({
+            ...product,
+            brand: brands[belongsToBrand]
+          }));
+
+        let products = response.reduce(
+          (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
+          []
+        );
+        this.setState(() => ({ products }));
+      }
     });
   }
 
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { merchants, loading } = this.state;
+    const { products, loading } = this.state;
 
     let content;
     if (loading) {
       content = <Loading />;
     } else {
-      const getProductsFromMerchant = ({ products, brands }) =>
-        products.map(({ belongsToBrand, ...product }) => ({
-          ...product,
-          brand: brands[belongsToBrand]
-        }));
-
-      const products = merchants.reduce(
-        (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-        []
-      );
-
       content = (
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
@@ -60,6 +88,7 @@ class Shop extends Component {
 
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
+        {<Search onSearch={this._onSearch.bind(this)} />}
         {content}
       </Page>
     );
