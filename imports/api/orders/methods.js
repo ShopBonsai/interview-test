@@ -50,7 +50,7 @@ export const getOrderById = orderId => {
 */
 export const finishPurchase = items => {
   
-  try{      
+  try {      
       const amountDue = calculateAmountDue(items);
       const date = new Date();
       Orders.insert({
