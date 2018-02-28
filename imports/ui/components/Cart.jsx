@@ -13,7 +13,8 @@ class Cart extends Component {
    constructor(props) {
     super(props);
     this.state = {
-        items : []
+        items : [],
+        amountDue : 0
     };
   }
 
@@ -28,26 +29,44 @@ class Cart extends Component {
     length is 0 then null is returned
   */
   renderItems(){
-    const {items} = this.state;
-    console.log(items.length);
-    if(items.length > 0){
+     const {items} = this.state;
+     console.log(items.length);
+     if(items.length > 0){
         const mappedItens = items.map((item) => 
             <li className="list-group-item">
                 description: {item.product.name} subtotal: {item.product.price * item.quantity} </li>);
         return mappedItens;
-    }else{
+     }else{
         return null;
-    }
-}
+     }
+   }
 
-render() {
-    return (
-         <div className="cart-wrapper">
-            <ul className="list-group cart-list">
-                {this.renderItems()}
-            </ul>
-        </div>
-    );
+    /*
+        this method will finish the purchase 
+        called the orders api service. 
+    */ 
+    handleFinishPurchase = () => {
+      const items = this.state.items;
+      Meteor.call("orders.finishPurchase",items,(error,response) => {
+          if(error){
+              console.log('erro');
+          }else{
+              this.setState({amountDue : response});
+          }
+      });  
+    }
+
+    render() {
+        return (
+             <div className="cart-wrapper">
+                <ul className="list-group cart-list">
+                    {this.renderItems()}
+                    <button onClick={this.handleFinishPurchase} className=" btn btn-success ">  
+                        finish purchase
+                    </button>
+                </ul>
+            </div>
+         );
   }
 }
 
