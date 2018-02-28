@@ -52,6 +52,7 @@ class Cart extends Component {
               console.log('erro');
           }else{
               this.setState({amountDue : response});
+              console.log(response);
           }
       });  
     }

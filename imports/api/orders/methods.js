@@ -48,23 +48,24 @@ export const getOrderById = orderId => {
     responsible calsulate thte order amount 
     due and store it in the mongo database
 */
-export const finishPurchase = items => {
+export const finishPurchase = (items) => {
   
-  try {      
+  try{
       const amountDue = calculateAmountDue(items);
-      const date = new Date();
       Orders.insert({
-       date,
-       items,
-       amount});     
+        date: new Date(),
+        amount : amountDue,
+        items : items
+        });     
       return amountDue;
-  } catch (error) {
-      throw new Meteor.Error( "error while saving order",error);
+   } catch (error) {
+      throw new Meteor.Error( "error while saving order",
+         error
+      );
     }  
 } 
 
-
-calculateAmountDue = items => {
+calculateAmountDue = (items) => {
   const amount = items.reduce((amtDue,item) => amtDue + item.quantity * item.product.price,0);
   return amount;
 } 
