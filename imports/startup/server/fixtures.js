@@ -13,4 +13,11 @@ Meteor.startup(() => {
       })
     );
   }
+
+  Merchants.rawCollection().createIndex({
+    "products.name": "text",
+    "products.description": "text",
+    brands: "text",
+    merchant: "text"
+  });
 });
