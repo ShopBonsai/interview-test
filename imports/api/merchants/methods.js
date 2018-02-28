@@ -90,8 +90,25 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const search = keyword => {
+  let merchantData;
+  try {
+    merchantData = Merchants.find(
+      { $text: { $search: keyword } }
+    ).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:search.findOrFetchError`,
+      `Could not search merchants`,
+      error
+    );
+  }
+  return merchantData;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "merchants.search": search
 });
