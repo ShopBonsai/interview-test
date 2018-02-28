@@ -50,16 +50,15 @@ export const getOrderById = orderId => {
 */
 export const finishPurchase = items => {
   
-  try{
+  try{      
       const amountDue = calculateAmountDue(items);
-      const date = new Date()
+      const date = new Date();
       Orders.insert({
-         date,
-         items,
-         amount 
-      });     
+       date,
+       items,
+       amount});     
       return amountDue;
-   } catch (error) {
+  } catch (error) {
       throw new Meteor.Error( "error while saving order",error);}  
 } 
 
