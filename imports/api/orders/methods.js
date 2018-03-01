@@ -49,7 +49,7 @@ export const getOrderById = orderId => {
     due and store it in the mongo database
 */
 export const finishPurchase = items => {
-  try {      
+  try {            
       const amountDue = calculateAmountDue(items);
       const date = new Date();
       Orders.insert({
@@ -59,13 +59,13 @@ export const finishPurchase = items => {
       return amountDue;
    } catch (error) {
       throw new Meteor.Error( "error while saving order",error);
-    }  
+  }  
 };
 
-calculateAmountDue = (items) => {
+calculateAmountDue = items => {
   const amount = items.reduce((amtDue,item) => amtDue+item.quantity*item.product.price,0);
   return amount;
-} 
+}; 
 
 // Register meteor methods.
 Meteor.methods({
