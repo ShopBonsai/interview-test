@@ -16,6 +16,7 @@ const Routes = () =>
     <div>
       <Route exact path="/" component={Home} />
       <Route path="/shop/:keyword/:minPrice/:maxPrice" component={Shop} />
+      <Route exact path="/shop" component={Shop} />
       <Route path="/search/filter/:keyword/:minPrice/:maxPrice" component={Filter} />
     </div>
   </Router>;
