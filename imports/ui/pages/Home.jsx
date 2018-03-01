@@ -6,6 +6,8 @@ import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
 
 class Home extends PureComponent {
+  goBack = () => this.props.history.push("/");
+
   render() {
     return (
       <Page>
@@ -17,6 +19,14 @@ class Home extends PureComponent {
             }}
           >
             Go shopping
+          </Button>
+          <br />
+          <Button
+            onClick={() => {
+              this.props.history.push("/admin");
+            }}
+          >
+            Administrator
           </Button>
         </div>
       </Page>
