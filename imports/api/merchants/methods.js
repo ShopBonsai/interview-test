@@ -90,8 +90,39 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const search = (keyword, minPrice, maxPrice) => {
+  let merchantData;
+  try {
+    let queryObj = {};
+
+    if (keyword) {
+      queryObj.$text = { $search: keyword };
+    }
+
+    merchantData = Merchants.find(queryObj).fetch();
+
+    // manual filter because mongo can't filter nested documents
+    minPrice = minPrice || 0;
+    maxPrice = maxPrice || Number.MAX_VALUE;
+    merchantData = merchantData.map(merchant => {
+      merchant.products = merchant.products.filter(
+        product => product.price >= minPrice && product.price <= maxPrice
+      );
+      return merchant;
+    });
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:search.findOrFetchError`,
+      `Could not search merchants`,
+      error
+    );
+  }
+  return merchantData;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "merchants.search": search
 });
