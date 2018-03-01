@@ -10,7 +10,7 @@ import { Merchants } from "./collection";
  * Get a merchant object by id
  *
  * @returns {Object} The merchant object contains information in this order
- * 
+ *
  *  {
  *    "index": 1,
  *    "guid": "51053bbd-5909-432d-82d3-fafbf7a9da34",
@@ -57,9 +57,9 @@ import { Merchants } from "./collection";
  *    },
  *    "companyDescription": "Aute esse proident consectetur ea eiusmod labore eiusmod consequat consequat labore non mollit. Proident aliquip ea est magna reprehenderit mollit ipsum Lorem tempor aute non est. Minim occaecat aliquip excepteur consectetur eu nisi qui magna.\r\n"
  *  },
- * 
- * 
- * 
+ *
+ *
+ *
  */
 
 export const getMerchantById = merchantId => {
@@ -70,6 +70,35 @@ export const getMerchantById = merchantId => {
     throw new Meteor.Error(
       `${__filename}:getMerchantById.findOrFetchError`,
       `Could not find or fetch merchant with order id: '${merchantId}'`,
+      error
+    );
+  }
+  return merchant;
+};
+
+export const createMerchant = payload => {
+  let merchant;
+  try {
+    merchant = Merchants.insert(payload);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:createMerchant.createError`,
+      "Could not create merchant",
+      error
+    );
+  }
+  return merchant;
+};
+
+export const deleteMerchant = merchantId => {
+  let merchant;
+  try {
+    const _id = merchantId;
+    merchant = Merchants.remove(_id);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:deleteMerchant.deleteError`,
+      `Could not delete merchant with id: '${_id}'`,
       error
     );
   }
@@ -93,5 +122,7 @@ export const getMerchants = () => {
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.deleteMerchant": deleteMerchant,
+  "merchants.getMerchants": getMerchants,
+  "merchants.createMerchant": createMerchant
 });
