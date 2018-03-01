@@ -14,12 +14,15 @@ class Shop extends Component {
     this.state = {
       products: [],
       error: null,
-      loading: false
+      loading: false,
+      keyword: this.props.match.params.keyword,
+      minPrice: parseInt(this.props.match.params.minPrice),
+      maxPrice: parseInt(this.props.match.params.maxPrice)
     };
   }
 
   componentWillMount() {
-    this.getAllProducts();
+    this.search();
   }
 
   getAllProducts() {
@@ -44,28 +47,54 @@ class Shop extends Component {
     });
   }
 
-  _onSearch(text) {
-    if (!text) {
+  search() {
+    if (
+      !this.state.keyword ||
+      this.state.minPrice === undefined ||
+      this.state.minPrice === undefined
+    ) {
       this.getAllProducts();
     }
 
-    Meteor.call("merchants.search", text, (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      } else {
-        const getProductsFromMerchant = ({ products, brands }) =>
-          products.map(({ belongsToBrand, ...product }) => ({
-            ...product,
-            brand: brands[belongsToBrand]
-          }));
+    Meteor.call(
+      "merchants.search",
+      this.state.keyword,
+      this.state.minPrice,
+      this.state.maxPrice,
+      (error, response) => {
+        if (error) {
+          this.setState(() => ({ error: error }));
+        } else {
+          const getProductsFromMerchant = ({ products, brands }) =>
+            products.map(({ belongsToBrand, ...product }) => ({
+              ...product,
+              brand: brands[belongsToBrand]
+            }));
 
-        let products = response.reduce(
-          (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-          []
-        );
-        this.setState(() => ({ products }));
+          let products = response.reduce(
+            (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
+            []
+          );
+          this.setState(() => ({ products }));
+        }
       }
-    });
+    );
+  }
+
+  _onSearch(text) {
+    this.setState(
+      () => ({ keyword: text }),
+      () => {
+        this.search();
+      }
+    );
+  }
+
+  _onFilter() {
+    this.props.history.push(
+      `/search/filter/${this.state.keyword}/${this.state.minPrice}/${this.state
+        .maxPrice}`
+    );
   }
 
   goBack = () => this.props.history.push("/");
@@ -86,9 +115,17 @@ class Shop extends Component {
       );
     }
 
+    let pageTitle = this.state.keyword
+      ? "searching for " + this.state.keyword
+      : "shop";
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
-        {<Search onSearch={this._onSearch.bind(this)} />}
+      <Page pageTitle={pageTitle} history goBack={this.goBack}>
+        {
+          <Search
+            onSearch={this._onSearch.bind(this)}
+            onFilter={this._onFilter.bind(this)}
+          />
+        }
         {content}
       </Page>
     );

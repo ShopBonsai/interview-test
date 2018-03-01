@@ -20,6 +20,10 @@ class Search extends PureComponent {
     };
   }
 
+  _filter() {
+    this.props.onFilter();
+  }
+
   render() {
     return (
       <div>
@@ -31,6 +35,7 @@ class Search extends PureComponent {
           placeholder="search"
           onChange={this._onChange.bind(this)}
         />
+        <button onClick={this._filter.bind(this)}>Filter</button>
       </div>
     );
   }
