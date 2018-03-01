@@ -48,14 +48,14 @@ export const getOrderById = orderId => {
     responsible calsulate thte order amount 
     due and store it in the mongo database
 */
-export const finishPurchase = (items) => {
-  
+export const finishPurchase = items => {  
   try{
       const amountDue = calculateAmountDue(items);
+      const date = new Date();
       Orders.insert({
-        date: new Date(),
-        amount : amountDue,
-        items : items
+        date,
+        amountDue,
+        items
         });     
       return amountDue;
    } catch (error) {
