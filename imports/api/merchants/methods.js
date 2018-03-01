@@ -79,7 +79,6 @@ export const getMerchantById = merchantId => {
 export const createMerchant = payload => {
   let merchant;
   try {
-    console.log(merchant);
     merchant = Merchants.insert(payload);
   } catch (error) {
     throw new Meteor.Error(
@@ -125,5 +124,5 @@ Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
   "merchants.deleteMerchant": deleteMerchant,
   "merchants.getMerchants": getMerchants,
-  "merchants.createMerchant": createMerchant,
+  "merchants.createMerchant": createMerchant
 });
