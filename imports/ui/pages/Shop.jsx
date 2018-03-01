@@ -59,13 +59,18 @@ class Shop extends Component {
         /* the items are passed as props in the cart component */ 
         return (
           <div> 
-              <Cart items={this.state.orderItems} />
+              <Cart items={this.state.orderItems} 
+                    clearItems={this.clearNumItems} />
            </div>
         )
       }else{
         console.log(this.state.fade);
         return null;
       }
+  }
+
+  clearNumItems = () => {
+    this.setState(() => ({numItems : 0,orderItems: [], fade: false}));
   }
 
   componentWillMount() {
