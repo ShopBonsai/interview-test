@@ -1,6 +1,6 @@
 # Bonsai Interview Test
 
-Welcome to the creative interview test at shop bonsai.
+Welcome to the creative interview test at Shop Bonsai.
 
 This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today). 
 
@@ -14,8 +14,8 @@ Here are some ideas for features that are missing from the app:
  - Clicking Buy does SOMETHING! This should add data to the database in a meaningful way and communicate to the user that such an action took place.
  - Ability to select a quantity to buy. The quantity should be stored in the database in a meaningful way, this data should be retrieved and displayed somewhere for the user.
  - Add a profile page to display user-related data. This data should be stored in the database and retrieved.
- - Allow users to login using social media. A record of the user being logged in should be stored in the database, retrieved and displayed (perhaps on a special admin-only page)
- - Select multiple items to buy together. Which items get selected/submitted should be stored meaningfully in the database
+ - Allow users to login using social media. A record of the user being logged in should be stored in the database, retrieved and displayed (perhaps on a special admin-only page).
+ - Select multiple items to buy together. Which items get selected/submitted should be stored meaningfully in the database.
  - Add a cart object to display selected items the user wants to buy. Store this information meaningfully in the database.
  - Organize the shop page for better browsing experience, adding filters for brands/merchants/products.
  - Ability to 'like' an item. Store which items got liked in the database, retrieve this information.
@@ -47,6 +47,13 @@ Thank you and good luck for everyone who applied and submitted a PR.
 1. Ensure `npm` is installed.
 2. Ensure `meteor` is installed
 3. `meteor npm install`
+
+## Database setup (Mongo) on a Mac
+1. Download and install MongoDB: `brew install mongodb`
+    - create a directory to store your local DB `sudo mkdir -p /data/db`
+    - run mongod (The process that hosts your local db) `sudo mongod` (Note: This process needs to run the entire time in the background while you are developing)
+2. Run the app at least once `meteor npm run start`
+3. Download and run 'Robo 3T' to explore the data that gets created
 
 ## Run
 1. `meteor npm run start`

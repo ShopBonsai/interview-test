@@ -1,0 +1,36 @@
+JSON GENEREATOR mockMerchantData:
+https://www.json-generator.com/#
+
+Put the following on the left side, click genearte. Modify {{repeat for number of repeats ur want}}.
+
+   [
+  '{{repeat(50,500)}}',
+  {
+    index: '{{index()}}',
+    guid: '{{guid()}}',
+    logo: 'https://www.fillmurray.com/50/50',
+    dateCreated: '{{date(new Date(2015, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+    publishedState: '{{bool()}}',
+    brands: ['{{firstName()}} {{surname()}}','{{firstName()}} {{surname()}}', '{{firstName()}} {{surname()}}'],
+    products: [  '{{repeat(1,5)}}', { belongsToBrand: '{{random("0", "1", "2")}}',
+
+                                     id: '{{guid()}}',
+                                    name:'{{lorem(1, "word").toUpperCase()}} {{random("Tie","Overalls","Belt","Shirt","Shoes","Robe","Tights","Thong","Bra","Dress","Cargos","Fleece","Sarong","Waistcoat","Hoody","Blazer","Cufflinks","Shorts","Boxers","Polo Shirt","Coat","Cummerbund","Gown","Gloves","Cravat","Top","Dinner Jacket","Sweatshirt","Nightgown","Camisole","Jacket","Swimwear","Blouse","Stockings","Poncho","Sunglasses","Socks","Jeans","T-Shirt","Sandals","Boots","Corset","Suit","Slippers","Briefs","Underwear","Tankini","Cardigan","Bow Tie","Shawl","Bikini","Tracksuit","Kilt","Swimming Shorts","Jogging Suit","Pajamas","Knickers","Lingerie","Scarf","Skirt","Hat" )}}', 
+                price: '{{floating(200, 1000, 2, "0,0.0")}}',
+                description: '{{lorem(1, "sentence")}}',
+				color: '{{lorem(1, "word")}}',
+                size: '{{random("S", "M", "L")}}',
+                quantity: '{{integer(0, 9)}}',
+                image: 'https://via.placeholder.com/300'
+               }
+              ],
+    merchant: '{{company().toUpperCase()}}',
+    commissionFee: '{{integer(10, 20)}}%',
+    contactEmail: '{{email()}}',
+    phone: '+1 {{phone()}}',
+    address: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+    publishedDate: '{{date(new Date(2017, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+    publishedBy: { userId: '{{guid()}}'},
+	companyDescription: '{{lorem(1, "paragraphs")}}'
+  }
+]
