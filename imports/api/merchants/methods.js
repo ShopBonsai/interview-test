@@ -2,6 +2,7 @@
 
 // Framework
 import { Meteor } from "meteor/meteor";
+import { find, isEqual, merge } from "lodash";
 
 // Collections
 import { Merchants } from "./collection";
@@ -90,8 +91,36 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+/**
+ * Get a product from the merchant's collection by it's ID
+ * @param productId
+ * @returns {*}
+ */
+export const getProductById = productId => {
+  let merchant;
+  try {
+    merchant = Merchants.find({
+      "products.id": productId
+    }).fetch()[0];
+    const product = find(merchant.products, product =>
+      isEqual(product.id, productId)
+    );
+    product.brand = merchant.brands[product.belongsToBrand];
+    product.merchant = merchant._id;
+    return product;
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getMerchants.findOrFetchError`,
+      `Could not find or fetch merchant by Product Id :'${productId}'`,
+      error
+    );
+  }
+  return null;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "merchants.getProductById": getProductById
 });

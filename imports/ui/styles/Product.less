@@ -1,37 +1,53 @@
 .product {
-  font-size: 14px;
-  display: flex;
-  padding: 2rem;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  img {
-    flex-basis: 300px;
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.45);
-    border-radius: 0.8rem;
+  border-left: #333333 double .35rem;
+  border-bottom: #333333 double .35rem;
+  margin: 5rem 1.5rem 0 1.5rem !important;
+  .product-img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 3rem;
   }
-
-  .details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-basis: 300px;
-    padding: 1.2rem;
-
-    .info {
-      padding-bottom: 1rem;
-
-      .info-row {
-        display: flex;
-        flex-direction: row;
-
-        .label {
-          font-weight: 600;
-          padding-right: 0.3rem;
-        }
-
-      }
+  .buttons {
+    width: 100%;
+    padding: 0 3rem 1.5rem 3rem;
+    font-size: 1rem;
+    .buy-button {
+      z-index: 15;
+      position: absolute;
+      left: 1rem;
+      bottom: .75rem;
+      color: #ce63ff;
+      cursor: pointer;
+    }
+    .info-button {
+      position: absolute;
+      z-index: 15;
+      right: 1rem;
+      bottom: .75rem;
+      color: @bonsai-theme-main-color;
+      cursor: pointer;
+    }
+    .info-button:hover{
+      zoom: 150%;
+      color: @bonsai-theme-secondary-color;
+    }
+    .buy-button:hover {
+      zoom: 150%;
+      color: #20ff40;
+    }
+    .product-name {
+      z-index: 10;
+      position: absolute;
+      text-align: center;
+      left: 0;
+      right: 0;
+      bottom: .75rem;
+      align-self: center;
+      cursor: pointer;
+    }
+    .product-name:hover{
+      zoom: 110%;
+      color: @bonsai-theme-secondary-color;
     }
   }
 }

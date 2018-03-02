@@ -1,54 +1,59 @@
 // Framework
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 
 // Components
-import Button from "../components/Button.jsx";
-
-class Product extends PureComponent {
+import { cart } from "react-icons-kit/icomoon/cart";
+import { info } from "react-icons-kit/icomoon/info";
+import { Icon } from "react-icons-kit/Icon";
+import { ProductModal } from "./modals/ProductModal";
+class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false
+    };
+  }
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
 
+  toogleModal = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
+
   render() {
-    const {
-      name = "Product",
-      image,
-      brand,
-      color,
-      description,
-      price,
-      size
-    } = this.props;
-
-    const info = [
-      { label: "Brand", value: brand },
-      { label: "Name", value: name },
-      { label: "Description", value: description },
-      { label: "Color", value: color },
-      { label: "Size", value: size },
-      { label: "Price", value: price }
-    ];
-
+    const product = this.props.product;
     return (
-      <div className="product">
-        <img alt={name} src={image} />
-        <div className="details">
-          <div className="info">
-            {info.map(({ label, value }) =>
-              <div className="info-row" key={`${name}-${label}-${value}`}>
-                <div className="label">
-                  {label}:
-                </div>
-                <div className="value">
-                  {value}
-                </div>
-              </div>
-            )}
-          </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+      <div className="row product">
+        <div className="col-md-12">
+          <img className="product-img" alt={product.name} src={product.image} />
         </div>
+        <div className="col-md-12 buttons">
+          <Icon
+            className="buy-button"
+            size={25}
+            icon={cart}
+            onClick={() => {
+              this.props.addTocart(product);
+            }}
+          />
+          <p className="product-name" onClick={this.toogleModal}>
+            {product.name}
+          </p>
+          <Icon
+            className="info-button"
+            size={25}
+            icon={info}
+            onClick={this.toogleModal}
+          />
+        </div>
+        {this.state.showModal
+          ? <ProductModal
+              closeModal={this.toogleModal}
+              showModal={this.state.showModal}
+              product={product}
+            />
+          : ""}
       </div>
     );
   }
