@@ -1,9 +1,15 @@
 // Framework
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
+import {
+  FormControl,
+  FormGroup,
+  HelpBlock,
+  ControlLabel
+} from "react-bootstrap";
+import { filter } from "lodash";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 import { CartHelper } from "../helpers/CartHelper";
@@ -12,9 +18,13 @@ class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      merchants: [],
+      products: [],
+      shownProducts: [],
       cart: CartHelper.getCart(),
-      error: null
+      error: null,
+      search: {
+        keyword: ""
+      }
     };
   }
 
@@ -23,7 +33,17 @@ class Shop extends Component {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ merchants: response }));
+        const getProductsFromMerchant = ({ products, brands }) =>
+          products.map(({ belongsToBrand, ...product }) => ({
+            ...product,
+            brand: brands[belongsToBrand]
+          }));
+        const products = response.reduce(
+          (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
+          []
+        );
+        this.setState({ products: products });
+        this.applyFilters();
       }
     });
   }
@@ -39,20 +59,39 @@ class Shop extends Component {
     CartHelper.saveCart(cart);
   };
 
+  applyFilters() {
+    const search = this.state.search,
+      products =
+        this.state.search.keyword.trim() != ""
+          ? filter(this.state.products, product => {
+              return (
+                product.name
+                  .toUpperCase()
+                  .indexOf(this.state.search.keyword.toUpperCase()) != -1
+              );
+            })
+          : this.state.products;
+    this.setState({ shownProducts: products });
+    if (!products.length) {
+      search.helpBlock = "No Product found for this search";
+      search.validationState = "error";
+    } else if (this.state.search.keyword.trim() != "") {
+      search.helpBlock = `${products.length} Products found for this search`;
+      search.validationState = "success";
+    } else {
+      delete search.helpBlock;
+      delete search.validationState;
+    }
+    this.setState({ search: search });
+  }
+
+  handleSearchChange = event => {
+    const search = this.state.search;
+    search.keyword = event.target.value;
+    this.setState({ search: search });
+    this.applyFilters();
+  };
   render() {
-    const { merchants, error } = this.state;
-
-    const getProductsFromMerchant = ({ products, brands }) =>
-      products.map(({ belongsToBrand, ...product }) => ({
-        ...product,
-        brand: brands[belongsToBrand]
-      }));
-
-    const products = merchants.reduce(
-      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-      []
-    );
-
     return (
       <Page
         pageTitle="shop"
@@ -63,8 +102,26 @@ class Shop extends Component {
         <div className="row shop-page">
           <div className="col-md-4" />
           <div className="col-md-8">
+            <form className="row filter-key">
+              <FormGroup
+                controlId="formBasicText"
+                validationState={this.state.search.validationState}
+              >
+                <ControlLabel>Find Products by Key</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.search.keyword}
+                  placeholder="Enter text"
+                  onChange={this.handleSearchChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>
+                  {this.state.search.helpBlock}
+                </HelpBlock>
+              </FormGroup>
+            </form>
             <div className="row">
-              {products.map(product =>
+              {this.state.shownProducts.map(product =>
                 <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
                   <Product product={product} addTocart={this.addTocart} />
                 </div>
