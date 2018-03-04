@@ -118,9 +118,30 @@ export const getProductById = productId => {
   return null;
 };
 
+/**
+ * return the 5 latest published merchants
+ * @returns {*}
+ */
+export const getLatestMerchants = () => {
+  let merchantData;
+  try {
+    merchantData = Merchants.find(
+      {},
+      { sort: { publishedDate: -1 }, limit: 5 }
+    ).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getLatestMerchants.findOrFetchError`,
+      `Could not find or fetch the latest merchants${error}`,
+      error
+    );
+  }
+  return merchantData;
+};
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
   "merchants.getMerchants": getMerchants,
-  "merchants.getProductById": getProductById
+  "merchants.getProductById": getProductById,
+  "merchants.getLatestMerchants": getLatestMerchants
 });

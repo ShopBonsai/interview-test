@@ -20,6 +20,15 @@ import { CartHelper } from "../helpers/CartHelper";
 class Shop extends Component {
   constructor(props) {
     super(props);
+    //   this.props.history.push({
+    //       pathname: "/shop",
+    //       search: `?query=hello`
+    //   });
+    // console.log(this.props.location);
+    const query =
+      this.props.location.state && this.props.location.state.key
+        ? this.props.location.state.key
+        : "";
     this.state = {
       products: [],
       merchants: [],
@@ -29,20 +38,13 @@ class Shop extends Component {
       cart: CartHelper.getCart(),
       error: null,
       search: {
-        keyword: ""
+        keyword: query
       },
       merchantsSearch: {
         keyword: ""
       },
       page: 0
     };
-  }
-
-  getProductsFromMerchant(merchant) {
-    return merchant.products.map(({ belongsToBrand, ...product }) => ({
-      ...product,
-      brand: merchant.brands[belongsToBrand]
-    }));
   }
 
   componentWillMount() {
@@ -69,8 +71,27 @@ class Shop extends Component {
     });
   }
 
+  /**
+   * extract a products list from a merchant
+   * @param merchant
+   * @returns []
+   */
+  getProductsFromMerchant(merchant) {
+    return merchant.products.map(({ belongsToBrand, ...product }) => ({
+      ...product,
+      brand: merchant.brands[belongsToBrand]
+    }));
+  }
+
+  /**
+   * go back to the home page
+   */
   goBack = () => this.props.history.push("/");
 
+  /**
+   * adds a product to the current cart
+   * @param product
+   */
   addTocart = product => {
     const cart = CartHelper.addProductToLocalCart(product, this.state.cart);
     this.setState(previousState => {
@@ -80,6 +101,9 @@ class Shop extends Component {
     CartHelper.saveCart(cart);
   };
 
+  /**
+   * show ten more merchant's if there is more to show
+   */
   showMore = () => {
     let lastIndex = this.state.merchantsLastIndex + 10;
     if (lastIndex >= this.state.merchants.length) {
@@ -88,6 +112,10 @@ class Shop extends Component {
     this.setState({ merchantsLastIndex: lastIndex });
   };
 
+  /**
+   * apply a keyWord filter on a given list of products the result will be shown with pagination
+   * @param allProducts
+   */
   applyKeyWordFilter(allProducts) {
     const search = this.state.search,
       products =
@@ -115,6 +143,9 @@ class Shop extends Component {
     this.goToPage(0);
   }
 
+  /**
+   * apply a filter on all the products with the selected merchants
+   */
   applyFilterByMerchants() {
     const products = [];
     this.state.merchants.map(merchant => {
@@ -127,6 +158,10 @@ class Shop extends Component {
       : this.applyKeyWordFilter(this.state.products);
   }
 
+  /**
+   * toogle a merchant selection state an reapply the filters
+   * @param merchant
+   */
   selectMerchant = merchant => {
     const merchants = this.state.shownMerchants;
     merchant.class = merchant.class === "active" ? "" : "active";
@@ -134,6 +169,10 @@ class Shop extends Component {
     this.applyFilterByMerchants();
   };
 
+  /**
+   * apply a keyWord filter on merchants
+   * set the filtered list to be displayed
+   */
   applyFilterOnMerchants() {
     const search = this.state.merchantsSearch,
       merchants = this.state.merchants.filter(
@@ -156,13 +195,27 @@ class Shop extends Component {
     });
   }
 
+  /**
+   * handle the search event changes for products
+   * calls the hole filters in order for them to be synchronized
+   * filter only the products of the selected merchants
+   * @param event
+   */
   handleSearchChange = event => {
     const search = this.state.search;
     search.keyword = event.target.value;
     this.setState({ search: search });
     this.applyFilterByMerchants();
+    this.props.history.push({
+      pathname: "/shop",
+      state: { key: event.target.value }
+    });
   };
 
+  /**
+   * handle the search for merchants change
+   * @param event
+   */
   handleSearchForMerchantChange = event => {
     const search = this.state.merchantsSearch;
     search.keyword = event.target.value;
@@ -170,9 +223,15 @@ class Shop extends Component {
     this.applyFilterOnMerchants();
   };
 
+  /**
+   * sets the stat's page to a given index
+   * to handle the pagination
+   * @param index
+   */
   goToPage = index => {
     this.setState({ page: index });
   };
+
   render() {
     return (
       <Page

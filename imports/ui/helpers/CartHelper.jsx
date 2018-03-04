@@ -12,6 +12,8 @@ export class CartHelper {
   /**
    * adds a Product to the localStorage Cart (currentCart)
    * if the product exists this increments his occurrence
+   * it doesn't add it if it is out of stock
+   * send notification with the state of the process
    * @param product
    * @param cart
    * @returns {*}

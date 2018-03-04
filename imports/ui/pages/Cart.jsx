@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { Icon } from "react-icons-kit";
 import { Meteor } from "meteor/meteor";
 import { find, isEqual, merge, remove } from "lodash";
@@ -10,6 +9,7 @@ import { coinDollar } from "react-icons-kit/icomoon/coinDollar";
 import { CartProduct } from "../components/CartProduct";
 import { CartHelper } from "../helpers/CartHelper";
 import Page from "../components/Page";
+
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +44,20 @@ class Cart extends Component {
     });
   }
 
+  /**
+   * handle change for description change
+   * @param e
+   */
   handleChange = e => {
     this.setState({ description: e.target.value });
   };
+
+  /**
+   * handle the form's submit
+   * persist the cart from localstorage to the database's collection
+   * clear the localstorage's cart
+   * @param e
+   */
   submitCart = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -69,6 +80,12 @@ class Cart extends Component {
     });
   };
 
+  /**
+   * event listener for occurrence changes for a product
+   * recalculate the total price
+   * @param productId
+   * @param newOccurence
+   */
   changeOccurrence = (productId, newOccurence) => {
     find(this.state.cart.items, item =>
       isEqual(item.product.id, productId)
@@ -78,6 +95,10 @@ class Cart extends Component {
     CartHelper.saveCart(this.state.cart);
   };
 
+  /**
+   * remove a product from the current cart
+   * @param productId
+   */
   removeProduct = productId => {
     remove(this.state.cart.items, item => isEqual(item.product.id, productId));
     this.state.cart = CartHelper.setupTotalPrice(this.state.cart);
@@ -88,7 +109,11 @@ class Cart extends Component {
     }
   };
 
-  goBack = () => this.props.history.push("/shop");
+  /**
+   * go back to the shopping page
+   */
+  goBack = () => this.props.history.goBack();
+
   render() {
     return (
       <Page

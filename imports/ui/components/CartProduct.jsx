@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
 import { bin } from "react-icons-kit/icomoon/bin";
 import { coinDollar } from "react-icons-kit/icomoon/coinDollar";
 import { Icon } from "react-icons-kit";
+
 import { ProductModal } from "./modals/ProductModal";
 
 export class CartProduct extends Component {
@@ -12,26 +12,32 @@ export class CartProduct extends Component {
       occurrence: this.props.occurrence,
       showModal: false
     };
-    this.changeOccurrence = this.changeOccurrence.bind(this);
   }
 
-  changeOccurrence(event) {
+  /**
+   * event handler for occurrence changes
+   * @param event
+   */
+  changeOccurrence = event => {
     const value = Number.parseInt(event.target.value);
     this.setState({ occurrence: value });
     this.props.updateOccrrence(this.props.product.id, value);
   }
 
-  toogleModal = () => {
+  /**
+   * show and hide Product details modal
+   */
+  toggleModal = () => {
     this.setState({ showModal: !this.state.showModal });
   };
 
   render() {
     return (
       <div className="row cart-product">
-        <div className="col-xs-1" onClick={this.toogleModal}>
+        <div className="col-xs-1" onClick={this.toggleModal}>
           <img className="product-picture" src={this.props.product.image} />
         </div>
-        <div className="col-xs-5 product-name" onClick={this.toogleModal}>
+        <div className="col-xs-5 product-name" onClick={this.toggleModal}>
           <span>
             {this.props.product.name}
           </span>
@@ -60,7 +66,7 @@ export class CartProduct extends Component {
         </div>
         {this.state.showModal
           ? <ProductModal
-              closeModal={this.toogleModal}
+              closeModal={this.toggleModal}
               showModal={this.state.showModal}
               product={this.props.product}
             />

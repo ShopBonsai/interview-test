@@ -1,10 +1,9 @@
 // Framework
 import React, { PureComponent } from "react";
-
 import Icon from "react-icons-kit";
+import { NotificationContainer } from "react-notifications";
 import { cart } from "react-icons-kit/icomoon/cart";
 import "react-notifications/lib/notifications.css";
-import { NotificationContainer } from "react-notifications";
 
 class Header extends PureComponent {
   constructor(props) {

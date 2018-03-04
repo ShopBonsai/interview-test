@@ -1,11 +1,12 @@
 // Framework
 import React, { Component } from "react";
-
-// Components
+import { Icon } from "react-icons-kit/Icon";
 import { cart } from "react-icons-kit/icomoon/cart";
 import { info } from "react-icons-kit/icomoon/info";
-import { Icon } from "react-icons-kit/Icon";
+
+// Components
 import { ProductModal } from "./modals/ProductModal";
+
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,10 @@ class Product extends Component {
     alert("This button does nothing!");
   };
 
-  toogleModal = () => {
+  /**
+   * toggle the modal showing state
+   */
+  toggleModal = () => {
     this.setState({ showModal: !this.state.showModal });
   };
 
@@ -37,19 +41,19 @@ class Product extends Component {
               this.props.addTocart(product);
             }}
           />
-          <p className="product-name" onClick={this.toogleModal}>
+          <p className="product-name" onClick={this.toggleModal}>
             {product.name}
           </p>
           <Icon
             className="info-button"
             size={25}
             icon={info}
-            onClick={this.toogleModal}
+            onClick={this.toggleModal}
           />
         </div>
         {this.state.showModal
           ? <ProductModal
-              closeModal={this.toogleModal}
+              closeModal={this.toggleModal}
               showModal={this.state.showModal}
               product={product}
             />
