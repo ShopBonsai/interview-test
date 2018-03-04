@@ -160,7 +160,7 @@ class Shop extends Component {
     const search = this.state.search;
     search.keyword = event.target.value;
     this.setState({ search: search });
-    this.applyKeyWordFilter(this.state.products);
+    this.applyFilterByMerchants();
   };
 
   handleSearchForMerchantChange = event => {
