@@ -4,12 +4,13 @@ import { Meteor } from "meteor/meteor";
 import Icon from "react-icons-kit";
 import { circleDown } from "react-icons-kit/icomoon/circleDown";
 import {
-  FormControl,
-  FormGroup,
+  Pager,
   HelpBlock,
+  FormGroup,
+  FormControl,
   ControlLabel
 } from "react-bootstrap";
-import { filter, take, indexOf, concat } from "lodash";
+import { filter, take, indexOf, concat, slice } from "lodash";
 
 // Components
 import Page from "../components/Page.jsx";
@@ -32,7 +33,8 @@ class Shop extends Component {
       },
       merchantsSearch: {
         keyword: ""
-      }
+      },
+      page: 0
     };
   }
 
@@ -110,6 +112,7 @@ class Shop extends Component {
       delete search.validationState;
     }
     this.setState({ search: search });
+    this.goToPage(0);
   }
 
   applyFilterByMerchants() {
@@ -167,6 +170,9 @@ class Shop extends Component {
     this.applyFilterOnMerchants();
   };
 
+  goToPage = index => {
+    this.setState({ page: index });
+  };
   render() {
     return (
       <Page
@@ -250,11 +256,38 @@ class Shop extends Component {
               </FormGroup>
             </form>
             <div className="row">
-              {this.state.shownProducts.map(product =>
+              {slice(
+                this.state.shownProducts,
+                this.state.page * 9,
+                (this.state.page + 1) * 9
+              ).map(product =>
                 <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
                   <Product product={product} addTocart={this.addTocart} />
                 </div>
               )}
+              <div className="col-12">
+                <Pager>
+                  <Pager.Item
+                    previous
+                    disabled={this.state.page == 0}
+                    href="#"
+                    onClick={() => this.goToPage(this.state.page - 1)}
+                  >
+                    Previous
+                  </Pager.Item>
+                  <Pager.Item
+                    next
+                    disabled={
+                      (this.state.page + 1) * 9 >=
+                      this.state.shownProducts.length
+                    }
+                    href="#"
+                    onClick={() => this.goToPage(this.state.page + 1)}
+                  >
+                    Next
+                  </Pager.Item>
+                </Pager>;
+              </div>
             </div>
           </div>
         </div>
