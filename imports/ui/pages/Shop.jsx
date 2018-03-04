@@ -20,11 +20,6 @@ import { CartHelper } from "../helpers/CartHelper";
 class Shop extends Component {
   constructor(props) {
     super(props);
-    //   this.props.history.push({
-    //       pathname: "/shop",
-    //       search: `?query=hello`
-    //   });
-    // console.log(this.props.location);
     const query =
       this.props.location.state && this.props.location.state.key
         ? this.props.location.state.key

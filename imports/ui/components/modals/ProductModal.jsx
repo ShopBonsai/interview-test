@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 import { Modal, Button } from "react-bootstrap/";
 import { toPairs, pick } from "lodash";
+
 export class ProductModal extends Component {
   constructor(props) {
     super(props);
