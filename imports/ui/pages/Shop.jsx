@@ -22,11 +22,15 @@ class Shop extends Component {
     this.state = {
       products: [],
       merchants: [],
+      shownMerchants: [],
       merchantsLastIndex: 10,
       shownProducts: [],
       cart: CartHelper.getCart(),
       error: null,
       search: {
+        keyword: ""
+      },
+      merchantsSearch: {
         keyword: ""
       }
     };
@@ -58,6 +62,7 @@ class Shop extends Component {
         this.setState({ merchants: merchants });
         this.setState({ products: products });
         this.applyKeyWordFilter(products);
+        this.applyFilterOnMerchants();
       }
     });
   }
@@ -84,20 +89,20 @@ class Shop extends Component {
   applyKeyWordFilter(allProducts) {
     const search = this.state.search,
       products =
-        this.state.search.keyword.trim() != ""
-          ? filter(allProducts, product => {
-              return (
+        search.keyword.trim() != ""
+          ? filter(
+              allProducts,
+              product =>
                 product.name
                   .toUpperCase()
-                  .indexOf(this.state.search.keyword.toUpperCase()) != -1
-              );
-            })
+                  .indexOf(search.keyword.toUpperCase()) != -1
+            )
           : allProducts;
     this.setState({ shownProducts: products });
     if (!products.length) {
       search.helpBlock = "No Product found for this search";
       search.validationState = "error";
-    } else if (this.state.search.keyword.trim() != "") {
+    } else if (search.keyword.trim() != "") {
       search.helpBlock = `${products.length} Products found for this search`;
       search.validationState = "success";
     } else {
@@ -107,7 +112,7 @@ class Shop extends Component {
     this.setState({ search: search });
   }
 
-  applyMerchantsFilter() {
+  applyFilterByMerchants() {
     const products = [];
     this.state.merchants.map(merchant => {
       if (merchant.class === "active") {
@@ -118,18 +123,48 @@ class Shop extends Component {
       ? this.applyKeyWordFilter(products)
       : this.applyKeyWordFilter(this.state.products);
   }
+
   selectMerchant = merchant => {
-    const merchants = this.state.merchants;
+    const merchants = this.state.shownMerchants;
     merchant.class = merchant.class === "active" ? "" : "active";
-    this.setState({ merchants: merchants });
-    this.applyMerchantsFilter();
+    this.setState({ shownMerchants: merchants });
+    this.applyFilterByMerchants();
   };
+
+  applyFilterOnMerchants() {
+    const search = this.state.merchantsSearch,
+      merchants = this.state.merchants.filter(
+        merchant =>
+          merchant.merchant
+            .toUpperCase()
+            .indexOf(search.keyword.toUpperCase()) !== -1
+      );
+    if (!merchants.length) {
+      search.validationState = "error";
+    } else if (search.keyword.trim() != "") {
+      search.validationState = "success";
+    } else {
+      delete search.validationState;
+    }
+    this.setState({
+      merchantsSearch: search,
+      merchantsLastIndex: 10,
+      shownMerchants: merchants
+    });
+  }
 
   handleSearchChange = event => {
     const search = this.state.search;
     search.keyword = event.target.value;
     this.setState({ search: search });
     this.applyKeyWordFilter(this.state.products);
+  };
+
+  handleSearchForMerchantChange = event => {
+    const search = this.state.merchantsSearch;
+    search.keyword = event.target.value;
+    this.setState({ merchantsSearch: search });
+    this.applyFilterOnMerchants();
   };
 
   render() {
@@ -142,11 +177,26 @@ class Shop extends Component {
       >
         <div className="row shop-page">
           <div className="col-md-4">
-            <div className="row select-merchants">
-              <h1>Select Merchants:</h1>
+            <div className="row">
+              <h1 className="col-12 select-merchants">Select Merchants:</h1>
+              <div className="col-12">
+                <FormGroup
+                  controlId="formBasicText"
+                  validationState={this.state.merchantsSearch.validationState}
+                >
+                  <FormControl
+                    type="text"
+                    value={this.state.merchantsSearch.keyword}
+                    placeholder="Filter merchants"
+                    onChange={this.handleSearchForMerchantChange}
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
+              </div>
             </div>
+
             {take(
-              this.state.merchants,
+              this.state.shownMerchants,
               this.state.merchantsLastIndex
             ).map(merchant =>
               <div
@@ -157,7 +207,7 @@ class Shop extends Component {
                 <div className="col-2">
                   <img src={merchant.logo} />
                 </div>
-                <div className="col-8">
+                <div className="col-10">
                   <p>
                     {merchant.merchant}
                   </p>
@@ -169,11 +219,10 @@ class Shop extends Component {
                     {merchant.phone}
                   </span>
                 </div>
-                <div className="col-2" />
               </div>
             )}
             <div className="show-more">
-              {this.state.merchantsLastIndex < this.state.merchants.length
+              {this.state.merchantsLastIndex < this.state.shownMerchants.length
                 ? <div>
                     <h2 onClick={this.showMore}>SHOW MORE</h2>
                     <Icon icon={circleDown} />
@@ -191,7 +240,7 @@ class Shop extends Component {
                 <FormControl
                   type="text"
                   value={this.state.search.keyword}
-                  placeholder="Enter text"
+                  placeholder="Filter Products"
                   onChange={this.handleSearchChange}
                 />
                 <FormControl.Feedback />
