@@ -1,23 +1,52 @@
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
+  background-color: @bonsai-theme-main-color;
+  min-height: @header-height;
+  box-shadow: 0 0.05rem 0.5rem rgba(0, 0, 0, 0.075);
   .back-button {
     border: none;
     background: transparent;
     padding: 0;
     width: 0;
+    color: @bonsai-theme-primary-color;
   }
 
-  h1 {
-    font-size: 1.5rem;
+  .page-name {
+    font-size: 2.5rem;
     height: @header-height;
+    text-align: center;
     display: flex;
     align-items: center;
     margin: 0;
+    color: @bonsai-theme-primary-color;
+    h1{
+      width: 100%;
+    }
   }
-
-
+  .right-content {
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    .cart-icon{
+      position: absolute;
+      top: 1rem;
+      color: @bonsai-theme-secondary-color;
+    }
+    .products-number {
+      color: @bonsai-theme-primary-color;
+      font-size: x-large;
+      font-weight: bolder;
+      position: relative;
+      top: -1rem;
+      left: 2rem;
+    }
+  }
+  .right-content:hover {
+    zoom: 120%;
+  }
+  .notification-manager{
+    position: absolute;
+  }
 
 }

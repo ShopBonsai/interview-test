@@ -1,6 +1,45 @@
 .shop-page {
-  display: flex;
-  flex-direction: column;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  .filter-key {
+    div {
+      width: 100%;
+      margin: 5rem 7rem 0 7rem;
+    }
+  }
+  .select-merchants {
+    padding: 1.5rem;
+    color: @bonsai-theme-main-color;
+  }
+  .merchant {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: .5rem 1rem;
+    //border-left: @bonsai-theme-secondary-color double 3px;
+    //border-bottom: @bonsai-theme-secondary-color double 3px;
+  }
+  .active {
+    background-color: @bonsai-theme-main-color;
+    color: @bonsai-theme-primary-color;
+    font-size: larger;
+  }
+  .show-more{
+    text-align: center;
+    font-size: x-large;
+    color: @bonsai-theme-main-color;
+    cursor: pointer;
+  }
+  .show-more * {
+    display: inline-block;
+    padding-right: 2rem;
+  }
+  @media only screen and (max-width: 500px) {
+    .filter-key {
+      div {
+        width: 100%;
+        margin: 1rem 1rem 0 1rem ;
+      }
+    }
+  }
 }

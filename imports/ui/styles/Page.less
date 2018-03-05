@@ -8,24 +8,16 @@
   font-family: @bonsai-font;
   color: @bonsai-dark-grey;
 
-  header {
-    display: flex;
-    min-height: @header-height;
-
-    background-color: white;
-    box-shadow: 0 0.05rem 0.5rem rgba(0, 0, 0, 0.075);
-  }
-
   main {
-    display: flex;
+    max-width: 100%;
     flex-grow: 1;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   footer{
     display: flex;
     min-height: @footer-height;
-
     box-shadow: 0.05rem 0 0.5rem rgba(0, 0, 0, 0.075);
     background-color: white;
   }

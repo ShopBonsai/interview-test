@@ -1,0 +1,38 @@
+@media (min-width: 576px){
+  .modal-dialog{
+    max-width: 800px !important;
+  }
+}
+.pm-product {
+  display: flex;
+  padding: 2rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-height: 70vh;
+  img {
+    flex-basis: 300px;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.45);
+    border-radius: 0.8rem;
+  }
+
+  .details {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 300px;
+    padding: 1.2rem;
+
+    .info {
+      padding-left: 2rem;
+      label{
+        padding-left: 1rem;
+      }
+      strong {
+        font-size: larger;
+        font-weight: bold;
+      }
+    }
+  }
+}
