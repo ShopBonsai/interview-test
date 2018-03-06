@@ -6,32 +6,40 @@
   flex-wrap: wrap;
   justify-content: center;
 
+  &-number {
+    max-width: 3em;
+  }
+
   img {
     flex-basis: 300px;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.45);
     border-radius: 0.8rem;
   }
 
-  .details {
+  .product-button-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-basis: 300px;
-    padding: 1.2rem;
+    margin-top: 1em;
 
-    .info {
-      padding-bottom: 1rem;
+    .product-likeButton {
+      margin: 5%;
+      max-width: 4em;
+      height: 4em;
+    }
 
-      .info-row {
-        display: flex;
-        flex-direction: row;
+    .product-button-unlike {
+      margin: 5%;
+      max-width: 4em;
+      height: 4em;
+      background-color: @color-success;
+    }
 
-        .label {
-          font-weight: 600;
-          padding-right: 0.3rem;
-        }
+    .product-disabled {
+      background-color: @color-neutral;
+      color: @bonsai-dark-grey;
+    }
 
-      }
+    button {
+      margin-left: 2em;
     }
   }
 }

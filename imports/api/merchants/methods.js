@@ -10,7 +10,7 @@ import { Merchants } from "./collection";
  * Get a merchant object by id
  *
  * @returns {Object} The merchant object contains information in this order
- * 
+ *
  *  {
  *    "index": 1,
  *    "guid": "51053bbd-5909-432d-82d3-fafbf7a9da34",
@@ -57,11 +57,16 @@ import { Merchants } from "./collection";
  *    },
  *    "companyDescription": "Aute esse proident consectetur ea eiusmod labore eiusmod consequat consequat labore non mollit. Proident aliquip ea est magna reprehenderit mollit ipsum Lorem tempor aute non est. Minim occaecat aliquip excepteur consectetur eu nisi qui magna.\r\n"
  *  },
- * 
- * 
- * 
+ *
+ *
+ *
  */
 
+/**
+ * Gets a merchant by his id
+ *
+ * @returns {Object} A single order object.
+ */
 export const getMerchantById = merchantId => {
   let merchant;
   try {
@@ -76,6 +81,11 @@ export const getMerchantById = merchantId => {
   return merchant;
 };
 
+/**
+ * Gets merchant entries
+ *
+ * @returns {Object} A collection of objects.
+ */
 export const getMerchants = () => {
   let merchantData;
   try {
@@ -90,8 +100,126 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+/**
+ * Sets a merchant product quantity
+ *
+ * @returns {Object} number of records updated.
+ */
+export const setProductAvailability = (merchantId, productId, availability) => {
+  let merchantData;
+  try {
+    let merchant = Merchants.findOne({ guid: merchantId });
+    let index = -1;
+    merchant.products.find(product => {
+      index++;
+      return product.id === productId;
+    });
+    merchant.products[index].quantity = availability;
+    merchantData = Merchants.update(
+      { guid: merchantId },
+      { $set: { products: merchant.products } }
+    );
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:setProductAvailability.findOrFetchError`,
+      `Could not update merchants`,
+      error
+    );
+  }
+  return merchantData;
+};
+
+/**
+ * Gets merchants following a search criteria
+ *
+ * @returns {Object} A collection of objects.
+ */
+export const getMerchantsWithPagination = (skip, limit) => {
+  let merchantData;
+  try {
+    merchantData = Merchants.find(
+      {},
+      {
+        limit: limit,
+        skip: skip
+      }
+    ).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getMerchants.findOrFetchError`,
+      `Could not find or fetch merchants`,
+      error
+    );
+  }
+  return merchantData;
+};
+
+/**
+ * Sets a merchant product quantity
+ *
+ * @returns {Object} A collection of objects.
+ */
+export const rollBackProductAvailability = (
+  merchantId,
+  productId,
+  numOfReturnedProducts
+) => {
+  let merchantData;
+  try {
+    let merchant = Merchants.findOne({ guid: merchantId });
+    let index = -1;
+    merchant.products.find(product => {
+      index++;
+      return product.id === productId;
+    });
+    merchant.products[index].quantity =
+      parseFloat(merchant.products[index].quantity) +
+      parseFloat(numOfReturnedProducts);
+    merchantData = Merchants.update(
+      { guid: merchantId },
+      { $set: { products: merchant.products } }
+    );
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:rollBackProductAvailability.findOrFetchError`,
+      `Could not update merchants product`,
+      error
+    );
+  }
+  return merchantData;
+};
+
+/**
+ * Returns a product using a merchantId and a productId
+ *
+ * @returns {Object} A single order object.
+ */
+export const getProduct = (merchantId, productId) => {
+  let product;
+  try {
+    let merchant = Merchants.findOne({ guid: merchantId });
+    let index = -1;
+    merchant.products.find(product => {
+      index++;
+      return product.id === productId;
+    });
+    product = merchant.products[index];
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getProduct.findOrFetchError`,
+      `Could not get product`,
+      error
+    );
+  }
+  return product;
+};
+
 // Register meteor methods.
 Meteor.methods({
+  "merchants.setProductAvailability": setProductAvailability,
+  "merchants.rollBackProductAvailability": rollBackProductAvailability,
   "merchants.getMerchantById": getMerchantById,
+  "merchants.getMerchantsWithPagination": getMerchantsWithPagination,
+  "merchants.getProduct": getProduct,
   "merchants.getMerchants": getMerchants
 });

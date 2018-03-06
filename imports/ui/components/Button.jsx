@@ -2,6 +2,7 @@
 import React from "react";
 
 const Button = ({ children, onClick, className = "", ...extraProps }) => {
+
   return (
     <button
       {...extraProps}

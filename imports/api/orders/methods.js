@@ -33,11 +33,45 @@ export const getLastOrder = () => {
  */
 export const getOrderById = orderId => {
   try {
-    return Products.findOne(orderId);
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
+      `Could not find or fetch order with order id: '${orderId}'`,
+      error
+    );
+  }
+};
+
+/**
+ * Get an order by username
+ *
+ * @returns {Object} A single order object.
+ */
+export const getOrdersByUserName = userName => {
+  try {
+    return Orders.find({ userName: userName }).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrdersByUserName.findOrFetchError`,
+      `Could not find orders for user name:`,
+      error
+    );
+  }
+};
+
+/**
+ * Inserts a new order
+ *
+ * @returns {Object} A single order object.
+ */
+export const insertOrder = order => {
+  try {
+    return Orders.insert(order);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:insertOrder.findOrFetchError`,
+      `Could not insert order`,
       error
     );
   }
@@ -45,6 +79,8 @@ export const getOrderById = orderId => {
 
 // Register meteor methods.
 Meteor.methods({
+  "orders.insertOrder": insertOrder,
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.getOrdersByUserName": getOrdersByUserName
 });
