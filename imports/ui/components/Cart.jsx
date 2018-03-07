@@ -14,7 +14,7 @@ class Cart extends Component {
     super(props);
     this.state = {
         items : [],
-        amountDue : 0
+        amountDue : 0,
     };
   }
 
@@ -53,14 +53,29 @@ class Cart extends Component {
         called the orders api service. 
    */ 
    handleFinishPurchase = () => {
-      const items = this.state.items;
-      Meteor.call("orders.finishPurchase",items,(error,response) => {
+      const {items,amountDue} = this.state;
+      // if the number of items ins greater then service api function is called
+      if(amountDue === 0){
+          Meteor.call("orders.finishPurchase",items,(error,response) => {
           if(error){
               console.log('erro');
           }else{
               this.setState({amountDue : response});
           }
-      });  
+        });    
+      }else{ 
+        /* 
+           if the user clicks on finish purchase button 
+           when it is already finished then the toaster component 
+           will be raised and the message stated below will be displayed
+        */
+
+        // this is the function call to render the toaster    
+        this.props.raise();
+        
+        // this is the function call to set the according message 
+        this.props.setMessage("purchase was finished");
+      }
     }
 
     /*
@@ -87,18 +102,25 @@ class Cart extends Component {
             } 
     }
 
+     renderFinishPurchaseButton = () => {
+         const {items} = this.state;
+         if(items.length > 0){
+            return (<button onClick={this.handleFinishPurchase} className=" btn btn-success btn-cart-actions">  
+                        finish purchase
+                    </button>);
+         }
+     }
+
     render() {
         return (
              <div className="cart-wrapper">
                 <ul className="list-group cart-list">
                     {this.renderItems()}
-                    <div className="action-wrapper">
-                    <button onClick={this.handleFinishPurchase} className=" btn btn-success btn-cart-actions">  
-                        finish purchase
-                    </button>
-                    {this.renderNewPurchaseButton()}
-                    </div>
                 </ul>
+                <div className="action-wrapper">
+                    {this.renderFinishPurchaseButton()}
+                    {this.renderNewPurchaseButton()}   
+                </div>
             </div>
          );
     }
