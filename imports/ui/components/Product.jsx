@@ -3,7 +3,8 @@ import React, { PureComponent } from "react";
 
 // Components
 import Button from "../components/Button";
-
+// this component will be responsible for formatting the price
+import {FormattedNumber} from 'react-intl';
 /*
   This component is responsible for 
    execute the flow of adding a product 
@@ -71,7 +72,7 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: <FormattedNumber value={price} style="currency" currency="CAD" /> }
     ];
     const {quantity} = this.state;
 

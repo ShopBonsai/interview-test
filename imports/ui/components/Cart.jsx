@@ -1,7 +1,10 @@
 // Framework
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
-
+/* this component will be responsible for formatting 
+the item subtotal as well as the purchase amount due */
+import {FormattedNumber} from 'react-intl';
+                                
 // Components
 import Button from "../components/Button";
 
@@ -34,13 +37,17 @@ class Cart extends Component {
      if(items.length > 0){
         const mappedItens = items.map((item) => 
             <li className="list-group-item">
-                description: {item.product.name} subtotal: {item.product.price * item.quantity} </li>);
+                description: {item.product.name} subtotal: 
+                 <FormattedNumber value={item.product.price * item.quantity} 
+                style="currency" currency="CAD" /></li>);
             /* if the amount due is not zero it means 
                that the order is stored in the database and
                a item regarding the ammountDue value will be 
                added into the items list   */
             if(amountDue !== 0){
-                mappedItens.push(<li className="list-group-item">AMOUNT DUE: {amountDue}</li>);
+                mappedItens.push(<li className="list-group-item">AMOUNT DUE: 
+                    <FormattedNumber value={amountDue} 
+                     style="currency" currency="CAD" /></li>);
             }
         return mappedItens;
      }else{
