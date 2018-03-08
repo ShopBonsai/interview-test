@@ -3,6 +3,10 @@ import React, { PureComponent } from "react";
 
 // Components
 import Button from "../components/Button";
+
+// this component renders the quantity button
+import ActionButton from "./ActionButton";
+
 // this component will be responsible for formatting the price
 import {FormattedNumber} from 'react-intl';
 /*
@@ -96,12 +100,13 @@ class Product extends PureComponent {
             </div>
           </div>
           <div className="info">
-              <button onClick={this.handleIncreaseQuantity} className=" btn btn-success quantity-button">
-                 +
-              </button>
-              <button onClick={this.handleDecreaseQuantity} className=" btn btn-danger quantity-button">
-                 -
-              </button>
+              <ActionButton function={this.handleIncreaseQuantity}
+                            style="btn btn-success quantity-button"
+                            desc="+" />
+              
+              <ActionButton function={this.handleDecreaseQuantity}
+                            style="btn btn-danger quantity-button"
+                            desc="-" />
           </div>
           <Button onClick={this.handleBuyProduct}>
             Buy {name}

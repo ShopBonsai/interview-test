@@ -7,6 +7,7 @@ import {FormattedNumber} from 'react-intl';
                                 
 // Components
 import Button from "../components/Button";
+import ActionButton from "./ActionButton";
 
 /*
    the cart component is reponsible for showing the 
@@ -102,9 +103,9 @@ class Cart extends Component {
          const {amountDue} = this.state;
             if(amountDue !== 0){
                  return (
-                     <button onClick={this.handleNewPurchase} className="btn btn-success btn-cart-actions">  
-                        new Purchase
-                    </button>
+                     <ActionButton function={this.handleNewPurchase}
+                            style="btn btn-success btn-cart-actions"
+                            desc="new purchase" />
                 )
             } 
     }
@@ -112,9 +113,10 @@ class Cart extends Component {
      renderFinishPurchaseButton = () => {
          const {items} = this.state;
          if(items.length > 0){
-            return (<button onClick={this.handleFinishPurchase} className=" btn btn-success btn-cart-actions">  
-                        finish purchase
-                    </button>);
+            return (
+              <ActionButton function={this.handleFinishPurchase}
+                            style="btn btn-success btn-cart-actions"
+                            desc="finish purchase" />)
          }
      }
 
