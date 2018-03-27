@@ -17,7 +17,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity
     } = this.props;
 
     const info = [
@@ -26,11 +27,14 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: price },
+      { label: "In Stock", value: quantity ? quantity + " unit(s)": "Sold Out" }
     ];
+        // <img alt={name} src={image} />
 
     return (
       <div className="product">
+        <aside>{quantity ? null : "SOLD OUT"}</aside>
         <img alt={name} src={image} />
         <div className="details">
           <div className="info">
