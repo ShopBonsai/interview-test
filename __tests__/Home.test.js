@@ -9,4 +9,3 @@ describe("Home", () => {
     ReactDom.render(<Home />, div);
   });
 });
-
