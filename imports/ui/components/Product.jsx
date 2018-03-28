@@ -1,13 +1,14 @@
 // Framework
 import React, { PureComponent } from "react";
-
+import { Meteor } from "meteor/meteor";
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
-  };
+  
+  handleAddBtn = () => {
+    this.props.handleAddBtn(this.props);
+  }
 
   render() {
     const {
@@ -39,7 +40,7 @@ class Product extends PureComponent {
                 SOLD OUT
                </Button>
       } else {
-        return <Button onClick={this.handleBuyProduct}>
+        return <Button onClick={this.handleAddBtn}>
                 ADD TO CART
                </Button>
       }

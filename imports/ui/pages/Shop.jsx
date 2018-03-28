@@ -12,8 +12,21 @@ class Shop extends Component {
     super(props);
     this.state = {
       merchants: [],
-      error: null
+      error: null,
+      orders: [], //+++++++++++++
+      items: [],
+      user: {
+        email: "johnDoe@email.ca", // hardcoded will change later
+        password: "xfaf-8$ji-ify)" // hardcoded will change later
+      }
     };
+  }
+  
+  // add a selected item to the items list
+  handleAddBtn = (product) => {
+    let items = this.state.items;
+    
+    this.setState(() => ({items: items.concat([product])}));
   }
 
   componentWillMount() {
@@ -29,7 +42,7 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { merchants, error } = this.state;
+    const { merchants, error } = this.state; //+++++++++++++
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
@@ -40,13 +53,13 @@ class Shop extends Component {
     const products = merchants.reduce(
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []
-    );
+    );   
 
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+            <Product {...product} key={id} handleAddBtn={this.handleAddBtn} />
           )}
         </div>
       </Page>
