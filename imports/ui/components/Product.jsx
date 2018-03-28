@@ -27,7 +27,7 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price },
+      { label: "Price", value: "CDN$ " + price.toFixed(2) },
       { label: "In Stock", value: quantity ? quantity + " unit(s)": "Sold Out" }
     ];
     
