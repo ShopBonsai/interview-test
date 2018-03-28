@@ -1,5 +1,7 @@
 .bonsai-button {
   display: flex;
+  flex-grow: 1;
+  flex-basis: 40%;
   align-items: center;
   justify-content: center;
   background-color: @color-button-background;
@@ -14,5 +16,9 @@
 
   &:hover {
     opacity: 0.9;
+  };
+
+  &-sold-out {
+    background-color: red;
   }
 }

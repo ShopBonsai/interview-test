@@ -30,11 +30,23 @@ class Product extends PureComponent {
       { label: "Price", value: price },
       { label: "In Stock", value: quantity ? quantity + " unit(s)": "Sold Out" }
     ];
-        // <img alt={name} src={image} />
-
+    
+    // Display button sold out if quantity is 0
+    // Otherwise display button add
+    const HandleDisplayButton = () => {
+      if (!quantity) {
+        return <Button className="bonsai-button-sold-out">
+                SOLD OUT
+               </Button>
+      } else {
+        return <Button onClick={this.handleBuyProduct}>
+                ADD TO CART
+               </Button>
+      }
+    }
+    
     return (
       <div className="product">
-        <aside>{quantity ? null : "SOLD OUT"}</aside>
         <img alt={name} src={image} />
         <div className="details">
           <div className="info">
@@ -49,9 +61,9 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+          <div>
+            <HandleDisplayButton />
+          </div>
         </div>
       </div>
     );
