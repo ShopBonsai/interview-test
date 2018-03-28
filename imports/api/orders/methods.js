@@ -43,8 +43,29 @@ export const getOrderById = orderId => {
   }
 };
 
+/**
+ * Add an order
+ *
+ * @returns
+ */
+export const addOrder = (items, user) => {
+  try {
+    return Orders.insert({
+      items: items,
+      user: user
+    });
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrderById.findOrFetchError`,
+      `Could not find or fetch product with order id: '${orderId}'`,
+      error
+    );
+  }
+};
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.addOrder": addOrder
 });
