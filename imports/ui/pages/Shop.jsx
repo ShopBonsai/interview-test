@@ -67,7 +67,9 @@ class Shop extends Component {
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
         <div className="check-out">
-          <Button className="bonsai-button btn-check-out" onClick={this.handleCheckOutBtn}>CHECK OUT</Button>
+          <Button className="bonsai-button btn-check-out" onClick={this.handleCheckOutBtn}>
+            CHECK OUT
+          </Button>
         </div>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
