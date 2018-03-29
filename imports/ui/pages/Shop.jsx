@@ -6,6 +6,7 @@ import { Meteor } from "meteor/meteor";
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
+import Button from "../components/Button.jsx";
 
 class Shop extends Component {
   constructor(props) {
@@ -31,6 +32,10 @@ class Shop extends Component {
     }
 
     this.setState(() => ({items: items.concat([orderItem])}));
+  }
+
+  handleCheckOutBtn = () => {
+    this.props.history.push("/cart");
   }
 
   componentWillMount() {
@@ -61,6 +66,9 @@ class Shop extends Component {
 
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
+        <div className="check-out">
+          <Button className="bonsai-button btn-check-out" onClick={this.handleCheckOutBtn}>CHECK OUT</Button>
+        </div>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} handleAddBtn={this.handleAddBtn} />
