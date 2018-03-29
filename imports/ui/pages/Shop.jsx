@@ -22,11 +22,15 @@ class Shop extends Component {
     };
   }
   
-  // add a selected item to the items list
-  handleAddBtn = (product) => {
+  // add a selected item and its quantity to the items list
+  handleAddBtn = (item, quantityOrdered) => {
     let items = this.state.items;
-    
-    this.setState(() => ({items: items.concat([product])}));
+    const orderItem = {
+      item: item,
+      quantity: quantityOrdered
+    }
+
+    this.setState(() => ({items: items.concat([orderItem])}));
   }
 
   componentWillMount() {

@@ -9,22 +9,23 @@ class Product extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      quantityAdded: 0
+      quantityAdded: 1
     }
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
   
   handleAddBtn = () => {
-    this.props.handleAddBtn(this.props);
+    let quantityOrdered = this.state.quantityAdded;
+    this.props.handleAddBtn(this.props, quantityOrdered);
   }
 
+  // quantity input by a user
   handleQuantityChange(event) {
     const target = event.target;
     const value = target.value;
 
     this.setState({ quantityAdded: value });
   };
-
 
   render() {
     const {
@@ -83,7 +84,7 @@ class Product extends PureComponent {
             <label className="quantity-label">Quantity:</label>
             <input type="number" className="quantity-input" value={this.state.quantityAdded} onChange={this.handleQuantityChange} min="0" />
           </div>
-          <div className="handle-display-button">
+          <div>
             <HandleDisplayButton />          
           </div>
         </div>
