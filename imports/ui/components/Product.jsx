@@ -5,10 +5,26 @@ import { Meteor } from "meteor/meteor";
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      quantityAdded: 0
+    }
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
+  }
   
   handleAddBtn = () => {
     this.props.handleAddBtn(this.props);
   }
+
+  handleQuantityChange(event) {
+    const target = event.target;
+    const value = target.value;
+
+    this.setState({ quantityAdded: value });
+  };
+
 
   render() {
     const {
@@ -45,6 +61,7 @@ class Product extends PureComponent {
                </Button>
       }
     }
+
     
     return (
       <div className="product">
@@ -62,8 +79,12 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <div>
-            <HandleDisplayButton />
+          <div className="quantity-container">
+            <label className="quantity-label">Quantity:</label>
+            <input type="number" className="quantity-input" value={this.state.quantityAdded} onChange={this.handleQuantityChange} min="0" />
+          </div>
+          <div className="handle-display-button">
+            <HandleDisplayButton />          
           </div>
         </div>
       </div>
