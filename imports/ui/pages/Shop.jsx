@@ -7,6 +7,7 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
+
 class Shop extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +28,8 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
+  goCart = () => this.props.history.push("/cart");
+
 
   render() {
     const { merchants, error } = this.state;
@@ -43,7 +46,7 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="shop" history goBack={this.goBack} goCart={this.goCart}>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />
