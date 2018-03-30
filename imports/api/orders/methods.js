@@ -7,9 +7,8 @@ import { Meteor } from "meteor/meteor";
 import { Orders } from "./collection";
 
 /**
- * Get a merchant object by id
  *
- * @returns {Object} The merchant object contains information in this order
+ * @returns {Object} The order object contains information in this order
  * 
  *  {
  *    "user": {
@@ -59,8 +58,9 @@ export const getLastOrder = () => {
  * @returns {Object} A single order object.
  */
 export const getOrderById = orderId => {
+  let order;
   try {
-    return Products.findOne(orderId);
+    order = Orders.findOne(orderId).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
@@ -68,6 +68,8 @@ export const getOrderById = orderId => {
       error
     );
   }
+
+  return order;
 };
 
 /**
@@ -94,9 +96,31 @@ export const addOrder = (items, user, email) => {
   }
 };
 
+/**
+ * Get orders by email
+ *
+ * @returns {Object} A single order object.
+ */
+export const getOrdersByEmail = orderEmail => {
+  let orders;
+  try {
+    orders = Orders.find(orderEmail).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrdersByEmail.findOrFetchError`,
+      `Could not find or fetch product with order email: '${orderEmail}'`,
+      error
+    );
+  }
+
+  return orders;
+};
+
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
   "orders.getOrderById": getOrderById,
-  "orders.addOrder": addOrder
+  "orders.addOrder": addOrder,
+  "orders.getOrdersByEmail": getOrdersByEmail
 });
