@@ -7,6 +7,33 @@ import { Meteor } from "meteor/meteor";
 import { Orders } from "./collection";
 
 /**
+ * Get a merchant object by id
+ *
+ * @returns {Object} The merchant object contains information in this order
+ * 
+ *  {
+ *    "user": {
+ *      "email": "jdoe@email.ca",
+ *      "password": "u#w(if(0Dp"
+ *    },
+ *    "dateOrdered": "2017-02-08T10:39:34 +05:00",
+ *    "items": [
+ *      {
+ *        "product": product1,
+ *        "quantity": 1
+ *      },
+ *      {
+ *        "product": product2,
+ *        "quantity": 3
+ *      },
+ *    ],
+ *    "isCheckOut": false
+ *  }
+ * 
+ * 
+ */
+
+/**
  * Get the most recently created order, not safe for production
  *
  * @returns {Object} A single order object.
@@ -48,11 +75,15 @@ export const getOrderById = orderId => {
  *
  * @returns
  */
-export const addOrder = (items, user) => {
+
+export const addOrder = (items, user, email) => {
   try {
     return Orders.insert({
+      email: email,
+      user: user,
+      dateOrdered: Date(),
       items: items,
-      user: user
+      isCheckOut: false
     });
   } catch (error) {
     throw new Meteor.Error(

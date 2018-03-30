@@ -38,6 +38,20 @@ class Shop extends Component {
     this.props.history.push("/cart");
   }
 
+  componentDidMount() {
+    const items = this.state.items;
+    const user = this.state.user;
+    const email = this.state.user.email;
+    
+    Meteor.call("orders.addOrder", items, user, email, (error, response) => {
+      if (error) {
+        this.setState(() => ({ error: error} ));
+      } else {
+        this.setState(() => ({ orders: response }));
+      }
+    });
+  }
+
   componentWillMount() {
     Meteor.call("merchants.getMerchants", (error, response) => {
       if (error) {
@@ -46,6 +60,7 @@ class Shop extends Component {
         this.setState(() => ({ merchants: response }));
       }
     });
+
   }
 
   goBack = () => this.props.history.push("/");
