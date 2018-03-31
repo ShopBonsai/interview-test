@@ -14,7 +14,7 @@ class Shop extends Component {
     this.state = {
       merchants: [],
       error: null,
-      orders: [], //+++++++++++++
+      orders: [],
       items: [],
       user: {
         email: "johnDoe@email.ca", // hardcoded will change later
@@ -23,15 +23,29 @@ class Shop extends Component {
     };
   }
   
-  // add a selected item and its quantity to the items list
   handleAddBtn = (item, quantityOrdered) => {
+    // save a new item into this.state.items
     let items = this.state.items;
     const orderItem = {
       item: item,
-      quantity: quantityOrdered
+      quantity: parseInt(quantityOrdered)
     }
+    items = items.concat([orderItem]);
+    this.setState(() => ({ items: items}));
+    
+    // update a current order with a new item
+    let orders = this.state.orders.slice();
+    const currentOrder = orders.pop();
+    const currentOrderId = currentOrder._id;
+    this.updateOrder(currentOrderId, items);
+  }
 
-    this.setState(() => ({items: items.concat([orderItem])}));
+  updateOrder = (orderId, items) => {
+    Meteor.call("orders.updateOrder", orderId, items, (error, response) => {
+      if (error) {
+        this.setState(() => ({ error: error }));
+      } 
+    });
   }
 
   handleCheckOutBtn = () => {
@@ -47,7 +61,7 @@ class Shop extends Component {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ orders: this.state.concat(response) }));
+        this.setState(() => ({ orders: this.state.orders.concat(response) }));
       }
     });
   }
@@ -69,13 +83,17 @@ class Shop extends Component {
 
     promise
       .then(() => {
-        let orders = this.state.orders;
+        let orders = this.state.orders.slice();       
         if (orders.length) {
-          console.log('ok passei ', this.state.orders.length)
-        } else{
-          console.log('error no promise')
-        }})
-      .catch((error) => console.log('catch ', error));
+          let lastOrder = orders.pop();          
+          if (lastOrder.isCheckOut) {
+            this.createNewOrder();
+          } else {
+            this.setState(() => ({ items: lastOrder.items }));
+          }
+        } 
+      })
+      .catch((error) => console.log('Error while getting orders by email: ', error));
 
     Meteor.call("merchants.getMerchants", (error, response) => {
       if (error) {

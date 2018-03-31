@@ -26,7 +26,7 @@ import { Orders } from "./collection";
  *        "quantity": 3
  *      },
  *    ],
- *    "isCheckOut": false
+ *    "isCheckOut": false // true if a user finalize a purchase
  *  }
  * 
  * 
@@ -116,11 +116,23 @@ export const getOrdersByEmail = orderEmail => {
   return orders;
 };
 
+export const updateOrder = (orderId, newItems) => {
+  try {
+    Orders.update({_id: orderId}, {$set: {items: newItems, dateOrdered: Date()}});
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:updateOrder.findOrFetchError`,
+      `Could not find or fetch product with order email: '${orderId}'`,
+      error
+    );
+  }
+}
 
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
   "orders.getOrderById": getOrderById,
   "orders.addOrder": addOrder,
-  "orders.getOrdersByEmail": getOrdersByEmail
+  "orders.getOrdersByEmail": getOrdersByEmail,
+  "orders.updateOrder": updateOrder
 });
