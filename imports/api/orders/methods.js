@@ -20,8 +20,8 @@ export const createAndUpdateOrder = (userId, itemInfo) => {
       compeletePayment: false
     }).fetch()[0];
     if (userOrder) {
-      let newTotalPrice = 
-       parseFloat(itemInfo.totalPrice) + parseFloat(userOrder.totalPrice);
+      let newTotalPrice =
+        parseFloat(itemInfo.totalPrice) + parseFloat(userOrder.totalPrice);
       userOrder.itemInfo.push(itemInfo);
       userOrder = Orders.update(
         { userId: userId },
@@ -61,7 +61,10 @@ export const createAndUpdateOrder = (userId, itemInfo) => {
 export const deleteSingleItemInOrder = (userId, deleteItem) => {
   let userOrder;
   try {
-    userOrder = Orders.find({userId: userId, compeletePayment: false}).fetch()[0];
+    userOrder = Orders.find({
+      userId: userId, 
+      compeletePayment: false
+    }).fetch()[0];
     let newTotalPrice = (parseFloat(userOrder.totalPrice) -
       parseFloat(deleteItem.totalPrice)).toFixed(2);
     let index = userOrder.itemInfo.indexOf(deleteItem);
