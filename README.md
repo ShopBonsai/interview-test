@@ -26,13 +26,13 @@ Clicking on 'Go Shopping' button should display the shop page:
 ![Shop Page Default Look and browse](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/shopPage.gif)
 
 User Login and Register
-![User login](https://github.com/cyang258/interview-test/blob/master/public/images/login.gif)
+![User login](https://media.giphy.com/media/OjGbQembXt4Os2wpf3/giphy.gif)
 
 Add items to cart
-![add item to shopping cart](https://github.com/cyang258/interview-test/blob/master/public/images/addItemInCart.gif)
+![add item to shopping cart](https://media.giphy.com/media/3ksOnfH0Txs7EZI0vn/giphy.gif)
 
 Edit user profile
-![edit user profile](https://github.com/cyang258/interview-test/blob/master/public/images/editProfile.gif)
+![edit user profile](https://media.giphy.com/media/iDJl5BnXtVNeAy08AG/giphy.gif)
 
 
 
