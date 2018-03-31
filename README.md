@@ -25,6 +25,17 @@ It should look like this initially:
 Clicking on 'Go Shopping' button should display the shop page:
 ![Shop Page Default Look and browse](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/shopPage.gif)
 
+User Login and Register
+![User login](https://github.com/cyang258/interview-test/blob/master/public/images/login.gif)
+
+Add items to cart
+![add item to shopping cart](https://github.com/cyang258/interview-test/blob/master/public/images/addItemInCart.gif)
+
+Edit user profile
+![edit user profile](https://github.com/cyang258/interview-test/blob/master/public/images/editProfile.gif)
+
+
+
 ## Lint
 1. `meteor npm run lint`
 2. Before pushing linting is automatically run.
