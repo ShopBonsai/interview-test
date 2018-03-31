@@ -15,7 +15,10 @@ import { Orders } from "./collection";
 export const createAndUpdateOrder = (userId, itemInfo) => {
   let userOrder;
   try {
-    userOrder = Orders.find({userId: userId, compeletePayment: false}).fetch()[0];
+    userOrder = Orders.find({
+      userId: userId, 
+      compeletePayment: false
+    }).fetch()[0];
     if(userOrder){
       let newTotalPrice = parseFloat(itemInfo.totalPrice) + parseFloat(userOrder.totalPrice);
       userOrder.itemInfo.push(itemInfo);
