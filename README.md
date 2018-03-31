@@ -25,10 +25,10 @@ It should look like this initially:
 Clicking on 'Go Shopping' button should display the shop page:
 ![Shop Page Default Look and browse](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/shopPage.gif)
 
+## Changed App
 User Login and Register
 ![User login](https://github.com/cyang258/interview-test/blob/master/public/images/profile.png)
 
-## Changed App
 Buy item with quantities
 ![buy with quantity](https://github.com/cyang258/interview-test/blob/master/public/images/buywithQuantity.png)
 
