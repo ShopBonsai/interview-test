@@ -149,7 +149,7 @@ export const getIncompeleteOrderByUserId = userId => {
     return Orders.find(
       { userId: Meteor.userId(), compeletePayment: false },
       options
-      ).fetch();
+    ).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderByUserId.findOrFetchError`,
