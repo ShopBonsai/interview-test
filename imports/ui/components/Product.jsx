@@ -62,23 +62,26 @@ class Product extends PureComponent {
     // Otherwise display button add
     const HandleDisplayButton = () => {
       let itemName = this.props.name;
-      let itemsAdded = this.props.itemsSelected.map((item) => item.item.name)
+      let itemsNameAdded = this.props.itemsSelected.map((item) => item.item.name);
       
       // if there is no quantity in stock
       if (!quantity) {
-        return <Button className="bonsai-button-sold-out">
-                SOLD OUT
-               </Button>
+        return (
+          <Button className="bonsai-button-sold-out">
+            SOLD OUT
+          </Button>);
       } else {
         // check if an item is already added to cart
-        if (itemsAdded.includes(itemName)) {
-          return <Button className="bonsai-button-already-added" onClick={this.handleAddButton}>
-            ALREADY ADDED
-               </Button>
+        if (itemsNameAdded.includes(itemName)) {
+          return (
+            <Button className="bonsai-button-already-added" onClick={this.handleAddButton}>
+              ALREADY ADDED
+            </Button>);
         } else {
-          return <Button onClick={this.handleAddButton}>
-            ADD TO CART
-               </Button>
+          return (
+            <Button onClick={this.handleAddButton}>
+              ADD TO CART
+            </Button>);
         }
       }
     }

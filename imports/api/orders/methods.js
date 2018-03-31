@@ -123,7 +123,10 @@ export const getOrdersByEmail = orderEmail => {
  */
 export const updateOrder = (orderId, newItems) => {
   try {
-    Orders.update({ _id: orderId}, { $set: { items: newItems, dateOrdered: Date() }});
+    Orders.update(
+      { _id: orderId}, 
+      { $set: { items: newItems, dateOrdered: new Date() } }
+    );
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:updateOrder.findOrFetchError`,

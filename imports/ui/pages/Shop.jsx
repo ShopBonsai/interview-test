@@ -46,30 +46,27 @@ class Shop extends Component {
 
     this.setState(() => ({ items: items}));
     
-    this.handleUpdateOrder(items);
+    this.updateOrderDB(items);
   }
 
   handleCheckOutBtn = () => {
     this.props.history.push("/cart");
   }
 
-  handleUpdateOrder = (items) => {
+  updateOrderDB = (items) => {
     // update a current order with a new item
     let orders = this.state.orders.slice(); //
     const currentOrder = orders.pop(); //
     const currentOrderId = currentOrder._id; //
-    this.updateOrder(currentOrderId, items);
-  }
     
-  updateOrder = (orderId, items) => {
-    Meteor.call("orders.updateOrder", orderId, items, (error, response) => {
+    Meteor.call("orders.updateOrder", currentOrderId, items, (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
       } 
     });
   }
-
-  createNewOrder() {
+    
+  createNewOrderDB() {
     const items = this.state.items;
     const user = this.state.user;
     const email = this.state.user.email;
@@ -103,14 +100,14 @@ class Shop extends Component {
     promise
       .then((response) => {
         if (!response.length) {
-          this.createNewOrder();
+          this.createNewOrderDB();
           Meteor.call("orders.getOrdersByEmail", { email: email }, (error, response) => {
             if (error) {
               this.setState(() => ({ error: error }));
             } else {
               this.setState(() => ({ orders: response }));
             }
-          })
+          });
           return;
         }
 
@@ -118,7 +115,7 @@ class Shop extends Component {
         if (orders.length) {
           let lastOrder = orders.pop();          
           if (lastOrder.isCheckOut) {
-            this.createNewOrder();
+            this.createNewOrderDB();
           } else {
             this.setState(() => ({ items: lastOrder.items }));
           }
