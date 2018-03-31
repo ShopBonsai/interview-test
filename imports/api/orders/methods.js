@@ -19,15 +19,16 @@ export const createAndUpdateOrder = (userId, itemInfo) => {
       userId: userId, 
       compeletePayment: false
     }).fetch()[0];
-    if(userOrder){
+    if (userOrder) {
       let newTotalPrice = parseFloat(itemInfo.totalPrice) + parseFloat(userOrder.totalPrice);
       userOrder.itemInfo.push(itemInfo);
       userOrder = Orders.update(
         { userId: userId },
-        { $set: { 
-              itemInfo: userOrder.itemInfo,
-              totalPrice: newTotalPrice
-              } 
+        { 
+          $set: { 
+            itemInfo: userOrder.itemInfo,
+            totalPrice: newTotalPrice
+          } 
         }
       )
     } else {
