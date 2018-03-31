@@ -116,9 +116,14 @@ export const getOrdersByEmail = orderEmail => {
   return orders;
 };
 
+/**
+ * Update orders by id
+ *
+ * @returns {Object} A single order object.
+ */
 export const updateOrder = (orderId, newItems) => {
   try {
-    Orders.update({_id: orderId}, {$set: {items: newItems, dateOrdered: Date()}});
+    Orders.update({ _id: orderId}, { $set: { items: newItems, dateOrdered: Date() }});
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:updateOrder.findOrFetchError`,

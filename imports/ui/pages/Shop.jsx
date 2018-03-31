@@ -24,32 +24,49 @@ class Shop extends Component {
   }
   
   handleAddBtn = (item, quantityOrdered) => {
-    // save a new item into this.state.items
+    let isQuantiyUpdate = false;
     let items = this.state.items;
-    const orderItem = {
-      item: item,
-      quantity: parseInt(quantityOrdered)
+    
+    items.map(aItem => {
+      // check if an item is already added
+      if (aItem.item.name == item.name) {  
+        aItem.quantity += parseInt(quantityOrdered);
+        isQuantiyUpdate = true; // set isQuantityUpdate to true since the item quantity is being updated
+      }
+    });
+
+    // if an item is a new item
+    if (!isQuantiyUpdate) { 
+      const orderItem = {
+        item: item,
+        quantity: parseInt(quantityOrdered)
+      }
+      items = items.concat([orderItem]);
     }
-    items = items.concat([orderItem]);
+
     this.setState(() => ({ items: items}));
     
-    // update a current order with a new item
-    let orders = this.state.orders.slice();
-    const currentOrder = orders.pop();
-    const currentOrderId = currentOrder._id;
-    this.updateOrder(currentOrderId, items);
+    this.handleUpdateOrder(items);
   }
 
+  handleCheckOutBtn = () => {
+    this.props.history.push("/cart");
+  }
+
+  handleUpdateOrder = (items) => {
+    // update a current order with a new item
+    let orders = this.state.orders.slice(); //
+    const currentOrder = orders.pop(); //
+    const currentOrderId = currentOrder._id; //
+    this.updateOrder(currentOrderId, items);
+  }
+    
   updateOrder = (orderId, items) => {
     Meteor.call("orders.updateOrder", orderId, items, (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
       } 
     });
-  }
-
-  handleCheckOutBtn = () => {
-    this.props.history.push("/cart");
   }
 
   createNewOrder() {
@@ -96,7 +113,7 @@ class Shop extends Component {
           })
           return;
         }
-        
+
         let orders = this.state.orders.slice();       
         if (orders.length) {
           let lastOrder = orders.pop();          
@@ -107,16 +124,7 @@ class Shop extends Component {
           }
         } 
 
-/*        let orders = this.state.orders.slice();       
-        if (orders.length) {
-          let lastOrder = orders.pop();          
-          if (lastOrder.isCheckOut) {
-            this.createNewOrder();
-          } else {
-            this.setState(() => ({ items: lastOrder.items }));
-          }
-        } 
-*/      })
+     })
       .catch((error) => console.log('Error while getting orders by email: ', error));
 
     Meteor.call("merchants.getMerchants", (error, response) => {
