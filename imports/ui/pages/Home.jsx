@@ -1,6 +1,7 @@
 // Framework
 import React, { PureComponent } from "react";
 import { Meteor } from "meteor/meteor";
+import { Accounts } from 'meteor/accounts-base'
 
 // Components
 import Page from "../components/Page.jsx";
@@ -38,24 +39,22 @@ class Home extends PureComponent {
     const province = this.state.user.province;
     const password = this.state.user.password;
 
-    // Meteor.call(
-    //   "users.createUser", 
-    //   fName, 
-    //   lName, 
-    //   email, 
-    //   phone, 
-    //   address, 
-    //   zip, 
-    //   city, 
-    //   province, 
-    //   password, 
-    //   (error, response) => {
-    //     if (error) {
-    //       this.setState(() => ({ error: error }));
-    //     } else {
-    //       // this.setState(() => ({ user: this.state.user.concat(response) }));
-    //     }
-    //   });
+    Accounts.createUser({
+      email: email, 
+      password: password, 
+      profile: {
+        fName: fName,
+        lName: lName,
+        email: email,
+        phone: phone,
+        address: address,
+        zip: zip,
+        city: city,
+        province: province
+      }
+    });
+
+    this.props.history.push("/shop");
   }
 
   handleInputChange(event) {
