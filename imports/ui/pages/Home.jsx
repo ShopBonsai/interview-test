@@ -22,12 +22,38 @@ class Home extends PureComponent {
         city: "",
         province: "",
         password: ""
+      },
+      login: {
+        user: ""
       }
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleRegisterBtn = this.handleRegisterBtn.bind(this);
+    this.handleLoginBtn = this.handleLoginBtn.bind(this);
+    this.handleInputLogin = this.handleInputLogin.bind(this);
   }
-  
+
+  handleLoginBtn() {
+    const email = this.state.login.user.emailLogin;
+    const password = this.state.login.user.passwordLogin;
+
+    Meteor.loginWithPassword(email, password, (error) => {
+      if (error) {
+        console.log(error.reason);
+      } else {
+        this.props.history.push("/shop");
+      }
+    });
+  }
+
+  handleInputLogin(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({...this.state, login: {...this.state.login, user: {...this.state.login.user, [name]: value}}});
+
+  }
+
   handleRegisterBtn() {
     const fName = this.state.user.fName;
     const lName = this.state.user.lName;
@@ -83,10 +109,10 @@ class Home extends PureComponent {
           </div>
           <div className="login">
             <label>Email:</label>
-            <input type="text" name="email"/>
+            <input type="text" name="emailLogin" onBlur={this.handleInputLogin}/>
             <label>Password:</label>
-            <input type="password" name="password" />
-            <Button >Login</Button>
+            <input type="password" name="passwordLogin" onBlur={this.handleInputLogin} />
+            <Button onClick={this.handleLoginBtn}>Login</Button>
           </div>
           <div className="register">
             <label>First Name:</label>
