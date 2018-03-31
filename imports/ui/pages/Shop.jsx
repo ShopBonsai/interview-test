@@ -34,6 +34,8 @@ class Shop extends Component {
  
   goBack = () => this.props.history.push("/");
 
+  userProfile = () => this.props.history.push("/profile");
+
   logout = (e) => {
     e.preventDefault();
     Meteor.logout((er) => {
@@ -62,7 +64,7 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack} login={this.login} register={this.register} checkout={this.checkout} logout={this.logout} >
+      <Page pageTitle="shop" history goBack={this.goBack} login={this.login} register={this.register} checkout={this.checkout} logout={this.logout} userProfile={this.userProfile} >
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />

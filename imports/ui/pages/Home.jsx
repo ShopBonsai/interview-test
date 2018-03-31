@@ -14,6 +14,8 @@ class Home extends PureComponent {
 
   login = () => this.props.history.push("/login");
 
+  userProfile = () => this.props.history.push("/profile");
+
   logout = (e) => {
     e.preventDefault();
     Meteor.logout((er) => {
@@ -29,7 +31,7 @@ class Home extends PureComponent {
 
   render() {
     return (
-      <Page history login={this.login} register={this.register} checkout={this.checkout} logout={this.logout}>
+      <Page history login={this.login} register={this.register} checkout={this.checkout} logout={this.logout} userProfile={this.userProfile}>
         <div className="home-page">
           <h2 className="title">Welcome to our humble Shop</h2>
           <Button

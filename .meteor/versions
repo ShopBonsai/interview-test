@@ -63,11 +63,13 @@ ordered-dict@1.0.9
 promise@0.9.0
 random@1.0.10
 rate-limit@1.0.8
+reactive-dict@1.1.9
 reactive-var@1.0.11
 reload@1.1.11
 retry@1.0.9
 routepolicy@1.0.12
 service-configuration@1.0.11
+session@1.1.7
 sha@1.0.9
 shell-server@0.2.4
 spacebars@1.0.15

@@ -2,7 +2,7 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 
-const Header = ({ children, goBack, checkout, register, login, logout }) =>{
+const Header = ({ children, goBack, checkout, register, login, logout, userProfile }) =>{
   if(Meteor.userId()){ 
     return(
       <header>
@@ -13,6 +13,7 @@ const Header = ({ children, goBack, checkout, register, login, logout }) =>{
         <h1>
           {children}
         </h1>
+        <button onClick={userProfile} className="userProfile">Profile</button>
         <button onClick={logout} className="logout">Logout</button>
         <button onClick={checkout} className="shopping-cart">
         {/* Shopping cart image added here */}

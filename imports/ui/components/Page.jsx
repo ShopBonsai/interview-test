@@ -7,9 +7,9 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
-export const Page = ({ children, pageTitle, history, goBack, checkout, register, login, logout }) =>
+export const Page = ({ children, pageTitle, history, goBack, checkout, register, login, logout, userProfile }) =>
   <div className="page">
-    <Header goBack={goBack} checkout={checkout} register={register} login={login} logout={logout} >
+    <Header goBack={goBack} checkout={checkout} register={register} login={login} logout={logout} userProfile={userProfile} >
       {pageTitle}
     </Header>
     <main>

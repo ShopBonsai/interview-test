@@ -12,6 +12,7 @@ import Home from "./pages/Home.jsx";
 import Cart from "./pages/Cart.jsx";
 import Register from "./pages/Login/Register.jsx";
 import Login from "./pages/Login/Login.jsx";
+import Profile from "./pages/Profile.jsx"
 
 const Routes = () =>
   <Router history={browserHistory}>
@@ -21,6 +22,7 @@ const Routes = () =>
       <Route path="/cart" component={Cart} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
+      <Route path="/profile" component={Profile} />
     </div>
   </Router>;
 
