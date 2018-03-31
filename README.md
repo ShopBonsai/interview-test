@@ -32,7 +32,7 @@ Add items to cart
 ![add item to shopping cart](https://media.giphy.com/media/3ksOnfH0Txs7EZI0vn/giphy.gif)
 
 Edit user profile
-![edit user profile](https://media.giphy.com/media/iDJl5BnXtVNeAy08AG/giphy.gif)
+![editprofile](https://user-images.githubusercontent.com/33134418/38168244-00702a36-3515-11e8-93f1-1c5c8e63a815.gif)
 
 
 
