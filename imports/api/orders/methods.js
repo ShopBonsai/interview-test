@@ -78,9 +78,9 @@ export const deleteSingleItemInOrder = (userId, deleteItem) => {
       `${__filename}:deleteSingleItemInOrder.findOrFetchError`,
       `Could not find or fetch product. Got error: ${error}`,
       error
-    )  
+    );
   }
-}
+};
 
 export const getLastOrder = () => {
   const options = { sort: { createdAt: -1 }, limit: 1 };
@@ -122,7 +122,7 @@ export const getOrderById = orderId => {
 export const getOrderByUserId = userId => {
   try {
     const options = { sort: { createdAt: -1 } };
-    return Orders.find({userId: userId}, options).fetch();
+    return Orders.find({ userId: userId }, options).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderByUserId.findOrFetchError`,
@@ -130,7 +130,7 @@ export const getOrderByUserId = userId => {
       error
     );
   }
-}
+};
 
 /**
  * Get an incompelete payment order by user id
@@ -148,14 +148,14 @@ export const getIncompeleteOrderByUserId = userId => {
       error
     );
   }
-}
+};
 
 /**
  * Remove the unpurchased order
  */
 export const removeOrderByUserId = userId => {
   try {
-    return Orders.remove({userId: userId, compeletePayment: false});
+    return Orders.remove({ userId: userId, compeletePayment: false });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:removeOrderByUserId.findOrFetchError`,
