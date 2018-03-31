@@ -124,7 +124,7 @@ export const getOrdersByEmail = orderEmail => {
 export const updateOrder = (orderId, newItems) => {
   try {
     Orders.update(
-      { _id: orderId }, 
+      { _id: orderId },
       { $set: { items: newItems, dateOrdered: new Date() } }
     );
   } catch (error) {
