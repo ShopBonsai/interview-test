@@ -73,16 +73,30 @@ class Shop extends Component {
       Meteor.call("orders.getOrdersByEmail", { email: email }, (error, response) => {
         if (error) {
           this.setState(() => ({ error: error }));
+          console.log('error ', error)
           reject(error);
         } else {
           this.setState(() => ({ orders: response }));
+          console.log('response ', this.state.orders)
           resolve(response);
         }
       })
     });
 
     promise
-      .then(() => {
+      .then((response) => {
+        if (!response.length) {
+          this.createNewOrder();
+          Meteor.call("orders.getOrdersByEmail", { email: email }, (error, response) => {
+            if (error) {
+              this.setState(() => ({ error: error }));
+            } else {
+              this.setState(() => ({ orders: response }));
+            }
+          })
+          return;
+        }
+        
         let orders = this.state.orders.slice();       
         if (orders.length) {
           let lastOrder = orders.pop();          
@@ -92,7 +106,17 @@ class Shop extends Component {
             this.setState(() => ({ items: lastOrder.items }));
           }
         } 
-      })
+
+/*        let orders = this.state.orders.slice();       
+        if (orders.length) {
+          let lastOrder = orders.pop();          
+          if (lastOrder.isCheckOut) {
+            this.createNewOrder();
+          } else {
+            this.setState(() => ({ items: lastOrder.items }));
+          }
+        } 
+*/      })
       .catch((error) => console.log('Error while getting orders by email: ', error));
 
     Meteor.call("merchants.getMerchants", (error, response) => {
@@ -129,7 +153,7 @@ class Shop extends Component {
         </div>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} handleAddBtn={this.handleAddBtn} />
+            <Product {...product} key={id} handleAddBtn={this.handleAddBtn} itemsSelected={this.state.items}/>
           )}
         </div>
       </Page>

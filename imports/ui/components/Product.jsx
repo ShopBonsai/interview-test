@@ -14,12 +14,21 @@ class Product extends PureComponent {
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
   
-  handleAddBtn = () => {
+  handleAddButton = (event) => {
     let quantityOrdered = this.state.quantityAdded;
-    this.props.handleAddBtn(this.props, quantityOrdered);
+    let product = {
+      name: this.props.name,
+      price: this.props.price,
+      size: this.props.size,
+      brand: this.props.brand,
+      description: this.props.description,
+      color: this.props.color,
+      image: this.props.image
+    };
+    this.props.handleAddBtn(product, quantityOrdered);    
   }
 
-  // quantity input by a user
+  // set quantity by a user
   handleQuantityChange(event) {
     const target = event.target;
     const value = target.value;
@@ -52,17 +61,25 @@ class Product extends PureComponent {
     // Display button sold out if quantity is 0
     // Otherwise display button add
     const HandleDisplayButton = () => {
+      let itemName = this.props.name;
+      let itemsAdded = this.props.itemsSelected.map((item) => item.item.name)
+      
       if (!quantity) {
         return <Button className="bonsai-button-sold-out">
                 SOLD OUT
                </Button>
       } else {
-        return <Button onClick={this.handleAddBtn}>
-                ADD TO CART
+        if (itemsAdded.includes(itemName)) {
+          return <Button className="bonsai-button-already-added" onClick={this.handleAddButton}>
+            ALREADY ADDED
                </Button>
+        } else {
+          return <Button onClick={this.handleAddButton}>
+            ADD TO CART
+               </Button>
+        }
       }
     }
-
     
     return (
       <div className="product">
