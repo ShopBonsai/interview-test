@@ -62,18 +62,18 @@ export const deleteSingleItemInOrder = (userId, deleteItem) => {
   let userOrder;
   try {
     userOrder = Orders.find({userId: userId, compeletePayment: false}).fetch()[0];
-    let newTotalPrice = (parseFloat(userOrder.totalPrice) - 
-          parseFloat(deleteItem.totalPrice)).toFixed(2);
+    let newTotalPrice = (parseFloat(userOrder.totalPrice) -
+      parseFloat(deleteItem.totalPrice)).toFixed(2);
     let index = userOrder.itemInfo.indexOf(deleteItem);
     let updateItemInfo = userOrder.itemInfo;
     updateItemInfo.splice(index, 1);
     userOrder = Orders.update(
       { userId: userId },
-      { 
-        $set: { 
+      {
+        $set: {
           itemInfo: updateItemInfo,
           totalPrice: newTotalPrice
-        } 
+        }
       }
     );
   } catch (error) {
@@ -144,8 +144,9 @@ export const getIncompeleteOrderByUserId = userId => {
   try {
     const options = { sort: { createdAt: -1 }, limit: 1 };
     return Orders.find(
-      {userId: Meteor.userId(), compeletePayment: false }, 
-      options).fetch();
+      { userId: Meteor.userId(), compeletePayment: false }, 
+      options)
+    .fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderByUserId.findOrFetchError`,
