@@ -16,38 +16,39 @@ export const createAndUpdateOrder = (userId, itemInfo) => {
   let userOrder;
   try {
     userOrder = Orders.find({
-      userId: userId, 
+      userId: userId,
       compeletePayment: false
     }).fetch()[0];
     if (userOrder) {
-      let newTotalPrice = parseFloat(itemInfo.totalPrice) + parseFloat(userOrder.totalPrice);
+      let newTotalPrice = 
+       parseFloat(itemInfo.totalPrice) + parseFloat(userOrder.totalPrice);
       userOrder.itemInfo.push(itemInfo);
       userOrder = Orders.update(
         { userId: userId },
-        { 
-          $set: { 
+        {
+          $set: {
             itemInfo: userOrder.itemInfo,
             totalPrice: newTotalPrice
-          } 
+          }
         }
-      )
+      );
     } else {
       userOrder = Orders.insert({
         userId: userId,
         compeletePayment: false,
         createdAt: new Date(),
         itemInfo: [itemInfo],
-        totalPrice: itemInfo.totalPrice 
+        totalPrice: itemInfo.totalPrice
       });
     }
   } catch (error) {
-      throw new Meteor.Error(
-        `${__filename}:createAndUpdateOrder.findOrFetchError`,
-        `Could not find or fetch product. Got error: ${error}`,
-        error
-      );
+    throw new Meteor.Error(
+      `${__filename}:createAndUpdateOrder.findOrFetchError`,
+      `Could not find or fetch product. Got error: ${error}`,
+      error
+    );
   }
-}
+};
 
 /**
  * Delete single item in order, since my order collection has completePayment boolean
@@ -59,20 +60,22 @@ export const createAndUpdateOrder = (userId, itemInfo) => {
 
 export const deleteSingleItemInOrder = (userId, deleteItem) => {
   let userOrder;
-  try{
+  try {
     userOrder = Orders.find({userId: userId, compeletePayment: false}).fetch()[0];
-    let newTotalPrice = (parseFloat(userOrder.totalPrice) - parseFloat(deleteItem.totalPrice)).toFixed(2);
+    let newTotalPrice = (parseFloat(userOrder.totalPrice) - 
+          parseFloat(deleteItem.totalPrice)).toFixed(2);
     let index = userOrder.itemInfo.indexOf(deleteItem);
-    let updateItemInfo = userOrder.itemInfo
+    let updateItemInfo = userOrder.itemInfo;
     updateItemInfo.splice(index, 1);
     userOrder = Orders.update(
       { userId: userId },
-      { $set: { 
-            itemInfo: updateItemInfo,
-            totalPrice: newTotalPrice
-            } 
+      { 
+        $set: { 
+          itemInfo: updateItemInfo,
+          totalPrice: newTotalPrice
+        } 
       }
-    )
+    );
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:deleteSingleItemInOrder.findOrFetchError`,
@@ -140,7 +143,9 @@ export const getOrderByUserId = userId => {
 export const getIncompeleteOrderByUserId = userId => {
   try {
     const options = { sort: { createdAt: -1 }, limit: 1 };
-    return Orders.find({userId: Meteor.userId(), compeletePayment: false }, options).fetch();
+    return Orders.find(
+      {userId: Meteor.userId(), compeletePayment: false }, 
+      options).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderByUserId.findOrFetchError`,
@@ -163,7 +168,7 @@ export const removeOrderByUserId = userId => {
       error
     );
   }
-}
+};
 
 // Register meteor methods.
 Meteor.methods({
