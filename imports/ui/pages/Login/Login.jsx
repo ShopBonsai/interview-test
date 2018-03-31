@@ -16,7 +16,7 @@ class Login extends Component {
           if (er) {
             M.toast({html: er.reason, classes: 'rounded red', displayLength: '2000'});
           } else {
-            M.toast({html: "Login Successfully!", classes: 'rounded green', displayLength: '2000'});
+            M.toast({html: "Login Successfully!", classes: 'rounded green', displayLength: '1000'});
             self.props.history.push("/shop")
           }
         })

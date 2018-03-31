@@ -28,9 +28,9 @@ class Profile extends PureComponent {
 	  firstName: firstName,
 	  lastName: lastName,
 	  email: email,
-      oldEmail: oldEmail 
+    oldEmail: oldEmail 
 	})
-	Meteor.call("orders.getOrderByUserId", (error, response) => {
+	Meteor.call("orders.getOrderByUserId", Meteor.userId(), (error, response) => {
 	  if (error) {
 	    this.setState(() => ({ error: error }));
 	  } else {
@@ -56,15 +56,6 @@ class Profile extends PureComponent {
       }
     })
 
-  }
-
-  updateEmail = (e) => {
-   e.preventDefault();
-   Meteor.users.update({_id: Meteor.userId()}, {$set: {
-     'emails.0.address': this.state.email
-   }});
-   M.toast({html: "Email changed Successfully!", classes: 'rounded green', displayLength: '2000'});
-   this.props.history.push("/shop");
   }
   
   updateProfile = (e) => {
@@ -105,20 +96,12 @@ class Profile extends PureComponent {
     		  	    </button>
     		  	  </form>
     		  	</div>
-    		  	<div className="row">
-    		  	  <form onSubmit={this.updateEmail} className="col s12">
-    		  	    <div className="row">
-	    		  	  <div className="input-field col s12">
-	    		  	    <input value={this.state.email} id="email" type="email" className="validate" onChange={this.handleChange("email")} required/>
-	    		  	    <label className="active" htmlFor="email">Email</label>
-	    		  	  </div>
-	    		  	</div>
-		  	  	    <button className="btn waves-effect waves-light" type="submit" name="action">
-		  		  	    <i className="material-icons right">send</i>
-		  		  	    Update Email
-		  	  	    </button>
-	    		  </form>	
-    		  	</div>	
+            <div className="divider"></div>
+            <div className="section">
+              <h5>Email</h5>
+              <p>{this.state.email}</p>
+            </div>
+            <div className="divider"></div>	
     	  	</div>
     	  </Page>	   
     )

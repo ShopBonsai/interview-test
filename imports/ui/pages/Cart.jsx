@@ -51,15 +51,11 @@ class Cart extends Component {
   }
 
   handleDeleteItem = (deletedItem) => {
-    console.log(deletedItem.item);
-    console.log(deletedItem.item.totalPrice);
     const deleteItem = deletedItem.item;
-    const newStatePrice = (this.state.totalPrice - deletedItem.item.totalPrice);
-    let index = this.state.orderedItems.indexOf(deleteItem)
-    const newItemArr = this.state.orderedItems
+    const newStatePrice = (this.state.totalPrice - deletedItem.item.totalPrice).toFixed(2);
+    let index = this.state.orderedItems.indexOf(deleteItem);
+    const newItemArr = this.state.orderedItems;
     newItemArr.splice(index, 1);
-    console.log(index)
-    console.log(newItemArr)
     Meteor.call("orders.deleteSingleItemInOrder", Meteor.userId(), deleteItem, (error) => {
       if (error) {
         M.toast({html: error.reason, classes: 'rounded green', displayLength: '2000'});
@@ -87,7 +83,6 @@ class Cart extends Component {
   
   render() {
     const { orderTime, orderedItems, totalPrice } = this.state
-    
     return(
       <Page pageTitle="My Cart" history goBack={this.goBack} register={this.register} login={this.login} logout={this.logout} userProfile={this.userProfile}>
         <div className="cart-page">
@@ -118,8 +113,7 @@ class Cart extends Component {
                 let itemQuantity = item.quantityBought;
                 let sumPrice = item.totalPrice;
                 let index = orderedItems.indexOf(item);
-                console.log(index)
-                return( <div className="row" key={itemName}>
+                return( <div className="row" key={itemName + index}>
                          <div className="col s4">
                            <img alt={itemName} src={itemImage} height="150" width="150" />
                          </div>
