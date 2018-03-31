@@ -26,7 +26,28 @@ class Shop extends Component {
     });
   }
 
+  checkout = () => this.props.history.push("/cart");
+
+  register = () => this.props.history.push("/register");
+
+  login = () => this.props.history.push("/login");
+ 
   goBack = () => this.props.history.push("/");
+
+  userProfile = () => this.props.history.push("/profile");
+
+  logout = (e) => {
+    e.preventDefault();
+    Meteor.logout((er) => {
+      if(er){
+        M.toast({html: er.reason, classes: 'rounded red', displayLength: '2000'});
+      } else {
+        M.toast({html: "Logout Successfully!", classes: 'rounded green', displayLength: '2000'});
+        this.props.history.push("/shop");
+      }
+    })
+
+  }
 
   render() {
     const { merchants, error } = this.state;
@@ -43,7 +64,7 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="shop" history goBack={this.goBack} login={this.login} register={this.register} checkout={this.checkout} logout={this.logout} userProfile={this.userProfile} >
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />

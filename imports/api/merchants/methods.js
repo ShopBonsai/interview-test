@@ -65,7 +65,7 @@ import { Merchants } from "./collection";
 export const getMerchantById = merchantId => {
   let merchant;
   try {
-    merchant = Merchants.findOne(merchantId);
+    merchant = Merchants.findOne(merchantId).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getMerchantById.findOrFetchError`,

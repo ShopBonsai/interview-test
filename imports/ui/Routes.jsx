@@ -9,12 +9,20 @@ import {
 // Pages
 import Shop from "./pages/Shop.jsx";
 import Home from "./pages/Home.jsx";
+import Cart from "./pages/Cart.jsx";
+import Register from "./pages/Login/Register.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Profile from "./pages/Profile.jsx"
 
 const Routes = () =>
   <Router history={browserHistory}>
     <div>
       <Route exact path="/" component={Home} />
       <Route path="/shop" component={Shop} />
+      <Route path="/cart" component={Cart} />
+      <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
+      <Route path="/profile" component={Profile} />
     </div>
   </Router>;
 
