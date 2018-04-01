@@ -80,10 +80,8 @@ export const getOrderById = orderId => {
  */
 
 export const addOrder = (items, userId) => {
-// export const addOrder = (items, user, email) => {
   try {
     return Orders.insert({
-      // email: email,
       userId: userId,
       dateOrdered: new Date(),
       items: items,
@@ -124,8 +122,6 @@ export const getOrdersByUserId = userId => {
  * @returns {Object} A single order object.
  */
 export const updateOrder = (orderId, newItems) => {
-  console.log('update order in methods items ', newItems);
-  console.log('update order in methods orderId ', orderId);
   try {
     Orders.update(
       { _id: orderId },
