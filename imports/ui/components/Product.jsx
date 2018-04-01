@@ -1,13 +1,28 @@
 // Framework
 import React, { PureComponent } from "react";
+import StarRatingComponent from 'react-star-rating-component';
 
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+  constructor() {
+    super();
+
+    this.state = {
+      rating: 0
+    };
+  }
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
+
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({ rating: nextValue });
+    console.log(prevValue)
+    console.log(nextValue)
+    console.log(name)
+  }
 
   render() {
     const {
@@ -44,6 +59,16 @@ class Product extends PureComponent {
                 </div>
               </div>
             )}
+            <div className="info-row">
+              <div className="label"> Rating:
+              </div>
+                <StarRatingComponent 
+                  name={name}
+                  starCount={5}
+                  value={this.state.rating}
+                  onStarClick={this.onStarClick.bind(this)}
+                />
+            </div>
           </div>
           <Button onClick={this.handleBuyProduct}>
             Buy {name}
