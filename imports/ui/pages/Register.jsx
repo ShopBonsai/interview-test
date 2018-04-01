@@ -136,7 +136,7 @@ class Register extends PureComponent {
             <label>Password:</label>
             <input type="password" name="password" onChange={this.handleInputChange} />
           </div>
-          <Button className="bonsai-button register-btn" onClick={this.handleRegisterBtn}>Register</Button>
+          <Button className="register-btn" onClick={this.handleRegisterBtn}>Register</Button>
 
         </div>
       </Page>

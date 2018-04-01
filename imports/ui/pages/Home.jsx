@@ -12,23 +12,23 @@ class Home extends PureComponent {
     super(props);
     this.state = {
       error: null,
-      user: {
-        fName: "",
-        lName: "",
-        email: "",
-        phone: "",
-        address: "",
-        zip: "",
-        city: "",
-        province: "",
-        password: ""
-      },
+      // user: {
+      //   fName: "",
+      //   lName: "",
+      //   email: "",
+      //   phone: "",
+      //   address: "",
+      //   zip: "",
+      //   city: "",
+      //   province: "",
+      //   password: ""
+      // },
       login: {
         user: ""
       }
     }
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleRegisterBtn = this.handleRegisterBtn.bind(this);
+    // this.handleInputChange = this.handleInputChange.bind(this);
+    // this.handleRegisterBtn = this.handleRegisterBtn.bind(this);
     this.handleLoginBtn = this.handleLoginBtn.bind(this);
     this.handleInputLogin = this.handleInputLogin.bind(this);
   }
@@ -54,7 +54,7 @@ class Home extends PureComponent {
 
   }
 
-  handleRegisterBtn() {
+/*  handleRegisterBtn() {
     const fName = this.state.user.fName;
     const lName = this.state.user.lName;
     const email = this.state.user.email;
@@ -92,52 +92,29 @@ class Home extends PureComponent {
       ...this.state, user: {...this.state.user, [name]: value}
     });
   }
-
+*/
   render() {
     return (
       <Page>
         <div className="home-page">
           <h2 className="title">Welcome to our humble Shop</h2>
-          <div>
-            <Button
-              onClick={() => {
-                this.props.history.push("/shop");
-              }}
-            >
-              Go shopping
-            </Button>          
-          </div>
           <div className="login">
             <label>Email:</label>
             <input type="text" name="emailLogin" onBlur={this.handleInputLogin}/>
             <label>Password:</label>
             <input type="password" name="passwordLogin" onBlur={this.handleInputLogin} />
-            <Button onClick={this.handleLoginBtn}>Login</Button>
           </div>
-          <div className="register">
-            <label>First Name:</label>
-            <input type="text" name="fName" onChange={this.handleInputChange}/><br/>
-            <label>Last Name:</label>
-            <input type="text" name="lName" onChange={this.handleInputChange} /><br />
-            <label>Email:</label>
-            <input type="text" name="email" onChange={this.handleInputChange} /><br />
-            <label>Phone:</label>
-            <input type="text" name="phone" onChange={this.handleInputChange} /><br />
-            <label>Address:</label>
-            <input type="text" name="address" onChange={this.handleInputChange} /><br />
-            <label>Zip Code:</label>
-            <input type="text" name="zip" onChange={this.handleInputChange} /><br />
-            <label>City:</label>
-            <input type="text" name="city" onChange={this.handleInputChange} /><br />
-            <label>Province:</label>
-            <input type="text" name="province" onChange={this.handleInputChange} /><br />
-            <label>Password:</label>
-            <input type="password" name="password" onChange={this.handleInputChange} /><br />
-            <label>Confirm Password:</label>
-            <input type="password" name="confPassword" /><br />
-            <Button onClick={this.handleRegisterBtn}>Register</Button>         
+          <div className="login-buttons">
+            <Button className="login-btn" onClick={this.handleLoginBtn}>Login</Button>      
+            <h5>OR</h5>            
+            <Button className="login-btn"
+              onClick={() => {
+                this.props.history.push("/register");
+              }}
+            >
+              Register
+            </Button>   
           </div>
-
         </div>
       </Page>
     );
