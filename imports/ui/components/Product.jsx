@@ -10,13 +10,13 @@ import Button from "../components/Button.jsx";
 class Product extends PureComponent {
 
 
+  handleChange = (event) => {
+    this.quant = event.target.value;
+  };
+
   handleBuyProduct = () => {
 
-    var quant = document.getElementById(this.props.name).value;
-    if(quant == ""){
-      quant = 1
-    }
-
+    let quant = ((this.quant == undefined) ? 1 : this.quant);
 
     alert(this.props.name + " Added to cart!");
     const {
@@ -42,8 +42,8 @@ class Product extends PureComponent {
       quantity: quant
     };
 
-    var getCookiebyName = function(name){
-      var pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    let getCookiebyName = function(name){
+      let pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
       return !!pair ? pair[1] : null;
     };
 
@@ -52,8 +52,8 @@ class Product extends PureComponent {
     if (cart === null) {
       cart = []
     }
-    var alreadyin = false;
-    for(var i = 0; i < cart.length; i++){
+    let alreadyin = false;
+    for(let i = 0; i < cart.length; i++){
       if(this.props.name == cart[i].name){
         alreadyin = true;
         cart[i].quantity = parseInt(cart[i].quantity) + parseInt(quant);
@@ -86,13 +86,13 @@ class Product extends PureComponent {
           return( <div> 
             <div className="label">
                  Quantity: {this.props.quantity}
-          </div><input hidden id={this.props.name} type="number" placeholder="1"/>
+          </div>
           </div>)
       default: 
           return( <div> 
                    <div className="label">
                         Quantity:
-                 </div><input id={this.props.name} type="number" placeholder="1"/>
+                 </div><input id={this.props.name} type="number" placeholder="1"  onChange={this.handleChange}/>
                  </div>)
     }
   }
