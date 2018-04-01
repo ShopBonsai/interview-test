@@ -10,6 +10,7 @@ import {
 import Shop from "./pages/Shop.jsx";
 import Home from "./pages/Home.jsx";
 import Cart from "./pages/Cart.jsx";
+import Register from "./pages/Register.jsx";
 
 const Routes = () =>
   <Router history={browserHistory}>
@@ -17,6 +18,7 @@ const Routes = () =>
       <Route exact path="/" component={Home} />
       <Route path="/shop" component={Shop} />
       <Route path="/cart" component={Cart} />
+      <Route path="/register" component={Register} />
     </div>
   </Router>;
 
