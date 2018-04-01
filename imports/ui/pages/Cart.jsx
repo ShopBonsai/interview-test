@@ -7,6 +7,7 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 import CartTable from "../components/CartTable";
+import Button from "../components/Button.jsx";
 
 class Cart extends Component {
   constructor(props) {
@@ -57,13 +58,15 @@ class Cart extends Component {
         }
 
         return (
-          <Page pageTitle="cart" history goBack={this.goBack}>
+          <Page pageTitle="Shopping Cart" history goBack={this.goBack}>
             <div className="cart-page">
-              <div className="cart-table-title">
-                <h3>Shopping Cart</h3>
-              </div>
               <div className="cart-table">
                 <CartTable cartCalculation={cartCalculation} cartItems={cartItems} />
+              </div>
+              <div className="go-to-payment">
+                <Button className="bonsai-button go-to-payment-btn">
+                  Go to Payment
+                </Button>
               </div>
             </div>
           </Page>
