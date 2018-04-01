@@ -6,13 +6,16 @@ import { Meteor } from "meteor/meteor";
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
+import Loader from 'react-loader';
 
 class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
       merchants: [],
-      error: null
+      error: null,
+      loaded: false,
+      visitors: 0
     };
   }
 
@@ -21,7 +24,15 @@ class Shop extends Component {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ merchants: response }));
+        this.setState(() => ({ loaded: true, merchants: response }));
+      }
+    });
+    Meteor.call("pageLoads.increaseCountLoad", (error, response) => {
+      if (error) {
+        this.setState(() => ({ error: error }));
+      } else {
+        this.setState(() => ({ visitors: response }));
+        console.log(response)
       }
     });
   }
@@ -43,11 +54,13 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="shop" history goBack={this.goBack} visitors={this.state.visitors} >
         <div className="shop-page">
+          <Loader scale={2.00} loaded={this.state.loaded}>
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />
           )}
+          </Loader>
         </div>
       </Page>
     );
