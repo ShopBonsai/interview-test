@@ -56,9 +56,9 @@ class Shop extends Component {
   updateOrderDB = (items) => {
     // update a current order with a new item
     let orders = this.state.orders.slice(); //
-    const currentOrder = orders.pop(); //
+    let currentOrder = orders.pop(); //
     const currentOrderId = currentOrder._id; //
-    
+
     Meteor.call("orders.updateOrder", currentOrderId, items, (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
@@ -68,10 +68,9 @@ class Shop extends Component {
     
   createNewOrderDB() {
     const items = this.state.items;
-    const user = this.state.user;
-    const email = this.state.user.email;
-
-    Meteor.call("orders.addOrder", items, user, email, (error, response) => {
+    const userId = Meteor.userId();
+    
+    Meteor.call("orders.addOrder", items, userId, (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
@@ -81,17 +80,15 @@ class Shop extends Component {
   }
 
   componentWillMount() {
-    const email = this.state.user.email;
+    const userId = Meteor.userId();
     
     let promise = new Promise((resolve, reject) => {
-      Meteor.call("orders.getOrdersByEmail", { email: email }, (error, response) => {
+      Meteor.call("orders.getOrdersByUserId", { userId: userId }, (error, response) => {
         if (error) {
           this.setState(() => ({ error: error }));
-          console.log('error ', error)
           reject(error);
         } else {
           this.setState(() => ({ orders: response }));
-          console.log('response ', this.state.orders)
           resolve(response);
         }
       })
@@ -101,7 +98,7 @@ class Shop extends Component {
       .then((response) => {
         if (!response.length) {
           this.createNewOrderDB();
-          Meteor.call("orders.getOrdersByEmail", { email: email }, (error, response) => {
+          Meteor.call("orders.getOrdersByUserId", { userId: userId }, (error, response) => {
             if (error) {
               this.setState(() => ({ error: error }));
             } else {
@@ -110,7 +107,6 @@ class Shop extends Component {
           });
           return;
         }
-
         let orders = this.state.orders.slice();       
         if (orders.length) {
           let lastOrder = orders.pop();          
@@ -122,7 +118,7 @@ class Shop extends Component {
         } 
 
      })
-      .catch((error) => console.log('Error while getting orders by email: ', error));
+      .catch((error) => console.log('Error while getting orders by userId: ', error));
 
     Meteor.call("merchants.getMerchants", (error, response) => {
       if (error) {
@@ -136,7 +132,7 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { merchants, error, orders, items, user } = this.state; //+++++++++++++
+    const { merchants, error, orders, items, user } = this.state;
     
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({

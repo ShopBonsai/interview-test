@@ -15,6 +15,7 @@ import { Orders } from "./collection";
  *      "email": "jdoe@email.ca",
  *      "password": "u#w(if(0Dp"
  *    },
+ *    "userId": "dkfkffdja8jafd",
  *    "dateOrdered": "2017-02-08T10:39:34 +05:00",
  *    "items": [
  *      {
@@ -60,7 +61,7 @@ export const getLastOrder = () => {
 export const getOrderById = orderId => {
   let order;
   try {
-    order = Orders.findOne(orderId).fetch();
+    order = Orders.find(orderId).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
@@ -78,12 +79,13 @@ export const getOrderById = orderId => {
  * @returns
  */
 
-export const addOrder = (items, user, email) => {
+export const addOrder = (items, userId) => {
+// export const addOrder = (items, user, email) => {
   try {
     return Orders.insert({
-      email: email,
-      user: user,
-      dateOrdered: Date(),
+      // email: email,
+      userId: userId,
+      dateOrdered: new Date(),
       items: items,
       isCheckOut: false
     });
@@ -101,14 +103,14 @@ export const addOrder = (items, user, email) => {
  *
  * @returns {Object} A single order object.
  */
-export const getOrdersByEmail = orderEmail => {
+export const getOrdersByUserId = userId => {
   let orders;
   try {
-    orders = Orders.find(orderEmail).fetch();
+    orders = Orders.find(userId).fetch();
   } catch (error) {
     throw new Meteor.Error(
-      `${__filename}:getOrdersByEmail.findOrFetchError`,
-      `Could not find or fetch product with order email: '${orderEmail}'`,
+      `${__filename}:getOrdersByUserId.findOrFetchError`,
+      `Could not find or fetch product with order email: '${userId}'`,
       error
     );
   }
@@ -122,6 +124,8 @@ export const getOrdersByEmail = orderEmail => {
  * @returns {Object} A single order object.
  */
 export const updateOrder = (orderId, newItems) => {
+  console.log('update order in methods items ', newItems);
+  console.log('update order in methods orderId ', orderId);
   try {
     Orders.update(
       { _id: orderId },
@@ -141,6 +145,6 @@ Meteor.methods({
   "orders.getLastOrder": getLastOrder,
   "orders.getOrderById": getOrderById,
   "orders.addOrder": addOrder,
-  "orders.getOrdersByEmail": getOrdersByEmail,
+  "orders.getOrdersByUserId": getOrdersByUserId,
   "orders.updateOrder": updateOrder
 });
