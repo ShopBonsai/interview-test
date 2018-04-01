@@ -8,10 +8,43 @@ import Page from "../components/Page.jsx";
 import Button from "../components/Button.jsx";
 
 //go back from cart to shop
+import { Carts } from "../../api/carts/collection.js";
+// Carts.insert({
+//   products: [{name:"test1"},{name:"test2"}]
+// });
+// console.log("coming from Carts");
+
 
 class Cart extends PureComponent {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: []
+    }
+  }
+
   goBack = () => this.props.history.push("/shop");
+
+  componentWillMount() {
+    Meteor.call("carts.getCart", document.cookie.split('=')[1], (error, response) => {
+      products = [];
+      for (let i in response[0].products) {
+        products.push(
+          <tr key={i}>
+            <td>{response[0].products[i].name}</td>
+            <td>{response[0].products[i].brand}</td>
+            <td>{response[0].products[i].color}</td>
+            <td>{response[0].products[i].size}</td>
+            <td>{response[0].products[i].qty}</td>
+            <td>{response[0].products[i].price}</td>
+          </tr>
+        );
+      }
+      this.setState(() => ({ products: products }));
+    });
+  }
+
 
   render() {
     return (
@@ -31,24 +64,7 @@ class Cart extends PureComponent {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+               { this.state.products }
               </tbody>
             </Table>
           </div>
