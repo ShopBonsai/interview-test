@@ -111,11 +111,11 @@ class Register extends PureComponent {
 
   goBack = () => this.props.history.push("/");
 
+          // <h2 className="title">Register</h2>
   render() {
     return (
       <Page pageTitle="Register" history goBack={this.goBack}>
         <div className="register-page">
-          <h2 className="title">Register</h2>
           <div className="register">
             <label>First Name:</label>
             <input type="text" name="fName" onChange={this.handleInputChange} /><br />
@@ -134,11 +134,9 @@ class Register extends PureComponent {
             <label>Province:</label>
             <input type="text" name="province" onChange={this.handleInputChange} /><br />
             <label>Password:</label>
-            <input type="password" name="password" onChange={this.handleInputChange} /><br />
-            <label>Confirm Password:</label>
-            <input type="password" name="confPassword" /><br />
-            <Button onClick={this.handleRegisterBtn}>Register</Button>
+            <input type="password" name="password" onChange={this.handleInputChange} />
           </div>
+          <Button className="bonsai-button register-btn" onClick={this.handleRegisterBtn}>Register</Button>
 
         </div>
       </Page>
