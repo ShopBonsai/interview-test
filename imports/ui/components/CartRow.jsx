@@ -14,8 +14,8 @@ class CartRow extends Component {
         return (
           <tr>
             <td>{name}</td>
-            <td>{quantity}</td>
-            <td>$&nbsp;{price.toFixed(2)}</td>
+            <td className="quantity">{quantity}</td>
+            <td className="price">$&nbsp;{price.toFixed(2)}</td>
           </tr>
         );
       } else {

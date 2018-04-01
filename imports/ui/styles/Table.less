@@ -1,0 +1,43 @@
+.myTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  td, th {
+    // border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+
+  tr {
+    .price, .quantity {
+      text-align: right;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  tr.total {
+    background-color: gray;
+    fill-opacity: 0.9;
+    color: white;
+    
+    .price {
+      text-align: right;
+    }
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: blue;
+    fill-opacity: 0.9;
+    color: white;
+  }
+}

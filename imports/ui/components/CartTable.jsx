@@ -29,7 +29,7 @@ class CartTable extends Component {
     const Rows = () => {
       if (rows.length) {
         return (
-          <table>
+          <table className="myTable">
             <thead>
               <tr>
                 <th>NAME</th>
@@ -39,20 +39,20 @@ class CartTable extends Component {
             </thead>
             <tbody>
               {rows}
-              <tr>
-                <td></td>
+              <tr className="total">
                 <td>SUB-TOTAL</td>
-                <td>$&nbsp;{subTotal.toFixed(2)}</td>
-              </tr>
-              <tr>
                 <td></td>
+                <td className="price">$&nbsp;{subTotal.toFixed(2)}</td>
+              </tr>
+              <tr className="total">
                 <td>TAX</td>
-                <td>$&nbsp;{tax.toFixed(2)}</td>
-              </tr>
-              <tr>
                 <td></td>
+                <td className="price">$&nbsp;{tax.toFixed(2)}</td>
+              </tr>
+              <tr className="total">
                 <td>TOTAL</td>
-                <td>$&nbsp;{total.toFixed(2)}</td>
+                <td></td>
+                <td className="price">$&nbsp;{total.toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
