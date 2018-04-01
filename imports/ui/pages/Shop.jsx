@@ -55,9 +55,9 @@ class Shop extends Component {
 
   updateOrderDB = (items) => {
     // update a current order with a new item
-    let orders = this.state.orders.slice(); //
-    let currentOrder = orders.pop(); //
-    const currentOrderId = currentOrder._id; //
+    let orders = this.state.orders.slice();
+    let currentOrder = orders.pop();
+    const currentOrderId = currentOrder._id;
 
     Meteor.call("orders.updateOrder", currentOrderId, items, (error, response) => {
       if (error) {
