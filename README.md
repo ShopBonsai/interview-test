@@ -11,12 +11,12 @@ My Resume with my contact:
 https://resume.creddle.io/resume/5td9kuf6jkb
 
 
-It should look like this initially:
-![Home Page Default Look](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/homePage.png)
+Loading-image so the screen isn't empty while data is loading:
+![Shop Page with loading-image](https://github.com/DiegoRibas-ca/Diego-Ribas-Interview-Test/blob/master/docs/Loading.png)
 
-Clicking on 'Go Shopping' button should display the shop page:
-![Shop Page Default Look and browse](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/shopPage.gif)
+Add page visits to the database and require. Ability to 'rating' an item and store:
+![Visitors counter on the top right of screen](https://github.com/DiegoRibas-ca/Diego-Ribas-Interview-Test/blob/master/docs/VisitorsRatingSearch.png)
 
-## Lint
-1. `meteor npm run lint`
-2. Before pushing linting is automatically run.
+Organize the shop page for better browsing experience, adding filters for merchants/products:
+![Searching for product by name/merchant](https://github.com/DiegoRibas-ca/Diego-Ribas-Interview-Test/blob/master/docs/SearchMerchantProduct.png)
+
