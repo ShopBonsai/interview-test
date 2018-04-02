@@ -22,12 +22,12 @@ class Product extends PureComponent {
       this.pushRatingField(this.props.id_merch, this.props.name, 3)
     } else {
       const ratingArr = this.props.rating
-      let rating;
+      let newRating = 0;
       ratingArr.forEach(rate => {
-        rating += rate
+        newRating += rate
       });
-      rating = rating / ratingArr.length
-      this.setState({ rating: rating })
+      newRating = newRating / ratingArr.length
+      this.setState({ rating: newRating })
     }
     this.setState({ merchant_id: this.props.id_merch })
   }
@@ -37,9 +37,7 @@ class Product extends PureComponent {
   };
 
   onStarClick(nextValue, prevValue, name) {
-    console.log('valueClicke',nextValue)
     this.pushRatingField(this.state.merchant_id, this.props.name, nextValue)
-    // this.setState({ rating: nextValue });
     this.setState({ editing: false });
 
   }
@@ -55,7 +53,6 @@ class Product extends PureComponent {
       ratingArr.forEach(rate => {
         newRating += rate
       });
-      console.log('response', newRating)
       newRating = newRating / ratingArr.length
       this.setState({ rating: newRating })
     }
