@@ -34,22 +34,22 @@ User is able to see the sub-total, tax, and total of his/her purchase.
 ## Screenshots
 
 ### Welcome / Login Page
-![Welcome/Login](*)
+![Welcome/Login](https://github.com/egomatsushita/interview-test/blob/master/docs/welcome-login.png?raw=true)
 
 ### Register Page
-![Register](*)
+![Register](https://github.com/egomatsushita/interview-test/blob/master/docs/register.png?raw=true)
 
 ### Shop
-![Shop](*)
+![Shop](https://github.com/egomatsushita/interview-test/blob/master/docs/shop.png?raw=true)
 
 ### Shop - Already Added Product
-![Shop-Already-Added](*)
+![Shop-Already-Added](https://github.com/egomatsushita/interview-test/blob/master/docs/shop-already-added.png?raw=true)
 
 ### Shop - Sold Out Product
-![Shop-Sold-Out](*)
+![Shop-Sold-Out](https://github.com/egomatsushita/interview-test/blob/master/docs/shop-sold-out.png?raw=true)
 
 ### Cart
-![Cart](*)
+![Cart](https://github.com/egomatsushita/interview-test/blob/master/docs/cart.png?raw=true)
 
 
 ## Known Bugs
