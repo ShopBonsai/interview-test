@@ -42,6 +42,12 @@ class Shop extends Component {
 
   goBack = () => this.props.history.push("/");
 
+  _handleSearchChangeBrand = (term) => {
+    this.setState({ search: term, errors: null, }, this.filterMerchants)
+  }
+  _handleSearchChangeProd = (term) => {
+    this.setState({ search: term, errors: null, }, this.filterMerchants)
+  }
   _handleSearchChange = (term) => {
     this.setState({ search: term, errors: null, }, this.filterMerchants)
   }
@@ -82,25 +88,25 @@ class Shop extends Component {
         <div className="shop-page">
           <Loader scale={2.00} loaded={this.state.loaded}>
             <div className="filters">
-              <div className="searchBrand">
+              <div className="search">
+                <label>Brand</label>
                 <input
-                  style={{ fontSize: "1.8em" }}
                   type="text"
                   value={this.state.search}
-                  onChange={event => { this._handleSearchChange(event.target.value) }}
+                  onChange={event => { this._handleSearchChangeBrand(event.target.value) }}
                   placeholder="Search Brand.." />
               </div>
-              <div className="searchProduct">
+              <div className="search">
+                <label>Product</label>
                 <input
-                  style={{ fontSize: "1.8em" }}
                   type="text"
                   value={this.state.search}
-                  onChange={event => { this._handleSearchChange(event.target.value) }}
+                  onChange={event => { this._handleSearchChangeProd(event.target.value) }}
                   placeholder="Search Product.." />
               </div>
-              <div className="searchMerchant">
+              <div className="search">
+                <label>Merchant</label>
                 <input
-                  style={{ fontSize: "1.8em" }}
                   type="text"
                   value={this.state.search}
                   onChange={event => { this._handleSearchChange(event.target.value) }}
