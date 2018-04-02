@@ -1,12 +1,53 @@
 // Framework
 import React, { PureComponent } from "react";
+import { Meteor } from "meteor/meteor";
 
 // Components
 import Button from "../components/Button.jsx";
 
+
+//Product Name  Brand Color Size  QTY Price
 class Product extends PureComponent {
   handleBuyProduct = () => {
-    alert("This button does nothing!");
+    product = {
+      name: this.props.name,
+      brand: this.props.brand,
+      color: this.props.color,
+      size: this.props.size,
+      qty: 1,
+      price: this.props.price
+    }
+
+    if (document.cookie == '') {
+      Meteor.call("carts.createCart", (error, response) => {
+        if (error) {
+          console.log(error);
+        } else {
+          document.cookie = `cartId=${response}`;
+          let cookie = document.cookie.split('=')[1];
+          let params = {
+            cartId: cookie,
+            product: product
+          }
+          Meteor.call(`carts.addProductToCart`, params, (error, response) => {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
+      });
+    } else {
+      let cookie = document.cookie.split('=')[1];
+      let params = {
+        cartId: cookie,
+        product: product
+      }
+      Meteor.call(`carts.addProductToCart`, params, (error, response) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
   };
 
   render() {
