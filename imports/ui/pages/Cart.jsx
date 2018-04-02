@@ -58,8 +58,11 @@ class Cart extends Component {
         }
 
         return (
-          <Page pageTitle="Shopping Cart" history goBack={this.goBack}>
+          <Page pageTitle="Welcome to our Shop Bonsai!" history goBack={this.goBack}>
             <div className="cart-page">
+              <div className="title">
+                <h2>Shopping Cart</h2>
+              </div>
               <div className="cart-table">
                 <CartTable cartCalculation={cartCalculation} cartItems={cartItems} />
               </div>

@@ -23,36 +23,10 @@ class Register extends PureComponent {
         province: "",
         password: ""
       }
-      // login: {
-      //   user: ""
-      // }
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleRegisterBtn = this.handleRegisterBtn.bind(this);
-    // this.handleLoginBtn = this.handleLoginBtn.bind(this);
-    // this.handleInputLogin = this.handleInputLogin.bind(this);
   }
-
-  // handleLoginBtn() {
-  //   const email = this.state.login.user.emailLogin;
-  //   const password = this.state.login.user.passwordLogin;
-
-  //   Meteor.loginWithPassword(email, password, (error) => {
-  //     if (error) {
-  //       console.log(error.reason);
-  //     } else {
-  //       this.props.history.push("/shop");
-  //     }
-  //   });
-  // }
-
-  // handleInputLogin(event) {
-  //   const target = event.target;
-  //   const name = target.name;
-  //   const value = target.value;
-  //   this.setState({ ...this.state, login: { ...this.state.login, user: { ...this.state.login.user, [name]: value } } });
-
-  // }
 
   handleRegisterBtn() {
     const fName = this.state.user.fName;
@@ -92,52 +66,39 @@ class Register extends PureComponent {
       ...this.state, user: { ...this.state.user, [name]: value }
     });
   }
-  /*<div>
-    <Button
-      onClick={() => {
-        this.props.history.push("/shop");
-      }}
-    >
-      Go shopping
-    </Button>
-  </div>*/
-  /*<div className="login">
-    <label>Email:</label>
-    <input type="text" name="emailLogin" onBlur={this.handleInputLogin} />
-    <label>Password:</label>
-    <input type="password" name="passwordLogin" onBlur={this.handleInputLogin} />
-    <Button onClick={this.handleLoginBtn}>Login</Button>
-  </div>*/
 
   goBack = () => this.props.history.push("/");
 
-          // <h2 className="title">Register</h2>
   render() {
     return (
-      <Page pageTitle="Register" history goBack={this.goBack}>
+      <Page pageTitle="Welcome to our Shop Bonsai!" history goBack={this.goBack}>
         <div className="register-page">
+          <div className="title">
+            <h2>Register</h2>
+          </div>
           <div className="register">
             <label>First Name:</label>
-            <input type="text" name="fName" onChange={this.handleInputChange} /><br />
+            <input type="text" name="fName" onChange={this.handleInputChange} />
             <label>Last Name:</label>
-            <input type="text" name="lName" onChange={this.handleInputChange} /><br />
+            <input type="text" name="lName" onChange={this.handleInputChange} />
             <label>Email:</label>
-            <input type="text" name="email" onChange={this.handleInputChange} /><br />
+            <input type="text" name="email" onChange={this.handleInputChange} />
             <label>Phone:</label>
-            <input type="text" name="phone" onChange={this.handleInputChange} /><br />
+            <input type="text" name="phone" onChange={this.handleInputChange} />
             <label>Address:</label>
-            <input type="text" name="address" onChange={this.handleInputChange} /><br />
+            <input type="text" name="address" onChange={this.handleInputChange} />
             <label>Zip Code:</label>
-            <input type="text" name="zip" onChange={this.handleInputChange} /><br />
+            <input type="text" name="zip" onChange={this.handleInputChange} />
             <label>City:</label>
-            <input type="text" name="city" onChange={this.handleInputChange} /><br />
+            <input type="text" name="city" onChange={this.handleInputChange} />
             <label>Province:</label>
-            <input type="text" name="province" onChange={this.handleInputChange} /><br />
+            <input type="text" name="province" onChange={this.handleInputChange} />
             <label>Password:</label>
             <input type="password" name="password" onChange={this.handleInputChange} />
           </div>
-          <Button className="register-btn" onClick={this.handleRegisterBtn}>Register</Button>
-
+          <div className="register-btn">
+            <Button onClick={this.handleRegisterBtn}>Register</Button>
+          </div>
         </div>
       </Page>
     );

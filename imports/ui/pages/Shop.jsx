@@ -17,8 +17,8 @@ class Shop extends Component {
       orders: [],
       items: [],
       user: {
-        email: "johnDoe@email.ca", // hardcoded will change later
-        password: "xfaf-8$ji-ify)" // hardcoded will change later
+        email: "johnDoe@email.ca", 
+        password: "xfaf-8$ji-ify)"
       }
     };
   }
@@ -146,16 +146,21 @@ class Shop extends Component {
     );   
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
-        <div className="check-out">
-          <Button className="bonsai-button btn-check-out" onClick={this.handleCheckOutBtn}>
-            CHECK OUT
-          </Button>
-        </div>
-        <div className="shop-page">
-          {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} handleAddBtn={this.handleAddBtn} itemsSelected={this.state.items}/>
-          )}
+      <Page pageTitle="Welcome to our Shop Bonsai!" history goBack={this.goBack}>
+        <div className="shop-container">
+          <div className="title">
+            <h2>Shop</h2>
+          </div>
+          <div className="check-out">
+            <Button className="bonsai-button btn-check-out" onClick={this.handleCheckOutBtn}>
+              CHECK OUT
+            </Button>
+          </div>
+          <div className="shop-page">
+            {products.map(({ id, ...product }) =>
+              <Product {...product} key={id} handleAddBtn={this.handleAddBtn} itemsSelected={this.state.items}/>
+            )}
+          </div>
         </div>
       </Page>
     );
