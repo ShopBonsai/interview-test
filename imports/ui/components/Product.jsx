@@ -66,7 +66,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      merchant
     } = this.props;
 
     const info = [
@@ -75,7 +76,8 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: price },
+      { label: "Merchant", value: merchant }
     ];
 
     return (
