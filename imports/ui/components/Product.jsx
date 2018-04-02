@@ -18,18 +18,35 @@ class Product extends PureComponent {
       price: this.props.price
     }
 
-    let cookie = document.cookie.split('=')[1];
-    let params = {
-      cartId: cookie,
-      product: product
-    }
-    Meteor.call(`carts.addProductToCart`, params, (error, response) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(response);
+    if (document.cookie == '') {
+      Meteor.call("carts.createCart", (error, response) => {
+        if (error) {
+          console.log(error);
+        } else {
+          document.cookie = `cartId=${response}`;
+          Meteor.call(`carts.addProductToCart`, params, (error, response) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(response);
+            }
+          });
+        }
+      });
+    } else {
+      let cookie = document.cookie.split('=')[1];
+      let params = {
+        cartId: cookie,
+        product: product
       }
-    });
+      Meteor.call(`carts.addProductToCart`, params, (error, response) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(response);
+        }
+      });
+    }
   };
 
   render() {

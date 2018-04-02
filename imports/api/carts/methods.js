@@ -25,26 +25,31 @@ export const getCart = (cartId) => {
   } catch (error) {
     throw new Meteor.Error("Error: ", error);
   }
-  console.log(cart);
   return cart;
 };
 
 export const addProductToCart = (params) => {
-  console.log("IT WORKS");
-  console.log(params.cartId);
-  console.log(params.product);
   Carts.update(
     {_id: params.cartId},
     {$push: { products : params.product}}
   );
-
-  console.log(Carts.find().fetch());
-
 };
+
+export const deleteCart = (cartId) => {
+  try {
+    console.log("DELETE CART NOW");
+    console.log(cartId);
+    Carts.remove({ _id: cartId});
+  } catch (error) {
+    console.log("my error" + error);
+    throw new Meteor.Error("Error: ", error);
+  }
+}
 
 
 Meteor.methods({
   "carts.createCart": createCart,
   "carts.getCart": getCart,
-  "carts.addProductToCart": addProductToCart
+  "carts.addProductToCart": addProductToCart,
+  "carts.deleteCart": deleteCart
 });
