@@ -6,14 +6,6 @@ import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reac
 // Components
 import Page from "../components/Page.jsx";
 
-//go back from cart to shop
-import { Carts } from "../../api/carts/collection.js";
-// Carts.insert({
-//   products: [{name:"test1"},{name:"test2"}]
-// });
-// console.log("coming from Carts");
-
-
 class Cart extends PureComponent {
 
   constructor(props) {
@@ -26,7 +18,10 @@ class Cart extends PureComponent {
     }
 
     this.toggle = this.toggle.bind(this);
+    this.clearCart = this.clearCart.bind(this);
   }
+
+  goBack = () => this.props.history.push("/shop");
 
   toggle() {
     this.setState({
@@ -36,19 +31,16 @@ class Cart extends PureComponent {
 
   clearCart() {
     let cartId = document.cookie.split('=')[1];
-    console.log(cartId);
+
     Meteor.call("carts.deleteCart", cartId, (error, response) => {
       if (error) {
         console.log(error);
       } else {
         document.cookie = "cartId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        this.setState(() => ({ products: [], total: 0, empty: true, checkoutModal: !this.state.checkoutModal}));
       }
-      console.log(this);
     });
   }
-
-
-  goBack = () => this.props.history.push("/shop");
 
   componentWillMount() {
     if (!document.cookie == '') {

@@ -15,7 +15,6 @@ class Home extends PureComponent {
         if (error) {
           console.log(error);
         } else {
-          console.log(response);
           document.cookie = `cartId=${response}`;
         }
       });

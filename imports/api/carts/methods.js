@@ -37,11 +37,8 @@ export const addProductToCart = (params) => {
 
 export const deleteCart = (cartId) => {
   try {
-    console.log("DELETE CART NOW");
-    console.log(cartId);
     Carts.remove({ _id: cartId});
   } catch (error) {
-    console.log("my error" + error);
     throw new Meteor.Error("Error: ", error);
   }
 }

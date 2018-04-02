@@ -1,3 +1,5 @@
+@smartphones: ~"only screen and (max-width: 479px)";
+
 .cart-page {
   display: flex;
   flex-direction: column;
@@ -5,6 +7,9 @@
   padding-bottom: 2rem;
   text-align: center;
   padding-left: 35%;
+  @media @smartphones {
+    padding-left: 0%;
+  }
 }
 
 .cart-table {

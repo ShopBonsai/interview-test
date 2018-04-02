@@ -24,11 +24,14 @@ class Product extends PureComponent {
           console.log(error);
         } else {
           document.cookie = `cartId=${response}`;
+          let cookie = document.cookie.split('=')[1];
+          let params = {
+            cartId: cookie,
+            product: product
+          }
           Meteor.call(`carts.addProductToCart`, params, (error, response) => {
             if (error) {
               console.log(error);
-            } else {
-              console.log(response);
             }
           });
         }
@@ -42,8 +45,6 @@ class Product extends PureComponent {
       Meteor.call(`carts.addProductToCart`, params, (error, response) => {
         if (error) {
           console.log(error);
-        } else {
-          console.log(response);
         }
       });
     }
