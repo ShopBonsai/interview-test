@@ -12,7 +12,7 @@ export const Page = ({ children, pageTitle, history, goBack }) =>
     <Header goBack={goBack}>
       {pageTitle}
     </Header>
-    <main>
+    <main className="container">
       {children}
     </main>
     <Footer />

@@ -1,6 +1,49 @@
-.shop-page {
+.shop-container {
   display: flex;
   flex-direction: column;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  
+  .title {
+    margin: 3rem auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  .check-out {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    height: 3vh;
+
+    .btn-check-out {
+      max-width: 10rem;
+      align-self: center;
+      line-height: 0.6rem;
+      height: 5vh;
+    }
+  }
+
+  .shop-page {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    .quantity-container {
+      display: flex;
+      margin-bottom: 10px;
+      
+      .quantity-label {
+        width: 25%;
+      }
+
+      .quantity-input {
+        width: 20%;
+        border-radius: 20px;
+        padding-left: 10px;
+      }
+    }
+  }
 }

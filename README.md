@@ -1,47 +1,70 @@
 # Bonsai Interview Test
 
-Welcome to the creative interview test at Shop Bonsai.
+## Main Features
 
-This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today). 
+### Authentication
+* Register
+Register page that allows new users to access Shop Bonsai.
+* Login
+Shop Bonsai only allows logged-in users to access its store.
 
-Scenario:
-You joined as the new member of a small start-up team. Together we are building a new app to sell cool 3rd party products! So far, the sales team worked tirelessly and managed to acquire over 50 merchants who each have different brands and products offerings. The developers have also been working hard and have created a home page and shop page to welcome the users and display the products of the newly acquired merchants.
+### Shop Page
+* Choose quantity
+User is able to input quantity by clicking on caret symbol or typing a desired quantity.
+* Add to cart
+User is able to add as many products his/her wish in the cart.
+Added products is automatically and permanentely saved in database. 
+This feature allows a user to continue his/her shopping later.
+* Add more to cart
+User is able to add more quantity of a product in the cart by clicking on the already added button.
+Products' quantities are automatically updated in database when a user clicks on the already added button.
+* Green button addressing added products
+When user adds a product, the button change its content to already added and its color to green.
+* Red button addressing sold out products
+When quantity in stock is zero, the button change its content to sold out, its color to red, and its on click event is disabled.
+* Added check-out button 
+Button that redirects a user with his/her ordered products to the Cart page.
 
-Goal:
-Your task is to add a new complete working feature that you feel will best demonstrate your capabilities as a team-member and have the largest positive impact on our customer. This implies that JUST updating the es-lint rules to include trailing commas, switching all space-characters in the code-base to tab-characters, and/or updating the .gitignore will score low. However, non-customer facing features such as validating data, unit-testing, creating a automatic-backups of the database, can score very high if done well.
+### Cart Page
+* Show ordered products with its name, quantity, and price
+User is able to see in details product's name, quantity, and unit price.
+* Show sub-total, tax, and total
+User is able to see the sub-total, tax, and total of his/her purchase.
 
-Here are some ideas for features that are missing from the app:
- - Clicking Buy does SOMETHING! This should add data to the database in a meaningful way and communicate to the user that such an action took place.
- - Ability to select a quantity to buy. The quantity should be stored in the database in a meaningful way, this data should be retrieved and displayed somewhere for the user.
- - Add a profile page to display user-related data. This data should be stored in the database and retrieved.
- - Allow users to login using social media. A record of the user being logged in should be stored in the database, retrieved and displayed (perhaps on a special admin-only page).
- - Select multiple items to buy together. Which items get selected/submitted should be stored meaningfully in the database.
- - Add a cart object to display selected items the user wants to buy. Store this information meaningfully in the database.
- - Organize the shop page for better browsing experience, adding filters for brands/merchants/products.
- - Ability to 'like' an item. Store which items got liked in the database, retrieve this information.
- - Searching for product by name/brand/merchant. Store searches meaningfully in the database.
- - Add loading-images so the screen isn't empty while data is loading. Add page visits and loading times to the database in a meaningful way.
- - Add a react testing-framework and create a test. Record the results in separate database for the QA team!
+## Screenshots
 
-The following should be noted:
-1. Assume that if a piece of code/function is not working, it is a bug in the app (oh no!)
-2. Work with the data as if it were real. (Do not manipulate/transform the mockData files)
-3. You can make additional assumptions, please note them if they are critical to understanding the way a feature is implemented
-4. You can add multiple small features or one large feature
-5. Please document your changes well and make as many atomic commits as you feel are necessary for someone to track your changes
+### Welcome / Login Page
+![Welcome/Login](https://github.com/egomatsushita/interview-test/blob/master/docs/welcome-login.png?raw=true)
 
-Of your submission, the following will be evaluated:
-- Ability to work in a pre-existing React environment (front-end)
-- Ability to use existing data in the database (back-end)
-- Ability add/store/retrieve new data in the database (back-end)
-- Completeness of feature, works as a user would expect such a feature to work
-- Adopting and using best practices
-- Coding style
-- Attention to detail
-- Clarity in communicating the feature implemented (I highly recommend taking pictures and gifs)
+### Register Page
+![Register](https://github.com/egomatsushita/interview-test/blob/master/docs/register.png?raw=true)
 
-High scorers will be contacted via email within a week of acknowledgement of PR submission.
-Thank you and good luck for everyone who applied and submitted a PR.
+### Shop
+![Shop](https://github.com/egomatsushita/interview-test/blob/master/docs/shop.png?raw=true)
+
+### Shop - Already Added Product
+![Shop-Already-Added](https://github.com/egomatsushita/interview-test/blob/master/docs/shop-already-added.png?raw=true)
+
+### Shop - Sold Out Product
+![Shop-Sold-Out](https://github.com/egomatsushita/interview-test/blob/master/docs/shop-sold-out.png?raw=true)
+
+### Cart
+![Cart](https://github.com/egomatsushita/interview-test/blob/master/docs/cart.png?raw=true)
+
+
+## Known Bugs
+* There is no logout button
+Impact: it's required to clean the browser cache manually before logging in with another user. 
+* Refresh Shop Page after registering a new user 
+Impact: a new user will not have his/her order saved in database. After refreshing the page the object will be available to save the new order.
+
+## Possible Improvements
+* Input quantity is not limited to the total amount in stock.
+* User is not able to remove a product from his/her cart.
+* There is no alert message warning a user when he/she clicks on already added button.
+* Show current user's name on navigation bar.
+* Validation for all user's inputs.
+* More features...
 
 ## Install
 1. Ensure `npm` is installed.
@@ -53,18 +76,7 @@ Thank you and good luck for everyone who applied and submitted a PR.
     - create a directory to store your local DB `sudo mkdir -p /data/db`
     - run mongod (The process that hosts your local db) `sudo mongod` (Note: This process needs to run the entire time in the background while you are developing)
 2. Run the app at least once `meteor npm run start`
-3. Download and run 'Robo 3T' to explore the data that gets created
 
 ## Run
 1. `meteor npm run start`
 2. View at `http://localhost:3000/`
-
-It should look like this initially:
-![Home Page Default Look](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/homePage.png)
-
-Clicking on 'Go Shopping' button should display the shop page:
-![Shop Page Default Look and browse](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/shopPage.gif)
-
-## Lint
-1. `meteor npm run lint`
-2. Before pushing linting is automatically run.

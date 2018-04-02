@@ -1,12 +1,39 @@
 // Framework
 import React, { PureComponent } from "react";
-
+import { Meteor } from "meteor/meteor";
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
+
+  constructor(props){
+    super(props);
+    this.state = {
+      quantityAdded: 1
+    }
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
+  }
+  
+  handleAddButton = (event) => {
+    let quantityOrdered = this.state.quantityAdded;
+    let product = {
+      name: this.props.name,
+      price: this.props.price,
+      size: this.props.size,
+      brand: this.props.brand,
+      description: this.props.description,
+      color: this.props.color,
+      image: this.props.image
+    };
+    this.props.handleAddBtn(product, quantityOrdered);    
+  }
+
+  // set quantity by a user
+  handleQuantityChange(event) {
+    const target = event.target;
+    const value = target.value;
+
+    this.setState({ quantityAdded: value });
   };
 
   render() {
@@ -17,7 +44,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity
     } = this.props;
 
     const info = [
@@ -26,9 +54,38 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: "CDN$ " + price.toFixed(2) },
+      { label: "In Stock", value: quantity ? quantity + " unit(s)": "Sold Out" }
     ];
-
+    
+    // Display button sold out if quantity is 0
+    // Otherwise display button add
+    const HandleDisplayButton = () => {
+      let itemName = this.props.name;
+      let itemsNameAdded = this.props.itemsSelected.map((item) => item.item.name);
+      
+      // if there is no quantity in stock
+      if (!quantity) {
+        return (
+          <Button className="bonsai-button-sold-out">
+            SOLD OUT
+          </Button>);
+      } else {
+        // check if an item is already added to cart
+        if (itemsNameAdded.includes(itemName)) {
+          return (
+            <Button className="bonsai-button-already-added" onClick={this.handleAddButton}>
+              ALREADY ADDED
+            </Button>);
+        } else {
+          return (
+            <Button onClick={this.handleAddButton}>
+              ADD TO CART
+            </Button>);
+        }
+      }
+    }
+    
     return (
       <div className="product">
         <img alt={name} src={image} />
@@ -45,9 +102,13 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+          <div className="quantity-container">
+            <label className="quantity-label">Quantity:</label>
+            <input type="number" className="quantity-input" value={this.state.quantityAdded} onChange={this.handleQuantityChange} min="0" />
+          </div>
+          <div>
+            <HandleDisplayButton />          
+          </div>
         </div>
       </div>
     );
