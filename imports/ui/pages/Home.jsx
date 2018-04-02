@@ -38,7 +38,6 @@ class Home extends PureComponent {
     const name = target.name;
     const value = target.value;
     this.setState({...this.state, login: {...this.state.login, user: {...this.state.login.user, [name]: value}}});
-
   }
 
   render() {

@@ -15,11 +15,7 @@ class Shop extends Component {
       merchants: [],
       error: null,
       orders: [],
-      items: [],
-      user: {
-        email: "johnDoe@email.ca", 
-        password: "xfaf-8$ji-ify)"
-      }
+      items: []
     };
   }
   
@@ -132,7 +128,7 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { merchants, error, orders, items, user } = this.state;
+    const { merchants, error, orders, items } = this.state;
     
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
