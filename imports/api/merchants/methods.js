@@ -90,8 +90,29 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const setFirstRatingProducts = (id, productName, rating) => {
+  let arrayProductRating = [];
+  try {
+    Merchants.update({ '_id': id, "products.name": productName }, { $push: { "products.$.rating": rating }} )
+    merchant = Merchants.findOne(id);
+    merchant.products.map((product) => {
+      if (product.name === productName) {
+        arrayProductRating = product.rating;
+      }
+    })
+  } catch (error) {
+    throw new Meteor.Error(
+      `setFirstRating.updateError`,
+      `Could not update ${productName} with merchant id: '${id}'`,
+      error
+    );
+  }
+  return arrayProductRating;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "products.setFirstRating": setFirstRatingProducts
 });

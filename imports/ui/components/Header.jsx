@@ -1,7 +1,8 @@
 // Framework
 import React from "react";
+import { Button, Badge } from "reactstrap";
 
-const Header = ({ children, goBack }) =>
+const Header = ({ children, goBack, visitors }) =>
   <header>
     <button onClick={goBack} className="back-button">
       {/* Image added here to show image inclusion, prefer inline-SVG. */}
@@ -10,7 +11,19 @@ const Header = ({ children, goBack }) =>
     <h1>
       {children}
     </h1>
-    <div className="right-content" />
+
+    <div style={{ marginRight: '2%' }} >
+      <Button color="primary" outline>
+        Visitors: 
+        <Badge 
+          style={{ 
+            color: 'black', 
+            fontFamily: 'sans-serif'
+            }} 
+          color="secondary">{visitors}
+        </Badge>
+      </Button>
+    </div>
   </header>;
 
 export default Header;

@@ -1,13 +1,62 @@
 // Framework
 import React, { PureComponent } from "react";
+import StarRatingComponent from 'react-star-rating-component';
+import { Meteor } from "meteor/meteor";
 
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+  constructor() {
+    super();
+
+    this.state = {
+      rating: 0,
+      merchant_id: '',
+      editing: true
+    };
+  }
+
+  componentWillMount() {
+    if (!this.props.rating) {
+      this.pushRatingField(this.props.id_merch, this.props.name, 3)
+    } else {
+      const ratingArr = this.props.rating
+      let newRating = 0;
+      ratingArr.forEach(rate => {
+        newRating += rate
+      });
+      newRating = newRating / ratingArr.length
+      this.setState({ rating: newRating })
+    }
+    this.setState({ merchant_id: this.props.id_merch })
+  }
+
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
+
+  onStarClick(nextValue, prevValue, name) {
+    this.pushRatingField(this.state.merchant_id, this.props.name, nextValue)
+    this.setState({ editing: false });
+
+  }
+
+  pushRatingField = (id, product, rating) => Meteor.call("products.setFirstRating", id, product, rating, (error, response) => {
+    if (error) {
+      this.setState(() => ({ error: error }));
+    } else if (rating === 0) {
+      this.setState({rating: rating})
+    } else {
+      const ratingArr = response
+      let newRating = 0;
+      ratingArr.forEach(rate => {
+        newRating += rate
+      });
+      newRating = newRating / ratingArr.length
+      this.setState({ rating: newRating })
+    }
+  });
 
   render() {
     const {
@@ -17,7 +66,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      merchant
     } = this.props;
 
     const info = [
@@ -26,7 +76,8 @@ class Product extends PureComponent {
       { label: "Description", value: description },
       { label: "Color", value: color },
       { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: price },
+      { label: "Merchant", value: merchant }
     ];
 
     return (
@@ -44,6 +95,17 @@ class Product extends PureComponent {
                 </div>
               </div>
             )}
+            <div className="info-row">
+              <div className="label"> Rating:
+              </div>
+                <StarRatingComponent 
+                  name={name}
+                  starCount={5}
+                  value={this.state.rating}
+                  onStarClick={this.onStarClick.bind(this)}
+                  editing={this.state.editing}
+                />
+            </div>
           </div>
           <Button onClick={this.handleBuyProduct}>
             Buy {name}
