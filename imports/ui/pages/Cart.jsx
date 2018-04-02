@@ -8,7 +8,7 @@ import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 import Button from "../components/Button.jsx";
 
-var total = 0;
+let total = 0;
 
 class Cart extends Component {
   goBack = () => this.props.history.push("/shop");
@@ -19,18 +19,18 @@ class Cart extends Component {
 
 
   printCart() {
-    var getCookiebyName = function(name){
-      var pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    let getCookiebyName = function(name){
+      let pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
       return !!pair ? pair[1] : null;
     };
 
     const cart = JSON.parse(getCookiebyName("cart"));
-    var prod_lst = [];
+    let prod_lst = [];
     total = 0;
     if(cart == null){
       return [];
     }
-    for(var i = 0; i < cart.length; i++){
+    for(let i = 0; i < cart.length; i++){
        prod_lst.push(<Product name={cart[i].name} image={cart[i].image} brand={cart[i].brand} color={cart[i].color}
         description={cart[i].description} buttonActive={false} price={cart[i].price} quantity={cart[i].quantity} size={cart[i].size} key={i} />)
         total += (cart[i].price * cart[i].quantity);
