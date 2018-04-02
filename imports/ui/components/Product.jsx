@@ -12,36 +12,54 @@ class Product extends PureComponent {
 
     this.state = {
       rating: 0,
+      merchant_id: '',
       editing: true
     };
   }
+
+  componentWillMount() {
+    if (!this.props.rating) {
+      this.pushRatingField(this.props.id_merch, this.props.name, 3)
+    } else {
+      const ratingArr = this.props.rating
+      let rating;
+      ratingArr.forEach(rate => {
+        rating += rate
+      });
+      rating = rating / ratingArr.length
+      this.setState({ rating: rating })
+    }
+    this.setState({ merchant_id: this.props.id_merch })
+  }
+
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
 
   onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue });
+    console.log('valueClicke',nextValue)
+    this.pushRatingField(this.state.merchant_id, this.props.name, nextValue)
+    // this.setState({ rating: nextValue });
     this.setState({ editing: false });
-    console.log(prevValue)
-    console.log(nextValue)
-    console.log(name)
+
   }
 
-  insertRatingField = (id, product) => Meteor.call("teste", id, product, (error, response) => {
+  pushRatingField = (id, product, rating) => Meteor.call("products.setFirstRating", id, product, rating, (error, response) => {
     if (error) {
       this.setState(() => ({ error: error }));
+    } else if (rating === 0) {
+      this.setState({rating: rating})
     } else {
-      this.setState({rating: 0})
+      const ratingArr = response
+      let newRating = 0;
+      ratingArr.forEach(rate => {
+        newRating += rate
+      });
+      console.log('response', newRating)
+      newRating = newRating / ratingArr.length
+      this.setState({ rating: newRating })
     }
   });
-
-  componentWillMount() {
-    if (!this.props.rating){
-      this.insertRatingField(this.props.id_merch, this.props.name)
-    } else {
-      
-    }
-  }
 
   render() {
     const {

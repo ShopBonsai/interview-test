@@ -90,44 +90,29 @@ export const getMerchants = () => {
   return merchantData;
 };
 
-export const setRatingProducts = (id, productName) => {
-  // let products;
+export const setFirstRatingProducts = (id, productName, rating) => {
+  let arrayProductRating = [];
   try {
-    // merchants = Merchants.find({ products: { $elemMatch: { name: 'TEMPOR Top'}} }).fetch();
-
-    Merchants.update({ '_id': id, "products.name": productName }, { $set: { "products.$.rating": 0 }} )
-
-
+    Merchants.update({ '_id': id, "products.name": productName }, { $push: { "products.$.rating": rating }} )
+    merchant = Merchants.findOne(id);
+    merchant.products.map((product) => {
+      if (product.name === productName) {
+        arrayProductRating = product.rating;
+      }
+    })
   } catch (error) {
     throw new Meteor.Error(
-      `${__filename}:getMerchantById.findOrFetchError`,
-      `Could not find or fetch merchant with order id: '${merchantId}'`,
+      `setFirstRating.updateError`,
+      `Could not update ${productName} with merchant id: '${id}'`,
       error
     );
   }
-  // return products;
-
+  return arrayProductRating;
 };
-
-
-
-// export const setRatingProducts = productName => {
-//   let product;
-//   try {
-//     product = Merchants.findOne(merchantId);
-//   } catch (error) {
-//     throw new Meteor.Error(
-//       `${__filename}:getMerchantById.findOrFetchError`,
-//       `Could not find or fetch merchant with order id: '${merchantId}'`,
-//       error
-//     );
-//   }
-//   return merchant;
-// };
 
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
   "merchants.getMerchants": getMerchants,
-  "teste": setRatingProducts
+  "products.setFirstRating": setFirstRatingProducts
 });
