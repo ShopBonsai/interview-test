@@ -14,12 +14,14 @@ const Header = ({ children, goBack, visitors }) =>
 
     <div style={{ marginRight: '2%' }} >
       <Button color="primary" outline>
-        Visitors: <Badge 
+        Visitors: 
+        <Badge 
           style={{ 
             color: 'black', 
             fontFamily: 'sans-serif'
             }} 
-          color="secondary">{visitors}</Badge>
+          color="secondary">{visitors}
+        </Badge>
       </Button>
     </div>
   </header>;

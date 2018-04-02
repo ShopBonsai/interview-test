@@ -32,7 +32,6 @@ class Shop extends Component {
         this.setState(() => ({ error: error }));
       } else {
         this.setState(() => ({ visitors: response }));
-        console.log(response)
       }
     });
   }
@@ -42,12 +41,13 @@ class Shop extends Component {
   render() {
     const { merchants, error } = this.state;
 
-    const getProductsFromMerchant = ({ products, brands }) =>
+    const getProductsFromMerchant = ({ products, brands, _id }) => 
       products.map(({ belongsToBrand, ...product }) => ({
         ...product,
-        brand: brands[belongsToBrand]
+        brand: brands[belongsToBrand],
+        id_merch: _id
       }));
-
+      
     const products = merchants.reduce(
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []

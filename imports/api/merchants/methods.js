@@ -90,8 +90,44 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const setRatingProducts = (id, productName) => {
+  // let products;
+  try {
+    // merchants = Merchants.find({ products: { $elemMatch: { name: 'TEMPOR Top'}} }).fetch();
+
+    Merchants.update({ '_id': id, "products.name": productName }, { $set: { "products.$.rating": 0 }} )
+
+
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getMerchantById.findOrFetchError`,
+      `Could not find or fetch merchant with order id: '${merchantId}'`,
+      error
+    );
+  }
+  // return products;
+
+};
+
+
+
+// export const setRatingProducts = productName => {
+//   let product;
+//   try {
+//     product = Merchants.findOne(merchantId);
+//   } catch (error) {
+//     throw new Meteor.Error(
+//       `${__filename}:getMerchantById.findOrFetchError`,
+//       `Could not find or fetch merchant with order id: '${merchantId}'`,
+//       error
+//     );
+//   }
+//   return merchant;
+// };
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "teste": setRatingProducts
 });
