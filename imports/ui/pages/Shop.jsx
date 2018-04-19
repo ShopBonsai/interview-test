@@ -31,12 +31,16 @@ class Shop extends Component {
   render() {
     const { merchants, error } = this.state;
 
+    // takes each product sold by merchant and assiciates a brand
+    // yields and array of that merchant's items
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
         ...product,
         brand: brands[belongsToBrand]
       }));
 
+    // takes everything in state and passes each merchant's data
+    // into getProductsFromMerchant and spreads into 1 array
     const products = merchants.reduce(
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []
