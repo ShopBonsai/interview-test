@@ -58,12 +58,14 @@ class Auth extends Component {
     })
   }
 
+  goBack = () => this.props.history.push("/");  
+
   render() {
 
     const { username, password, error } = this.state;
 
     return (
-      <Page>
+      <Page pageTitle="Account" history goBack={this.goBack}>
         <div className="container" >
           <div className="row" >
             <div className="col-sm-0 col-md-3" ></div>

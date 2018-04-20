@@ -3,7 +3,8 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  browserHistory
+  browserHistory,
+  Redirect
 } from "react-router-dom";
 
 // Pages
@@ -18,7 +19,8 @@ const Routes = () =>
       <Route exact path="/" component={Home} />
       <Route path="/shop" component={Shop} />
       <Route path="/cart" component={Cart} />
-      <Route path="/login" component={Auth} />      
+      <Route path="/login" render={ (props) => { return !localStorage.getItem("Meteor.loginToken") ? <Auth {...props} />
+                                                                                                   : <Redirect to="/shop" /> } } />
     </div>
   </Router>;
 

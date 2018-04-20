@@ -26,7 +26,7 @@ class Shop extends Component {
     });
   }
 
-  goBack = () => this.props.history.push("/");
+  goBack = () => this.props.history.push("/shop");
 
   render() {
     const { items, error } = this.state;
