@@ -2,7 +2,7 @@
 import React, { PureComponent } from "react";
 
 // Components
-import Button from "../components/Button.jsx";
+import BuyForm from "../components/BuyForm.jsx";
 
 class Product extends PureComponent {
   handleBuyProduct = () => {
@@ -17,7 +17,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity
     } = this.props;
 
     const info = [
@@ -45,9 +46,7 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+          <BuyForm quantity={quantity} />
         </div>
       </div>
     );
