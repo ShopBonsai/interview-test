@@ -5,6 +5,7 @@ import { Meteor } from "meteor/meteor";
 import { bindActionCreators } from 'redux';  
 import { connect } from 'react-redux';
 
+
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
@@ -57,13 +58,16 @@ class Shop extends Component {
   }
 }
 
-function mapStateToProps = (state) => ({
+function mapStateToProps(state) {  
+  return {
+    
+  }
+}
 
-})
-
-function mapDispatchToProps = (dispatch) => ({
-
-})
+function mapDispatchToProps(dispatch) {  
+  return {
+  }
+}
 
 export default connect(  
   mapStateToProps,
