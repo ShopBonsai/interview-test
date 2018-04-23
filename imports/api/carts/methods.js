@@ -33,12 +33,12 @@ export const newCart = () => {
  */
 export const getCart = () => {
   try {
-    return Carts.findOne({userId: Meteor.userId()});
+    return Carts.findOne({ userId: Meteor.userId() });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getCart.findOrFetchError`,
       `Could not find or fetch cart`,
-      error 
+      error
     );
   }
 };
@@ -46,23 +46,21 @@ export const getCart = () => {
 /**
  * Adds selected item to cart
  */
-export const addCartItem = ( { id, image, name, price, selected, quantity } ) => {
+export const addCartItem = ({ id, image, name, price, selected, quantity }) => {
   try {
     let cartData = getCart();
     let newItem = true;
 
     // loops through the current cart trying to find if this item is already there
-    for ( let i = 0 ; i < cartData.items.length ; i++ ) {
+    for (let i = 0 ; i < cartData.items.length ; i++) {
       // if the item already exists
-      if ( cartData.items[i].id === id ) {
+      if (cartData.items[i].id === id) {
         // if the added amount will not push the quantity over what is in stock, update the amount
-        if ( cartData.items[i].selected + selected <= quantity ) {
+        if (cartData.items[i].selected + selected <= quantity) {
           newItem = false;
           cartData.items[i].selected += selected;
           break;
-        }
-        // otherwise, throw an error
-        else {
+        } else { // otherwise, throw an error
           newItem = false;
           throw new Meteor.Error('Cannot add more than stock amount to cart');
           break;
