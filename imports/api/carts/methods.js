@@ -52,7 +52,7 @@ export const addCartItem = ({ id, image, name, price, selected, quantity }) => {
     let newItem = true;
 
     // loops through the current cart trying to find if this item is already there
-    for (let i = 0 ; i < cartData.items.length ; i++) {
+    for (let i = 0; i < cartData.items.length; i++) {
       // if the item already exists
       if (cartData.items[i].id === id) {
         // if the added amount will not push the quantity over what is in stock, update the amount
@@ -60,9 +60,10 @@ export const addCartItem = ({ id, image, name, price, selected, quantity }) => {
           newItem = false;
           cartData.items[i].selected += selected;
           break;
-        } else { // otherwise, throw an error
+        } else {
+          // otherwise, throw an error
           newItem = false;
-          throw new Meteor.Error('Cannot add more than stock amount to cart');
+          throw new Meteor.Error("Cannot add more than stock amount to cart");
           break;
         }
       }
@@ -70,11 +71,16 @@ export const addCartItem = ({ id, image, name, price, selected, quantity }) => {
 
     // if newItem did not get toggled to false, push the item into the cart
     if (newItem) {
-      cartData.items.push({id: id, image: image, name: name, price: price, selected: selected})
+      cartData.items.push({
+        id: id,
+        image: image,
+        name: name,
+        price: price,
+        selected: selected
+      });
     }
 
-    Carts.update({userId: Meteor.userId()}, {...cartData});
-
+    Carts.update({ userId: Meteor.userId() }, { ...cartData });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:addCartItem.updateError`,
@@ -87,20 +93,19 @@ export const addCartItem = ({ id, image, name, price, selected, quantity }) => {
 /**
  * Deletes target item from cart
  */
-export const delCartItem = ( id ) => {
+export const delCartItem = id => {
   try {
     let cartData = getCart(),
-        newitems = cartData.items.filter((item) => {
-            return item.id !== id;
-          }),
-        newCart = {
-            userId: cartData.userId,
-            items: newitems
-          };
+      newitems = cartData.items.filter(item => {
+        return item.id !== id;
+      }),
+      newCart = {
+        userId: cartData.userId,
+        items: newitems
+      };
 
-    Carts.update({userId: Meteor.userId()}, {...newCart});
+    Carts.update({ userId: Meteor.userId() }, { ...newCart });
     return getCart();
-
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:delCartItem.deleteError`,
