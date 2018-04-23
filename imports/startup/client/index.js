@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 // Client Imports
 import Routes from "../../ui/Routes.jsx";
-import appReducer from '../imports/ui/reducers'; // need to create
+import appReducer from '../../ui/reducers'; // need to create
 
 const store = createStore(appReducer, applyMiddleware(thunk));
 
