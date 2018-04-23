@@ -2,15 +2,22 @@
 import React, { PureComponent } from "react";
 
 // Components
-import Page from "../components/Page.jsx";
+import SplashPage from "../components/SplashPage.jsx";
 import Button from "../components/Button.jsx";
 
 class Home extends PureComponent {
   render() {
     return (
-      <Page>
+      <SplashPage>
         <div className="home-page">
+          <img
+            src={
+              "http://www.dreams.metroeve.com/wp-content/uploads/2017/05/dreams.metroeve_humble-dreams-meaning.png"
+            }
+          />
+          <br />
           <h2 className="title">Welcome to our humble Shop</h2>
+          <br />
           <Button
             onClick={() => {
               this.props.history.push("/shop");
@@ -19,7 +26,7 @@ class Home extends PureComponent {
             Go shopping
           </Button>
         </div>
-      </Page>
+      </SplashPage>
     );
   }
 }

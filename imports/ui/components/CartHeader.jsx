@@ -2,7 +2,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 
-const Header = ({ children, goBack, goCart, cartNumber, pageTitle }) =>
+const CartHeader = ({ children, goBack, goCart, cartNumber, pageTitle }) =>
   <header>
     <button onClick={goBack} className="back-button">
       {/* Image added here to show image inclusion, prefer inline-SVG. */}
@@ -11,13 +11,6 @@ const Header = ({ children, goBack, goCart, cartNumber, pageTitle }) =>
     <h1>
       {children}
     </h1>
-    <div className="right-content">
-      ( {cartNumber} )
-      <i
-        className="fa fa-shopping-cart fa-2x"
-        aria-hidden="true"
-        onClick={goCart}
-      />
-    </div>
+    <div className="right-content" />
   </header>;
-export default withRouter(Header);
+export default withRouter(CartHeader);

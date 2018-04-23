@@ -90,8 +90,23 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const alert = () => {
+  let data;
+  try {
+    data = "playstation";
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getMerchants.findOrFetchError`,
+      `Could not find or fetch merchants`,
+      error
+    );
+  }
+  return data;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "merchants.alert": alert
 });
