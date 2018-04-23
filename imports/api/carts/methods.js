@@ -45,8 +45,6 @@ export const getCart = () => {
 
 /**
  * Adds selected item to cart
- *
- * @returns {Object} A single cart object.
  */
 export const addCartItem = ( { id, image, name, price, selected, quantity } ) => {
   try {
@@ -88,10 +86,36 @@ export const addCartItem = ( { id, image, name, price, selected, quantity } ) =>
   }
 };
 
+/**
+ * Deletes target item from cart
+ */
+export const delCartItem = ( id ) => {
+  try {
+    let cartData = getCart(),
+        newitems = cartData.items.filter((item) => {
+            return item.id !== id;
+          }),
+        newCart = {
+            userId: cartData.userId,
+            items: newitems
+          };
+
+    Carts.update({userId: Meteor.userId()}, {...newCart});
+    return getCart();
+
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:delCartItem.deleteError`,
+      `Could not delete item`,
+      error
+    );
+  }
+};
 
 // Register meteor methods.
 Meteor.methods({
   "carts.newCart": newCart,
   "carts.getCart": getCart,
-  "carts.addCartItem": addCartItem
+  "carts.addCartItem": addCartItem,
+  "carts.delCartItem": delCartItem
 });
