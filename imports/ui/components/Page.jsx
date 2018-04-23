@@ -9,7 +9,6 @@ import Footer from "../components/Footer.jsx";
 
 
 export const Page = ({ children, pageTitle, history, goBack }) => {
-  console.log(history);
   return (
   <div className="page">
     <Header goBack={goBack}>

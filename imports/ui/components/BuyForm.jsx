@@ -4,7 +4,7 @@ import React from "react";
 // Components
 import Button from "../components/Button.jsx";
 
-const BuyForm = ({ name, quantity }) => {
+const BuyForm = ({ name, quantity, handleBuyProduct, handleSelect, selected }) => {
 
   const options = ( quantity ) => {
     let output = [];
@@ -15,10 +15,10 @@ const BuyForm = ({ name, quantity }) => {
   }
 
   return (
-    <form>
+    <form onSubmit={handleBuyProduct} >
       <div className="form-group">
         <label htmlFor="quantity">Quantity</label>
-        <select className="form-control" id="quantity">
+        <select className="form-control" id="quantity" value={selected} onChange={handleSelect} >
           { options(quantity) }
         </select>
       </div>

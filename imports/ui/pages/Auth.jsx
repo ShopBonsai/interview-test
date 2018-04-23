@@ -53,7 +53,13 @@ class Auth extends Component {
         this.setState({error: error})
       }
       else {
-        this.props.history.push("/shop");
+        Meteor.call("carts.newCart", (error, response) => {
+          if (error) {
+            console.log(error);
+          } else {
+            this.props.history.push("/shop");
+          }
+        });
       }
     })
   }

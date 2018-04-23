@@ -7,7 +7,7 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
-class Shop extends Component {
+class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,11 +17,11 @@ class Shop extends Component {
   }
 
   componentWillMount() {
-    Meteor.call("merchants.getMerchants", (error, response) => {
+    Meteor.call("carts.getCart", (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ merchants: response }));
+        this.setState(() => ({ items: response.items }));
       }
     });
   }
@@ -31,8 +31,8 @@ class Shop extends Component {
   render() {
     const { items, error } = this.state;
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
-        <div className="shop-page">
+      <Page pageTitle="cart" history goBack={this.goBack}>
+        <div className="cart-page">
           {this.state.items.map(({ id, ...product }) =>
             <Product {...product} key={id} />
           )}
@@ -42,4 +42,4 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+export default Cart;
