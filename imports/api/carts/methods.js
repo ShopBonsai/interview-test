@@ -77,7 +77,7 @@ export const addCartItem = ( { id, image, name, price, selected, quantity } ) =>
       cartData.items.push({id: id, image: image, name: name, price: price, selected: selected})
     }
 
-    Carts.update({userId: Meteor.userId()}, {items: cartData.items});
+    Carts.update({userId: Meteor.userId()}, {...cartData});
 
   } catch (error) {
     throw new Meteor.Error(

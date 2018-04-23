@@ -9,7 +9,7 @@ class Product extends Component {
   constructor(){
     super();
     this.state = {
-      selected: 1
+      selected: "1"
     }
   }
 
@@ -21,7 +21,7 @@ class Product extends Component {
 
   handleBuyProduct = (e) => {
     e.preventDefault();
-    this.props.addToCart({...this.props, selected: this.state.selected});
+    this.props.addToCart({...this.props, selected: parseInt(this.state.selected)});
   };
 
   render() {
