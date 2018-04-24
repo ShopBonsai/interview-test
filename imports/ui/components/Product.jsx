@@ -8,12 +8,10 @@ import Quantity from "../components/Quantity.jsx";
 class Product extends PureComponent {
 
   onMinusClick = (item) => {
-    console.log("need to reduce quantity by 1")
     this.props.onMinusClick();
   }
 
   onPlusClick = (item) => {
-    console.log("need to increase quantity by 1")
     this.props.onPlusClick();
   }
 

@@ -1,11 +1,10 @@
 // Framework
 import React from "react";
 
-const Footer = ({children}) => {
+const Footer = ({footer}) => {
+ 	const FooterContent = footer;
 	return (
-		children ? 
-		<footer>{children}</footer>:
-		<footer>Humble Footer</footer>
+		<footer> {footer ? <FooterContent/> : "Humble Footer"} </footer>
 	)
 
 }

@@ -7,7 +7,8 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
-export const Page = ({ children, pageTitle, history, goBack, goTo, goToTitle, headerHidden, footerHidden }) =>
+export const Page = ({ children, pageTitle, history, goBack, goTo, goToTitle, headerHidden, footerHidden, footer }) =>{
+  return (
   <div className="page">
   	{headerHidden ? null : 
 	    <Header goBack={goBack} goTo={goTo} goToTitle={goToTitle}>
@@ -18,8 +19,9 @@ export const Page = ({ children, pageTitle, history, goBack, goTo, goToTitle, he
       {children}
     </main>
     {footerHidden ? null : 
-    <Footer />
+    <Footer footer={footer} />
 	}
-  </div>;
+  </div>
+  )}
 
 export default Page;

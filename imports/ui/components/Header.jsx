@@ -13,9 +13,6 @@ const Header = ({ children, goBack, goTo, goToTitle }) =>{
         <h1>
           {children}
         </h1>
-        {/*
-        <div className="right-content" />
-        */}
         {goTo ? <button onClick={goTo}>{goToTitle}</button> : <div className="right-content" /> }
       </header>
     )

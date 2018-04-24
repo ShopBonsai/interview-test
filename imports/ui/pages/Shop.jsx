@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux'
 
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
+import { Alert, Row, Col, ButtonGroup, Button, Container } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
@@ -25,7 +25,36 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
-  goTo = () => this.props.history.push("/cart");
+
+  footer = () => {
+      return (
+        <Container>
+        <Row style={{textAlign:"center"}}>
+          <Col style={{padding:"0"}}>
+            <Button
+              block
+              style={{width:"100%"}}
+              onClick={()=>{this.props.history.push("/cart")}}
+            >
+              Cart
+            </Button>
+          </Col>
+        {/*
+          <Col style={{textAlign:"center"}}>
+            Total
+          </Col>
+          <Col style={{padding:"0"}}>
+            <Button
+              style={{width:"100%"}}
+              onClick={()=>{console.log("clicked on Buy")}}
+            >
+              Buy
+            </Button>
+          </Col>
+        */}
+        </Row>
+        </Container>  
+      )}
 
   render() {
     const { merchants, error } = this.props.merchants;
@@ -42,7 +71,7 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"}>
+      <Page pageTitle="shop" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"} footer={this.footer}>
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} 

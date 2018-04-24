@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
+import { Alert, Row, Col, Button } from "reactstrap";
 import Page from "../components/Page.jsx";
 import ProductInline from "../components/ProductInline";
-import Button from "../components/Button";
+// import Button from "../components/Button";
 
 import {updateCart,createOrder} from "../reducers/orders";
 
@@ -36,7 +36,40 @@ class Cart extends Component {
     this.props.createOrder(order,this.props.history.goBack)
   }
 
+  footer = () => {
+    return (
+      <Container>
+      <Row style={{textAlign:"center"}}>
+        <Col style={{padding:"0"}}>
+          <Button
+            style={{width:"100%"}}
+            onClick={()=>{this.props.history.push("/cart")}}
+          >
+            Cart
+          </Button>
+        </Col>
+        <Col style={{textAlign:"center"}}>
+          Total
+        </Col>
+        <Col style={{padding:"0"}}>
+          <Button
+            style={{width:"100%"}}
+            onClick={()=>{this.createOrder}}
+          >
+            Buy
+          </Button>
+        </Col>
+      </Row>
+      </Container>  
+  )}
+
   goBack = () => this.props.history.push("/shop");
+
+  createOrderbutton = (productsInCart,totalCost) => {
+    return (
+      <Button block onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button>
+      )
+  }
 
   render() {
 
@@ -62,7 +95,8 @@ class Cart extends Component {
     const totalCost = productsInCart.reduce((acc,p)=> acc + p.price*p.quantityInCart , 0)
 
     return (
-      <Page pageTitle="cart" history goBack={this.goBack}>
+      <Page pageTitle="cart" history goBack={this.goBack} 
+      footer={() => this.createOrderbutton(productsInCart,totalCost)}>
         <div className="shop-page">
           this is the current cart of products, has prices and total and buy button to commit the order.
           {productsInCart.map(({ id, ...product }) =>
@@ -72,7 +106,6 @@ class Cart extends Component {
               onMinusClick={()=>{this.props.updateCart(id,-1)}}
               />
           )}
-          {productsInCart.length>0 ? <Button onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button> : "Your cart is empty."}
         </div>
       </Page>
     );
