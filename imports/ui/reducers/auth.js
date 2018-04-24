@@ -4,13 +4,15 @@ import { Meteor } from 'meteor/meteor'
 export const SET_USER = 'auth/SET_USER'
 export const UNSET_USER = 'auth/UNSET_USER'
 
+export const SET_PROFILE = 'auth/SET_PROFILE'
 export const ERROR = 'auth/ERROR'
 
 const initialState = {
   authenticated:false,          
   userId:null,
   emails:[],
-  error:null 
+  error:null,
+  profile:{}
 }
 
 function auth(state = initialState, action) {  
@@ -23,6 +25,11 @@ function auth(state = initialState, action) {
         let s = {authenticated:true, userId,emails, error:null};
         return s;
       }
+    case SET_PROFILE:
+    {
+      let s = {...state, profile:action.payload};
+      return s;
+    }
     case UNSET_USER:
       {
         let s = {authenticated:false, user:{}, error:null};
@@ -76,7 +83,7 @@ export const registerUser = (user) => {
           console.log("there was an error: " + error.reason);
           dispatch({
             type:ERROR,
-            payload:erro.reason
+            payload:error.reason
           })
         } else { 
           console.log("I just registered.")
@@ -87,6 +94,18 @@ export const registerUser = (user) => {
 
 export const getProfile = () => {
    return dispatch => {
-     
+     Meteor.call("profile.getProfile", (error, response) => {
+        if (error) {
+          dispatch({
+            type:ERROR,
+            payload:error.reason
+          })
+        } else {
+          dispatch({
+            type:SET_PROFILE,
+            payload:response
+          })
+        }
+      });
   } 
 }

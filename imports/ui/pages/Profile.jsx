@@ -10,23 +10,26 @@ import { connect } from 'react-redux';
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 
+import {getProfile} from '../reducers/auth'
+
 class Profile extends Component {
   constructor(props) {
     super(props);
   }
 
   componentWillMount() {
-
+    this.props.getProfile();
   }
 
   goBack = () => this.props.history.push("/");
 
   render() {
-
+    const {profile,userId,emails} = this.props;
+    console.log(this.props)
     return (
       <Page pageTitle="profile" history goBack={this.goBack}>
         <div className="shop-page">
-          This is your profile.
+          Email: {emails[0].address} <br/>
         </div>
       </Page>
     );
@@ -42,9 +45,13 @@ orders = {
 */
 
 const mapStateToProps = (state) => ({
+  profile:state.auth.profile,
+  userId:state.auth.userId,
+  emails:state.auth.emails,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getProfile
 },dispatch)
 
 export default connect( 
