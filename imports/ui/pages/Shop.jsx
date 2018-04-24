@@ -2,6 +2,9 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
+// import connectMeteor from 'react-redux-meteor-data';
+// import {connect} from 'react-redux-meteor';
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
@@ -13,14 +16,12 @@ import Product from "../components/Product";
 
 import {updateCart} from "../reducers/orders";
 import {getMerchants} from "../reducers/merchants";
+// import {getMerchants} from "../../api/merchants/methods";
+
 
 class Shop extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      merchants: [],
-      error: null
-    };
   }
 
   componentWillMount() {
@@ -70,19 +71,19 @@ orders = {
 }
 */
 
-mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   merchants:state.merchants,
   orders:state.orders.orders,
   currentCart:state.orders.cart,
   progress:state.orders.progress
 })
 
-mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = (dispatch) => bindActionCreators({
   updateCart,
   getMerchants
 },dispatch)
 
-export default connect(  
+export default connect( 
   mapStateToProps,
   mapDispatchToProps
 )(Shop);

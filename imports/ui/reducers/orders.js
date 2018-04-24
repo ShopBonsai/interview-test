@@ -27,7 +27,7 @@ function orders(state = initialState, action) {
     // commit the current cart to the database once it has been pushed
     case CREATE_ORDER:
       {
-        let s = {...state,orders:action.payload, cart:{}};
+        let s = {...state,orders:[...state.orders,action.payload], cart:{}};
         return s;
       }
     // 

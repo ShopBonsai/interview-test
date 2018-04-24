@@ -33,7 +33,6 @@ export default merchants
 
 export const getMerchants = () => {
     return dispatch => {
-      console.log("getMerchants dispatched")
       Meteor.call("merchants.getMerchants", (error, response) => {
         if (error) {
           dispatch({

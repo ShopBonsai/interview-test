@@ -78,6 +78,7 @@ export const getMerchantById = merchantId => {
 
 export const getMerchants = () => {
   let merchantData;
+  debugger;
   try {
     merchantData = Merchants.find({}).fetch();
   } catch (error) {

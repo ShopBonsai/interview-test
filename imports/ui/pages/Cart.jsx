@@ -8,10 +8,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
 
+
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import ProductInline from "../components/ProductInline";
+import Button from "../components/Button";
 
 import {updateCart,createOrder} from "../reducers/orders";
 
@@ -72,7 +74,7 @@ class Cart extends Component {
               onMinusClick={()=>{this.props.updateCart(id,-1)}}
               />
           )}
-          {productsInCart.length>0 ? <button onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</button> : null}
+          {productsInCart.length>0 ? <Button onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button> : "Your cart is empty."}
         </div>
       </Page>
     );
