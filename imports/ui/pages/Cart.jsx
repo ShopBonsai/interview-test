@@ -7,8 +7,6 @@ import moment from "moment";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
-
-
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
