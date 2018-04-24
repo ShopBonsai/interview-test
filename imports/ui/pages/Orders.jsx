@@ -5,11 +5,13 @@ import { Meteor } from "meteor/meteor";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
+import moment from "moment"
+
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
+import { Alert, Row, Col, Table } from "reactstrap";
 import Page from "../components/Page.jsx";
-// import Product from "../components/Product";
+import OrderDetails from "../components/OrderDetails"
 
 import {getOrders,removeAllOrders} from "../reducers/orders";
 
@@ -18,7 +20,7 @@ class Shop extends Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getOrders();
   }
 
@@ -26,22 +28,31 @@ class Shop extends Component {
 
   render() {
     const {orders} = this.props.orders;
+    const ordersByDate = orders.reduce((cc,o)=> {
+      const date = moment(o.createAt).format("MMM-Do-YY");
+      cc[date] ?  (cc[date].push(o) ) : (cc[date]=[o]) ;
+      return cc;
+      }
+      ,{})
+
+    console.log(ordersByDate);
     return (
       <Page pageTitle="orders" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"}>
-        <div className="shop-page">
-          {/*
-          <button onClick={this.props.removeAllOrders} >remove orders</button>
-          */}
-          list of orders
-          {orders.map(({ id, products, CreatedAt }) =>
-            <div key={id}>
-              <h2>{CreatedAt}</h2>
-              <ul>
-              {products.map(p=>(
-                <li key={p.id}>{`${p.name} | ${p.quantity}`}</li>
-              ))}
-              </ul>
-            </div>
+        <div style={{width:"100%"}}>
+          {Object.keys(ordersByDate).map((key) => {
+              const orders = ordersByDate[key];
+              return(
+              <div key={key}>
+                <h2 style={{textAlign:"center"}}>{key.split("-").join(' ')}</h2>
+                {orders.map(O=>{
+                  const products = O.products;
+                  return (
+                    <OrderDetails key={O.id} products={products}/>
+                  )
+                })}
+              </div>
+              ) 
+          }
           )}
         </div>
       </Page>

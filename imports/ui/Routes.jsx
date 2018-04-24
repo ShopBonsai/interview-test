@@ -36,11 +36,11 @@ class Routes extends React.Component {
   }
 
   render(){
-  	const {user} = this.props;
+  	const userId = this.props.userId;
 
   	return(
 	  <Router history={browserHistory}>
-	      {user._id ? 
+	      {userId ? 
 	      <Switch>
 	      	<Route path="/shop" component={Shop} />
 	      	<Route path="/cart" component={Cart} />
@@ -65,7 +65,7 @@ class Routes extends React.Component {
 } 
 
 const mapStateToProps = (state) => ({
-	user:state.auth.user
+	userId:state.auth.userId
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -8,7 +8,9 @@ export const ERROR = 'auth/ERROR'
 
 const initialState = {
   authenticated:false,          
-  user:{} 
+  userId:null,
+  emails:[],
+  error:null 
 }
 
 function auth(state = initialState, action) {  
@@ -16,7 +18,9 @@ function auth(state = initialState, action) {
     // get all the orders that have been done by this user from the database
     case SET_USER:
       {
-        let s = {authenticated:true, user:action.payload, error:null};
+        const userId = action.payload._id;
+        const emails = action.payload.emails;
+        let s = {authenticated:true, userId,emails, error:null};
         return s;
       }
     case UNSET_USER:
@@ -47,9 +51,11 @@ export const loginUser = ({email,password}) => {
           payload:error.reason
         })
       } else {
+        const user = Meteor.user();
+        console.log(user);
         dispatch({
           type:SET_USER,
-          payload:Meteor.user()
+          payload:user
         })
       }
     });

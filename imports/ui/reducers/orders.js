@@ -63,11 +63,13 @@ export default orders
 
 
 export const createOrder = (order) => {
-    return dispatch => {
+    return (dispatch,getState) => {
+      const userId = getState().auth.userId;
+      order = {...order,userId};
       Meteor.call("orders.createOrder", order, (error, id) => {
         dispatch({
           type:CREATE_ORDER,
-          payload:{...order,id}
+          payload:{...order,id,userId}
         })
       })
     }
@@ -88,8 +90,9 @@ export const progressOrder = () => {
 }
 
 export const getOrders = () => {
-    return dispatch => {
-      Meteor.call("orders.getOrders", (error, response) => {
+    return (dispatch,getState) => {
+      const userId = getState().auth.userId;
+      Meteor.call("orders.getOrders", userId, (error, response) => {
         if (error) {
           dispatch({
             type:GET_ORDERS_ERROR

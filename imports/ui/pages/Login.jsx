@@ -17,9 +17,11 @@ class Login extends Component {
     this.props.loginUser({email,password})
   } 
 
+  goBack = () => this.props.history.push('/');
+
   render() {
     return (
-      <Page>
+      <Page history goBack={this.goBack}>
         <div className="home-page">
           <LoginRegisterForm login submit={this.submit}/>
         </div>

@@ -7,15 +7,19 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
-export const Page = ({ children, pageTitle, history, goBack, goTo, goToTitle }) =>
+export const Page = ({ children, pageTitle, history, goBack, goTo, goToTitle, headerHidden, footerHidden }) =>
   <div className="page">
-    <Header goBack={goBack} goTo={goTo} goToTitle={goToTitle}>
-      {pageTitle}
-    </Header>
+  	{headerHidden ? null : 
+	    <Header goBack={goBack} goTo={goTo} goToTitle={goToTitle}>
+	      {pageTitle}
+	    </Header>
+  	}
     <main>
       {children}
     </main>
+    {footerHidden ? null : 
     <Footer />
+	}
   </div>;
 
 export default Page;

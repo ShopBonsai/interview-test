@@ -17,9 +17,11 @@ class Register extends Component {
     this.props.registerUser({email,password,password2});
   } 
 
+  goBack = () => this.props.history.push('/');
+
   render() {
     return (
-      <Page>
+      <Page history goBack={this.goBack}>
         <div className="home-page">
           <LoginRegisterForm submit={this.submit}/>
         </div>

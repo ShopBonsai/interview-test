@@ -55,11 +55,10 @@ export const createOrder = (order) => {
   }
 }
 
-export const getOrders = () => {
+export const getOrders = (userId) => {
   let ordersData;
-  debugger;
   try {
-    ordersData = Orders.find({}).fetch();
+    ordersData = Orders.find({userId}).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrders.findOrFetchError`,

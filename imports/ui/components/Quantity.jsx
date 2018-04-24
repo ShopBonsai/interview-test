@@ -1,31 +1,31 @@
 // Framework
 import React from "react";
-import {Container,Row,Col} from 'reactstrap';
+import {Container,Row,Col,ButtonGroup,Button} from 'reactstrap';
 
 const Quantity = ({ children, onPlusClick, onMinusClick, quantityInCart, className = "",  ...extraProps }) => {
   return (
   	<Container>
-  		<Row>
-  		<Col>
-	  	<button
+      	<Row style={{textAlign:"center"}}>
+  		<Col style={{padding:"0"}}>
+	  	<Button
 	      {...extraProps}
-	      className={`bonsai-button ${className}`}
+	      style={{width:"100%"}}
 	      onClick={onMinusClick}
 	    >
 	      -
-	    </button>
+	    </Button>
   		</Col>
-  		<Col>
+  		<Col style={{textAlign:"center"}}>
 	    {quantityInCart ? quantityInCart : 0}
   		</Col>
-  		<Col>
-	    <button
+  		<Col style={{padding:"0"}}>
+	    <Button
 	      {...extraProps}
-	      className={`bonsai-button ${className}`}
+	      style={{width:"100%"}}
 	      onClick={onPlusClick}
 	    >
 	      +
-	    </button>
+	    </Button>
   		</Col>
   		</Row>
   	</Container>	

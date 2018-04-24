@@ -1,6 +1,13 @@
 // Framework
 import React from "react";
 
-const Footer = () => <footer>Humble Footer</footer>;
+const Footer = ({children}) => {
+	return (
+		children ? 
+		<footer>{children}</footer>:
+		<footer>Humble Footer</footer>
+	)
+
+}
 
 export default Footer;
