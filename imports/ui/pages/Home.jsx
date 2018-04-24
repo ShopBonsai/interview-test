@@ -18,6 +18,13 @@ class Home extends PureComponent {
           >
             Go shopping
           </Button>
+          <Button
+            onClick={() => {
+              this.props.history.push("/orders");
+            }}
+          >
+            Past Orders
+          </Button>
         </div>
       </Page>
     );

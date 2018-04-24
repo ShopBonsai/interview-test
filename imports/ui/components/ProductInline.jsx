@@ -5,7 +5,7 @@ import React, { PureComponent } from "react";
 import Button from "../components/Button.jsx";
 import Quantity from "../components/Quantity.jsx";
 
-class Product extends PureComponent {
+class ProductInline extends PureComponent {
 
   onMinusClick = (item) => {
     console.log("need to reduce quantity by 1")
@@ -20,26 +20,20 @@ class Product extends PureComponent {
   render() {
     const {
       name = "Product",
-      image,
       brand,
-      color,
-      description,
       price,
-      size
+      quantityInCart
     } = this.props;
 
     const info = [
       { label: "Brand", value: brand },
       { label: "Name", value: name },
-      { label: "Description", value: description },
-      { label: "Color", value: color },
-      { label: "Size", value: size },
-      { label: "Price", value: price }
+      { label: "Price", value: price },
+      { lable: "Total Cost", value:price*quantityInCart}
     ];
 
     return (
       <div className="product">
-        <img alt={name} src={image} />
         <div className="details">
           <div className="info">
             {info.map(({ label, value }) =>
@@ -53,11 +47,12 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Quantity onPlusClick={this.onPlusClick} onMinusClick={this.onMinusClick} quantityInCart={this.props.quantityInCart}  />
+          <Quantity onPlusClick={this.onPlusClick} onMinusClick={this.onMinusClick} quantityInCart={quantityInCart}  />
         </div>
+        <hr/>
       </div>
     );
   }
 }
 
-export default Product;
+export default ProductInline;

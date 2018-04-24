@@ -1,7 +1,7 @@
 // Framework
 import React from "react";
 
-const Header = ({ children, goBack }) =>
+const Header = ({ children, goBack, goTo, goToTitle }) =>
   <header>
     <button onClick={goBack} className="back-button">
       {/* Image added here to show image inclusion, prefer inline-SVG. */}
@@ -10,7 +10,10 @@ const Header = ({ children, goBack }) =>
     <h1>
       {children}
     </h1>
+    {/*
     <div className="right-content" />
+    */}
+    {goTo ? <button onClick={goTo}>{goToTitle}</button> : <div className="right-content" /> }
   </header>;
 
 export default Header;
