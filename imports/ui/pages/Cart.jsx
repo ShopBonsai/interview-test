@@ -25,15 +25,20 @@ class Cart extends Component {
   }
 
   createOrder = (productsInCart,totalCost) => {
-    const order = {
-      CreatedAt:moment().format(),
-      totalCost,
-      products:productsInCart.map(({quantityInCart,name,id,price})=>({
-        quantity:quantityInCart,
-        name,id,price
-      }))
+    if(this.props.userId){
+      const order = {
+        CreatedAt:moment().format(),
+        totalCost,
+        products:productsInCart.map(({quantityInCart,name,id,price})=>({
+          quantity:quantityInCart,
+          name,id,price
+        }))
+      }
+      this.props.createOrder(order)
+    } else {
+      alert("Please login first.")
     }
-    this.props.createOrder(order,this.props.history.goBack)
+
   }
 
   footer = () => {
@@ -123,6 +128,7 @@ orders = {
 mapStateToProps = (state) => ({
   merchants:state.merchants.merchants,
   currentCart:state.orders.cart,
+  userId:state.auth.userId
 })
 
 mapDispatchToProps = (dispatch) => bindActionCreators({

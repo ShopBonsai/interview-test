@@ -6,7 +6,7 @@ export default class OrderDetails extends React.PureComponent {
     super(props);
   }
   render(){
-    const products = this.props.products
+    const {products,totalCost} = this.props
     return (
         <Container>
         <Table responsive>
@@ -23,9 +23,14 @@ export default class OrderDetails extends React.PureComponent {
                 <tr key={p.name}>
                   <td>{p.name}</td>
                   <td style={{width:"40px"}}>{p.quantity}</td>
-                  <td style={{width:"40px"}}>{p.price}</td>
+                  <td style={{width:"40px"}}>{p.price*p.quantity}</td>
                 </tr>
              )})}
+            <tr>
+                <td ></td>
+                <td style={{width:"40px"}}>Total</td>
+                <td style={{width:"40px"}}>{totalCost}</td>
+                </tr>
           </tbody>
       </Table>
       </Container>

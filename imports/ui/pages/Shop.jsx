@@ -39,19 +39,6 @@ class Shop extends Component {
               Cart
             </Button>
           </Col>
-        {/*
-          <Col style={{textAlign:"center"}}>
-            Total
-          </Col>
-          <Col style={{padding:"0"}}>
-            <Button
-              style={{width:"100%"}}
-              onClick={()=>{console.log("clicked on Buy")}}
-            >
-              Buy
-            </Button>
-          </Col>
-        */}
         </Row>
         </Container>  
       )}
@@ -73,14 +60,14 @@ class Shop extends Component {
     return (
       <Page pageTitle="shop" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"} footer={this.footer}>
         <div className="shop-page">
-          {products.map(({ id, ...product }) =>
+          {products.length > 0 ? products.map(({ id, ...product }) =>
             <Product {...product} 
               key={id} 
               onPlusClick={()=>{this.props.updateCart(id,1)}}
               onMinusClick={()=>{this.props.updateCart(id,-1)}}
               quantityInCart={this.props.currentCart[id]}
               />
-          )}
+          ) : <h1>Loading...</h1>}
         </div>
       </Page>
     );

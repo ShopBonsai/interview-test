@@ -44,6 +44,7 @@ export const getOrderById = orderId => {
 };
 
 export const createOrder = (order) => {
+  order = {...order,userId:Meteor.userId()}
   try {
     return Orders.insert(order);
   } catch (error) {
@@ -55,7 +56,8 @@ export const createOrder = (order) => {
   }
 }
 
-export const getOrders = (userId) => {
+export const getOrders = () => {
+  const userId = Meteor.userId();
   let ordersData;
   try {
     ordersData = Orders.find({userId}).fetch();

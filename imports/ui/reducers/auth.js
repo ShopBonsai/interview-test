@@ -85,14 +85,8 @@ export const registerUser = (user) => {
     }
 }
 
-export const setUser = (user) =>{
-  return dispatch => {
-    console.log(user)
-  }
-}
-
-export const unsetUser = (user) =>{
-  return dispatch => {
-    console.log(user)
-  }
+export const getProfile = () => {
+   return dispatch => {
+     
+  } 
 }

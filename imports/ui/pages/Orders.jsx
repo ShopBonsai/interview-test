@@ -46,8 +46,9 @@ class Shop extends Component {
                 <h2 style={{textAlign:"center"}}>{key.split("-").join(' ')}</h2>
                 {orders.map(O=>{
                   const products = O.products;
+                  console.log(O)
                   return (
-                    <OrderDetails key={O.id} products={products}/>
+                    <OrderDetails key={O.id} products={products} totalCost={O.totalCost}/>
                   )
                 })}
               </div>

@@ -20,7 +20,6 @@ class Profile extends Component {
   }
 
   goBack = () => this.props.history.push("/");
-//  goTo = () => this.props.history.push("/cart");
 
   render() {
 

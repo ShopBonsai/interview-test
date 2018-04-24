@@ -69,7 +69,7 @@ export const createOrder = (order) => {
       Meteor.call("orders.createOrder", order, (error, id) => {
         dispatch({
           type:CREATE_ORDER,
-          payload:{...order,id,userId}
+          payload:{...order,id}
         })
       })
     }
@@ -91,8 +91,7 @@ export const progressOrder = () => {
 
 export const getOrders = () => {
     return (dispatch,getState) => {
-      const userId = getState().auth.userId;
-      Meteor.call("orders.getOrders", userId, (error, response) => {
+      Meteor.call("orders.getOrders", (error, response) => {
         if (error) {
           dispatch({
             type:GET_ORDERS_ERROR

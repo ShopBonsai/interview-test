@@ -22,7 +22,7 @@ Here are some ideas for features that are missing from the app:
  ==> 
 
  - Allow users to login using social media. A record of the user being logged in should be stored in the database, retrieved and displayed (perhaps on a special admin-only page).
- ==> 
+ ==>  email/password login.
 
  - Select multiple items to buy together. Which items get selected/submitted should be stored meaningfully in the database.
  ==> saved in redux before they can be submitted, would upload it to database once I have users setup.
@@ -34,7 +34,7 @@ Here are some ideas for features that are missing from the app:
  ==> 
 
  - Ability to 'like' an item. Store which items got liked in the database, retrieve this information.
- ==> done.
+ ==> 
 
  - Searching for product by name/brand/merchant. Store searches meaningfully in the database.
  ==>
