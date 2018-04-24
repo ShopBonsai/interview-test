@@ -28,25 +28,48 @@ class Shop extends Component {
 
   goBack = () => this.props.history.push("/");
 
+  // productInfo is an object that looks like { id, image, name, price, quantity, selected }
+  // that may or may not contain other keys that are disregarded by the method
+  // where each key up to quantity maps directly to the props the product has received
+  // and selected is the state representing the controlled component
+  addToCart = ( productInfo ) => {
+    Meteor.call("carts.addCartItem", productInfo, (error, response) => {
+      if (error) {
+        // need some testing to have better error handling
+        // don't see the point of setting to state, really only
+        // need a one time alert telling the user what went wrong
+        // instead of changing the state of the application
+        console.log(error);
+        alert(error);
+      } else {
+        alert(productInfo.name + " was added to cart");
+      }
+    });
+  }
+
   render() {
     const { merchants, error } = this.state;
 
+    // takes each product sold by merchant and assiciates a brand
+    // yields and array of that merchant's items
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
         ...product,
         brand: brands[belongsToBrand]
       }));
 
+    // takes everything in state and passes each merchant's data
+    // into getProductsFromMerchant and spreads into 1 array
     const products = merchants.reduce(
       (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
       []
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="Shop" history goBack={this.goBack}>
         <div className="shop-page">
-          {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+          {products.map((props) =>
+            <Product {...props} key={props.id} addToCart={this.addToCart} />
           )}
         </div>
       </Page>

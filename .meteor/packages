@@ -20,3 +20,5 @@ autopublish@1.0.7             # Publish all data to the clients (for prototyping
 insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
 juliancwirko:postcss          # Adds css post processing for vendor prefixes (for example)
 less@2.7.9                    # Adds less-language support
+accounts-ui
+accounts-password

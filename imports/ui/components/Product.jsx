@@ -1,12 +1,27 @@
 // Framework
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 
 // Components
-import Button from "../components/Button.jsx";
+import BuyForm from "../components/BuyForm.jsx";
 
-class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
+class Product extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      selected: "1"
+    }
+  }
+
+  handleSelect = (e) => {
+    this.setState({
+      selected: e.target.value
+    });
+  }
+
+  handleBuyProduct = (e) => {
+    e.preventDefault();
+    this.props.addToCart({...this.props, selected: parseInt(this.state.selected)});
   };
 
   render() {
@@ -17,7 +32,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity
     } = this.props;
 
     const info = [
@@ -45,9 +61,7 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+          <BuyForm quantity={quantity} handleBuyProduct={this.handleBuyProduct} handleSelect={this.handleSelect} selected={this.state.selected} />
         </div>
       </div>
     );
