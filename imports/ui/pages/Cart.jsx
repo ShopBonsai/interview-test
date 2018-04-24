@@ -30,7 +30,7 @@ class Cart extends Component {
     const order = {
       CreatedAt:moment().format(),
       totalCost,
-      productsInCart:productsInCart.map(({quantityInCart,name,id,price})=>({
+      products:productsInCart.map(({quantityInCart,name,id,price})=>({
         quantity:quantityInCart,
         name,id,price
       }))

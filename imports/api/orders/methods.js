@@ -14,7 +14,7 @@ import { Orders } from "./collection";
 export const getLastOrder = () => {
   const options = { sort: { createdAt: -1 }, limit: 1 };
   try {
-    const lastOrderCursor = Products.find({}, options);
+    const lastOrderCursor = Orders.find({}, options);
     const lastOrder = lastOrderCursor.fetch()[0];
     return lastOrder;
   } catch (error) {
@@ -33,18 +33,62 @@ export const getLastOrder = () => {
  */
 export const getOrderById = orderId => {
   try {
-    return Products.findOne(orderId);
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
+      `Could not find or fetch order with order id: '${orderId}'`,
       error
     );
   }
 };
 
+export const createOrder = (order) => {
+  try {
+    return Orders.insert(order);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:createOrder.createError`,
+      `Could not create a new order`,
+      error
+    )
+  }
+}
+
+export const getOrders = () => {
+  let ordersData;
+  debugger;
+  try {
+    ordersData = Orders.find({}).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrders.findOrFetchError`,
+      `Could not find or fetch orders`,
+      error
+    );
+  }
+  return ordersData;
+};
+
+export const removeAllOrders = () => {
+  let ordersData;
+  try {
+    ordersData = Orders.remove({});
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:removeAllOrders.Error`,
+      `Could not remove orders`,
+      error
+    );
+  }
+  return ordersData;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.createOrder" : createOrder,
+  "orders.getOrders" : getOrders,
+  "orders.removeAllOrders" : removeAllOrders
 });

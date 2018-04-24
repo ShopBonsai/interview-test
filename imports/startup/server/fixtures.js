@@ -13,4 +13,5 @@ Meteor.startup(() => {
       })
     );
   }
+  Orders.remove({});
 });

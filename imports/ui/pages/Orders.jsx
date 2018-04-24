@@ -11,7 +11,7 @@ import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 // import Product from "../components/Product";
 
-import {getOrders} from "../reducers/orders";
+import {getOrders,removeAllOrders} from "../reducers/orders";
 
 class Shop extends Component {
   constructor(props) {
@@ -25,23 +25,24 @@ class Shop extends Component {
   goBack = () => this.props.history.push("/");
 
   render() {
-    const { orders, error } = this.props.orders;
-    console.log(orders);
-
+    const {orders} = this.props.orders;
     return (
-      <Page pageTitle="shop" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"}>
+      <Page pageTitle="orders" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"}>
         <div className="shop-page">
-          list of orders
           {/*
-          {products.map(({ id, ...product }) =>
-            <Product {...product} 
-              key={id} 
-              onPlusClick={()=>{this.props.updateCart(id,1)}}
-              onMinusClick={()=>{this.props.updateCart(id,-1)}}
-              quantityInCart={this.props.currentCart[id]}
-              />
-          )}
+          <button onClick={this.props.removeAllOrders} >remove orders</button>
           */}
+          list of orders
+          {orders.map(({ id, products, CreatedAt }) =>
+            <div key={id}>
+              <h2>{CreatedAt}</h2>
+              <ul>
+              {products.map(p=>(
+                <li key={p.id}>{`${p.name} | ${p.quantity}`}</li>
+              ))}
+              </ul>
+            </div>
+          )}
         </div>
       </Page>
     );
@@ -53,7 +54,8 @@ mapStateToProps = (state) => ({
 })
 
 mapDispatchToProps = (dispatch) => bindActionCreators({
-  getOrders
+  getOrders,
+  removeAllOrders
 },dispatch)
 
 export default connect(  

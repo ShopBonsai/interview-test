@@ -7,19 +7,49 @@ import {
 } from "react-router-dom";
 
 // Pages
-import Shop from "./pages/Shop.jsx";
-import Home from "./pages/Home.jsx";
-import Cart from "./pages/Cart.jsx";
-import Orders from "./pages/Orders.jsx";
+import Shop from "./pages/Shop";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import Orders from "./pages/Orders";
+import Profile from "./pages/Profile";
 
-const Routes = () =>
-  <Router history={browserHistory}>
-    <div>
-      <Route exact path="/" component={Home} />
-      <Route path="/shop" component={Shop} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/orders" component={Orders} />
-    </div>
-  </Router>;
+import { Meteor } from "meteor/meteor";
 
-export default Routes;
+import {connect} from 'react-redux-meteor';
+
+import { bindActionCreators } from 'redux'
+import {getMerchants} from "./reducers/merchants";
+
+class Routes extends React.Component {
+  constructor(props){
+  	super(props);
+  }
+
+  componentWillMount(){
+  	this.props.getMerchants();
+  }
+
+  render(){
+  	return(
+	  <Router history={browserHistory}>
+	    <div>
+	      <Route exact path="/" component={Home} />
+	      <Route path="/shop" component={Shop} />
+	      <Route path="/cart" component={Cart} />
+	      <Route path="/orders" component={Orders} />
+	      <Route path="/Profile" component={Profile} />
+	    </div>
+	  </Router>
+	)	
+  }
+} 
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getMerchants
+},dispatch)
+
+export default connect( 
+  null,
+  null,
+  mapDispatchToProps
+)(Routes);

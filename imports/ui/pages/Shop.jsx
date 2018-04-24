@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // import connectMeteor from 'react-redux-meteor-data';
-// import {connect} from 'react-redux-meteor';
+import {connect} from 'react-redux-meteor';
 
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 
 // Components
@@ -16,17 +16,12 @@ import Product from "../components/Product";
 
 import {updateCart} from "../reducers/orders";
 import {getMerchants} from "../reducers/merchants";
-// import {getMerchants} from "../../api/merchants/methods";
+// import {Merchants} from "../../api/merchants/collection";
 
 
 class Shop extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    const {merchants} = this.props.merchants;
-    merchants.length == 0 ? this.props.getMerchants() : null;
   }
 
   goBack = () => this.props.history.push("/");
@@ -71,6 +66,13 @@ orders = {
 }
 */
 
+const mapTrackerToProps = (state, props) => {
+  if (Meteor.subscribe('merchants').ready()) {
+    return { merchants: { merchants: Merchants.find().fetch(),error:false} };
+  }
+  return { merchants: {merchants:[],error:false} };
+};
+
 const mapStateToProps = (state) => ({
   merchants:state.merchants,
   orders:state.orders.orders,
@@ -83,7 +85,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   getMerchants
 },dispatch)
 
-export default connect( 
+export default connect(
+  //mapTrackerToProps, 
+  null,
   mapStateToProps,
   mapDispatchToProps
 )(Shop);

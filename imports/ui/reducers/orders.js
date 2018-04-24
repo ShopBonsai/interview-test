@@ -62,13 +62,22 @@ function orders(state = initialState, action) {
 export default orders
 
 
-export const createOrder = (order,goBack) => {
+export const createOrder = (order) => {
     return dispatch => {
-      dispatch({
-        type:CREATE_ORDER,
-        payload:order
+      Meteor.call("orders.createOrder", order, (error, id) => {
+        dispatch({
+          type:CREATE_ORDER,
+          payload:{...order,id}
+        })
       })
-      goBack();
+    }
+}
+
+export const removeAllOrders = (order) => {
+    return dispatch => {
+      Meteor.call("orders.removeAllOrders", (error, response) => {
+        console.log(response)
+      })
     }
 }
 
@@ -86,6 +95,9 @@ export const getOrders = () => {
             type:GET_ORDERS_ERROR
           })
         } else {
+          response = response.map(({_id,...order})=>({
+            ...order,id:_id
+          }))
           dispatch({
             type:SET_ORDERS,
             payload:response
