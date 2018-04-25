@@ -22,7 +22,6 @@ export const getProfile = (userId) => {
 
 export const updateProfile = (profile) => {
   const userId = Meteor.userId();
-  profile ={...profile};
   try {
     return Profile.update({userId},profile,{upsert:true});
   } catch (error) {

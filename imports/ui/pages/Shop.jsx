@@ -16,12 +16,14 @@ import Product from "../components/Product";
 
 import {updateCart} from "../reducers/orders";
 import {getMerchants} from "../reducers/merchants";
+import {toggleFavorite} from "../reducers/auth";
 // import {Merchants} from "../../api/merchants/collection";
 
 
 class Shop extends Component {
   constructor(props) {
     super(props);
+    this.state = {filter:{}};
   }
 
   goBack = () => this.props.history.push("/");
@@ -60,13 +62,18 @@ class Shop extends Component {
     return (
       <Page pageTitle="shop" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"} footer={this.footer}>
         <div className="shop-page">
-          {products.length > 0 ? products.map(({ id, ...product }) =>
-            <Product {...product} 
+          {products.length > 0 ? products.map(({ id, ...product }) => {
+            const isFavorite = this.props.favorites.includes(id);
+            return ( <Product {...product} 
               key={id} 
               onPlusClick={()=>{this.props.updateCart(id,1)}}
               onMinusClick={()=>{this.props.updateCart(id,-1)}}
               quantityInCart={this.props.currentCart[id]}
+              onFavoriteClick={()=>{this.props.toggleFavorite(id)}}
+              isFavorite={isFavorite}
               />
+              )
+          }
           ) : <h1>Loading...</h1>}
         </div>
       </Page>
@@ -93,12 +100,14 @@ const mapStateToProps = (state) => ({
   merchants:state.merchants,
   orders:state.orders.orders,
   currentCart:state.orders.cart,
-  progress:state.orders.progress
+  progress:state.orders.progress,
+  favorites:state.auth.profile.favorites
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   updateCart,
-  getMerchants
+  getMerchants,
+  toggleFavorite
 },dispatch)
 
 export default connect(

@@ -4,6 +4,7 @@ import React, { PureComponent } from "react";
 // Components
 import Button from "../components/Button.jsx";
 import Quantity from "../components/Quantity.jsx";
+import Favorite from "../components/Favorite.jsx";
 
 class Product extends PureComponent {
 
@@ -13,6 +14,11 @@ class Product extends PureComponent {
 
   onPlusClick = (item) => {
     this.props.onPlusClick();
+  }
+
+  onFavoriteClick= (item) => {
+    console.log(item)
+    this.props.onFavoriteClick(item.id)
   }
 
   render() {
@@ -51,6 +57,7 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
+          <Favorite onClick={()=>{this.onFavoriteClick(this.props.id)}} isFavorite={this.props.isFavorite} />
           <Quantity onPlusClick={this.onPlusClick} onMinusClick={this.onMinusClick} quantityInCart={this.props.quantityInCart}  />
         </div>
       </div>

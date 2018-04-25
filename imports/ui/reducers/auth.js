@@ -5,6 +5,7 @@ export const SET_USER = 'auth/SET_USER'
 export const UNSET_USER = 'auth/UNSET_USER'
 
 export const SET_PROFILE = 'auth/SET_PROFILE'
+export const SET_FAVORITES = 'auth/SET_FAVORITES'
 export const ERROR = 'auth/ERROR'
 
 const initialState = {
@@ -12,7 +13,9 @@ const initialState = {
   userId:null,
   emails:[],
   error:null,
-  profile:{}
+  profile:{
+    favorites:[]
+  }
 }
 
 function auth(state = initialState, action) {  
@@ -22,7 +25,7 @@ function auth(state = initialState, action) {
       {
         const userId = action.payload._id;
         const emails = action.payload.emails;
-        let s = {authenticated:true, userId,emails, error:null};
+        let s = {authenticated:true, userId,emails, error:null,profile:{favorites:{}}};
         return s;
       }
     case SET_PROFILE:
@@ -30,9 +33,14 @@ function auth(state = initialState, action) {
       let s = {...state, profile:action.payload};
       return s;
     }
+    case SET_FAVORITES:
+    {
+      let s = {...state, profile:{favorites:action.payload}};
+      return s;
+    }
     case UNSET_USER:
       {
-        let s = {authenticated:false, user:{}, error:null};
+        let s = {profile:{favorites:{}},authenticated:false, user:{}, error:null};
         return s;
       }
     case ERROR:
@@ -78,16 +86,16 @@ export const logoutUser = () => {
 export const registerUser = (user) => {
     return dispatch => {
       Accounts.createUser(user,
-      function(error) {
-        if (error) {
-          console.log("there was an error: " + error.reason);
-          dispatch({
-            type:ERROR,
-            payload:error.reason
-          })
-        } else { 
-          console.log("I just registered.")
-        };
+        function(error) {
+          if (error) {
+            console.log("there was an error: " + error.reason);
+            dispatch({
+              type:ERROR,
+              payload:error.reason
+            })
+          } else { 
+            console.log("I just registered.")
+          };
       })
     }
 }
@@ -104,6 +112,34 @@ export const getProfile = () => {
           dispatch({
             type:SET_PROFILE,
             payload:response
+          })
+        }
+      });
+  } 
+}
+
+export const toggleFavorite = (favoriteId) => {
+  return (dispatch,getstate) => {
+    let profile = getstate().auth.profile;
+    let favorites = [...profile.favorites];
+    const index = favorites.findIndex(fId=>fId==favoriteId);
+    if(index > -1)
+      favorites.splice(index,1);
+    else
+      favorites.push(favoriteId);
+
+    debugger;
+
+    Meteor.call("profile.updateProfile",  (error, response) => {
+        if (error) {
+          dispatch({
+            type:ERROR,
+            payload:error.reason
+          })
+        } else {
+          dispatch({
+            type:SET_FAVORITES,
+            payload:favorites
           })
         }
       });
