@@ -19,8 +19,7 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      merchants: [],
-      error: null
+      message:""
     };
   }
 
@@ -36,7 +35,7 @@ class Cart extends Component {
       }
       this.props.createOrder(order)
     } else {
-      alert("Please login first.")
+      this.setState({message:"Please login first."})
     }
 
   }
@@ -70,15 +69,15 @@ class Cart extends Component {
 
   goBack = () => this.props.history.push("/shop");
 
-  createOrderbutton = (productsInCart,totalCost) => {
+  createOrderbutton = (productsInCart,totalCost, userId) => {
     return (
-      <Button block onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button>
+      <Button block disabled={!userId} onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button>
       )
   }
 
   render() {
 
-    let {currentCart,merchants} = this.props;
+    let {currentCart,merchants,userId} = this.props;
 
     const getProductsFromMerchantInCart = ({ products, brands }) =>
       products
@@ -101,9 +100,9 @@ class Cart extends Component {
 
     return (
       <Page pageTitle="cart" history goBack={this.goBack} 
-      footer={() => this.createOrderbutton(productsInCart,totalCost)}>
+      footer={() => this.createOrderbutton(productsInCart,totalCost,userId)}>
         <div className="shop-page">
-          this is the current cart of products, has prices and total and buy button to commit the order.
+          {userId ? null : "Please sign in before you can buy"}
           {productsInCart.map(({ id, ...product }) =>
             <ProductInline {...product} 
               key={id}

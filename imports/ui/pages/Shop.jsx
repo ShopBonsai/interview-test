@@ -47,6 +47,7 @@ class Shop extends Component {
 
   render() {
     const { merchants, error } = this.props.merchants;
+    const {userId, favorites, updateCart, currentCart,toggleFavorite} = this.props;
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
@@ -63,14 +64,15 @@ class Shop extends Component {
       <Page pageTitle="shop" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"} footer={this.footer}>
         <div className="shop-page">
           {products.length > 0 ? products.map(({ id, ...product }) => {
-            const isFavorite = this.props.favorites.includes(id);
+            const isFavorite = favorites.includes(id);
             return ( <Product {...product} 
               key={id} 
-              onPlusClick={()=>{this.props.updateCart(id,1)}}
-              onMinusClick={()=>{this.props.updateCart(id,-1)}}
-              quantityInCart={this.props.currentCart[id]}
-              onFavoriteClick={()=>{this.props.toggleFavorite(id)}}
+              onPlusClick={()=>{updateCart(id,1)}}
+              onMinusClick={()=>{updateCart(id,-1)}}
+              quantityInCart={currentCart[id]}
+              onFavoriteClick={()=>{toggleFavorite(id)}}
               isFavorite={isFavorite}
+              authenticated={userId ? true : false}
               />
               )
           }
@@ -101,7 +103,8 @@ const mapStateToProps = (state) => ({
   orders:state.orders.orders,
   currentCart:state.orders.cart,
   progress:state.orders.progress,
-  favorites:state.auth.profile.favorites
+  favorites:state.auth.profile.favorites,
+  userId:state.auth.userId
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

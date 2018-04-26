@@ -8,6 +8,10 @@ import Favorite from "../components/Favorite.jsx";
 
 class Product extends PureComponent {
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isFavorite !== this.props.isFavorite || nextProps.quantityInCart !== this.props.quantityInCart;
+  }
+
   onMinusClick = (item) => {
     this.props.onMinusClick();
   }
@@ -34,7 +38,8 @@ class Product extends PureComponent {
       onPlusClick,
       onFavoriteClick,
       isFavorite,
-      quantityInCart
+      quantityInCart,
+      authenticated
     } = this.props;
 
     const info = [
@@ -62,7 +67,7 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Favorite onClick={onFavoriteClick} isFavorite={isFavorite} />
+          {authenticated ? <Favorite onClick={onFavoriteClick} isFavorite={isFavorite}  /> : null }
           <Quantity onPlusClick={onPlusClick} onMinusClick={onMinusClick} quantityInCart={quantityInCart}  />
         </div>
       </div>

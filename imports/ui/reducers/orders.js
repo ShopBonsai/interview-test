@@ -103,7 +103,6 @@ export const updateCart = (id,quantity) => {
     return (dispatch,getState) => {
       const c = getState().orders.cart;
       let cart = {...c}
-
       if(cart[id]){
         const quantityOld = cart[id];
         const quantityNew = quantityOld + quantity;
@@ -112,13 +111,17 @@ export const updateCart = (id,quantity) => {
       else {
         cart[id] = quantity > 0 ? quantity : null;
       }
+      if( getState().auth.userId ){
 
-      Meteor.call("orders.createOrUpdateCart", cart ,(error, response) => {
-        if (error) {
-          console.log("error",error)
-        } else {
-          dispatch({type:UPDATE_CART,payload:response.products})
-        }
-      });
+        Meteor.call("orders.createOrUpdateCart", cart ,(error, response) => {
+          if (error) {
+            console.log("error",error)
+          } else {
+            dispatch({type:UPDATE_CART,payload:response.products})
+          }
+        });
+      } else {
+        dispatch({type:UPDATE_CART,payload:cart})
+      }
     }
 }

@@ -7,7 +7,6 @@ export default class OrderDetails extends React.PureComponent {
   }
   render(){
     const {products,totalCost} = this.props
-    debugger;
     return (
         <Container>
         <Table responsive>
