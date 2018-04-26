@@ -25,7 +25,7 @@ function auth(state = initialState, action) {
       {
         const userId = action.payload._id;
         const emails = action.payload.emails;
-        let s = {authenticated:true, userId,emails, error:null,profile:{favorites:{}}};
+        let s = {authenticated:true, userId,emails, error:null, profile:{favorites:[]}};
         return s;
       }
     case SET_PROFILE:
@@ -40,7 +40,7 @@ function auth(state = initialState, action) {
     }
     case UNSET_USER:
       {
-        let s = {profile:{favorites:{}},authenticated:false, user:{}, error:null};
+        let s = {profile:{favorites:[]},authenticated:false, user:{}, error:null};
         return s;
       }
     case ERROR:
@@ -72,6 +72,19 @@ export const loginUser = ({email,password}) => {
           type:SET_USER,
           payload:user
         })
+        Meteor.call("profile.getProfile", (error, response) => {
+        if (error) {
+          dispatch({
+            type:ERROR,
+            payload:error.reason
+          })
+        } else {
+          dispatch({
+            type:SET_PROFILE,
+            payload:response
+          })
+        }
+        });
       }
     });
     }
@@ -123,14 +136,9 @@ export const toggleFavorite = (favoriteId) => {
     let profile = getstate().auth.profile;
     let favorites = [...profile.favorites];
     const index = favorites.findIndex(fId=>fId==favoriteId);
-    if(index > -1)
-      favorites.splice(index,1);
-    else
-      favorites.push(favoriteId);
-
-    debugger;
-
-    Meteor.call("profile.updateProfile",  (error, response) => {
+    index > -1 ? (favorites.splice(index,1)) : (favorites.push(favoriteId));
+    profile = {...profile,favorites}
+    Meteor.call("profile.updateProfile", profile, (error, response) => {
         if (error) {
           dispatch({
             type:ERROR,
@@ -139,7 +147,7 @@ export const toggleFavorite = (favoriteId) => {
         } else {
           dispatch({
             type:SET_FAVORITES,
-            payload:favorites
+            payload:response.favorites
           })
         }
       });

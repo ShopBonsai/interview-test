@@ -39,18 +39,7 @@ function orders(state = initialState, action) {
 
     case UPDATE_CART: // id and quantity
       {
-        const {id,quantity} = action.payload;
-        let cart = {...state.cart};
-        if(cart[id]){
-          const quantityOld = cart[id];
-          const quantityNew = quantityOld + quantity;
-          quantityNew > 0 ? cart[id] = quantityNew : cart[id]=null;
-        } 
-        else {
-          cart[id] = quantity > 0 ? quantity : null;
-        }
-
-        let s = {...state,cart};
+        let s = {...state,cart:action.payload};
         return s;
       }
     case '':
@@ -92,6 +81,7 @@ export const progressOrder = () => {
 export const getOrders = () => {
     return (dispatch,getState) => {
       Meteor.call("orders.getOrders", (error, response) => {
+        console.log(error, response)
         if (error) {
           dispatch({
             type:GET_ORDERS_ERROR
@@ -110,11 +100,25 @@ export const getOrders = () => {
 }
 
 export const updateCart = (id,quantity) => {
-    return dispatch => {
-      console.log("updateCart dispatched: ")
-      dispatch({
-        type:UPDATE_CART,
-        payload:{id,quantity}
-      })
+    return (dispatch,getState) => {
+      const c = getState().orders.cart;
+      let cart = {...c}
+
+      if(cart[id]){
+        const quantityOld = cart[id];
+        const quantityNew = quantityOld + quantity;
+        quantityNew > 0 ? cart[id] = quantityNew : cart[id]=null;
+      } 
+      else {
+        cart[id] = quantity > 0 ? quantity : null;
+      }
+
+      Meteor.call("orders.createOrUpdateCart", cart ,(error, response) => {
+        if (error) {
+          console.log("error",error)
+        } else {
+          dispatch({type:UPDATE_CART,payload:response.products})
+        }
+      });
     }
 }

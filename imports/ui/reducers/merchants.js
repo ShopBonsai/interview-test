@@ -39,6 +39,7 @@ export const getMerchants = () => {
             type:GET_MERCHANTS_ERROR
           })
         } else {
+          console.log(response)
           dispatch({
             type:SET_MERCHANTS,
             payload:response

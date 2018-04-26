@@ -43,8 +43,9 @@ export const getOrderById = orderId => {
   }
 };
 
+
 export const createOrder = (order) => {
-  order = {...order,userId:Meteor.userId()}
+  order = {...order,userId:Meteor.userId(),pending:false}
   try {
     return Orders.insert(order);
   } catch (error) {
@@ -60,7 +61,7 @@ export const getOrders = () => {
   const userId = Meteor.userId();
   let ordersData;
   try {
-    ordersData = Orders.find({userId}).fetch();
+    ordersData = Orders.find({userId,pending:false}).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrders.findOrFetchError`,
@@ -85,11 +86,29 @@ export const removeAllOrders = () => {
   return ordersData;
 };
 
+// create or update the cart
+export const createOrUpdateCart = async (cart) => {
+  const products = {...cart}
+  let updatedCart,updateCart
+  try {
+    updateCart = await Orders.update({userId:Meteor.userId(),pending:true},{$set:{products}},{upsert:true});
+    updatedCart = await Orders.findOne({userId:Meteor.userId(),pending:true});
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:createOrder.createError`,
+      `Could not create a new order`,
+      error
+    )
+  }
+  return updatedCart;
+}
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
   "orders.getOrderById": getOrderById,
   "orders.createOrder" : createOrder,
   "orders.getOrders" : getOrders,
-  "orders.removeAllOrders" : removeAllOrders
+  "orders.removeAllOrders" : removeAllOrders,
+  "orders.createOrUpdateCart" : createOrUpdateCart
 });

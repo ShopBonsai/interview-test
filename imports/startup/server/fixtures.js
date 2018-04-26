@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { Merchants } from "../../api/merchants/collection.js";
-import { Orders } from "../../api/orders/collection.js";
+import { Profiles } from "../../api/profiles/collection.js";
 import mockMerchantData from "./mockMerchantData.json";
 
 Meteor.startup(() => {
@@ -13,4 +13,5 @@ Meteor.startup(() => {
       })
     );
   }
+  Profiles.remove({});
 });

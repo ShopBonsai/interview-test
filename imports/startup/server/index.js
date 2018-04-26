@@ -1,2 +1,3 @@
 import "./registerApis";
-// import "./fixtures";
+import "./fixtures";
+import "./fixtures";

@@ -29,7 +29,12 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      onMinusClick,
+      onPlusClick,
+      onFavoriteClick,
+      isFavorite,
+      quantityInCart
     } = this.props;
 
     const info = [
@@ -57,8 +62,8 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Favorite onClick={()=>{this.onFavoriteClick(this.props.id)}} isFavorite={this.props.isFavorite} />
-          <Quantity onPlusClick={this.onPlusClick} onMinusClick={this.onMinusClick} quantityInCart={this.props.quantityInCart}  />
+          <Favorite onClick={onFavoriteClick} isFavorite={isFavorite} />
+          <Quantity onPlusClick={onPlusClick} onMinusClick={onMinusClick} quantityInCart={quantityInCart}  />
         </div>
       </div>
     );
