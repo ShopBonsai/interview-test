@@ -23,5 +23,5 @@ export const getFavorites = userId => {
 
 // Register meteor methods.
 Meteor.methods({
-  favorites: getFavorites,
+  favorites: getFavorites
 });

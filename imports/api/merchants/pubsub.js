@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { Merchants } from "./collection";
 
-Meteor.publish('merchants', function () {
+Meteor.publish('merchants', () => {
   return Merchants.find({});
 });
