@@ -29,7 +29,8 @@ class Shop extends Component {
     const {orders} = this.props.orders;
     const ordersByDate = orders.reduce((cc,o)=> {
       const date = moment(o.createAt).format("MMM-Do-YY");
-      cc[date] ?  (cc[date].push(o) ) : (cc[date]=[o]) ;
+
+      cc[date] ?  [...cc[date],o] : (cc[date]=[o]) ;
       return cc;
       }
       ,{})

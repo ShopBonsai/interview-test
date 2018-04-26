@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 
 class Register extends Component {
   submit = ({email,password,password2}) => {
-    console.log(email,password,password2);
     this.props.registerUser({email,password,password2});
   } 
 

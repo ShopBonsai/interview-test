@@ -18,7 +18,7 @@ const initialState = {
   }
 }
 
-function auth(state = initialState, action) {  
+const auth = (state = initialState, action) => {  
   switch (action.type) {
     // get all the orders that have been done by this user from the database
     case SET_USER:
@@ -58,9 +58,8 @@ export default auth
 
 export const loginUser = ({email,password}) => {
     return dispatch => {
-      Meteor.loginWithPassword(email, password, function(error) {
+      Meteor.loginWithPassword(email, password, (error) => {
       if (error) {
-        console.log("There was an error:" + error.reason);
         dispatch({
           type:ERROR,
           payload:error.reason
@@ -100,16 +99,13 @@ export const logoutUser = () => {
 export const registerUser = (user) => {
     return dispatch => {
       Accounts.createUser(user,
-        function(error) {
+        (error)=> {
           if (error) {
-            console.log("there was an error: " + error.reason);
             dispatch({
               type:ERROR,
               payload:error.reason
             })
-          } else { 
-            console.log("I just registered.")
-          };
+          }
       })
     }
 }
@@ -135,9 +131,9 @@ export const getProfile = () => {
 export const toggleFavorite = (favoriteId) => {
   return (dispatch,getstate) => {
     let profile = getstate().auth.profile;
-    let favorites = [...profile.favorites];
-    const index = favorites.findIndex(fId=>fId==favoriteId);
-    index > -1 ? (favorites.splice(index,1)) : (favorites.push(favoriteId));
+    let favoritesArray = [...profile.favorites];
+    const index = favoritesArray.findIndex(fId=>fId==favoriteId);
+    const favorites = index > -1 ? ([...favoritesArray.slice(0,index),...favoritesArray.slice(index+1,favoritesArray.length) ]) : ([...favoritesArray, favoriteId]);
     profile = {...profile,favorites}
     Meteor.call("profile.updateProfile", profile, (error, response) => {
         if (error) {

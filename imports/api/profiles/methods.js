@@ -9,7 +9,6 @@ import { Merchants } from "../merchants/collection"
 
 export const getProfile = async () => {
   const userId = Meteor.userId();
-  console.log(userId);
   let profileData;
   try {
     profileData =  await Profiles.findOne({userId});
@@ -42,9 +41,6 @@ export const updateProfile = async (profile) => {
       error
     )
   }
-  console.log("######################")
-  console.log("updatedProfileData:",updatedProfileData)
-  console.log("######################")
   return updatedProfileData;
 }
 

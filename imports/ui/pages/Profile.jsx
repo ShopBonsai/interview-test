@@ -24,7 +24,6 @@ class Profile extends Component {
 
   render() {
     const {profile,userId,emails} = this.props;
-    console.log(this.props)
     return (
       <Page pageTitle="profile" history goBack={this.goBack}>
         <div className="shop-page">

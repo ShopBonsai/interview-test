@@ -16,7 +16,7 @@ const initialState = {
 }
 
 
-function orders(state = initialState, action) {  
+const orders = (state = initialState, action) => {  
   switch (action.type) {
     // get all the orders that have been done by this user from the database
     case SET_ORDERS:
@@ -67,21 +67,14 @@ export const createOrder = (order) => {
 export const removeAllOrders = (order) => {
     return dispatch => {
       Meteor.call("orders.removeAllOrders", (error, response) => {
-        console.log(response)
+ 
       })
-    }
-}
-
-export const progressOrder = () => {
-    return dispatch => {
-      console.log("progressOrder dispatched")
     }
 }
 
 export const getOrders = () => {
     return (dispatch,getState) => {
       Meteor.call("orders.getOrders", (error, response) => {
-        console.log(error, response)
         if (error) {
           dispatch({
             type:GET_ORDERS_ERROR
@@ -115,7 +108,6 @@ export const updateCart = (id,quantity) => {
 
         Meteor.call("orders.createOrUpdateCart", cart ,(error, response) => {
           if (error) {
-            console.log("error",error)
           } else {
             dispatch({type:UPDATE_CART,payload:response.products})
           }

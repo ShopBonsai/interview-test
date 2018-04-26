@@ -9,7 +9,7 @@ const initialState = {
 }
 
 
-function merchants(state = initialState, action) {  
+const merchants = (state = initialState, action) => {  
   switch (action.type) {
     // get all the orders that have been done by this user from the database
     case SET_MERCHANTS:
@@ -39,7 +39,6 @@ export const getMerchants = () => {
             type:GET_MERCHANTS_ERROR
           })
         } else {
-          console.log(response)
           dispatch({
             type:SET_MERCHANTS,
             payload:response
