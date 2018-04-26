@@ -8,8 +8,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
 // Components
-import { Alert, Row, Col, Button } from "reactstrap";
 import Page from "../components/Page.jsx";
+import Button from "../components/Button";
 import ProductInline from "../components/ProductInline";
 // import Button from "../components/Button";
 
@@ -40,38 +40,11 @@ class Cart extends Component {
 
   }
 
-  footer = () => {
-    return (
-      <Container>
-      <Row style={{textAlign:"center"}}>
-        <Col style={{padding:"0"}}>
-          <Button
-            style={{width:"100%"}}
-            onClick={()=>{this.props.history.push("/cart")}}
-          >
-            Cart
-          </Button>
-        </Col>
-        <Col style={{textAlign:"center"}}>
-          Total
-        </Col>
-        <Col style={{padding:"0"}}>
-          <Button
-            style={{width:"100%"}}
-            onClick={()=>{this.createOrder}}
-          >
-            Buy
-          </Button>
-        </Col>
-      </Row>
-      </Container>  
-  )}
-
   goBack = () => this.props.history.push("/shop");
 
   createOrderbutton = (productsInCart,totalCost, userId) => {
     return (
-      <Button block disabled={!userId} onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button>
+      <Button block disabled={!userId} className="not-bordered" onClick={()=>{this.createOrder(productsInCart,totalCost)}}>Buy (${totalCost})</Button>
       )
   }
 

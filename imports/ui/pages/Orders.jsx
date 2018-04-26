@@ -9,7 +9,6 @@ import moment from "moment"
 
 
 // Components
-import { Alert, Row, Col, Table } from "reactstrap";
 import Page from "../components/Page.jsx";
 import OrderDetails from "../components/OrderDetails"
 

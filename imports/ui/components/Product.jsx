@@ -21,7 +21,6 @@ class Product extends PureComponent {
   }
 
   onFavoriteClick= (item) => {
-    console.log(item)
     this.props.onFavoriteClick(item.id)
   }
 

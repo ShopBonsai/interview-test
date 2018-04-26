@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 
 import {getProfile} from '../reducers/auth'

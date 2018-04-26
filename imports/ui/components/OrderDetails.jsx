@@ -1,5 +1,4 @@
 import React from "react";
-import {Table,Container} from "reactstrap";
 
 export default class OrderDetails extends React.PureComponent {
   constructor(props){

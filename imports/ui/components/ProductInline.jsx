@@ -33,7 +33,7 @@ class ProductInline extends PureComponent {
     ];
 
     return (
-      <div className="product">
+      <div className="product" style={{width:"100%"}}>
         <div className="details">
           <div className="info">
             {info.map(({ label, value }) =>

@@ -67,7 +67,6 @@ export const loginUser = ({email,password}) => {
         })
       } else {
         const user = Meteor.user();
-        console.log(user);
         dispatch({
           type:SET_USER,
           payload:user
@@ -92,7 +91,9 @@ export const loginUser = ({email,password}) => {
 
 export const logoutUser = () => {
     return dispatch => {
-      console.log("logging out.")
+      dispatch({
+        type:UNSET_USER
+      })
     }
 }
 

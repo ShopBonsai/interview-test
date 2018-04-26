@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux'
 
 
 // Components
-import { Alert, Row, Col, ButtonGroup, Button, Container } from "reactstrap";
+import Button from '../components/Button'
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
@@ -30,19 +30,16 @@ class Shop extends Component {
 
   footer = () => {
       return (
-        <Container>
-        <Row style={{textAlign:"center"}}>
-          <Col style={{padding:"0"}}>
+        <div className="block" style={{textAlign:"center"}}>
             <Button
               block
+              className="not-bordered"
               style={{width:"100%"}}
               onClick={()=>{this.props.history.push("/cart")}}
             >
               Cart
             </Button>
-          </Col>
-        </Row>
-        </Container>  
+        </div>  
       )}
 
   render() {

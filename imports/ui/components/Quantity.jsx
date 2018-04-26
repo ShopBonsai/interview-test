@@ -1,34 +1,32 @@
 // Framework
 import React from "react";
-import {Container,Row,Col,ButtonGroup,Button} from 'reactstrap';
+import Button from './Button';
 
 const Quantity = ({ children, onPlusClick, onMinusClick, quantityInCart, className = "",  ...extraProps }) => {
   return (
-  	<Container>
-      	<Row style={{textAlign:"center"}}>
-  		<Col style={{padding:"0"}}>
+  	<div style={{display:"flex",justifyContent:"space-between"}}>
+  		<div style={{flex:1}}>
 	  	<Button
 	      {...extraProps}
-	      style={{width:"100%"}}
+	      block
 	      onClick={onMinusClick}
 	    >
 	      -
 	    </Button>
-  		</Col>
-  		<Col style={{textAlign:"center"}}>
+  		</div>
+  		<div style={{flex:1,textAlign:"center"}}>
 	    {quantityInCart ? quantityInCart : 0}
-  		</Col>
-  		<Col style={{padding:"0"}}>
+  		</div>
+  		<div style={{flex:1}}>
 	    <Button
 	      {...extraProps}
-	      style={{width:"100%"}}
+	      block
 	      onClick={onPlusClick}
 	    >
 	      +
 	    </Button>
-  		</Col>
-  		</Row>
-  	</Container>	
+  		</div>
+  	</div>	
   );
 };
 

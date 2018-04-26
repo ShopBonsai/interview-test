@@ -6,7 +6,6 @@ const Footer = ({footer}) => {
 	return (
 		<footer> {footer ? <FooterContent/> : "Humble Footer"} </footer>
 	)
-
 }
 
 export default Footer;

@@ -3,10 +3,12 @@ import React, { Component } from "react";
 
 // Components
 import Page from "../components/Page.jsx";
-import {Button} from "reactstrap";
+import Button from "../components/Button";
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+
+import {logoutUser} from '../reducers/auth'
 
 class Home extends Component {
   render() {
@@ -21,6 +23,7 @@ class Home extends Component {
               <Button block onClick={() => {this.props.history.push("/shop");}}>Go shopping</Button>
               <Button  block onClick={() => {this.props.history.push("/orders");}}>Orders</Button>
               <Button  block onClick={() => {this.props.history.push("/profile");}}>Profile</Button>
+              <Button block onClick={() => {this.props.logoutUser()}}>Logout</Button>
             </div> :
             <div>
               <Button block onClick={() => {this.props.history.push("/shop");}}>Go shopping</Button>
@@ -39,7 +42,7 @@ mapStateToProps = (state) => ({
 })
 
 mapDispatchToProps = (dispatch) => bindActionCreators({
-
+logoutUser
 },dispatch)
 
 export default connect(  
