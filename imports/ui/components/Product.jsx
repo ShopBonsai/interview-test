@@ -5,8 +5,36 @@ import React, { PureComponent } from "react";
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      orderQuantity: 1
+    };
+  };
+
   handleBuyProduct = () => {
     alert("This button does nothing!");
+  };
+
+  //MARK: handle purchase quantity of each product
+  reduceQuantityNum = () => {
+    let orderQuantity = this.state.orderQuantity - 1;
+    //VALIDATION: order quantity cannot be less than or equal to 0
+    if (orderQuantity > 0) {
+      this.setQuantityToState(orderQuantity);
+    }
+  }
+
+  increaseQuantityNum = () => {
+    let orderQuantity = this.state.orderQuantity + 1;
+    //VALIDATION: cannot order more than stock
+    if (orderQuantity <= this.props.quantity) {
+      this.setQuantityToState(orderQuantity);
+    }
+  }
+
+  setQuantityToState = ( orderQuantity ) => {
+    this.setState(() => ({ orderQuantity: orderQuantity }));
   };
 
   render() {
@@ -17,7 +45,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      quantity
     } = this.props;
 
     const info = [
@@ -44,6 +73,20 @@ class Product extends PureComponent {
                 </div>
               </div>
             )}
+          </div>
+          <div className="quantity">
+            <Button className="quan-btn btn btn-info" onClick={this.reduceQuantityNum}>
+              --
+            </Button>
+            <div className="quantity-num">
+              {this.state.orderQuantity}
+            </div>
+            <Button className="quan-btn btn btn-info" onClick={this.increaseQuantityNum}>
+              +
+            </Button>
+            <div className="max-quantity">
+              {quantity} available
+            </div>
           </div>
           <Button onClick={this.handleBuyProduct}>
             Buy {name}

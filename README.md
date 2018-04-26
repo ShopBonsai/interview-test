@@ -1,8 +1,16 @@
+
+# Leah's test submission
+
+A.) Added ability to select a quantity to buy
+  a.) show the quantity in stock
+  b.) Validation: quantity to buy is greater than or equal to 1 and less than or equal to quantity in stock
+
+
 # Bonsai Interview Test
 
 Welcome to the creative interview test at Shop Bonsai.
 
-This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today). 
+This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today).
 
 Scenario:
 You joined as the new member of a small start-up team. Together we are building a new app to sell cool 3rd party products! So far, the sales team worked tirelessly and managed to acquire over 50 merchants who each have different brands and products offerings. The developers have also been working hard and have created a home page and shop page to welcome the users and display the products of the newly acquired merchants.
