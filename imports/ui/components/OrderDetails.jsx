@@ -8,8 +8,8 @@ export default class OrderDetails extends React.PureComponent {
   render(){
     const {products,totalCost} = this.props
     return (
-        <Container>
-        <Table responsive>
+        <div style={{width:"100%"}} className="order-details">
+        <table style={{width:"100%"}}>
           <thead>
             <tr>
               <th>Product</th>
@@ -18,21 +18,21 @@ export default class OrderDetails extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-            {products.map( p => {
+            {products.map( (p,i) => {
              return (
-                <tr key={p.name}>
+                <tr key={i}>
                   <td>{p.name}</td>
-                  <td style={{width:"40px"}}>{p.quantity}</td>
-                  <td style={{width:"40px"}}>{p.price*p.quantity}</td>
+                  <td style={{width:"60px"}}>{p.quantity}</td>
+                  <td style={{width:"60px"}}>{p.price*p.quantity}</td>
                 </tr>
              )})}
             <tr>
                 <td ></td>
-                <td style={{width:"40px"}}>Total</td>
-                <td style={{width:"40px"}}>{totalCost}</td>
+                <td style={{width:"60px"}}>Total</td>
+                <td style={{width:"60px"}}>{totalCost}</td>
                 </tr>
           </tbody>
-      </Table>
-      </Container>
+      </table>
+      </div>
     )}
 }

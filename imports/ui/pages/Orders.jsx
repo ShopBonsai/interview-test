@@ -34,8 +34,6 @@ class Shop extends Component {
       return cc;
       }
       ,{})
-
-    console.log(ordersByDate);
     return (
       <Page pageTitle="orders" history goBack={this.goBack} goTo={this.goTo} goToTitle={"Cart"}>
         <div style={{width:"100%"}}>
@@ -46,9 +44,11 @@ class Shop extends Component {
                 <h2 style={{textAlign:"center"}}>{key.split("-").join(' ')}</h2>
                 {orders.map(O=>{
                   const products = O.products;
-                  console.log(O)
                   return (
-                    <OrderDetails key={O.id} products={products} totalCost={O.totalCost}/>
+                    <div key={O.id}> 
+                      <OrderDetails products={products} totalCost={O.totalCost}/>
+                      <hr/>
+                    </div>
                   )
                 })}
               </div>
