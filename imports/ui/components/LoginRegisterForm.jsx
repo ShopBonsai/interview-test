@@ -1,7 +1,6 @@
 
 import React from 'react'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
+import Button from './Button' 
 
 export default class LoginRegisterForm extends React.Component {
 	constructor(props){
@@ -9,58 +8,82 @@ export default class LoginRegisterForm extends React.Component {
     this.state = {
       email:"",
       password:"",
-      password2:""
+      password2:"",
+      message:{}
     }
   }
 
-  onChangeInput = (ev)=>{
+  onChangeinput = (ev)=>{
     const {name,value} = ev.target;
-    this.setState({[name]:value});
+    this.setState({[name]:value}); 
   }
 
-  submit = ()=>{
-    this.props.submit(this.state);
+  validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  submit = (ev)=>{
+    ev.preventDefault();
+    const {email,password,password2} = this.state;
+    const {login} = this.props;
+    let message = { 
+      email: this.validateEmail(email) ? null : "please check your email",
+    }
+
+    if(login){
+      message.password = password ? null : "please enter your passsword"
+    } else {
+      message.password = (password2 === password) ? null : "please reenter your password"
+    }
+
+
+    message.email || message.password ? this.setState({message}) : this.props.submit(this.state);
   }
 
   render(){
     const {error,login} = this.props;
+    const {message,email,password,password2} = this.state
     if(login)
   		return (
-          <div>
+          <div className="login-register-form">
             <h2>Login Form</h2> 
-            <h3>{error}</h3>
-            <Form>
-              <FormGroup>
-                <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail" onChange={this.onChangeInput} value={this.state.email} placeholder="with a placeholder" />
-              </FormGroup>
-              <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input type="password" name="password" id="examplePassword" onChange={this.onChangeInput} value={this.state.password} placeholder="password placeholder" />
-              </FormGroup>
-              <Button onClick={this.submit} >Login</Button>
-            </Form>
+          <p className="error">{message.email}</p>
+          <p className="error">{message.password}</p>
+            <form>
+              <div>
+                <label htmlFor="exampleEmail">Email</label>
+                <input type="email" name="email" id="exampleEmail" onChange={this.onChangeinput} value={email} placeholder="" />
+              </div>
+              <div>
+                <label htmlFor="examplePassword">Password</label>
+                <input type="password" name="password" id="examplePassword" onChange={this.onChangeinput} value={password} placeholder="password" />
+              </div>
+              <Button onClick={this.submit} style={{width:"100%"}} >Login</Button>
+            </form>
           </div>
     		)
     else
       return (
-        <div>
-          <h2>Register Form</h2> 
-          <Form>
-            <FormGroup>
-              <Label for="exampleEmail">Email</Label>
-              <Input type="email" name="email" id="exampleEmail" onChange={this.onChangeInput} value={this.state.email} placeholder="" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input type="password" name="password" id="examplePassword" onChange={this.onChangeInput} value={this.state.password} placeholder="" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword2">Repeat Password</Label>
-              <Input type="password" name="password2" id="examplePassword2" onChange={this.onChangeInput} value={this.state.password2} placeholder="" />
-            </FormGroup>
-            <Button onClick={this.submit} >Register</Button>
-          </Form>
+        <div className="login-register-form">
+          <h2>Register form</h2> 
+          <p className="error">{message.email}</p>
+          <p className="error">{message.password}</p>
+          <form>
+            <div>
+              <label htmlFor="exampleEmail">Email</label>
+              <input type="email" name="email" id="exampleEmail" onChange={this.onChangeinput} value={email} placeholder="email" />
+            </div>
+            <div>
+              <label htmlFor="examplePassword">Password</label>
+              <input type="password" name="password" id="examplePassword" onChange={this.onChangeinput} value={password} placeholder="password" />
+            </div>
+            <div>
+              <label htmlFor="examplePassword2">Repeat Password</label>
+              <input type="password" name="password2" id="examplePassword2" onChange={this.onChangeinput} value={password2} placeholder="repeat password" />
+            </div>
+            <Button onClick={this.submit} style={{width:"100%"}} >Register</Button>
+          </form>
         </div>
       )
 
