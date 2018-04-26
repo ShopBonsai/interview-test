@@ -7,10 +7,10 @@ import { Meteor } from "meteor/meteor";
 import { Favorites } from "./collection";
 
 
-export const getFavorites = (userId) => {
+export const getFavorites = userId => {
   let favorites;
   try {
-    favorites = Favorites.find({userId}).fetch();
+    favorites = Favorites.find({ userId }).fetch();
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getFavorites.findOrFetchError`,
@@ -23,5 +23,5 @@ export const getFavorites = (userId) => {
 
 // Register meteor methods.
 Meteor.methods({
-  "favorites": getFavorites,
+  favorites: getFavorites,
 });
