@@ -14,7 +14,7 @@ import { Orders } from "./collection";
 export const getLastOrder = () => {
   const options = { sort: { createdAt: -1 }, limit: 1 };
   try {
-    const lastOrderCursor = Products.find({}, options);
+    const lastOrderCursor = Orders.find({}, options);
     const lastOrder = lastOrderCursor.fetch()[0];
     return lastOrder;
   } catch (error) {
@@ -33,18 +33,82 @@ export const getLastOrder = () => {
  */
 export const getOrderById = orderId => {
   try {
-    return Products.findOne(orderId);
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
+      `Could not find or fetch order with order id: '${orderId}'`,
       error
     );
   }
 };
 
+
+export const createOrder = (order) => {
+  order = {...order,userId:Meteor.userId(),pending:false}
+  try {
+    return Orders.insert(order);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:createOrder.createError`,
+      `Could not create a new order`,
+      error
+    )
+  }
+}
+
+export const getOrders = () => {
+  const userId = Meteor.userId();
+  let ordersData;
+  try {
+    ordersData = Orders.find({userId,pending:false}).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getOrders.findOrFetchError`,
+      `Could not find or fetch orders`,
+      error
+    );
+  }
+  return ordersData;
+};
+
+export const removeAllOrders = () => {
+  let ordersData;
+  try {
+    ordersData = Orders.remove({});
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:removeAllOrders.Error`,
+      `Could not remove orders`,
+      error
+    );
+  }
+  return ordersData;
+};
+
+// create or update the cart
+export const createOrUpdateCart = async (cart) => {
+  const products = {...cart}
+  let updatedCart,updateCart
+  try {
+    updateCart = await Orders.update({userId:Meteor.userId(),pending:true},{$set:{products}},{upsert:true});
+    updatedCart = await Orders.findOne({userId:Meteor.userId(),pending:true});
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:createOrder.createError`,
+      `Could not create a new order`,
+      error
+    )
+  }
+  return updatedCart;
+}
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.createOrder" : createOrder,
+  "orders.getOrders" : getOrders,
+  "orders.removeAllOrders" : removeAllOrders,
+  "orders.createOrUpdateCart" : createOrUpdateCart
 });

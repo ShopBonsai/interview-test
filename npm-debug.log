@@ -1,0 +1,43 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'prepush' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 verbose run-script [ 'prepush' ]
+5 info lifecycle interview-test@1.0.0~prepush: interview-test@1.0.0
+6 verbose lifecycle interview-test@1.0.0~prepush: unsafe-perm in lifecycle true
+7 verbose lifecycle interview-test@1.0.0~prepush: PATH: /usr/share/npm/bin/node-gyp-bin:/home/haytham/Documents/interview-test/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+8 verbose lifecycle interview-test@1.0.0~prepush: CWD: /home/haytham/Documents/interview-test
+9 silly lifecycle interview-test@1.0.0~prepush: Args: [ '-c', 'meteor npm run lint' ]
+10 silly lifecycle interview-test@1.0.0~prepush: Returned: code: 1  signal: null
+11 info lifecycle interview-test@1.0.0~prepush: Failed to exec prepush script
+12 verbose stack Error: interview-test@1.0.0 prepush: `meteor npm run lint`
+12 verbose stack Exit status 1
+12 verbose stack     at EventEmitter.<anonymous> (/usr/share/npm/lib/utils/lifecycle.js:232:16)
+12 verbose stack     at emitTwo (events.js:87:13)
+12 verbose stack     at EventEmitter.emit (events.js:172:7)
+12 verbose stack     at ChildProcess.<anonymous> (/usr/share/npm/lib/utils/spawn.js:24:14)
+12 verbose stack     at emitTwo (events.js:87:13)
+12 verbose stack     at ChildProcess.emit (events.js:172:7)
+12 verbose stack     at maybeClose (internal/child_process.js:821:16)
+12 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+13 verbose pkgid interview-test@1.0.0
+14 verbose cwd /home/haytham/Documents/interview-test
+15 error Linux 4.10.0-38-generic
+16 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "prepush"
+17 error node v4.2.6
+18 error npm  v3.5.2
+19 error code ELIFECYCLE
+20 error interview-test@1.0.0 prepush: `meteor npm run lint`
+20 error Exit status 1
+21 error Failed at the interview-test@1.0.0 prepush script 'meteor npm run lint'.
+21 error Make sure you have the latest version of node.js and npm installed.
+21 error If you do, this is most likely a problem with the interview-test package,
+21 error not with npm itself.
+21 error Tell the author that this fails on your system:
+21 error     meteor npm run lint
+21 error You can get information on how to open an issue for this project with:
+21 error     npm bugs interview-test
+21 error Or if that isn't available, you can get their info via:
+21 error     npm owner ls interview-test
+21 error There is likely additional logging output above.
+22 verbose exit [ 1, true ]

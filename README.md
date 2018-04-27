@@ -11,17 +11,40 @@ Goal:
 Your task is to add a new complete working feature that you feel will best demonstrate your capabilities as a team-member and have the largest positive impact on our customer. This implies that JUST updating the es-lint rules to include trailing commas, switching all space-characters in the code-base to tab-characters, and/or updating the .gitignore will score low. However, non-customer facing features such as validating data, unit-testing, creating a automatic-backups of the database, can score very high if done well.
 
 Here are some ideas for features that are missing from the app:
+ 
  - Clicking Buy does SOMETHING! This should add data to the database in a meaningful way and communicate to the user that such an action took place.
+ ==> Update the redux store and then we can buy and commit the cart to orders.
+ 
  - Ability to select a quantity to buy. The quantity should be stored in the database in a meaningful way, this data should be retrieved and displayed somewhere for the user.
+ ==> 2 Buttons are added to add a quantity wo the cart.
+ 
  - Add a profile page to display user-related data. This data should be stored in the database and retrieved.
+ ==> profile show email
+
  - Allow users to login using social media. A record of the user being logged in should be stored in the database, retrieved and displayed (perhaps on a special admin-only page).
+ ==>  email/password login. logout. Routing for authentication.
+
  - Select multiple items to buy together. Which items get selected/submitted should be stored meaningfully in the database.
+ ==> saved in redux before they can be submitted, if the user is logged in, the cart is in the database
+ 
  - Add a cart object to display selected items the user wants to buy. Store this information meaningfully in the database.
+ ==> cart page is done. you can buy only if logged in. You can also visit your orders.
+ 
  - Organize the shop page for better browsing experience, adding filters for brands/merchants/products.
+ ==> not
+
  - Ability to 'like' an item. Store which items got liked in the database, retrieve this information.
+ ==> done, only if logged in.
+
  - Searching for product by name/brand/merchant. Store searches meaningfully in the database.
+ ==> not
+
  - Add loading-images so the screen isn't empty while data is loading. Add page visits and loading times to the database in a meaningful way.
+ ==> not
+
  - Add a react testing-framework and create a test. Record the results in separate database for the QA team!
+ ==> not
+
 
 The following should be noted:
 1. Assume that if a piece of code/function is not working, it is a bug in the app (oh no!)

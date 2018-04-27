@@ -3,11 +3,26 @@ import React, { PureComponent } from "react";
 
 // Components
 import Button from "../components/Button.jsx";
+import Quantity from "../components/Quantity.jsx";
+import Favorite from "../components/Favorite.jsx";
 
 class Product extends PureComponent {
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
-  };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isFavorite !== this.props.isFavorite || nextProps.quantityInCart !== this.props.quantityInCart;
+  }
+
+  onMinusClick = (item) => {
+    this.props.onMinusClick();
+  }
+
+  onPlusClick = (item) => {
+    this.props.onPlusClick();
+  }
+
+  onFavoriteClick= (item) => {
+    this.props.onFavoriteClick(item.id)
+  }
 
   render() {
     const {
@@ -17,7 +32,13 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      onMinusClick,
+      onPlusClick,
+      onFavoriteClick,
+      isFavorite,
+      quantityInCart,
+      authenticated
     } = this.props;
 
     const info = [
@@ -45,9 +66,8 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+          {authenticated ? <Favorite onClick={onFavoriteClick} isFavorite={isFavorite}  /> : null }
+          <Quantity onPlusClick={onPlusClick} onMinusClick={onMinusClick} quantityInCart={quantityInCart}  />
         </div>
       </div>
     );

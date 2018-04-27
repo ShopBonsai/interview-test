@@ -8,20 +8,28 @@
     "start": "MONGO_URL=mongodb://localhost:27017/interview meteor run",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-    "prepush": "meteor npm run lint"
+    "00prepush": "meteor npm run lint"
   },
   "dependencies": {
-    "babel-runtime": "6.25.0",
-    "bootstrap": "4.0.0-alpha.6",
+    "autoprefixer": "^7.1.2",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^2.0.1",
+    "bootstrap": "^4.1.0",
     "meteor-node-stubs": "0.2.4",
-    "react": "15.6.1",
+    "moment": "^2.22.1",
+    "react": "^15.6.2",
     "react-addons-css-transition-group": "15.6.0",
     "react-addons-transition-group": "15.6.0",
-    "react-dom": "15.6.1",
+    "react-dom": "^15.6.2",
+    "react-redux": "^5.0.7",
+    "react-redux-meteor": "^4.5.1",
+    "react-redux-meteor-data": "^0.5.8",
     "react-router": "4.2.0",
-    "react-router-dom": "4.2.2",
-    "react-transition-group": "1.1.2",
-    "reactstrap": "4.8.0"
+    "react-router-dom": "^4.2.2",
+    "react-transition-group": "^1.2.1",
+    "reactstrap": "^4.8.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
@@ -35,7 +43,7 @@
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-meteor": "4.1.4",
-    "eslint-plugin-prettier": "2.1.2",
+    "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "7.1.0",
     "husky": "0.14.3",
     "prettier": "1.5.3"
