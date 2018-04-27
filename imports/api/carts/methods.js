@@ -35,8 +35,29 @@ export const updateCartById = cartParams => {
   );
 };
 
+/**
+ * get a cart by cartId
+ *
+ * @returns {Object} A single cart object.
+ */
+export const getCartById = cartId => {
+  try {
+    return Carts.findOne(cartId);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:carts.findOrFetchError`,
+      `Could not find or fetch cart with cart id: '${cartId}'`,
+      error
+    );
+  }
+};
+
+
+
+
 // Register meteor methods.
 Meteor.methods({
   "carts.createCart": createCart,
-  "carts.updateCartById": updateCartById
+  "carts.updateCartById": updateCartById,
+  "carts.getCartById": getCartById
 });

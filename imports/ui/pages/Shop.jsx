@@ -14,11 +14,17 @@ class Shop extends Component {
     this.state = {
       merchants: [],
       error: null,
-      cartItemCount: 0
+      cartItemCount: 0,
+      cartError: null
     };
   }
 
   componentWillMount() {
+    this.getMerchantsData();
+    this.getCartData();
+  }
+
+  getMerchantsData() {
     Meteor.call("merchants.getMerchants", (error, response) => {
       if (error) {
         this.setState(() => ({ error: error }));
@@ -26,6 +32,21 @@ class Shop extends Component {
         this.setState(() => ({ merchants: response }));
       }
     });
+  }
+
+  getCartData() {
+    if (document.cookie != "") {
+      let cartId = document.cookie.split("=")[1];
+      Meteor.call("carts.getCartById", cartId, (error, response) => {
+        if (error) {
+          this.setState(() => ({ cartError: error }));
+        } else {
+          let products = response["products"];
+          let cartItemCount = products.length;
+          this.setState({cartItemCount: cartItemCount});
+        }
+      });
+    }
   }
 
   goBack = () => this.props.history.push("/");
