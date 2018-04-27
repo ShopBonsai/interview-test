@@ -12,10 +12,6 @@ class Product extends PureComponent {
     };
   };
 
-  handleBuyProduct = () => {
-    alert("This button does nothing!");
-  };
-
   //MARK: handle purchase quantity of each product
   reduceQuantityNum = () => {
     let orderQuantity = this.state.orderQuantity - 1;
@@ -23,7 +19,7 @@ class Product extends PureComponent {
     if (orderQuantity > 0) {
       this.setQuantityToState(orderQuantity);
     }
-  }
+  };
 
   increaseQuantityNum = () => {
     let orderQuantity = this.state.orderQuantity + 1;
@@ -31,11 +27,65 @@ class Product extends PureComponent {
     if (orderQuantity <= this.props.quantity) {
       this.setQuantityToState(orderQuantity);
     }
-  }
+  };
 
   setQuantityToState = ( orderQuantity ) => {
     this.setState(() => ({ orderQuantity: orderQuantity }));
   };
+
+  //MARK: handle buy product
+  handleBuyProduct = () => {
+    let product = this.setProductForCartObject();
+    this.saveProductToCart(product);
+  };
+
+  setProductForCartObject() {
+    //set object object
+    let orderQuantity = this.state.orderQuantity;
+    let total = this.props.price * orderQuantity;
+    total = Math.round(total * 100) / 100;
+    const product = {...this.props,
+                  orderQuantity: orderQuantity,
+                  total: total,
+                  points: total,
+                  isPaid: false};
+    return product;
+  }
+
+  saveProductToCart(product) {
+    if (document.cookie == "") {
+      this.createNewCart(product);
+    }else {
+      this.updateExistedCart(product);
+    }
+  }
+
+  createNewCart(product) {
+    Meteor.call("carts.createCart", product, (error, response) => {
+      if (!error) {
+        //Save cartId to cookie
+        document.cookie = `cartId=${response}`;
+        //trigger func in Shop to increase cart item count
+        this.props.increaseCount();
+      }else{
+        alert(`${error}`);
+      }
+    });
+  }
+
+  updateExistedCart(product) {
+    //get cartId from cookie
+    let cartId = document.cookie.split("=")[1];
+    let cartParams = { id: cartId, product: product}
+    Meteor.call("carts.updateCartById", cartParams, error => {
+      if (!error) {
+        //trigger func in Shop to increase cart item count
+        this.props.increaseCount();
+      }else{
+        alert(`${error}`);
+      }
+    });
+  }
 
   render() {
     const {
