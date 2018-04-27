@@ -5,6 +5,7 @@ import { Meteor } from "meteor/meteor";
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
+import ShoppingBag from "../components/ShoppingBag.jsx"
 import Product from "../components/Product";
 
 class Shop extends Component {
@@ -12,7 +13,8 @@ class Shop extends Component {
     super(props);
     this.state = {
       merchants: [],
-      error: null
+      error: null,
+      cartItemCount: 0
     };
   }
 
@@ -28,8 +30,13 @@ class Shop extends Component {
 
   goBack = () => this.props.history.push("/");
 
+  increaseCartItemCount = () => {
+    let cartItemCount = this.state.cartItemCount + 1;
+    this.setState({cartItemCount: cartItemCount});
+  }
+
   render() {
-    const { merchants, error } = this.state;
+    const { merchants, error, cartItemCount } = this.state;
 
     const getProductsFromMerchant = ({ products, brands }) =>
       products.map(({ belongsToBrand, ...product }) => ({
@@ -44,9 +51,10 @@ class Shop extends Component {
 
     return (
       <Page pageTitle="shop" history goBack={this.goBack}>
+        <ShoppingBag itemCount={ cartItemCount} history={this.props.history} />
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+            <Product {...product} increaseCount={this.increaseCartItemCount} key={id} />
           )}
         </div>
       </Page>

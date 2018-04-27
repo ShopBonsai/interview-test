@@ -5,6 +5,13 @@ A.) Added ability to select a quantity to buy
   a.) show the quantity in stock
   b.) Validation: quantity to buy is greater than or equal to 1 and less than or equal to quantity in stock
 
+B.) Added functions to buy Button
+  a.) form order object and insert into Orders collection
+  b.) increase shopping bag item count
+
+C.) Added shopping bag function
+  a.) shopping inline svg with icon-badge showing item count
+
 
 # Bonsai Interview Test
 
