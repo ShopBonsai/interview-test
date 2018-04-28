@@ -55,16 +55,18 @@ class Product extends PureComponent {
 
   saveProductToCart(product) {
     if (document.cookie == "") {
-      this.createNewCart();
+      this.createNewCart(product);
+    } else {
+      this.updateExistedCart(product);
     }
-    this.updateExistedCart(product);
   }
 
-  createNewCart() {
+  createNewCart(product) {
     Meteor.call("carts.createCart", (error, response) => {
       if (!error) {
         //Save cartId to cookie
         document.cookie = `cartId=${response}`;
+        this.updateExistedCart(product);
       }else{
         alert(`${error}`);
       }

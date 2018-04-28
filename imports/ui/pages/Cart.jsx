@@ -102,6 +102,7 @@ class Cart extends Component {
         alert(error)
       } else {
         this.clearCartsAndCookie();
+      }
     });
   }
 
@@ -117,7 +118,6 @@ class Cart extends Component {
     });
     // // update cookie: delete cartId, write in orderId
     document.cookie = `cartId=; orderId=${response}`
-  }
   }
 
 
