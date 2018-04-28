@@ -90,8 +90,13 @@ export const getMerchants = () => {
   return merchantData;
 };
 
+export const likeItem = itemid => {
+  Merchants.insert({ itemid: itemid, liked: true });
+};
+
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants
+  "merchants.getMerchants": getMerchants,
+  "merchants.likeItem": likeItem
 });

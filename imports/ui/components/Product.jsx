@@ -49,6 +49,7 @@ class Product extends PureComponent {
             Buy {name}
           </Button>
         </div>
+        <Button>Like</Button>
       </div>
     );
   }

@@ -21,7 +21,9 @@ class Shop extends Component {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ merchants: response }));
+        this.setState(() => ({
+          merchants: response
+        }));
       }
     });
   }
