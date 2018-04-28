@@ -72,10 +72,27 @@ export const getAllProductsInCart = cartId => {
   }
 };
 
+/**
+ * Delete a cart by cartId
+ *
+ */
+export const deleteACartById = cartId => {
+  try {
+    return Carts.deleteOne({_id: cartId});
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:carts.deleteError`,
+      `Could not delete cart with cart id: '${cartId}'`,
+      error
+    );
+  }
+};
+
 
 // Register meteor methods.
 Meteor.methods({
   "carts.createCart": createCart,
   "carts.updateCartById": updateCartById,
-  "carts.getCartById": getCartById
+  "carts.getCartById": getCartById,
+  "carts.deleteACartById": deleteACartById
 });

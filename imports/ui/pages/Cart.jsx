@@ -12,6 +12,7 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      productsObj: {},
       products : [],
       error: null,
       total: 0,
@@ -33,7 +34,7 @@ class Cart extends Component {
       } else {
         let productsObj = response.products;
         let products = Object.values(productsObj);
-        this.setState(() => ({ products: products }));
+        this.setState(() => ({ productsObj: productsObj, products: products }));
         this.calculateTotal();
       }
     });
@@ -73,7 +74,50 @@ class Cart extends Component {
 
   //MARK: handle checkout button tapped
   handleCheckout() {
-  
+    // TODO: Integrate with Stripe for panyment
+    alert(`Assume panyment is completed: `);
+    const {productsObj, products} = this.state;
+    // Assume panyment is completed:
+    // For each product in products
+
+    products.map((product) => {
+      // Set isPaid to true
+      product.isPaid = true
+      // TODO: update remaining quantity to the Merchants collection
+      const storedQuantity = product.quantity - product.orderQuantity
+    });
+
+    // Move order to User's order history collection
+    // And Clear cart
+    this.moveOrderFromCartsToOrders(productsObj);
+
+    // TODO: add order.points to user's points count
+
+  }
+
+  moveOrderFromCartsToOrders(productsObj) {
+    Meteor.call("orders.insertOrder", productsObj, (error, response) => {
+      if (error) {
+        this.setState(() => ({ error: error }));
+        alert(error)
+      } else {
+        this.clearCartsAndCookie();
+    });
+  }
+
+  clearCartsAndCookie() {
+    let cartId = document.cookie.split("=")[1];
+    Meteor.call("carts.deleteACartById", cartId, (err, res) => {
+      if (err) {
+        this.setState(() => ({ error: err }));
+        alert(err)
+      }else{
+        alert(res);
+      }
+    });
+    // // update cookie: delete cartId, write in orderId
+    document.cookie = `cartId=; orderId=${response}`
+  }
   }
 
 
@@ -117,7 +161,7 @@ class Cart extends Component {
           <tr>
             <td colSpan={5} />
             <td colSpan={1}>
-              <Button className="checkout" onClick={this.handleCheckout}>Check out</Button>
+              <Button className="checkout" onClick={() => this.handleCheckout()}>Check out</Button>
             </td>
           </tr>
         </tbody>
