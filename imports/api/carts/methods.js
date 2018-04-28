@@ -13,7 +13,7 @@ import { Carts } from "./collection";
 export const createCart = product => {
   let cartId;
   try {
-    cartId = Carts.insert({products:[product]});
+    cartId = Carts.insert({ products: {} });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}`,
@@ -29,9 +29,12 @@ export const createCart = product => {
  *
  */
 export const updateCartById = cartParams => {
+  const { id, product} = cartParams;
+  let productId = product.id;
+  let keyName = `products.${productId}`;
   Carts.update(
-    {_id: cartParams.id},
-    {$push: { products: cartParams.product }}
+    {_id: id},
+    {$set: { [keyName] : product }}
   );
 };
 
@@ -51,8 +54,6 @@ export const getCartById = cartId => {
     );
   }
 };
-
-
 
 
 // Register meteor methods.

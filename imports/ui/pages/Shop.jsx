@@ -41,8 +41,8 @@ class Shop extends Component {
         if (error) {
           this.setState(() => ({ cartError: error }));
         } else {
-          let products = response["products"];
-          let cartItemCount = products.length;
+          let products = response.products;
+          let cartItemCount = Object.keys(products).length;
           this.setState({cartItemCount: cartItemCount});
         }
       });
@@ -75,7 +75,7 @@ class Shop extends Component {
         <ShoppingBag itemCount={ cartItemCount} history={this.props.history} />
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
-            <Product {...product} increaseCount={this.increaseCartItemCount} key={id} />
+            <Product {...product} id={id} increaseCount={this.increaseCartItemCount} key={id} />
           )}
         </div>
       </Page>

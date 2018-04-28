@@ -45,6 +45,7 @@ class Product extends PureComponent {
     let total = this.props.price * orderQuantity;
     total = Math.round(total * 100) / 100;
     const product = {...this.props,
+                  id: this.props.id,
                   orderQuantity: orderQuantity,
                   total: total,
                   points: total,
@@ -54,19 +55,16 @@ class Product extends PureComponent {
 
   saveProductToCart(product) {
     if (document.cookie == "") {
-      this.createNewCart(product);
-    }else {
-      this.updateExistedCart(product);
+      this.createNewCart();
     }
+    this.updateExistedCart(product);
   }
 
-  createNewCart(product) {
-    Meteor.call("carts.createCart", product, (error, response) => {
+  createNewCart() {
+    Meteor.call("carts.createCart", (error, response) => {
       if (!error) {
         //Save cartId to cookie
         document.cookie = `cartId=${response}`;
-        //trigger func in Shop to increase cart item count
-        this.props.increaseCount();
       }else{
         alert(`${error}`);
       }
