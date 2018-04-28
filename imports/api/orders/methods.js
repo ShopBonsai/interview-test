@@ -62,7 +62,6 @@ export const getAllOrders = () => {
   return orderData;
 };
 
-
 // export const insert
 /**
  * Insert an order
@@ -74,14 +73,13 @@ export const insertOrder = order => {
     orderId = Orders.insert({ products: order });
   } catch (error) {
     throw new Meteor.Error(
-      `${__filename}`,
-      `Could not insert ${order}`,
+      `${__filename}:insertOrder.insertError`,
+      `Could not insert order`,
       error
     );
   }
   return orderId;
 };
-
 
 // Register meteor methods.
 Meteor.methods({

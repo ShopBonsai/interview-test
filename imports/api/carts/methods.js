@@ -29,13 +29,10 @@ export const createCart = product => {
  *
  */
 export const updateCartById = cartParams => {
-  const { id, product} = cartParams;
+  const { id, product } = cartParams;
   let productId = product.id;
   let keyName = `products.${productId}`;
-  Carts.update(
-    {_id: id},
-    {$set: { [keyName] : product }}
-  );
+  Carts.update({ _id: id }, { $set: { [keyName]: product } });
 };
 
 /**
@@ -78,7 +75,7 @@ export const getAllProductsInCart = cartId => {
  */
 export const deleteACartById = cartId => {
   try {
-    return Carts.deleteOne({_id: cartId});
+    return Carts.deleteOne({ _id: cartId });
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:carts.deleteError`,
@@ -87,7 +84,6 @@ export const deleteACartById = cartId => {
     );
   }
 };
-
 
 // Register meteor methods.
 Meteor.methods({
