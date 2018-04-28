@@ -12,6 +12,7 @@ class Product extends PureComponent {
   render() {
     const {
       name = "Product",
+      id,
       image,
       brand,
       color,
@@ -28,6 +29,10 @@ class Product extends PureComponent {
       { label: "Size", value: size },
       { label: "Price", value: price }
     ];
+
+    likedProduct = id => {
+      Meteor.call("merchants.likedProduct", id);
+    };
 
     return (
       <div className="product">
@@ -49,7 +54,7 @@ class Product extends PureComponent {
             Buy {name}
           </Button>
         </div>
-        <Button>Like</Button>
+        <Button onClick={this.likedProduct}>Like</Button>
       </div>
     );
   }

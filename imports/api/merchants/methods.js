@@ -90,13 +90,19 @@ export const getMerchants = () => {
   return merchantData;
 };
 
-export const likeItem = itemid => {
-  Merchants.insert({ itemid: itemid, liked: true });
+export const likedProduct = itemid => {
+  let product;
+  try {
+    product = Merchants.products.findOne(itemid);
+    liked = product.insert({ liked: true });
+  } catch (error) {
+    throw new Meteor.Error("Could not find or fetch merchants", error);
+  }
 };
 
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
   "merchants.getMerchants": getMerchants,
-  "merchants.likeItem": likeItem
+  "merchants.likeItem": likedProduct
 });
