@@ -1,8 +1,32 @@
+
+# Leah's test submission
+
+A.) Added ability to select a quantity to buy: \n
+  a.) show the quantity in stock \n
+  b.) Validation: quantity to buy is greater than or equal to 1 and less than or equal to quantity in stock \n
+
+B.) Added functions to buy Button: \n
+  a.) form order product object and insert into Carts collection \n
+  b.) increase shopping bag item count \n
+
+C.) Added shopping bag function: \n
+  a.) shopping inline svg with icon-badge showing item count \n
+  b.) route to cart page when clicked \n
+
+D.) Added shopping cart page: \n
+  a.) load all products from Cart \n
+  b.) added func to redeem points earned from last purchase \n
+  c.) When checkout btn clicked: add items in cart to order and clear up cart and cookie \n
+
+  ![shop](https://user-images.githubusercontent.com/22761639/39402107-92e6ff64-4b0b-11e8-9d13-c3448e6662dd.png)
+  ![cart](https://user-images.githubusercontent.com/22761639/39402108-9c94dcb6-4b0b-11e8-8594-a1ec9f46488d.png)
+
+
 # Bonsai Interview Test
 
 Welcome to the creative interview test at Shop Bonsai.
 
-This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today). 
+This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today).
 
 Scenario:
 You joined as the new member of a small start-up team. Together we are building a new app to sell cool 3rd party products! So far, the sales team worked tirelessly and managed to acquire over 50 merchants who each have different brands and products offerings. The developers have also been working hard and have created a home page and shop page to welcome the users and display the products of the newly acquired merchants.

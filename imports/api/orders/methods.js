@@ -43,8 +43,48 @@ export const getOrderById = orderId => {
   }
 };
 
+/**
+ * Get all orders
+ *
+ * @returns {Object} All order objects.
+ */
+export const getAllOrders = () => {
+  let orderData;
+  try {
+    orderData = Orders.find({}).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getAllOrders.findOrFetchError`,
+      `Could not find or fetch orders`,
+      error
+    );
+  }
+  return orderData;
+};
+
+// export const insert
+/**
+ * Insert an order
+ *
+ */
+export const insertOrder = order => {
+  let orderId;
+  try {
+    orderId = Orders.insert({ products: order });
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:insertOrder.insertError`,
+      `Could not insert order`,
+      error
+    );
+  }
+  return orderId;
+};
+
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.getAllOrders": getAllOrders,
+  "orders.insertOrder": insertOrder
 });
