@@ -148,7 +148,7 @@ class Cart extends Component {
             <td colSpan={2} className="subtotal">Sub-total: {total}</td>
           </tr>
           {this.renderTotalSectionTr('Tax', taxRate)}
-          {this.renderTotalSectionTr('Total', taxRate)}
+          {this.renderTotalSectionTr('Total', taxRate+1)}
           <tr>
             <td colSpan={4} />
             <td colSpan={2} className="use-points">
