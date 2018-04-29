@@ -1,16 +1,25 @@
 
 # Leah's test submission
 
-A.) Added ability to select a quantity to buy
-  a.) show the quantity in stock
-  b.) Validation: quantity to buy is greater than or equal to 1 and less than or equal to quantity in stock
+A.) Added ability to select a quantity to buy: \n
+  a.) show the quantity in stock \n
+  b.) Validation: quantity to buy is greater than or equal to 1 and less than or equal to quantity in stock \n
 
-B.) Added functions to buy Button
-  a.) form order object and insert into Orders collection
-  b.) increase shopping bag item count
+B.) Added functions to buy Button: \n
+  a.) form order product object and insert into Carts collection \n
+  b.) increase shopping bag item count \n
 
-C.) Added shopping bag function
-  a.) shopping inline svg with icon-badge showing item count
+C.) Added shopping bag function: \n
+  a.) shopping inline svg with icon-badge showing item count \n
+  b.) route to cart page when clicked \n
+
+D.) Added shopping cart page: \n
+  a.) load all products from Cart \n
+  b.) added func to redeem points earned from last purchase \n
+  c.) When checkout btn clicked: add items in cart to order and clear up cart and cookie \n
+
+  ![shop](https://user-images.githubusercontent.com/22761639/39402107-92e6ff64-4b0b-11e8-9d13-c3448e6662dd.png)
+  ![cart](https://user-images.githubusercontent.com/22761639/39402108-9c94dcb6-4b0b-11e8-8594-a1ec9f46488d.png)
 
 
 # Bonsai Interview Test
