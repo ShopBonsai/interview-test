@@ -30,9 +30,9 @@ class Product extends PureComponent {
       { label: "Price", value: price }
     ];
 
-    likedProduct = id => {
-      Meteor.call("merchants.likedProduct", id);
-    };
+    // likedProduct = (id, name) => {
+    //   Meteor.call("merchants.likedProduct", id);
+    // };
 
     return (
       <div className="product">
