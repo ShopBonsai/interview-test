@@ -9,6 +9,10 @@ class Product extends PureComponent {
     alert("This button does nothing!");
   };
 
+  addLikedProduct = () => {
+    Meteor.call("likedProducts.addLikedProduct");
+  };
+
   render() {
     const {
       name = "Product",
@@ -30,10 +34,6 @@ class Product extends PureComponent {
       { label: "Price", value: price }
     ];
 
-    // likedProduct = (id, name) => {
-    //   Meteor.call("merchants.likedProduct", id);
-    // };
-
     return (
       <div className="product">
         <img alt={name} src={image} />
@@ -54,7 +54,7 @@ class Product extends PureComponent {
             Buy {name}
           </Button>
         </div>
-        <Button onClick={this.likedProduct}>Like</Button>
+        <Button onClick={this.addLikedProduct}>Like</Button>
       </div>
     );
   }

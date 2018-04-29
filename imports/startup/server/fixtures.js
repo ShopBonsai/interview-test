@@ -15,6 +15,8 @@ Meteor.startup(() => {
     );
   }
   if (LikedProducts.find().count() === 0) {
-    LikedProducts.insert({ title: "likedproduct" });
+    LikedProducts.insert({
+      title: "initializing database"
+    });
   }
 });

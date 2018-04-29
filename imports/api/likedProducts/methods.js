@@ -6,14 +6,12 @@ import { Meteor } from "meteor/meteor";
 // Collections
 import { LikedProducts } from "./collection";
 
-// export const addLikedProduct = (id, name) => {
-//   LikedProducts.insert({
-//     itemid: id,
-//     productName: name,
-//     liked: true
-//   });
-// };
+export const addLikedProduct = () => {
+  LikedProducts.insert({
+    itemid: "hello"
+  });
+};
 
 Meteor.methods({
-  "LikedProducts.addLikedProduct": addLikedProduct
+  "likedProducts.addLikedProduct": addLikedProduct
 });
