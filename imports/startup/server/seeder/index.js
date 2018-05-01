@@ -15,7 +15,7 @@ import Customers from "../../../api/customers/collection";
 import Orders from "../../../api/orders/collection";
 
 // define module
-const seeder = async () => {
+const seed = async () => {
 
   // cheeck seed data length
   console.log('Mock Data Items:'.yellow, mockMerchantData.length);
@@ -94,4 +94,4 @@ const seeder = async () => {
 };
 
 // export module
-export default seeder;
+export default seed;
