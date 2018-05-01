@@ -49,7 +49,7 @@ export const getOrderById = orderId => {
  * @returns {Object} A single order object.
  */
 const trackingNumber = () => {
-  return Math.random().toString(36).slice(2);
+  return Math.random().toString(36).slice(2).toUpperCase();
 };
 /**
  * Add order
