@@ -3,17 +3,11 @@ import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 
 // Create new Collection
-const Merchants = new Mongo.Collection("merchants");
+const OrderStatus = new Mongo.Collection("orderstatus");
 
 // set schema for players
-const MerchantSchema = new SimpleSchema({
-  profileType: { type: Object },
+const OrderStatusSchema = new SimpleSchema({
   name: { type: String },
-  commission: { type: Number },
-  logo: { type: String },
-  phone: { type: String },
-  address: { type: String },
-  description: { type: String },
   createdAt: {
     type: Date,
     defaultValue: new Date()
@@ -25,7 +19,7 @@ const MerchantSchema = new SimpleSchema({
 });
 
 // add schema to players collection
-Merchants.attachSchema(MerchantSchema);
+OrderStatus.attachSchema(OrderStatusSchema);
 
 // export module
-export default Merchants;
+export default OrderStatus;

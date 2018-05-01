@@ -4,14 +4,14 @@ import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
 
 // Libraries
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Client Imports
-import Routes from "../../ui/Routes.jsx";
+import App from "../../ui/App.jsx";
 
 // Actual Rendering Function
 const renderApp = () =>
-  render(<Routes />, document.getElementById("render-target"));
+  render(<App />, document.getElementById("render-target"));
 
 // Start App
 Meteor.startup(() => {
