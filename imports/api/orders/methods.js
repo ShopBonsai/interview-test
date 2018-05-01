@@ -57,8 +57,8 @@ export const addOrder = ({ merchantGuid, productId }) => {
     });
   } catch (error) {
     throw new Meteor.Error(
-      `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
+      `${__filename}:addOrder.insert`,
+      `Could not insert order with merchantGuid: '${merchantGuid}' and productId: '${productId}'`,
       error
     );
   }
