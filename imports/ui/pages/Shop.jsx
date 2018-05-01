@@ -1,11 +1,12 @@
 // Framework
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
+import { Route } from "react-router-dom";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
-import Product from "../components/Product";
+import Product from "../components/Product.jsx";
+import ThankYou from "../components/ThankYou.jsx";
 
 class Shop extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
-
   addOrder = ({ merchantGuid, productId }) => {
     Meteor.call(
       "orders.addOrder",
@@ -53,8 +53,8 @@ class Shop extends Component {
       products.map(({ belongsToBrand, ...product }) => {
         product.merchantGuid = guid;
         return {
-        ...product,
-        brand: brands[belongsToBrand]
+          ...product,
+          brand: brands[belongsToBrand]
         };
       });
 
@@ -73,6 +73,10 @@ class Shop extends Component {
               handleBuyProduct={this.addOrder}
             />
           )}
+          <Route
+            path={this.props.match.url + "/thank-you"}
+            component={ThankYou}
+          />
         </div>
       </Page>
     );
