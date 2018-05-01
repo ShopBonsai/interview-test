@@ -7,7 +7,7 @@ const Merchants = new Mongo.Collection("merchants");
 
 // set schema for players
 const MerchantSchema = new SimpleSchema({
-  profileType: { type: Object },
+  profileType: { type: String },
   name: { type: String },
   commission: { type: Number },
   logo: { type: String },

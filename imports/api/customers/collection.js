@@ -7,12 +7,14 @@ const Customers = new Mongo.Collection("customers");
 
 // set schema for players
 const CustomerSchema = new SimpleSchema({
-  profileType: { type: Object },
+  profileType: { type: String },
   firstName: { type: String },
   lastName: { type: String },
   address: { type: String },
-  likedProducts: [Object],
-  orders: [Object],
+  likedProducts: Array,
+  'likedProducts.$': String,
+  orders: Array,
+  'orders.$': String,
   createdAt: {
     type: Date,
     defaultValue: new Date()
