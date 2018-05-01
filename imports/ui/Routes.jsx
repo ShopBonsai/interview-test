@@ -9,12 +9,14 @@ import {
 // Pages
 import Shop from "./pages/Shop.jsx";
 import Home from "./pages/Home.jsx";
+import ThankYou from "./pages/ThankYou.jsx";
 
 const Routes = () =>
   <Router history={browserHistory}>
     <div>
       <Route exact path="/" component={Home} />
-      <Route path="/shop" component={Shop} />
+      <Route exact path="/shop" component={Shop} />
+      <Route exact path="/shop/thank-you" component={ThankYou} />
     </div>
   </Router>;
 
