@@ -14,8 +14,9 @@ import { Orders } from "./collection";
 export const getLastOrder = () => {
   const options = { sort: { createdAt: -1 }, limit: 1 };
   try {
-    const lastOrderCursor = Products.find({}, options);
+    const lastOrderCursor = Orders.find({}, options);
     const lastOrder = lastOrderCursor.fetch()[0];
+    // console.log("last order", lastOrder);
     return lastOrder;
   } catch (error) {
     throw new Meteor.Error(
