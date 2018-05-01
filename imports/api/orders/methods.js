@@ -16,7 +16,6 @@ export const getLastOrder = () => {
   try {
     const lastOrderCursor = Orders.find({}, options);
     const lastOrder = lastOrderCursor.fetch()[0];
-    // console.log("last order", lastOrder);
     return lastOrder;
   } catch (error) {
     throw new Meteor.Error(
