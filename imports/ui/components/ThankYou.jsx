@@ -15,10 +15,11 @@ class ThankYou extends Component {
   }
 
   componentWillMount() {
-    // Handle u
+    // Handle direct access to route without purchase
     if (!this.props.location.state || !this.props.location.state.orderId) {
       return this.props.history.push("/shop");
     }
+
     Meteor.call(
       "orders.getOrderById",
       this.props.location.state.orderId,
