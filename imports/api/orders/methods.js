@@ -2,7 +2,6 @@
 
 // Framework
 import { Meteor } from "meteor/meteor";
-
 // Collections
 import { Orders } from "./collection";
 
@@ -42,7 +41,16 @@ export const getOrderById = orderId => {
     );
   }
 };
-
+/**
+ * Get Tracking number
+ * Fake random number generated, should be replaced with a real one
+ * once tracking API integrated.
+ *
+ * @returns {Object} A single order object.
+ */
+const trackingNumber = () => {
+  return Math.random().toString(36).slice(2);
+};
 /**
  * Add order
  *
@@ -53,6 +61,7 @@ export const addOrder = ({ merchantGuid, productId }) => {
     return Orders.insert({
       merchantGuid,
       productId,
+      trackingNumber: trackingNumber(),
       dateCreated: new Date().toISOString()
     });
   } catch (error) {
