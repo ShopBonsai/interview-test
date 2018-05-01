@@ -6,7 +6,10 @@ import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
   handleBuyProduct = () => {
-    alert("This button does nothing!");
+    this.props.handleBuyProduct({
+      merchantGuid: this.props.merchantGuid,
+      productId: this.props.productId
+    });
   };
 
   render() {
