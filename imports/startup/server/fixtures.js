@@ -8,7 +8,7 @@ Meteor.startup(() => {
   // If DB is empty, add mock data
   if (Merchants.find().count() === 0) {
     // Create a new database document for each merchant.
-    mockMerchantData.forEach((merchantData, i) =>
+    mockMerchantData.products.forEach((merchantData, i) =>
       Merchants.insert({
         ...merchantData
       })
@@ -16,7 +16,8 @@ Meteor.startup(() => {
   }
   if (LikedProducts.find().count() === 0) {
     LikedProducts.insert({
-      title: "initializing database"
+      id: "initializing database",
+      liked: true
     });
   }
 });

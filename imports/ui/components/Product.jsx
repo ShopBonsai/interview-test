@@ -9,8 +9,9 @@ class Product extends PureComponent {
     alert("This button does nothing!");
   };
 
-  addLikedProduct = () => {
-    Meteor.call("likedProducts.addLikedProduct");
+  addLikedProduct = event => {
+    event.preventDefault();
+    Meteor.call("likedProducts.addLikedProduct", this.props.name);
   };
 
   render() {
@@ -50,11 +51,13 @@ class Product extends PureComponent {
               </div>
             )}
           </div>
-          <Button onClick={this.handleBuyProduct}>
+          <Button name={name} onClick={this.handleBuyProduct}>
             Buy {name}
           </Button>
         </div>
-        <Button onClick={this.addLikedProduct}>Like</Button>
+        <Button id={id} name={name} onClick={this.addLikedProduct}>
+          Like
+        </Button>
       </div>
     );
   }
