@@ -20,17 +20,14 @@ class Product extends PureComponent {
   likeProduct = event => {
     const { name } = this.props;
     event.preventDefault();
-    // if (!this.state.liked) {
-    Meteor.call("likedProducts.addLikedProduct", name);
-    //   this.setState(() => {
-    //     liked: true;
-    //   });
-    // } else {
-    // Meteor.call("likedProducts.removeLikedProduct", name);
-    // }
-  };
-  removeLikedProduct = name => {
-    Meteor.call("likedProducts.removeLikedProduct", name);
+    if (!this.state.liked) {
+      this.setState(() => ({
+        liked: true
+      }));
+      Meteor.call("likedProducts.addLikedProduct", name);
+    } else {
+      Meteor.call("likedProducts.removeLikedProduct", name);
+    }
   };
 
   render() {
@@ -76,9 +73,6 @@ class Product extends PureComponent {
         </div>
         <Button name={name} onClick={this.likeProduct}>
           Like
-        </Button>
-        <Button name={name} onClick={this.removeLikedProduct}>
-          Remove
         </Button>
       </div>
     );
