@@ -5,13 +5,32 @@ import React, { PureComponent } from "react";
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      liked: false
+    };
+  }
+
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
 
-  addLikedProduct = event => {
+  likeProduct = event => {
+    const { name } = this.props;
     event.preventDefault();
-    Meteor.call("likedProducts.addLikedProduct", this.props.name);
+    // if (!this.state.liked) {
+    Meteor.call("likedProducts.addLikedProduct", name);
+    //   this.setState(() => {
+    //     liked: true;
+    //   });
+    // } else {
+    // Meteor.call("likedProducts.removeLikedProduct", name);
+    // }
+  };
+  removeLikedProduct = name => {
+    Meteor.call("likedProducts.removeLikedProduct", name);
   };
 
   render() {
@@ -55,8 +74,11 @@ class Product extends PureComponent {
             Buy {name}
           </Button>
         </div>
-        <Button id={id} name={name} onClick={this.addLikedProduct}>
+        <Button name={name} onClick={this.likeProduct}>
           Like
+        </Button>
+        <Button name={name} onClick={this.removeLikedProduct}>
+          Remove
         </Button>
       </div>
     );

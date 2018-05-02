@@ -20,14 +20,17 @@ export const addLikedProduct = name => {
 };
 
 export const removeLikedProduct = name => {
-  let removeLikedProduct;
   try {
-    removeLikedProduct = LikedProducts.findOne(("name": name));
+    // removeLikedProduct = LikedProducts.remove({
+    //   name: name
+    // });
+    LikedProducts.remove({ name: name });
   } catch (error) {
     throw new Meteor.Error("this is an error", error);
   }
 };
 
 Meteor.methods({
-  "likedProducts.addLikedProduct": addLikedProduct
+  "likedProducts.addLikedProduct": addLikedProduct,
+  "likedProducts.removeLikedProduct": removeLikedProduct
 });
