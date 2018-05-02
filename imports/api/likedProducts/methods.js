@@ -7,16 +7,25 @@ import { Meteor } from "meteor/meteor";
 import { LikedProducts } from "./collection";
 
 export const addLikedProduct = name => {
-  let selectedProduct;
+  let likedProduct;
   try {
-    selectedProduct = LikedProducts.insert({
+    likedProduct = LikedProducts.insert({
       name: name,
       liked: true
     });
   } catch (error) {
     throw new Meteor.Error("this is an error", error);
   }
-  return selectedProduct;
+  return likedProduct;
+};
+
+export const removeLikedProduct = name => {
+  let removeLikedProduct;
+  try {
+    removeLikedProduct = LikedProducts.findOne(("name": name));
+  } catch (error) {
+    throw new Meteor.Error("this is an error", error);
+  }
 };
 
 Meteor.methods({
