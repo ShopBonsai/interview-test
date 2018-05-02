@@ -20,5 +20,16 @@ Meteor.startup(() => {
   Meteor.publish("brands", () => Brands.find());
   Meteor.publish("merchants", () => Merchants.find());
   Meteor.publish("products", () => Products.find());
-  Meteor.publish("users", () => Meteor.users.find());
+  Meteor.publish("users", () =>
+    Meteor.users.find(
+      {},
+      {
+        fields: {
+          username: 1,
+          profile: 1,
+          emails: 1
+        }
+      }
+    )
+  );
 });
