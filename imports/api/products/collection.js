@@ -8,9 +8,9 @@ const Products = new Mongo.Collection("products");
 // set schema for players
 const ProductSchema = new SimpleSchema({
   name: { type: String },
-  brand: { type: Object },
-  category: { type: Object },
-  user: { type: Object },
+  brand: { type: String },
+  category: { type: String },
+  user: { type: String },
   published: { type: Boolean },
   price: { type: Number },
   description: { type: String },

@@ -11,14 +11,7 @@ const seedData = {
       "fleece",
       "blouse"
     ],
-    bottoms: [
-      "kilt",
-      "skirt",
-      "shorts",
-      "jeans",
-      "cargos",
-      "tights"
-    ],
+    bottoms: ["kilt", "skirt", "shorts", "jeans", "cargos", "tights"],
     underwear: [
       "thong",
       "bra",
@@ -34,13 +27,7 @@ const seedData = {
       "camisole",
       "robe"
     ],
-    footwear: [
-      "shoes",
-      "sandals",
-      "boots",
-      "socks",
-      "slippers"
-    ],
+    footwear: ["shoes", "sandals", "boots", "socks", "slippers"],
     accessories: [
       "tie",
       "belt",
@@ -54,13 +41,7 @@ const seedData = {
       "gloves",
       "cummerbund"
     ],
-    suits: [
-      "suit",
-      "jogging suit",
-      "overalls",
-      "gown",
-      "dress"
-    ],
+    suits: ["suit", "jogging suit", "overalls", "gown", "dress"],
     outerwear: [
       "coat",
       "jacket",
@@ -70,26 +51,11 @@ const seedData = {
       "tracksuit",
       "poncho"
     ],
-    beach: [
-      "sarong",
-      "swimwear",
-      "bikini",
-      "swimming shorts",
-      "tankini"
-    ]
+    beach: ["sarong", "swimwear", "bikini", "swimming shorts", "tankini"],
+    misc: []
   },
-  profileTypes: [
-    "merchant",
-    "customer",
-    "admin"
-  ],
-  orderStatus: [
-    "cart",
-    "paid",
-    "collecting",
-    "shipped",
-    "received"
-  ]
+  profileTypes: ["merchant", "customer", "admin"],
+  orderStatus: ["cart", "paid", "collecting", "shipped", "received"]
 };
 
 // export module

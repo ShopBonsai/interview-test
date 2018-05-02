@@ -12,9 +12,9 @@ const CustomerSchema = new SimpleSchema({
   lastName: { type: String },
   address: { type: String },
   likedProducts: Array,
-  'likedProducts.$': String,
+  "likedProducts.$": String,
   orders: Array,
-  'orders.$': String,
+  "orders.$": String,
   createdAt: {
     type: Date,
     defaultValue: new Date()

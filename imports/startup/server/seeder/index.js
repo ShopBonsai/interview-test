@@ -15,13 +15,17 @@ import Customers from "../../../api/customers/collection";
 import Orders from "../../../api/orders/collection";
 
 // define module
-const seed = async () => {
+const seed = async limit => {
+  console.log("Server starting with seeding".yellow);
+  console.time("seeder");
 
   // cheeck seed data length
-  console.log('Mock Data Items:'.yellow, mockMerchantData.length);
+  const totalMocks = mockMerchantData.length;
+  // console.log('Mock Items:'.yellow, totalMocks);
 
   // collect collections
   const collections = [
+    Meteor.users,
     Brands,
     Categories,
     ProfileTypes,
@@ -33,64 +37,57 @@ const seed = async () => {
   ];
 
   // instantiate new SeedHelper
-  const helper = new SeedHelper;
+  const helper = new SeedHelper();
 
   // set seed tolal counter
-  const totalSeed = {};
+  const seeded = {};
 
   // clear collections
   helper.clearCollections(collections);
 
   // build categores
-  const categories = Object.keys(seedData.categories)
-    .map(item => ({ name: item }));
+  const categories = Object.keys(seedData.categories).map(item => ({
+    name: item
+  }));
   // console.log(categories);
   const seededCategories = await helper.insertDocs(Categories, categories);
   // console.log("Seeded Categories:".yellow, seededCategories);
-  totalSeed[Categories._name] = seededCategories.length;
+  seeded[Categories._name] = seededCategories.length;
 
   // build profileTypes
-  const profileTypes = Object.values(seedData.profileTypes)
-    .map(item => ({ name: item }));
-    // console.log(profileTypes);
-  const seededProfileTypes = await helper.insertDocs(ProfileTypes, profileTypes);
+  const profileTypes = Object.values(seedData.profileTypes).map(item => ({
+    name: item
+  }));
+  // console.log(profileTypes);
+  const seededProfileTypes = await helper.insertDocs(
+    ProfileTypes,
+    profileTypes
+  );
   // console.log("Seeded Profile Types:".yellow, seededProfileTypes);
-  totalSeed[ProfileTypes._name] = seededProfileTypes.length;
+  seeded[ProfileTypes._name] = seededProfileTypes.length;
 
   // build orderStatus
-  const orderStatus = Object.values(seedData.orderStatus)
-    .map(item => ({ name: item }));
-    // console.log(orderStatus);
+  const orderStatus = Object.values(seedData.orderStatus).map(item => ({
+    name: item
+  }));
+  // console.log(orderStatus);
   const seededOrderStatus = await helper.insertDocs(OrderStatus, orderStatus);
   // console.log("Seeded Order Status:".yellow, seededOrderStatus);
-  totalSeed[OrderStatus._name] = seededOrderStatus.length;
+  seeded[OrderStatus._name] = seededOrderStatus.length;
 
-  // build merchants
-  const merchantProfileType = await ProfileTypes.findOne({ name: 'merchant' });
-  const builtMerchants = helper.buildMerchants(mockMerchantData, merchantProfileType);
-  // console.log("Built Merchant Profiles:".yellow, builtMerchants);
-  const seededMerchants = await helper.insertDocs(Merchants, builtMerchants);
-  // console.log("Seeded Merchant Profiles:".yellow, seededMerchants);
-  totalSeed[Merchants._name] = seededMerchants.length;
+  // build and seed products with refs merchants, merchant users, brands
+  const seededProducts = await helper.buildSeedProducts(
+    mockMerchantData,
+    limit
+  );
+  // console.log("Seeded Merchants, Merchant Users, Brands, Products:".yellow, seededProducts, seeded);
 
-  // build merchants
-  const customerProfileType = await ProfileTypes.findOne({ name: 'customer' });
-  const builtCustomers = helper.buildCustomers(5, customerProfileType);
-  // console.log("Built Customer Profiles:".yellow, builtCustomers);
-  const seededCustomers = await helper.insertDocs(Customers, builtCustomers);
-  // console.log("Seeded Customer Profile Ids:".yellow, seededCustomers);
-  totalSeed[Customers._name] = seededCustomers.length;
-
-  // build users
-  const builtUsers = helper.buildUsers(seededMerchants, seededCustomers);
-  // console.log("Built Users:".yellow, builtUsers);
-  const seededUsers = await helper.insertUsers(builtUsers);
-  // console.log("Seeded Users:".yellow, seededUsers);
-  totalSeed["users"] = seededUsers.length;
-
-  // log totals
-  console.log("Total Seeded:".yellow, totalSeed);
-
+  // combine and log totals
+  const totalSeeded = { ...seeded, ...seededProducts };
+  totalSeeded[Merchants._name] = Merchants.find().count();
+  totalSeeded.users = Meteor.users.find().count();
+  console.log("Total Seeded:".yellow, totalSeeded);
+  console.timeEnd("seeder");
 };
 
 // export module
