@@ -203,7 +203,9 @@ class SeedHelper {
           color: product.color,
           size: product.size,
           quantity: product.quantity,
-          image: "http://lorempixel.com/300/300/fashion"
+          image: `images/${seedData.productImages[
+            faker.random.number({ min: 0, max: 6 })
+          ]}`
         };
         // console.log("TEST".yellow, builtProduct);
         const productId = await this.insertDoc(Products, builtProduct);

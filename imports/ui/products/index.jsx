@@ -26,11 +26,11 @@ class Products extends PureComponent {
           <p className="lead">Browse our full collection of exciting products here!</p>
         </Jumbotron>
         <Row>
-          <Col xs="12" sm="4">
+          <Col xs="12" lg="2">
             FILTERS
           </Col>
-          <Col xs="12" sm="8">
-            <AllProducts />
+          <Col xs="12" lg="10">
+            <AllProducts id="products-index"/>
           </Col>
         </Row>
       </Container>
