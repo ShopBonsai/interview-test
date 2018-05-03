@@ -7,11 +7,11 @@ import { render } from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Client Imports
-import Router from "../../ui/Router.jsx";
+import Ui from "../../ui/index.jsx";
 
 // Actual Rendering Function
 const renderApp = () =>
-  render(<Router />, document.getElementById("render-target"));
+  render(<Ui />, document.getElementById("render-target"));
 
 // Start App
 Meteor.startup(() => {
