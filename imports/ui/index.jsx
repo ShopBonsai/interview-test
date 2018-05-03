@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // Pages
 import Admin from "./admin/index";
-import StoreFront from "./storefront/index";
+import StoreFront from "./storeFront/index";
 import Products from "./products/index";
 
 // defint component

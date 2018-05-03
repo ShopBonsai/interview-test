@@ -11,32 +11,22 @@ import {
   Nav,
   NavItem,
   NavLink
-} from 'reactstrap';
+} from "reactstrap";
 
 // define component
 const MainNav = () =>
   <nav id="main-nav">
-    <Nav>
+    <Nav id="nav-brand">
       <NavItem>
         <Link to="/" className="nav-link">
-          Store Front
+          <img src="http://shopbonsai.ca/img/logo-bonsai-white.svg" />
         </Link>
       </NavItem>
     </Nav>
-    <Nav>
+    <Nav id="nav-menu">
       <NavItem>
-        <Link to="/products" className="nav-link">
-          Products
-        </Link>
-      </NavItem>
-      <NavItem>
-        <Link to="/categories" className="nav-link">
-          Categories
-        </Link>
-      </NavItem>
-      <NavItem>
-        <Link to="/brands" className="nav-link">
-          Brands
+        <Link to="#" className="nav-link">
+          My Account
         </Link>
       </NavItem>
       <NavItem>

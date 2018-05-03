@@ -1,16 +1,16 @@
 // Framework
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
-import MainNav from "../mainnav/index";
-import AllProducts from "./AllProducts";
 import {
   Container,
   Row,
   Col,
   Jumbotron,
-  Table,
-  Button,
-} from 'reactstrap';
+} from "reactstrap";
+import MainNav from "../mainNav/index";
+import NavHeader from "../navHeader/index";
+import AllProducts from "./AllProducts";
+import Filters from "./Filters";
 
 // define component
 class Products extends PureComponent {
@@ -20,17 +20,16 @@ class Products extends PureComponent {
   render() {
     return (
       <Container fluid id="products-page">
-        <MainNav />
-        <Jumbotron>
-          <h1 className="display-3">Products</h1>
-          <p className="lead">Browse our full collection of exciting products here!</p>
-        </Jumbotron>
-        <Row>
+        <NavHeader
+          heading="Bonsai Products"
+          subtitle="Browse our full collection of exciting products here!"
+        />
+        <Row noGutters>
           <Col xs="12" lg="2">
-            FILTERS
+            <Filters />
           </Col>
           <Col xs="12" lg="10">
-            <AllProducts id="products-index"/>
+            <AllProducts />
           </Col>
         </Row>
       </Container>

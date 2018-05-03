@@ -13,7 +13,7 @@ import {
   Col,
   Jumbotron,
   Table,
-} from 'reactstrap';
+} from "reactstrap";
 
 // define component
 class Admin extends PureComponent {
