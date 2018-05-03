@@ -2,26 +2,30 @@
 import React, { PureComponent } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
-import { Link } from "react-router-dom";
+import Product from "./Product";
 import ProfileTypes from "../../api/profileTypes/collection";
 import Categories from "../../api/categories/collection";
 import Brands from "../../api/brands/collection";
 import Merchants from "../../api/merchants/collection";
 import Products from "../../api/products/collection";
-import {
-  Container,
-  Row,
-  Col,
-  Jumbotron,
-  Table,
-  Button,
-} from 'reactstrap';
 
 // define component
 class AllProducts extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    const renderCards = array => {
+      if (array.length < 1) {
+        return console.log(array.length);
+      }
+      // console.log(array.length);
+      return array.map(data => <Product key={data._id} data={data} allBrands={this.props.allBrands} />);
+    };
     return (
-      <p>{JSON.stringify(this.props.allProducts)}</p>
+      <section id="products-index">
+        {renderCards(this.props.allProducts)}
+      </section>
     );
   }
 }

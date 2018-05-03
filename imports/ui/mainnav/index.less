@@ -1,7 +1,22 @@
 #main-nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: #007BFF;
+  align-items: flex-start;
   color: white;
+  #nav-brand {
+    .nav-link {
+      padding: 2rem 0 2rem 2rem;
+      font-size: 1rem;
+      img {
+        width: 5rem;
+      }
+    }
+  }
+  #nav-menu {
+    padding: 2rem 2rem 0 0;
+    .nav-link {
+      padding: 0 0 0 2rem;
+      font-size: 1rem;
+    }
+  }
 }

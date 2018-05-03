@@ -55,7 +55,16 @@ const seedData = {
     misc: []
   },
   profileTypes: ["merchant", "customer", "admin"],
-  orderStatus: ["cart", "paid", "collecting", "shipped", "received"]
+  orderStatus: ["cart", "paid", "collecting", "shipped", "received"],
+  productImages: [
+    "hat.png",
+    "heels.png",
+    "hoody.png",
+    "jacket.png",
+    "jersey.png",
+    "shirt.png",
+    "sneakers.png"
+  ]
 };
 
 // export module
