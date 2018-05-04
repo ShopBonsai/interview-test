@@ -20,12 +20,14 @@ class Filters extends PureComponent {
     event.preventDefault();
     const { currentTarget, target } = event;
     const formData = new FormData(currentTarget);
-    const values = {};
-    values.name = formData.get("name");
-    values.size = formData.get("size");
-    values.color = formData.get("color");
-    values.priceMin = formData.get("priceMin");
-    values.priceMax = formData.get("priceMax");
+    const values = {
+      product: {}
+    };
+    values.product.name = formData.get("name");
+    values.product.size = formData.get("size");
+    values.product.color = formData.get("color");
+    values.product.priceMin = formData.get("priceMin");
+    values.product.priceMax = formData.get("priceMax");
     values.brands = formData.getAll("brands");
     values.categories = formData.getAll("categories");
     values.merchants = formData.getAll("merchants");
