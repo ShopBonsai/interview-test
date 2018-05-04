@@ -8,6 +8,13 @@
     }
     form {
       .form-drop-down {
+        padding-bottom: 1rem;
+        label {
+          display: flex;
+          flex-flow: row;
+          justify-content: space-between;
+          align-items: center;
+        }
         .form-control-label {
           cursor: pointer;
         }
@@ -16,11 +23,13 @@
           flex-flow: column nowrap;
           align-items: flex-start;
           justify-content: space-between;
-          .form-check-label {
-            display: block;
-            .form-check-input {
-              margin: 0 0.5rem;
-              position: inherit;
+          .check-box {
+            margin-left: 0.5rem;
+            label {
+              margin: 0;
+              input {
+                margin-right: 0.5rem;
+              }
             }
           }
         }
