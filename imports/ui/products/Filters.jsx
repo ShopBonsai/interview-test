@@ -1,6 +1,5 @@
 // Framework
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
 import {
   Form,
   FormGroup,
@@ -8,33 +7,47 @@ import {
   Input,
   Button
 } from "reactstrap";
+import FormDropDown from "./FormDropDown";
+import ProductDropDown from "./ProductDropDown";
 
 // define component
 class Filters extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+  submitHandler(event) {
+    event.preventDefault();
+    const { currentTarget, target } = event;
+    const formData = new FormData(currentTarget);
+    const values = {};
+    values.name = formData.get("name");
+    values.size = formData.get("size");
+    values.color = formData.get("color");
+    values.priceMin = formData.get("priceMin");
+    values.priceMax = formData.get("priceMax");
+    values.brands = formData.getAll("brands");
+    values.categories = formData.getAll("categories");
+    values.merchants = formData.getAll("merchants");
+    console.log(values);
+  }
   render() {
     return (
       <section id="products-filter">
         <h2>Product Filters</h2>
-        <Form>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label for="brand" className="mr-sm-2">Brand</Label>
-            <Input type="brand" name="brand" id="brand" placeholder="Shop by Brand" />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label for="category" className="mr-sm-2">Category</Label>
-            <Input type="category" name="category" id="category" placeholder="Shop by Category" />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label for="merchant" className="mr-sm-2">Merchant</Label>
-            <Input type="merchant" name="merchant" id="merchant" placeholder="Shop by Merchant" />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label for="name" className="mr-sm-2">Name</Label>
-            <Input type="name" name="name" id="name" placeholder="Shop by Name" />
-          </FormGroup>
-          <FormGroup>
-            <Button>Submit</Button>
-          </FormGroup>
+        <Form onSubmit={this.submitHandler}>
+          <ProductDropDown />
+          <FormDropDown name="brands" />
+          <FormDropDown name="categories" />
+          <FormDropDown name="merchants" />
+          <div className="form-buttons">
+            <Button type="submit" color="primary">
+              Apply
+            </Button>
+            <Button type="reset" color="danger">
+              Clear
+            </Button>
+          </div>
         </Form>
       </section>
     );

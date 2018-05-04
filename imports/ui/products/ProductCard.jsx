@@ -10,7 +10,7 @@ import {
 import helpers from "../../helpers";
 
 // define component
-class Product extends PureComponent {
+class ProductCard extends PureComponent {
   constructor(props) {
     super(props);
     // console.log(this.props);
@@ -45,4 +45,4 @@ class Product extends PureComponent {
 }
 
 // export component
-export default Product;
+export default ProductCard;
