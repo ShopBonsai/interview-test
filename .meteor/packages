@@ -24,3 +24,5 @@ accounts-base
 accounts-ui
 accounts-password
 react-meteor-data
+accounts-facebook
+facebook-config-ui
