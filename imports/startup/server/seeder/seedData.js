@@ -57,13 +57,13 @@ const seedData = {
   profileTypes: ["merchant", "customer", "admin"],
   orderStatus: ["cart", "paid", "collecting", "shipped", "received"],
   productImages: [
+    "coat.png",
     "hat.png",
-    "heels.png",
-    "hoody.png",
     "jacket.png",
     "jersey.png",
-    "shirt.png",
-    "sneakers.png"
+    "pants.png",
+    "sneakers.png",
+    "watch.png"
   ]
 };
 

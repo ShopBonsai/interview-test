@@ -33,7 +33,14 @@ class Filters extends PureComponent {
           <FormDropDown name="brands" />
           <FormDropDown name="categories" />
           <FormDropDown name="merchants" />
-          <Button type="submit">Submit</Button>
+          <div className="form-buttons">
+            <Button type="submit" color="primary">
+              Apply
+            </Button>
+            <Button type="reset" color="danger">
+              Clear
+            </Button>
+          </div>
         </Form>
       </section>
     );

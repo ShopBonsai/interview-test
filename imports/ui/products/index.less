@@ -34,6 +34,18 @@
           }
         }
       }
+      .form-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        button[type=submit] {
+          margin-right: 1rem;
+          width: 50%;
+        }
+        button[type=reset] {
+          width: 50%;
+        }
+      }
     }
   }
   #products-index {
@@ -42,6 +54,7 @@
     flex-flow: row wrap;
     justify-content: center;
     background-color: lightgray;
+    min-height: 100%;
     .product-card {
       background-color: whitesmoke;
       margin-bottom: 2rem;
