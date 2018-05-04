@@ -2,10 +2,13 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
+import { withTracker } from 'meteor/react-meteor-data'
+
 // Components
 import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
 import Product from "../components/Product";
+
 
 class Shop extends Component {
   constructor(props) {
@@ -57,3 +60,12 @@ class Shop extends Component {
 }
 
 export default Shop;
+
+export default withTracker(() => {
+  Meteor.subscribe('todos'); // NEW!
+  return {
+    currentUser: Meteor.user(),
+    currentUserId: Meteor.userId(),
+    todos: ToDos.find({}).fetch()
+  };
+})(Shop);

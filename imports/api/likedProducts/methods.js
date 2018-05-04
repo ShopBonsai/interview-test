@@ -9,7 +9,7 @@ import { LikedProducts } from "./collection";
 // checks on server for who's logged. query for documents based on owner field
 if (Meteor.isServer) {
   Meteor.publish("likedProducts", function todosPublication() {
-    return LikedProducts.find({
+    return Meteor.users.find({
       owner: this.userId
     });
   });

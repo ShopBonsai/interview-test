@@ -28,7 +28,7 @@ Meteor.startup(() => {
       brand: "",
       price: "",
       liked: true,
-      owner: ""
+      owner: userId
     });
   }
 });

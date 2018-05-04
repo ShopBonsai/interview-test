@@ -35,10 +35,10 @@ class Product extends PureComponent {
 
   render() {
     const {
-      name,
+      name = "Product",
       id,
       image,
-      brand = "Product",
+      brand,
       color,
       description,
       price,
