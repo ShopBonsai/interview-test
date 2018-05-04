@@ -26,6 +26,9 @@ class Product extends PureComponent {
       }));
       Meteor.call("likedProducts.addLikedProduct", name);
     } else {
+      this.setState(() => ({
+        liked: false
+      }));
       Meteor.call("likedProducts.removeLikedProduct", name);
     }
   };
@@ -72,7 +75,7 @@ class Product extends PureComponent {
           </Button>
         </div>
         <Button name={name} onClick={this.likeProduct}>
-          Like
+          {!this.state.liked ? "Like" : "Unlike"}
         </Button>
       </div>
     );
