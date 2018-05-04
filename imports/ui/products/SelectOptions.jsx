@@ -22,6 +22,7 @@ class SelectOptions extends PureComponent {
         return <option value="no data">No Data</option>;
       }
       const options = [];
+      options.push("any");
       data.forEach(product => {
         const variable = product[name];
         if (!options.includes(variable)) {

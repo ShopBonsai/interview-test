@@ -24,6 +24,8 @@ class Filters extends PureComponent {
     values.name = formData.get("name");
     values.size = formData.get("size");
     values.color = formData.get("color");
+    values.priceMin = formData.get("priceMin");
+    values.priceMax = formData.get("priceMax");
     values.brands = formData.getAll("brands");
     values.categories = formData.getAll("categories");
     values.merchants = formData.getAll("merchants");
@@ -45,6 +47,14 @@ class Filters extends PureComponent {
           <FormGroup>
             <Label htmlFor="color">Colour</Label>
             <SelectOptions name="color" />
+          </FormGroup>
+          <FormGroup id="price-filter">
+            <Label htmlFor="priceMin">Price</Label>
+            <Label htmlFor="priceMin" hidden>Price</Label>
+            <div>
+              <Input type="number" id="priceMin" name="priceMin" placeholder="Min" />
+              <Input type="number" id="priceMax" name="priceMax" placeholder="Max" />
+            </div>
           </FormGroup>
           <FormDropDown name="brands" />
           <FormDropDown name="categories" />
