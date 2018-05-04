@@ -8,7 +8,7 @@ import {
   Button
 } from "reactstrap";
 import FormDropDown from "./FormDropDown";
-import SelectOptions from "./SelectOptions";
+import ProductDropDown from "./ProductDropDown";
 
 // define component
 class Filters extends PureComponent {
@@ -36,26 +36,7 @@ class Filters extends PureComponent {
       <section id="products-filter">
         <h2>Product Filters</h2>
         <Form onSubmit={this.submitHandler}>
-          <FormGroup>
-            <Label htmlFor="name">Name</Label>
-            <Input type="text" name="name" id="name" placeholder="Search by Name"/>
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="size">Size</Label>
-            <SelectOptions name="size" />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="color">Colour</Label>
-            <SelectOptions name="color" />
-          </FormGroup>
-          <FormGroup id="price-filter">
-            <Label htmlFor="priceMin">Price</Label>
-            <Label htmlFor="priceMin" hidden>Price</Label>
-            <div>
-              <Input type="number" id="priceMin" name="priceMin" placeholder="Min" />
-              <Input type="number" id="priceMax" name="priceMax" placeholder="Max" />
-            </div>
-          </FormGroup>
+          <ProductDropDown />
           <FormDropDown name="brands" />
           <FormDropDown name="categories" />
           <FormDropDown name="merchants" />
