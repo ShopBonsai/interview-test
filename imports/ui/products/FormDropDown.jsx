@@ -41,8 +41,8 @@ class FormDropDown extends PureComponent {
         break;
     }
     return (
-      <FormGroup className="mb-2 mr-sm-2 mb-sm-0 form-drop-down">
-        <Label for={this.props.name} className="mr-sm-2" onClick={this.toggle}>
+      <FormGroup>
+        <Label for={this.props.name} onClick={this.toggle}>
           <h5>
             {helpers.titelize(this.props.name)}
           </h5>

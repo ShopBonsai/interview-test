@@ -10,6 +10,18 @@ const helpers = {
           letter.substr(0, 1).toUpperCase() + letter.substr(1).toLowerCase()
       )
       .join(" ");
+  },
+  adjustSizes: item => {
+    switch (item) {
+      case "S":
+        return "small";
+      case "M":
+        return "medium";
+      case "L":
+        return "large";
+      default:
+        return item;
+    }
   }
 };
 
