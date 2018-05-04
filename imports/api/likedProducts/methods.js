@@ -6,12 +6,24 @@ import { Meteor } from "meteor/meteor";
 // Collections
 import { LikedProducts } from "./collection";
 
-export const addLikedProduct = name => {
+// checks on server for who's logged. query for documents based on owner field
+if (Meteor.isServer) {
+  Meteor.publish("likedProducts", function todosPublication() {
+    return LikedProducts.find({
+      owner: this.userId
+    });
+  });
+}
+
+export const addLikedProduct = (name, brand, price) => {
   let likedProduct;
   try {
     likedProduct = LikedProducts.insert({
       name: name,
-      liked: true
+      brand: brand,
+      price: price,
+      liked: true,
+      owner: this.userId
     });
   } catch (error) {
     throw new Meteor.Error("this is an error", error);
@@ -21,9 +33,6 @@ export const addLikedProduct = name => {
 
 export const removeLikedProduct = name => {
   try {
-    // removeLikedProduct = LikedProducts.remove({
-    //   name: name
-    // });
     LikedProducts.remove({ name: name });
   } catch (error) {
     throw new Meteor.Error("this is an error", error);

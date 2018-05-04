@@ -8,6 +8,7 @@ import { LikedProducts } from "../../api/likedProducts/collection.js";
 Meteor.startup(() => {
   if (Meteor.users.find().count() === 0) {
     let userId = Accounts.createUser({
+      name: "Nicholas",
       email: "nicholas@nicholas.com",
       password: "pass"
     });
@@ -23,8 +24,11 @@ Meteor.startup(() => {
   }
   if (LikedProducts.find().count() === 0) {
     LikedProducts.insert({
-      id: "initializing database",
-      liked: true
+      name: "initializing database",
+      brand: "",
+      price: "",
+      liked: true,
+      owner: ""
     });
   }
 });

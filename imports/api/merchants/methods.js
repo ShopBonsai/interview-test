@@ -90,33 +90,8 @@ export const getMerchants = () => {
   return merchantData;
 };
 
-// export const likeProduct = id => {
-//   let likedProduct;
-//   try {
-//     likedProduct = Merchants.findOne(id).insert({
-//       liked: true
-//     });
-//   } catch (e) {
-//     throw new Meteor.Error("there is an error");
-//   }
-// };
-
-export const addLikedProduct = name => {
-  let selectedProduct;
-  let likeProduct;
-  try {
-    selectedProduct = Merchants.find({
-      products: { name: "TEMPOR Top" }
-    });
-  } catch (error) {
-    throw new Meteor.Error("this is an error", error);
-  }
-  return selectedProduct;
-};
-
 // Register meteor methods.
 Meteor.methods({
   "merchants.getMerchantById": getMerchantById,
-  "merchants.getMerchants": getMerchants,
-  "merchants.addLikedProduct": addLikedProduct
+  "merchants.getMerchants": getMerchants
 });
