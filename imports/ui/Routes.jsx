@@ -5,7 +5,9 @@ import {
   Route,
   browserHistory
 } from "react-router-dom";
+import { withTracker } from "meteor/react-meteor-data";
 
+import { LikedProducts } from "../api/likedProducts/collection";
 // Pages
 import Shop from "./pages/Shop.jsx";
 import Home from "./pages/Home.jsx";

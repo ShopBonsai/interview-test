@@ -1,14 +1,8 @@
 // Framework
 import React, { PureComponent } from "react";
 
-import { withTracker } from "meteor/react-meteor-data";
-
 // Components
 import Button from "../components/Button.jsx";
-
-// LikedProducts collection
-
-// import { likedProducts } from "../../api/likedProducts";
 
 class Product extends PureComponent {
   constructor(props) {

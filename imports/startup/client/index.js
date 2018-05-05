@@ -2,9 +2,9 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
-
 // Libraries
 import "bootstrap/dist/css/bootstrap.css";
+import { Accounts } from "meteor/accounts-base";
 
 // Client Imports
 import Routes from "../../ui/Routes.jsx";

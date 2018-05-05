@@ -7,13 +7,13 @@ import { Meteor } from "meteor/meteor";
 import { LikedProducts } from "./collection";
 
 // checks on server for who's logged. query for documents based on owner field
-if (Meteor.isServer) {
-  Meteor.publish("likedProducts", function likedPublication() {
-    return LikedProducts.find({
-      owner: this.userId
-    });
-  });
-}
+// if (Meteor.isServer) {
+//   Meteor.publish("likedProducts", function todosPublication() {
+//     return LikedProducts.find({
+//       owner: this.userId
+//     });
+//   });
+// }
 
 export const addLikedProduct = (name, brand, price) => {
   let likedProduct;
@@ -23,7 +23,7 @@ export const addLikedProduct = (name, brand, price) => {
       brand: brand,
       price: price,
       liked: true,
-      owner: this.userId
+      owner: Meteor.userId()
     });
   } catch (error) {
     throw new Meteor.Error("this is an error", error);
