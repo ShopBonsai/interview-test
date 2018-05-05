@@ -3,6 +3,7 @@ import React, { PureComponent } from "react";
 
 // Components
 import Button from "../components/Button.jsx";
+import IconButton from "material-ui/IconButton";
 
 class Product extends PureComponent {
   constructor(props) {
@@ -57,25 +58,31 @@ class Product extends PureComponent {
     return (
       <div className="product">
         <img alt={name} src={image} />
-        <div className="details">
-          <div className="info">
-            {info.map(({ label, value }) =>
-              <div className="info-row" key={`${name}-${label}-${value}`}>
-                <div className="label">
-                  {label}:
-                </div>
-                <div className="value">
-                  {value}
-                </div>
-              </div>
-            )}
+        <div className="meta-wrapper">
+          <div>
+            <div>
+              {"$" + price}
+            </div>
+            <div>
+              {brand}
+            </div>
+            <div>
+              {lodash.startCase(lodash.toLower(name))}
+            </div>
           </div>
-          <Button name={name} onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
         </div>
-        <Button onClick={this.likeProduct}>
-          {!this.state.liked ? "Like" : "Unlike"}
+        <div>
+          <i
+            onClick={this.likeProduct}
+            className={
+              !this.state.liked
+                ? "ion-ios-heart-outline icon-button"
+                : "ion-ios-heart icon-button"
+            }
+          />
+        </div>
+        <Button name={name} onClick={this.handleBuyProduct}>
+          Add to Cart
         </Button>
       </div>
     );

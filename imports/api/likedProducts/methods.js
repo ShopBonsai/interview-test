@@ -6,15 +6,6 @@ import { Meteor } from "meteor/meteor";
 // Collections
 import { LikedProducts } from "./collection";
 
-// checks on server for who's logged. query for documents based on owner field
-// if (Meteor.isServer) {
-//   Meteor.publish("likedProducts", function todosPublication() {
-//     return LikedProducts.find({
-//       owner: this.userId
-//     });
-//   });
-// }
-
 export const addLikedProduct = (name, brand, price) => {
   let likedProduct;
   try {
@@ -23,6 +14,7 @@ export const addLikedProduct = (name, brand, price) => {
       brand: brand,
       price: price,
       liked: true,
+      createdAt: new Date(), // current time
       owner: Meteor.userId()
     });
   } catch (error) {

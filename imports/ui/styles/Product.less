@@ -1,17 +1,18 @@
 .product {
+  max-width: 300px;
   font-size: 14px;
   display: flex;
-  padding: 2rem;
+  padding-bottom: 2rem;
   flex-shrink: 0;
   flex-wrap: wrap;
   justify-content: center;
 
-  img {
     flex-basis: 300px;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.45);
     border-radius: 0.8rem;
+  .meta-wrapper {
+    justify-content: row
   }
-
   .details {
     display: flex;
     flex-direction: column;
@@ -32,6 +33,19 @@
         }
 
       }
+    }
+  }
+  .icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: red;
+    transition-duration: 0.3s;
+    border: none;
+    font-size: 2rem;
+    &:hover {
+      opacity: 0.9;
     }
   }
 }
