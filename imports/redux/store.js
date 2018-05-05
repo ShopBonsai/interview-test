@@ -3,7 +3,7 @@ import factory from "./factory";
 import defaultState from "./defaultState.json";
 
 // create store for holding state
-const store = factory(defaultState);
+const store = factory(defaultState, "logger");
 
 // save state to localStorage
 const saveToLocalStorage = () => {

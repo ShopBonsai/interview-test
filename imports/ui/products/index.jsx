@@ -1,16 +1,11 @@
 // Framework
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Row,
-  Col,
-  Jumbotron,
-} from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import MainNav from "../mainNav/index";
 import NavHeader from "../navHeader/index";
 import AllProducts from "./AllProducts";
-import Filters from "./Filters";
+import FilterContainer from "../filter/container";
 
 // define component
 class Products extends PureComponent {
@@ -26,7 +21,7 @@ class Products extends PureComponent {
         />
         <Row noGutters>
           <Col xs="12" lg="2">
-            <Filters />
+            <FilterContainer />
           </Col>
           <Col xs="12" lg="10">
             <AllProducts />
