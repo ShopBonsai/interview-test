@@ -27,7 +27,7 @@ class ProductCard extends PureComponent {
         <section>
           <CardTitle>
             <Link to={`/products/${data._id}`}>
-              {data.name}
+              {helpers.titelize(data.name)}
             </Link>
           </CardTitle>
           <CardSubtitle>

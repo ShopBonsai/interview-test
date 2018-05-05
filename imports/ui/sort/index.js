@@ -13,7 +13,7 @@ class Sort extends PureComponent {
     const { currentTarget, target } = event;
     const formData = new FormData(currentTarget);
     const sort = formData.get("sort");
-    console.log(sort);
+    // console.log(sort);
     this.props.setSort(sort);
   }
   render() {

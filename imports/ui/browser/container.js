@@ -5,7 +5,8 @@ import Browser from "./";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
-  filter: state.filter
+  filter: state.filter,
+  currentSort: state.sort
 });
 
 // sets dispatch functions to be sent down to components as properties
