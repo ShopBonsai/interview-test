@@ -4,7 +4,7 @@ const helpers = {
     try {
       name = brands.filter(brand => brand._id === id)[0].name;
     } catch (e) {
-      console.warn(e);
+      null;
     }
     return name;
   },
@@ -29,6 +29,24 @@ const helpers = {
       default:
         return item;
     }
+  },
+  findProductMerchantProfileId: (productUserId, users, merchantProfiles) => {
+    let id = "";
+    try {
+      // console.log(productUserId, users, merchantProfiles);
+      const productUserAccount = users.filter(
+        user => user._id === productUserId
+      )[0];
+      // console.log("Product User Account:", productUserAccount);
+      const productMerchantProfile = merchantProfiles.filter(
+        merchantProfile => merchantProfile._id === productUserAccount.profile
+      )[0];
+      // console.log("Product Merchant Profile:", productMerchantProfile);
+      id = productMerchantProfile._id;
+    } catch (e) {
+      null;
+    }
+    return id;
   }
 };
 

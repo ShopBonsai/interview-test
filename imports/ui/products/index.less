@@ -1,95 +1,17 @@
 #products-page {
   padding: 0;
-  #products-filter {
-    padding: 2rem;
-    min-height: 100%;
-    h2 {
-      margin-bottom: 2rem;
-    }
-    form {
-      label {
-        display: flex;
-        flex-flow: row;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0;
-      }
-      .form-control-label {
-        cursor: pointer;
-        margin: 0;
-      }
-      .check-items {
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: flex-start;
-        justify-content: space-between;
-        margin-top: 1rem;
-        .check-box {
-          margin-left: 0.5rem;
-          label {
-            margin: 0;
-            input {
-              margin-right: 0.5rem;
-            }
-          }
-        }
-      }
-      #product-filter {
-        margin-top: 1rem;
-      }
-      #price-filter {
-        div {
-          display: flex;
-          input {
-            width: 50%;
-          }
-          input:first-of-type {
-            margin-right: 1rem;
-          }
-        }
-      }
-      .form-buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        button[type=submit] {
-          margin-right: 1rem;
-          width: 50%;
-        }
-        button[type=reset] {
-          width: 50%;
-        }
-      }
-    }
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40vh 60vh;
+  @media @phones {
+		grid-template-rows: auto;
+	}
+  #products-head {
+    grid-column: 1 / 2;
+    grid-row: 1;
   }
-  #products-index {
-    padding: 2rem 0 0 2rem;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    background-color: lightgray;
-    min-height: 100%;
-    .product-card {
-      background-color: whitesmoke;
-      margin-bottom: 2rem;
-      box-shadow: 0.25rem 0 1rem rgb(180, 180, 180);
-      margin-right: 2rem;
-      img {
-        width: 100%;
-        padding: 1rem;
-        margin: 0;
-        background-color: white;
-      }
-      section {
-        padding: 1rem;
-        h4 {
-          color: @color-1;
-        }
-        p {
-          color: @color-3;
-        }
-      }
-    }
+  #products-body {
+    grid-column: 1 / 2;
+    grid-row: 2;
   }
-
 }

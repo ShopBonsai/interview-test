@@ -1,0 +1,37 @@
+#browser {
+  padding: 2rem 0 0 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  min-height: 100%;
+  #no-match-error {
+    color: @browserShadow;
+    text-align: center;
+    @media @phones {
+      padding: 0 2rem 2rem 0;
+    }
+  }
+  .product-card {
+    background-color: whitesmoke;
+    margin-bottom: 2rem;
+    box-shadow: 0.25rem 0 1rem @browserShadow;
+    margin-right: 2rem;
+    img {
+      width: 100%;
+      padding: 1rem;
+      margin: 0;
+      background-color: white;
+    }
+    section {
+      padding: 1rem;
+      h4 {
+        color: @color-1;
+      }
+      p {
+        color: @color-3;
+      }
+    }
+  }
+}
