@@ -1,6 +1,13 @@
 const helpers = {
-  getBrandName: (id, brands) =>
-    brands.filter(brand => brand._id === id)[0].name,
+  getBrandName: (id, brands) => {
+    let name = "No Data";
+    try {
+      name = brands.filter(brand => brand._id === id)[0].name;
+    } catch (e) {
+      null;
+    }
+    return name;
+  },
   formatPrice: price => price.toString().replace(/(\.\d+)/gi, ""),
   titelize: string => {
     const hashed = string.replace(/\s+/gi, "###").split("###");
@@ -22,6 +29,24 @@ const helpers = {
       default:
         return item;
     }
+  },
+  findProductMerchantProfileId: (productUserId, users, merchantProfiles) => {
+    let id = "";
+    try {
+      // console.log(productUserId, users, merchantProfiles);
+      const productUserAccount = users.filter(
+        user => user._id === productUserId
+      )[0];
+      // console.log("Product User Account:", productUserAccount);
+      const productMerchantProfile = merchantProfiles.filter(
+        merchantProfile => merchantProfile._id === productUserAccount.profile
+      )[0];
+      // console.log("Product Merchant Profile:", productMerchantProfile);
+      id = productMerchantProfile._id;
+    } catch (e) {
+      null;
+    }
+    return id;
   }
 };
 

@@ -1,0 +1,14 @@
+{
+  "filter": {
+    "product": {
+      "color": "any",
+      "name": "",
+      "priceMax": "",
+      "priceMin": "",
+      "size": "any"
+    },
+    "brands": [],
+    "categories": [],
+    "merchants": []
+  }
+}

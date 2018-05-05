@@ -51,7 +51,7 @@ const seedData = {
       "tracksuit",
       "poncho"
     ],
-    beach: ["sarong", "swimwear", "bikini", "swimming shorts", "tankini"],
+    beachwear: ["sarong", "swimwear", "bikini", "swimming shorts", "tankini"],
     misc: []
   },
   profileTypes: ["merchant", "customer", "admin"],

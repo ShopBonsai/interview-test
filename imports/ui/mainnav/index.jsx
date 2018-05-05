@@ -19,7 +19,7 @@ const MainNav = () =>
     <Nav id="nav-brand">
       <NavItem>
         <Link to="/" className="nav-link">
-          <img src="http://shopbonsai.ca/img/logo-bonsai-white.svg" />
+          <img src="icon/bonsai-white.svg" />
         </Link>
       </NavItem>
     </Nav>

@@ -5,8 +5,11 @@
   color: white;
   #nav-brand {
     .nav-link {
-      padding: 2rem 0 2rem 2rem;
+      padding: 2rem 0 0 2rem;
       font-size: 1rem;
+      @media @phones {
+        padding: 1rem 0 0 1rem;
+      }
       img {
         width: 5rem;
       }
@@ -14,9 +17,15 @@
   }
   #nav-menu {
     padding: 2rem 2rem 0 0;
+    @media @phones {
+      padding: 1rem 1rem 0 0;
+    }
     .nav-link {
       padding: 0 0 0 2rem;
       font-size: 1rem;
+      @media @phones {
+        padding: 0 0 0 1rem;
+      }
     }
   }
 }
