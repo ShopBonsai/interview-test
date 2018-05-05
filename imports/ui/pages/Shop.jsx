@@ -28,6 +28,10 @@ class Shop extends Component {
     });
   }
 
+  componentDidMount() {
+    this.props.currentUser;
+  }
+
   goBack = () => this.props.history.push("/");
 
   render() {
