@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import MainNav from "../mainNav/index";
 import NavHeader from "../navHeader/index";
 import FilterContainer from "../filter/container";
+import SortContainer from "../sort/container";
 import BrowserContainer from "../browser/container";
 
 // define component
@@ -23,6 +24,7 @@ class Products extends PureComponent {
         <Row noGutters id="products-body">
           <Col xs="12" lg="2">
             <FilterContainer />
+            <SortContainer />
           </Col>
           <Col xs="12" lg="10">
             <BrowserContainer />

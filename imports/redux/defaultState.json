@@ -10,5 +10,6 @@
     "brands": [],
     "categories": [],
     "merchants": []
-  }
+  },
+  "sort": "name"
 }
