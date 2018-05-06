@@ -5,9 +5,6 @@ import Page from "../components/Page.jsx";
 import Product from "../components/Product";
 
 class Profile extends Component {
-  static propTypes = {
-    prop: PropTypes
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +12,11 @@ class Profile extends Component {
       error: null
     };
   }
+  static propTypes = {
+    likedProducts: PropTypes.array,
+    error: PropTypes.object
+  };
+
   componentWillMount() {
     Meteor.call("likedProducts.getLikedProducts", (error, response) => {
       if (error) {

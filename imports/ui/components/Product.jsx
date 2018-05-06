@@ -80,7 +80,11 @@ class Product extends PureComponent {
           />
         </div>
 
-        <Button name={name} onClick={this.handleBuyProduct}>
+        <Button
+          className="bonsai-button"
+          name={name}
+          onClick={this.handleBuyProduct}
+        >
           Add to Cart
         </Button>
       </div>

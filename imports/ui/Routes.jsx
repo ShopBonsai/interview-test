@@ -18,7 +18,7 @@ const Routes = () =>
     <div>
       <Route exact path="/" component={Home} />
       <Route path="/shop" component={Shop} />
-      <Route path={"/profile"} component={Profile} />
+      <Route path="/profile" component={Profile} />
     </div>
   </Router>;
 

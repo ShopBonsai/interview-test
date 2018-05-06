@@ -11,7 +11,10 @@ const Header = ({ children, goBack, goProfile }) =>
     <h1>
       {children}
     </h1>
-    <button onClick={goProfile}>Profile</button>
+    <button onClick={this.goProfile}>
+      profile
+      {/* <i className="ion-person" /> */}
+    </button>
     <div className="right-content" />
   </header>;
 
