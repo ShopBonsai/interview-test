@@ -6,6 +6,24 @@ import { Meteor } from "meteor/meteor";
 // Collections
 import { LikedProducts } from "./collection";
 
+//Method to get likedproducts for current user
+
+export const getLikedProducts = () => {
+  let userLikedProducts;
+  try {
+    userLikedProducts = LikedProducts.find({
+      owner: Meteor.userId()
+    }).fetch();
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:getMerchants.findOrFetchError`,
+      `Could not find or fetch merchants`,
+      error
+    );
+  }
+  return userLikedProducts;
+};
+
 export const addLikedProduct = (name, brand, price) => {
   let likedProduct;
   try {
@@ -32,6 +50,7 @@ export const removeLikedProduct = name => {
 };
 
 Meteor.methods({
+  "likedProducts.getLikedProducts": getLikedProducts,
   "likedProducts.addLikedProduct": addLikedProduct,
   "likedProducts.removeLikedProduct": removeLikedProduct
 });
