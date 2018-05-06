@@ -1,8 +1,9 @@
 .product {
   max-width: 300px;
-  font-size: 14px;
+  font-size: 20px;
+  font-family: @bonsai-font;
   display: flex;
-  padding-bottom: 2rem;
+  margin-bottom: 2rem;
   flex-shrink: 0;
   flex-wrap: wrap;
   justify-content: center;
@@ -10,35 +11,35 @@
     flex-basis: 300px;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.45);
     border-radius: 0.8rem;
-  .meta-wrapper {
-    justify-content: row
+  img {
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
   }
-  .details {
+  .meta-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-basis: 300px;
-    padding: 1.2rem;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  
+  .meta-wrapper {
+    flex-direction: row
+  }
+  .price {
+    color: grey;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .brand {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+}
 
-    .info {
-      padding-bottom: 1rem;
-
-      .info-row {
-        display: flex;
-        flex-direction: row;
-
-        .label {
-          font-weight: 600;
-          padding-right: 0.3rem;
-        }
-
-      }
-    }
+  .brandAndNameWrapper {
+    justify-content: column;
   }
   .icon-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: auto;
     cursor: pointer;
     color: red;
     transition-duration: 0.3s;

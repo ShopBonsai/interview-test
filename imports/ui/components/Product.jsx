@@ -58,20 +58,18 @@ class Product extends PureComponent {
     return (
       <div className="product">
         <img alt={name} src={image} />
-        <div className="meta-wrapper">
-          <div>
-            <div>
+        <div className="meta-container">
+          <div className="meta-wrapper">
+            <p className="price">
               {"$" + price}
-            </div>
-            <div>
+            </p>
+            <p className="brand">
               {brand}
-            </div>
-            <div>
+            </p>
+            <p className="price">
               {lodash.startCase(lodash.toLower(name))}
-            </div>
+            </p>
           </div>
-        </div>
-        <div>
           <i
             onClick={this.likeProduct}
             className={
@@ -81,6 +79,7 @@ class Product extends PureComponent {
             }
           />
         </div>
+
         <Button name={name} onClick={this.handleBuyProduct}>
           Add to Cart
         </Button>
