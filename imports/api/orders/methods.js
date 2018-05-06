@@ -58,16 +58,18 @@ const trackingNumber = () => {
  */
 export const addOrder = ({ merchantGuid, productId }) => {
   try {
-    return Orders.insert({
+    const orderId = Orders.insert({
       merchantGuid,
       productId,
       trackingNumber: trackingNumber(),
       dateCreated: new Date().toISOString()
     });
+
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:addOrder.insert`,
-      `Could not insert order with merchantGuid: '${merchantGuid}' and productId: '${productId}'`,
+      `Could not insert or findOne order with merchantGuid: '${merchantGuid}' and productId: '${productId}'`,
       error
     );
   }

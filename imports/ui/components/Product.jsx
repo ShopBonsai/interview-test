@@ -1,15 +1,22 @@
 // Framework
 import React, { PureComponent } from "react";
-
 // Components
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
   handleBuyProduct = () => {
-    this.props.handleBuyProduct({
+    const product = {
       merchantGuid: this.props.merchantGuid,
-      productId: this.props.productId
-    });
+      productId: this.props.productId,
+      name: this.props.name,
+      image: this.props.image,
+      brand: this.props.brand,
+      color: this.props.color,
+      description: this.props.description,
+      price: this.props.price,
+      productSize: this.props.size
+    };
+    this.props.handleBuyProduct(product);
   };
 
   render() {

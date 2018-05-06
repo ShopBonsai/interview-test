@@ -6,41 +6,12 @@ import { Meteor } from "meteor/meteor";
 import Modal from "../components/Modal.jsx";
 
 class ThankYou extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      order: null,
-      error: null
-    };
-  }
-
-  componentWillMount() {
-    // Handle direct access to route without purchase
-    if (!this.props.location.state || !this.props.location.state.orderId) {
-      return this.props.history.push("/shop");
-    }
-
-    Meteor.call(
-      "orders.getOrderById",
-      this.props.location.state.orderId,
-      (error, response) => {
-        if (error) {
-          this.setState(() => ({ error: error }));
-        } else {
-          this.setState(() => ({ order: response }));
-        }
-      }
-    );
-  }
   render() {
-    if (!this.state.order) {
-      return <div />;
-    }
     return (
       <Modal
-        title="Thank you for your purchase!"
-        body={`Your tracking number: ${this.state.order.trackingNumber}`}
-        close={() => this.props.history.push("/shop")}
+        title={`Thank you for purchasing ${this.props.order.name}!`}
+        body={`Your tracking number: ${this.props.order.trackingNumber}`}
+        close={this.props.close}
       />
     );
   }
