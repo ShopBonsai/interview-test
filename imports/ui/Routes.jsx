@@ -1,21 +1,22 @@
 // Framework
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  browserHistory
-} from "react-router-dom";
+import React, { Component } from "react";
+import { Router, Route } from "react-router-dom";
 
 // Pages
-import Shop from "./pages/Shop.jsx";
+import ShopContainer from "./containers/ShopContainer.jsx";
 import Home from "./pages/Home.jsx";
 
-const Routes = () =>
-  <Router history={browserHistory}>
-    <div>
-      <Route exact path="/" component={Home} />
-      <Route path="/shop" component={Shop} />
-    </div>
-  </Router>;
+class Routes extends Component {
+  render() {
+    return (
+      <Router history={this.props.history}>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/shop" component={ShopContainer} />
+        </div>
+      </Router>
+    );
+  }
+}
 
 export default Routes;

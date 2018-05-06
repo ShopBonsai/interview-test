@@ -2,7 +2,6 @@
 
 // Framework
 import { Meteor } from "meteor/meteor";
-
 // Collections
 import { Orders } from "./collection";
 
@@ -14,7 +13,7 @@ import { Orders } from "./collection";
 export const getLastOrder = () => {
   const options = { sort: { createdAt: -1 }, limit: 1 };
   try {
-    const lastOrderCursor = Products.find({}, options);
+    const lastOrderCursor = Orders.find({}, options);
     const lastOrder = lastOrderCursor.fetch()[0];
     return lastOrder;
   } catch (error) {
@@ -33,7 +32,7 @@ export const getLastOrder = () => {
  */
 export const getOrderById = orderId => {
   try {
-    return Products.findOne(orderId);
+    return Orders.findOne(orderId);
   } catch (error) {
     throw new Meteor.Error(
       `${__filename}:getOrderById.findOrFetchError`,
@@ -42,9 +41,43 @@ export const getOrderById = orderId => {
     );
   }
 };
+/**
+ * Get Tracking number
+ * Fake random number generated, should be replaced with a real one
+ * once tracking API integrated.
+ *
+ * @returns {Object} A single order object.
+ */
+const trackingNumber = () => {
+  return Math.random().toString(36).slice(2).toUpperCase();
+};
+/**
+ * Add order
+ *
+ * @returns {string} Newly added order id
+ */
+export const addOrder = ({ merchantGuid, productId }) => {
+  try {
+    const orderId = Orders.insert({
+      merchantGuid,
+      productId,
+      trackingNumber: trackingNumber(),
+      dateCreated: new Date().toISOString()
+    });
+
+    return Orders.findOne(orderId);
+  } catch (error) {
+    throw new Meteor.Error(
+      `${__filename}:addOrder.insert`,
+      `Could not insert or findOne order with merchantGuid: '${merchantGuid}' and productId: '${productId}'`,
+      error
+    );
+  }
+};
 
 // Register meteor methods.
 Meteor.methods({
   "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  "orders.getOrderById": getOrderById,
+  "orders.addOrder": addOrder
 });

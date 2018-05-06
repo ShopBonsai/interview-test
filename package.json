@@ -13,15 +13,23 @@
   "dependencies": {
     "babel-runtime": "6.25.0",
     "bootstrap": "4.0.0-alpha.6",
+    "history": "^4.7.2",
+    "immutable": "^3.8.2",
     "meteor-node-stubs": "0.2.4",
     "react": "15.6.1",
     "react-addons-css-transition-group": "15.6.0",
     "react-addons-transition-group": "15.6.0",
     "react-dom": "15.6.1",
+    "react-redux": "^5.0.7",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-transition-group": "1.1.2",
-    "reactstrap": "4.8.0"
+    "reactstrap": "4.8.0",
+    "redux": "^4.0.0",
+    "redux-observable": "^0.18.0",
+    "rxjs": "^6.1.0",
+    "rxjs-compat": "^6.1.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",

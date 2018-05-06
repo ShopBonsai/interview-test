@@ -3,55 +3,25 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 
 // Components
-import { Alert, Row, Col } from "reactstrap";
 import Page from "../components/Page.jsx";
-import Product from "../components/Product";
+import Product from "../components/Product.jsx";
 
 class Shop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      merchants: [],
-      error: null
-    };
-  }
-
-  componentWillMount() {
-    Meteor.call("merchants.getMerchants", (error, response) => {
-      if (error) {
-        this.setState(() => ({ error: error }));
-      } else {
-        this.setState(() => ({ merchants: response }));
-      }
-    });
-  }
-
-  goBack = () => this.props.history.push("/");
-
   render() {
-    const { merchants, error } = this.state;
-
-    const getProductsFromMerchant = ({ products, brands }) =>
-      products.map(({ belongsToBrand, ...product }) => ({
-        ...product,
-        brand: brands[belongsToBrand]
-      }));
-
-    const products = merchants.reduce(
-      (acc, merchant) => [...acc, ...getProductsFromMerchant(merchant)],
-      []
-    );
-
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="shop" history goBack={this.props.goBack}>
         <div className="shop-page">
-          {products.map(({ id, ...product }) =>
-            <Product {...product} key={id} />
+          {this.props.products.map(({ id, ...product }) =>
+            <Product
+              {...product}
+              productId={id}
+              key={id}
+              handleBuyProduct={this.props.addOrder}
+            />
           )}
         </div>
       </Page>
     );
   }
 }
-
 export default Shop;
