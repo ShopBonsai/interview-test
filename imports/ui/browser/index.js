@@ -8,6 +8,7 @@ import Products from "../../api/products/collection";
 import ProfileTypes from "../../api/profileTypes/collection";
 import Merchants from "../../api/merchants/collection";
 import helpers from "../../helpers";
+import Sorter from "../../sorter";
 
 // define component
 class Browser extends Component {
@@ -16,15 +17,8 @@ class Browser extends Component {
     // console.log(props);
   }
   render() {
-    const filterAndRenderProducts = () => {
-      const {
-        brands,
-        products,
-        profileTypes,
-        merchants,
-        filter,
-        users
-      } = this.props;
+    const filterProducts = products => {
+      const { brands, profileTypes, merchants, filter, users } = this.props;
       // console.log(brands.length, products.length, profileTypes.length, users.length, filter);
       // console.log(users, profileTypes);
       let filtered = [];
@@ -86,8 +80,43 @@ class Browser extends Component {
           });
       } catch (e) {
         console.error(e);
+      } finally {
+        return filtered;
       }
-      // console.log(filtered.length);
+    };
+    const sortProducts = (products, sort, brands) => {
+      const sorter = new Sorter(products);
+      let sorted = [];
+      if (sort === "brand") {
+        console.log(brands);
+        sorted = sorter.byBrand(brands);
+      } else if (sort === "lowHigh") {
+        sorted = sorter.lowHigh();
+      } else if (sort === "highLow") {
+        sorted = sorter.bighLow();
+      }
+      sorted = sorter.byName();
+      return sorted;
+    };
+    const renderProducts = currentSort => {
+      // console.log(currentSort);
+      let products = [];
+      switch (currentSort) {
+        case "lowHigh":
+          products = this.props.lowHigh;
+          break;
+        case "highLow":
+          products = this.props.highLow;
+          break;
+        case "brand":
+          const sorter = new Sorter(this.props.byName);
+          products = sorter.byBrand(this.props.brands);
+          break;
+        default:
+          products = this.props.byName;
+          break;
+      }
+      const filtered = filterProducts(products);
       if (filtered.length < 1) {
         return <h2 id="no-match-error">No Matching Products Found</h2>;
       }
@@ -101,7 +130,7 @@ class Browser extends Component {
     };
     return (
       <section id="browser">
-        {filterAndRenderProducts()}
+        {renderProducts(this.props.currentSort)}
       </section>
     );
   }
@@ -117,7 +146,9 @@ export default withTracker(({ ...props }) => {
   return {
     filter: props.filter,
     brands: Brands.find().fetch(),
-    products: Products.find().fetch(),
+    byName: Products.find({}, { sort: { name: 1 } }).fetch(),
+    lowHigh: Products.find({}, { sort: { price: 1 } }).fetch(),
+    highLow: Products.find({}, { sort: { price: -1 } }).fetch(),
     users: Meteor.users.find().fetch(),
     profileTypes: ProfileTypes.find().fetch(),
     merchants: Merchants.find().fetch()

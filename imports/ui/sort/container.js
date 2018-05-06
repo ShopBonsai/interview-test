@@ -1,22 +1,20 @@
 // import modules
 import { connect } from "react-redux";
-import Browser from "./";
-// import { setFilter, unsetFilter } from "../../redux/actions/filter";
+import Sort from "./";
+import { setSort } from "../../redux/actions/sort";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
-  filter: state.filter,
   currentSort: state.sort
 });
 
 // sets dispatch functions to be sent down to components as properties
 const mapDispatchToProps = dispatch => ({
-  setFilter: filter => dispatch(setFilter(filter)),
-  unsetFilter: () => dispatch(unsetFilter())
+  setSort: sort => dispatch(setSort(sort))
 });
 
 // connects redux statefull containers to presentational components
-const BrowserContainer = connect(mapStateToProps, mapDispatchToProps)(Browser);
+const SortContainer = connect(mapStateToProps, mapDispatchToProps)(Sort);
 
 // export container for app
-export default BrowserContainer;
+export default SortContainer;
