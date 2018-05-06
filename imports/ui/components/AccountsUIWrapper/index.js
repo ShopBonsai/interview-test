@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import Button from "../Button";
 import { Template } from "meteor/templating";
 import { Blaze } from "meteor/blaze";
 

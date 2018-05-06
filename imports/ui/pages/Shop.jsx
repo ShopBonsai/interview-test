@@ -32,7 +32,7 @@ class Shop extends Component {
     this.props.currentUser;
   }
 
-  goBack = () => this.props.history.push("/");
+  goBack = () => this.props.history.goBack();
   goProfile = () => this.props.history.push("/profile");
 
   render() {

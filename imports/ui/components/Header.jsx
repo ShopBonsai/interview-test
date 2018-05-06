@@ -11,10 +11,7 @@ const Header = ({ children, goBack, goProfile }) =>
     <h1>
       {children}
     </h1>
-    <button onClick={this.goProfile}>
-      profile
-      {/* <i className="ion-person" /> */}
-    </button>
+    <i onClick={goProfile} className="ion-person icon" />
     <div className="right-content" />
   </header>;
 

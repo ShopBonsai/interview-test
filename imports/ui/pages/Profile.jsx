@@ -28,11 +28,14 @@ class Profile extends Component {
       }
     });
   }
+
+  goBack = () => this.props.history.goBack();
+
   render() {
     const { likedProducts, error } = this.state;
-
+    const { image } = this.props;
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page pageTitle="profile" goBack={this.goBack}>
         <div className="shop-page">
           {likedProducts.map(({ id, ...product }) =>
             <Product {...product} key={id} />

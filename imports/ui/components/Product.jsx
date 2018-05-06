@@ -3,7 +3,6 @@ import React, { PureComponent } from "react";
 
 // Components
 import Button from "../components/Button.jsx";
-import IconButton from "material-ui/IconButton";
 
 class Product extends PureComponent {
   constructor(props) {
@@ -19,22 +18,29 @@ class Product extends PureComponent {
   };
 
   likeProduct = event => {
-    const { name, brand, price } = this.props;
+    const { name, brand, price, image } = this.props;
     event.preventDefault();
     if (!this.state.liked) {
       this.setState(() => ({
         liked: true
       }));
-      Meteor.call("likedProducts.addLikedProduct", name, brand, price);
+      Meteor.call("likedProducts.addLikedProduct", name, brand, price, image);
     } else {
       this.setState(() => ({
         liked: false
       }));
-      Meteor.call("likedProducts.removeLikedProduct", name, brand, price);
+      Meteor.call(
+        "likedProducts.removeLikedProduct",
+        name,
+        brand,
+        price,
+        image
+      );
     }
   };
 
   render() {
+    const { liked } = this.state;
     const {
       name = "Product",
       id,
@@ -43,7 +49,8 @@ class Product extends PureComponent {
       color,
       description,
       price,
-      size
+      size,
+      location
     } = this.props;
 
     const info = [
@@ -73,7 +80,7 @@ class Product extends PureComponent {
           <i
             onClick={this.likeProduct}
             className={
-              !this.state.liked
+              !liked && window.location.pathname !== "/profile"
                 ? "ion-ios-heart-outline icon-button"
                 : "ion-ios-heart icon-button"
             }

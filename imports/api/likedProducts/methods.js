@@ -24,13 +24,14 @@ export const getLikedProducts = () => {
   return userLikedProducts;
 };
 
-export const addLikedProduct = (name, brand, price) => {
+export const addLikedProduct = (name, brand, price, image) => {
   let likedProduct;
   try {
     likedProduct = LikedProducts.insert({
       name: name,
       brand: brand,
       price: price,
+      image: image,
       liked: true,
       createdAt: new Date(), // current time
       owner: Meteor.userId()

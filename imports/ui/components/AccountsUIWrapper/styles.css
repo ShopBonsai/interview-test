@@ -62,7 +62,6 @@
     position: relative;
     text-align: right;
   }
-  
   .login-link-text {
     color: white;
     display: inline-block;
@@ -84,7 +83,6 @@
   [id="forgot-password-link"],
   [id="back-to-login-link"] {
     cursor: pointer;
-    text-decoration: underline;
   }
   
   [id="signup-link"]:hover,
@@ -105,7 +103,6 @@
   
   [id="login-buttons-open-change-password"] {
     margin-bottom: 0.5rem;
-    text-decoration: underline;
   }
   
   [id="login-buttons-logout"],
@@ -136,7 +133,9 @@
   [id="forgot-password-email-label-and-input"] {
     margin-bottom: 1rem;
   }
-  
+  .login-link-text a {
+    text-decoration: none;
+  }
   .login-form .error-message {
     color: red;
     font-size: 0.85rem;
