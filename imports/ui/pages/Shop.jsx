@@ -33,6 +33,7 @@ class Shop extends Component {
   }
 
   goBack = () => this.props.history.push("/");
+  goProfile = () => this.props.history.push("/profile");
 
   render() {
     const { merchants, error } = this.state;
@@ -49,7 +50,12 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page
+        pageTitle="shop"
+        history
+        goBack={this.goBack}
+        goProfile={this.goProfile}
+      >
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />

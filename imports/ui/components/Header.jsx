@@ -1,7 +1,7 @@
 // Framework
 import React from "react";
 import AccountsUIWrapper from "../components/AccountsUIWrapper";
-const Header = ({ children, goBack }) =>
+const Header = ({ children, goBack, goProfile }) =>
   <header>
     <AccountsUIWrapper />
     <button onClick={goBack} className="back-button">
@@ -11,6 +11,7 @@ const Header = ({ children, goBack }) =>
     <h1>
       {children}
     </h1>
+    <button onClick={goProfile}>Profile</button>
     <div className="right-content" />
   </header>;
 
