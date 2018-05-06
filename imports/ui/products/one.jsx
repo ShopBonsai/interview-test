@@ -80,7 +80,7 @@ const One = ({ ...props }) => {
         </Row>
         <Row noGutters>
           <Col id="product-buttons">
-            <AddToCart quantity={product.quantity} />
+            <AddToCart quantity={product.quantity} addToCart={props.addToCart} id={product._id}/>
           </Col>
         </Row>
       </Container>

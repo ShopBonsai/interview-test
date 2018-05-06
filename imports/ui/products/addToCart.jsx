@@ -13,14 +13,15 @@ const AddToCart = ({ ...props }) => {
           Out of Stock
         </Button>;
   return (
-    <Form>
+    <Form onSubmit={props.addToCart} data-proudctid={props.id}>
       <Label htmlFor="quantity">Quantity to Add</Label>
       <Input
         type="number"
         id="quantity"
-        min="0"
+        min="1"
         max={props.quantity}
         placeholder={props.quantity}
+        name="quantity"
       />
       {setButton()}
     </Form>

@@ -18,22 +18,26 @@
       color: @color-2;
       margin-top: 0.33rem;
     }
+    @media @phones {
+      margin-top: 1rem;
+    }
     #product-image {
       padding: 2rem 0;
       display: flex;
       justify-content: center;
       @media @phones {
-        padding: 2rem 0 0 0;
+        padding: 1rem 0 0 0;
       }
     }
     #product-desc {
       display: flex;
       align-items: center;
+      padding: 0 0 0 2rem;
       p {
         margin: 0;
       }
       @media @phones {
-        padding: 2rem 0;
+        padding: 1rem 0;
       }
     }
   }
@@ -42,6 +46,9 @@
   }
   #product-buttons {
     padding: 1rem 0 2rem 0;
+    @media @phones {
+      padding: 0 0 1rem 0;
+    }
     form {
       display: flex;
       justify-content: center;
