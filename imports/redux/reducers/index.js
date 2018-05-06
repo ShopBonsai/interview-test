@@ -1,12 +1,10 @@
 // import moudules
 import { combineReducers } from "redux";
-import filter from "./filter";
-import sort from "./sort";
+import ui from "./ui";
 
 // create coreReducer from slice reducers
 const reducer = combineReducers({
-  filter,
-  sort
+  ui
 });
 
 // export module

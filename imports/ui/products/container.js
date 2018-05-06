@@ -1,20 +1,20 @@
 // import modules
 import { connect } from "react-redux";
-import Sort from "./";
-import { setSort } from "../../redux/actions/ui";
+import Products from "./index";
+// import { setFilter, unsetFilter } from "../../redux/actions/filter";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
-  currentSort: state.ui.currentSort
+  productShow: state.ui.productShow
 });
 
 // sets dispatch functions to be sent down to components as properties
-const mapDispatchToProps = dispatch => ({
-  setSort: sort => dispatch(setSort(sort))
-});
+const mapDispatchToProps = dispatch => ({});
 
 // connects redux statefull containers to presentational components
-const SortContainer = connect(mapStateToProps, mapDispatchToProps)(Sort);
+const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(
+  Products
+);
 
 // export container for app
-export default SortContainer;
+export default ProductsContainer;

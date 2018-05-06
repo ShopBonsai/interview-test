@@ -8,7 +8,7 @@ const helpers = {
     }
     return name;
   },
-  formatPrice: price => price.toString().replace(/(\.\d+)/gi, ""),
+  formatPrice: price => price.toString().replace(/(\.(\d+))/gi, "$10"),
   titelize: string => {
     const hashed = string.replace(/\s+/gi, "###").split("###");
     return hashed

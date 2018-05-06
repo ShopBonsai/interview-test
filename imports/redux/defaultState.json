@@ -1,15 +1,18 @@
 {
-  "filter": {
-    "product": {
-      "color": "any",
-      "name": "",
-      "priceMax": "",
-      "priceMin": "",
-      "size": "any"
+  "ui": {
+    "filter": {
+      "product": {
+        "color": "any",
+        "name": "",
+        "priceMax": "",
+        "priceMin": "",
+        "size": "any"
+      },
+      "brands": [],
+      "categories": [],
+      "merchants": []
     },
-    "brands": [],
-    "categories": [],
-    "merchants": []
-  },
-  "sort": "name"
+    "currentSort": "name",
+    "productShow": ""
+  }
 }

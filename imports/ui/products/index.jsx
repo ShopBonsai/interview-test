@@ -1,15 +1,16 @@
 // Framework
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 import MainNav from "../mainNav/index";
 import NavHeader from "../navHeader/index";
-import FilterContainer from "../filter/container";
-import SortContainer from "../sort/container";
-import BrowserContainer from "../browser/container";
+import All from "./all";
+import One from "./one";
 
 // define component
 class Products extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {
     document.title = "Products at Bonsai Online Store";
   }
@@ -21,15 +22,9 @@ class Products extends PureComponent {
           subtitle="Browse our full collection of exciting products here!"
           id="products-head"
         />
-        <Row noGutters id="products-body">
-          <Col xs="12" lg="2">
-            <FilterContainer />
-            <SortContainer />
-          </Col>
-          <Col xs="12" lg="10">
-            <BrowserContainer />
-          </Col>
-        </Row>
+        {this.props.productShow !== ""
+          ? <One productShow={this.props.productShow} />
+          : <All />}
       </Container>
     );
   }

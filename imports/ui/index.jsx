@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 // Pages
 import Admin from "./admin/index";
 import StoreFront from "./storeFront/index";
-import Products from "./products/index";
+import ProductsContainer from "./products/container";
 
 // defint component
 const Ui = () =>
@@ -13,7 +13,7 @@ const Ui = () =>
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={StoreFront} />
-        <Route exact path="/products" component={Products} />
+        <Route exact path="/products" component={ProductsContainer} />
         <Route exact path="/admin" component={Admin} />
       </Switch>
     </BrowserRouter>
