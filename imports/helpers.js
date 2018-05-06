@@ -1,15 +1,15 @@
 const helpers = {
-  getBrandName: (id, brands) => {
+  getSingleRef: (id, array) => {
     let name = "No Data";
     try {
-      name = brands.filter(brand => brand._id === id)[0].name;
+      name = array.filter(item => item._id === id)[0].name;
     } catch (e) {
       null;
     }
     return name;
   },
   formatPrice: price => price.toString().replace(/(\.(\d+))/gi, "$10"),
-  titelize: string => {
+  titleize: string => {
     const hashed = string.replace(/\s+/gi, "###").split("###");
     return hashed
       .map(

@@ -36,7 +36,7 @@ class CheckBoxes extends Component {
               name={this.props.name}
               value={item._id}
             />
-            {helpers.titelize(item.name)}
+            {helpers.titleize(item.name)}
           </label>
         </div>
       );

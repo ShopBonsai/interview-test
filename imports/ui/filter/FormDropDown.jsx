@@ -44,7 +44,7 @@ class FormDropDown extends PureComponent {
       <FormGroup>
         <Label for={this.props.name} onClick={this.toggle}>
           <h5>
-            {helpers.titelize(this.props.name)}
+            {helpers.titleize(this.props.name)}
           </h5>
           <Badge color="secondary">
             {data.length}
