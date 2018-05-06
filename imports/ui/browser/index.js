@@ -15,6 +15,13 @@ class Browser extends Component {
   constructor(props) {
     super(props);
     // console.log(props);
+    this.viewProduct = this.viewProduct.bind(this);
+  }
+  viewProduct(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    // console.log(currentTarget.dataset.productid);
+    this.props.setProductShow(currentTarget.dataset.productid);
   }
   render() {
     const filterProducts = products => {
@@ -125,6 +132,7 @@ class Browser extends Component {
           key={product._id}
           data={product}
           allBrands={this.props.brands}
+          viewProduct={this.viewProduct}
         />
       );
     };

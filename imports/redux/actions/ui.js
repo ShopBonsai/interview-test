@@ -5,7 +5,13 @@ import store from "../store";
 // destructure getState from store
 const { getState } = store;
 
-const { SET_FILTER, UNSET_FILTER, SET_SORT } = actionTypes;
+const {
+  SET_FILTER,
+  UNSET_FILTER,
+  SET_SORT,
+  SET_PRODUCT_SHOW,
+  UNSET_PRODUCT_SHOW
+} = actionTypes;
 
 // define class for creating default actions for base store state objects
 export const setFilter = filter => dispatch =>
@@ -23,4 +29,15 @@ export const setSort = sort => dispatch =>
   dispatch({
     type: SET_SORT,
     value: sort
+  });
+// define function for setting a single product to display
+export const setProductShow = id => dispatch =>
+  dispatch({
+    type: SET_PRODUCT_SHOW,
+    id
+  });
+// define function for setting a single product to display
+export const unsetProductShow = () => dispatch =>
+  dispatch({
+    type: UNSET_PRODUCT_SHOW
   });

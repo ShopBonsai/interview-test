@@ -10,9 +10,15 @@ import One from "./one";
 class Products extends PureComponent {
   constructor(props) {
     super(props);
+    this.viewAll = this.viewAll.bind(this);
   }
   componentDidMount() {
     document.title = "Products at Bonsai Online Store";
+  }
+  viewAll(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    this.props.unsetProductShow();
   }
   render() {
     return (
@@ -23,7 +29,7 @@ class Products extends PureComponent {
           id="products-head"
         />
         {this.props.productShow !== ""
-          ? <One productShow={this.props.productShow} />
+          ? <One productShow={this.props.productShow} viewAll={this.viewAll} />
           : <All />}
       </Container>
     );

@@ -1,7 +1,7 @@
 // import modules
 import { connect } from "react-redux";
 import Products from "./index";
-// import { setFilter, unsetFilter } from "../../redux/actions/filter";
+import { unsetProductShow } from "../../redux/actions/ui";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -9,7 +9,9 @@ const mapStateToProps = (state, props) => ({
 });
 
 // sets dispatch functions to be sent down to components as properties
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  unsetProductShow: () => dispatch(unsetProductShow())
+});
 
 // connects redux statefull containers to presentational components
 const ProductsContainer = connect(mapStateToProps, mapDispatchToProps)(

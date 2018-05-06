@@ -3,7 +3,13 @@ import actionTypes from "../actions/types";
 import defaultState from "../defaultState.json";
 
 // destructure types
-const { SET_FILTER, UNSET_FILTER, SET_SORT } = actionTypes;
+const {
+  SET_FILTER,
+  UNSET_FILTER,
+  SET_SORT,
+  SET_PRODUCT_SHOW,
+  UNSET_PRODUCT_SHOW
+} = actionTypes;
 
 // define reducer for sets
 const filter = (state = defaultState.ui, action) => {
@@ -14,6 +20,10 @@ const filter = (state = defaultState.ui, action) => {
       return { ...state, filter: defaultState.ui.filter };
     case SET_SORT:
       return { ...state, currentSort: action.value };
+    case SET_PRODUCT_SHOW:
+      return { ...state, productShow: action.id };
+    case UNSET_PRODUCT_SHOW:
+      return { ...state, productShow: defaultState.ui.productShow };
     default:
       return state;
   }
