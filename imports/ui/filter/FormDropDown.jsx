@@ -51,7 +51,7 @@ class FormDropDown extends PureComponent {
           </Badge>
         </Label>
         <Collapse isOpen={this.state.collapse}>
-          <CheckBoxes options={data} name={this.props.name} />
+          <CheckBoxes options={data} name={this.props.name} filtered={this.props.filtered} />
         </Collapse>
       </FormGroup>
     );

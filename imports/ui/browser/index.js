@@ -16,12 +16,33 @@ class Browser extends Component {
     super(props);
     // console.log(props);
     this.viewProduct = this.viewProduct.bind(this);
+    this.viewBrand = this.viewBrand.bind(this);
   }
   viewProduct(event) {
     event.preventDefault();
     const { currentTarget } = event;
     // console.log(currentTarget.dataset.productid);
     this.props.setProductShow(currentTarget.dataset.productid);
+  }
+  viewBrand(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    // console.log(currentTarget.dataset.brandid);
+    const filter = {
+      product: {
+        color: "any",
+        name: "",
+        priceMax: "",
+        priceMin: "",
+        size: "any"
+      },
+      brands: [currentTarget.dataset.brandid],
+      categories: [],
+      merchants: []
+    };
+    // filter.brands.push(currentTarget.dataset.brandid);
+    // console.log(filter);
+    this.props.setFilter(filter);
   }
   render() {
     const filterProducts = products => {
@@ -133,6 +154,7 @@ class Browser extends Component {
           data={product}
           allBrands={this.props.brands}
           viewProduct={this.viewProduct}
+          viewBrand={this.viewBrand}
         />
       );
     };

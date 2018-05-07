@@ -47,6 +47,16 @@ const helpers = {
       null;
     }
     return id;
+  },
+  getMerchantProfile: (productUserId, users, merchants) => {
+    const productUserAccount = users.filter(
+      user => user._id === productUserId
+    )[0];
+    const productMerchantProfile = merchants.filter(
+      merchantProfile => merchantProfile._id === productUserAccount.profile
+    )[0];
+    // console.log(productMerchantProfile);
+    return productMerchantProfile;
   }
 };
 

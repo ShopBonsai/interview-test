@@ -1,6 +1,7 @@
 // Framework
 import React, { PureComponent } from "react";
 import FilterComp from "./comp";
+import defaultState from "../../redux/defaultState.json";
 
 // define component
 class Filter extends PureComponent {
@@ -29,13 +30,17 @@ class Filter extends PureComponent {
   }
   resetHandler(event) {
     const { currentTarget, target } = event;
-    console.log(currentTarget);
+    // console.log(currentTarget);
     this.props.unsetFilter();
+    // this.props.setFilter(defaultState.ui.filter);
   }
   render() {
     return React.createElement(FilterComp, {
       submitHandler: this.submitHandler,
-      resetHandler: this.resetHandler
+      resetHandler: this.resetHandler,
+      filteredBrands: this.props.filteredBrands,
+      filteredCategories: this.props.filteredCategories,
+      filteredMerchants: this.props.filteredMerchants
     });
   }
 }

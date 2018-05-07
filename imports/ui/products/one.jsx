@@ -15,6 +15,14 @@ import AddToCart from "./addToCart";
 // define component
 const One = ({ ...props }) => {
   const product = props.products[0];
+  const merchantName = helpers.titleize(
+    helpers.getMerchantProfile(product.user, props.users, props.merchants).name
+  );
+  const merchantId = helpers.getMerchantProfile(
+    product.user,
+    props.users,
+    props.merchants
+  )._id;
   return (
     <div id="products-one">
       <Row noGutters id="back-to-all-products">
@@ -30,10 +38,10 @@ const One = ({ ...props }) => {
             <h1>
               {helpers.titleize(product.name)}
             </h1>
-            <h4>
+            <h4 onClick={props.viewBrand} data-brandid={product.brand}>
               {helpers.getSingleRef(product.brand, props.brands)}
             </h4>
-            <h6>
+            <h6 onClick={props.viewCategory} data-categoryid={product.category}>
               {helpers.titleize(
                 helpers.getSingleRef(product.category, props.categories)
               )}
@@ -45,6 +53,12 @@ const One = ({ ...props }) => {
           <Col xs="12" md="8" id="product-desc">
             <p>
               {product.description}
+            </p>
+            <p id="merchant-name">
+              Merchanted by&nbsp;
+              <span onClick={props.viewMerchant} data-merchantid={merchantId}>
+                {merchantName}
+              </span>
             </p>
           </Col>
         </Row>

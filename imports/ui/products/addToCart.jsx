@@ -9,7 +9,7 @@ const AddToCart = ({ ...props }) => {
       ? <Button color="primary" type="submit">
           Add to Cart
         </Button>
-      : <Button disabled color="secondary" type="submit">
+      : <Button disabled color="danger" type="submit">
           Out of Stock
         </Button>;
   return (

@@ -10,12 +10,15 @@
     }
   }
   #product-show {
-    margin-top: 2rem;
+    margin-top: 10rem;
     h1 {
       color: @color-1;
     }
+    h4, h6 {
+      cursor: pointer
+    }
     h6 {
-      color: @color-2;
+      color: @color-1;
       margin-top: 0.33rem;
     }
     @media @phones {
@@ -31,10 +34,22 @@
     }
     #product-desc {
       display: flex;
-      align-items: center;
+      flex-flow: column;
+      justify-content: center;
+      align-items: flex-start;
       padding: 0 0 0 2rem;
       p {
         margin: 0;
+      }
+      #merchant-name {
+        display: inline;
+        margin-top: 1rem;
+        span {
+          display: inline;
+          color: @color-1;
+          font-weight: 500;
+          cursor: pointer;
+        }
       }
       @media @phones {
         padding: 1rem 0;
@@ -45,7 +60,7 @@
     text-align: center;
   }
   #product-buttons {
-    padding: 1rem 0 2rem 0;
+    padding: 1rem 0 10rem 0;
     @media @phones {
       padding: 0 0 1rem 0;
     }

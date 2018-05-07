@@ -10,9 +10,9 @@ const FilterComp = ({ ...props }) =>
     <h2>Product Filters</h2>
     <Form onSubmit={props.submitHandler} onReset={props.resetHandler}>
       <ProductDropDown />
-      <FormDropDown name="brands" />
-      <FormDropDown name="categories" />
-      <FormDropDown name="merchants" />
+      <FormDropDown name="brands" filtered={props.filteredBrands} />
+      <FormDropDown name="categories" filtered={props.filteredCategories} />
+      <FormDropDown name="merchants" filtered={props.filteredMerchants}/>
       <div className="form-buttons">
         <Button type="submit" color="primary">
           Apply

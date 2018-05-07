@@ -5,12 +5,16 @@ import MainNav from "../mainNav/index";
 import NavHeader from "../navHeader/index";
 import All from "./all";
 import One from "./one";
+import defaultState from "../../redux/defaultState.json";
 
 // define component
 class Products extends PureComponent {
   constructor(props) {
     super(props);
     this.viewAll = this.viewAll.bind(this);
+    this.viewBrand = this.viewBrand.bind(this);
+    this.viewCategory = this.viewCategory.bind(this);
+    this.viewMerchant = this.viewMerchant.bind(this);
     this.addToCart = this.addToCart.bind(this);
   }
   componentDidMount() {
@@ -21,6 +25,67 @@ class Products extends PureComponent {
     const { currentTarget } = event;
     this.props.unsetProductShow();
   }
+  viewBrand(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    // console.log(currentTarget.dataset.brandid);
+    const filter = {
+      product: {
+        color: "any",
+        name: "",
+        priceMax: "",
+        priceMin: "",
+        size: "any"
+      },
+      brands: [currentTarget.dataset.brandid],
+      categories: [],
+      merchants: []
+    };
+    // filter.brands.push(currentTarget.dataset.brandid);
+    console.log(filter);
+    this.props.setFilter(filter);
+    this.props.unsetProductShow();
+  }
+  viewCategory(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    console.log(currentTarget.dataset.categoryid);
+    const filter = {
+      product: {
+        color: "any",
+        name: "",
+        priceMax: "",
+        priceMin: "",
+        size: "any"
+      },
+      brands: [],
+      categories: [currentTarget.dataset.categoryid],
+      merchants: []
+    };
+    console.log(filter);
+    this.props.setFilter(filter);
+    this.props.unsetProductShow();
+  }
+  viewMerchant(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    console.log(currentTarget.dataset.merchantid);
+    const filter = {
+      product: {
+        color: "any",
+        name: "",
+        priceMax: "",
+        priceMin: "",
+        size: "any"
+      },
+      brands: [],
+      categories: [],
+      merchants: [currentTarget.dataset.merchantid]
+    };
+    console.log(filter);
+    this.props.setFilter(filter);
+    this.props.unsetProductShow();
+  }
   addToCart(event) {
     event.preventDefault();
     const { currentTarget } = event;
@@ -29,7 +94,9 @@ class Products extends PureComponent {
       product: currentTarget.dataset.proudctid,
       quantity: parseInt(formData.get("quantity"))
     };
-    console.log(item);
+    if (item.quantity > 0) {
+      console.log(item);
+    }
   }
   render() {
     return (
@@ -40,7 +107,14 @@ class Products extends PureComponent {
           id="products-head"
         />
         {this.props.productShow !== ""
-          ? <One productShow={this.props.productShow} viewAll={this.viewAll} addToCart={this.addToCart} />
+          ? <One
+              productShow={this.props.productShow}
+              viewAll={this.viewAll}
+              viewBrand={this.viewBrand}
+              viewCategory={this.viewCategory}
+              viewMerchant={this.viewMerchant}
+              addToCart={this.addToCart}
+            />
           : <All />}
       </Container>
     );

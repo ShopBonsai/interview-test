@@ -17,10 +17,8 @@ const ProductCard = ({ ...props }) => {
         <CardTitle onClick={props.viewProduct} data-productid={props.data._id}>
           {helpers.titleize(props.data.name)}
         </CardTitle>
-        <CardSubtitle>
-          <Link to={`/brands/${props.data.brand}`}>
-            {helpers.getSingleRef(props.data.brand, props.allBrands)}
-          </Link>
+        <CardSubtitle onClick={props.viewBrand} data-brandid={props.data.brand}>
+          {helpers.getSingleRef(props.data.brand, props.allBrands)}
         </CardSubtitle>
         <CardText>
           $ {helpers.formatPrice(props.data.price)}
