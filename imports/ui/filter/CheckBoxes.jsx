@@ -21,9 +21,9 @@ class CheckBoxes extends Component {
     const setChecked = id => {
       if (
         Array.isArray(this.props.filtered) &&
-        this.props.filtered.includes(id)
+        !this.props.filtered.includes(id)
       ) {
-        return true;
+        return "unchecked";
       }
     };
     const setCheckBoxes = options => {
@@ -37,13 +37,13 @@ class CheckBoxes extends Component {
       // console.log(data);
       return options.map(item =>
         <div key={item._id} className="check-box">
-          <label htmlFor={item._id}>
+          <label htmlFor={item._id} className={setChecked(item._id)}>
             <input
               type="checkbox"
               id={item._id}
               name={this.props.name}
               value={item._id}
-              checked={setChecked(item._id)}
+              // defaultValue={setChecked(item._id)}
             />
             {helpers.titleize(item.name)}
           </label>

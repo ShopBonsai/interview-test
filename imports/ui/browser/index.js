@@ -99,11 +99,16 @@ class Browser extends Component {
               filter.categories.includes(product.category)
           )
           .filter(product => {
-            const merchantId = helpers.findProductMerchantProfileId(
-              product.user,
-              users,
-              merchants
-            );
+            let merchantId = "";
+            try {
+              merchantId = helpers.getMerchantProfile(
+                product.user,
+                users,
+                merchants
+              )._id;
+            } catch (e) {
+              null;
+            }
             // console.log('%c TEST', 'color: yellow; font-size: 1rem', merchantId);
             // console.log('%c TEST', 'color: magenta; font-size: 1rem', filter.merchants);
             if (filter.merchants.length === 0) return product;
@@ -119,7 +124,7 @@ class Browser extends Component {
       const sorter = new Sorter(products);
       let sorted = [];
       if (sort === "brand") {
-        console.log(brands);
+        // console.log(brands);
         sorted = sorter.byBrand(brands);
       } else if (sort === "lowHigh") {
         sorted = sorter.lowHigh();
@@ -148,7 +153,10 @@ class Browser extends Component {
           break;
       }
       const filtered = filterProducts(products);
-      this.setFiltered(filtered);
+      // console.log(this.props.users.length);
+      if (this.props.users.length > 0) {
+        this.setFiltered(filtered);
+      }
       if (filtered.length < 1) {
         return <h2 id="no-match-error">No Matching Products Found</h2>;
       }

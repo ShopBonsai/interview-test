@@ -1,7 +1,13 @@
 // import modules
 import { connect } from "react-redux";
 import Browser from "./";
-import { setFilter, unsetFilter, setProductShow, setFilterIds, setFiltered } from "../../redux/actions/ui";
+import {
+  setFilter,
+  unsetFilter,
+  setProductShow,
+  setFilterIds,
+  setFiltered
+} from "../../redux/actions/ui";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
