@@ -1,7 +1,7 @@
 // import modules
 import { connect } from "react-redux";
 import Browser from "./";
-import { setFilter, unsetFilter, setProductShow } from "../../redux/actions/ui";
+import { setFilter, unsetFilter, setProductShow, setFilterIds, setFiltered } from "../../redux/actions/ui";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -13,7 +13,9 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = dispatch => ({
   setFilter: filter => dispatch(setFilter(filter)),
   unsetFilter: () => dispatch(unsetFilter()),
-  setProductShow: id => dispatch(setProductShow(id))
+  setProductShow: id => dispatch(setProductShow(id)),
+  setFilterIds: values => dispatch(setFilterIds(values)),
+  setFiltered: filtered => dispatch(setFiltered(filtered))
 });
 
 // connects redux statefull containers to presentational components

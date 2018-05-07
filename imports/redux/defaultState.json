@@ -1,5 +1,6 @@
 {
   "ui": {
+    "filterResults": [],
     "filter": {
       "product": {
         "color": "any",

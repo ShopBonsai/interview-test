@@ -44,6 +44,9 @@ class Browser extends Component {
     // console.log(filter);
     this.props.setFilter(filter);
   }
+  setFiltered(filtered) {
+    this.props.setFiltered(filtered);
+  }
   render() {
     const filterProducts = products => {
       const { brands, profileTypes, merchants, filter, users } = this.props;
@@ -145,6 +148,7 @@ class Browser extends Component {
           break;
       }
       const filtered = filterProducts(products);
+      this.setFiltered(filtered);
       if (filtered.length < 1) {
         return <h2 id="no-match-error">No Matching Products Found</h2>;
       }
