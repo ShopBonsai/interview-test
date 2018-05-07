@@ -9,6 +9,7 @@ import {
   Input
 } from "reactstrap";
 import SelectOptions from "./SelectOptions";
+import CountBadge from "./countBadge";
 import helpers from "../../helpers";
 
 // deifne component
@@ -26,6 +27,7 @@ class ProductDropDown extends PureComponent {
       <FormGroup>
         <Label onClick={this.toggle}>
           <h5>Product</h5>
+          <CountBadge filtered={this.props.filtered} total={this.props.productsCount} />
         </Label>
         <Collapse isOpen={this.state.collapse} id="product-filter">
           <FormGroup>

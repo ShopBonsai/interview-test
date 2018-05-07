@@ -38,9 +38,7 @@ class Filter extends PureComponent {
     return React.createElement(FilterComp, {
       submitHandler: this.submitHandler,
       resetHandler: this.resetHandler,
-      filteredBrands: this.props.filteredBrands,
-      filteredCategories: this.props.filteredCategories,
-      filteredMerchants: this.props.filteredMerchants
+      filterResults: this.props.filterResults
     });
   }
 }

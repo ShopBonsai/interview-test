@@ -5,14 +5,14 @@ import { Meteor } from "meteor/meteor";
 import {
   FormGroup,
   Label,
-  Collapse,
-  Badge
+  Collapse
 } from "reactstrap";
 import CheckBoxes from "./CheckBoxes";
 import helpers from "../../helpers";
 import Brands from "../../api/brands/collection";
 import Categories from "../../api/categories/collection";
 import Merchants from "../../api/merchants/collection";
+import CountBadge from "./countBadge";
 
 // deifne component
 class FormDropDown extends PureComponent {
@@ -46,9 +46,7 @@ class FormDropDown extends PureComponent {
           <h5>
             {helpers.titleize(this.props.name)}
           </h5>
-          <Badge color="secondary">
-            {data.length}
-          </Badge>
+          <CountBadge filtered={this.props.filtered.length} total={data.length} />
         </Label>
         <Collapse isOpen={this.state.collapse}>
           <CheckBoxes options={data} name={this.props.name} filtered={this.props.filtered} />

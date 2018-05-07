@@ -30,33 +30,45 @@ const helpers = {
         return item;
     }
   },
-  findProductMerchantProfileId: (productUserId, users, merchantProfiles) => {
-    let id = "";
-    try {
-      // console.log(productUserId, users, merchantProfiles);
+  getMerchantProfile: (productUserId, users, merchants) => {
+    if (users.length > 0) {
       const productUserAccount = users.filter(
         user => user._id === productUserId
       )[0];
-      // console.log("Product User Account:", productUserAccount);
-      const productMerchantProfile = merchantProfiles.filter(
+      const productMerchantProfile = merchants.filter(
         merchantProfile => merchantProfile._id === productUserAccount.profile
       )[0];
-      // console.log("Product Merchant Profile:", productMerchantProfile);
-      id = productMerchantProfile._id;
-    } catch (e) {
-      null;
+      // console.log(productMerchantProfile);
+      return productMerchantProfile;
     }
-    return id;
   },
-  getMerchantProfile: (productUserId, users, merchants) => {
-    const productUserAccount = users.filter(
-      user => user._id === productUserId
-    )[0];
-    const productMerchantProfile = merchants.filter(
-      merchantProfile => merchantProfile._id === productUserAccount.profile
-    )[0];
-    // console.log(productMerchantProfile);
-    return productMerchantProfile;
+  getFilterResultsValues: (filtered, merchantProfiles, users) => {
+    const brands = [];
+    const categories = [];
+    const merchants = [];
+    filtered.forEach(product => {
+      if (!brands.includes(product.brand)) {
+        brands.push(product.brand);
+      }
+      if (!categories.includes(product.category)) {
+        categories.push(product.category);
+      }
+      const merchantProfile = helpers.getMerchantProfile(
+        product.user,
+        users,
+        merchantProfiles
+      );
+      if (!merchants.includes(merchantProfile._id)) {
+        merchants.push(merchantProfile._id);
+      }
+    });
+    // console.log(merchantProfiles.length, users.length);
+    // console.log(brands.length, categories.length, merchants.length);
+    return {
+      brands,
+      categories,
+      merchants
+    };
   }
 };
 

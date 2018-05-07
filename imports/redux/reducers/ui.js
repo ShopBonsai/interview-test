@@ -8,7 +8,8 @@ const {
   UNSET_FILTER,
   SET_SORT,
   SET_PRODUCT_SHOW,
-  UNSET_PRODUCT_SHOW
+  UNSET_PRODUCT_SHOW,
+  SET_FILTERED
 } = actionTypes;
 
 // define reducer for sets
@@ -24,6 +25,8 @@ const filter = (state = defaultState.ui, action) => {
       return { ...state, productShow: action.id };
     case UNSET_PRODUCT_SHOW:
       return { ...state, productShow: defaultState.ui.productShow };
+    case SET_FILTERED:
+      return { ...state, filterResults: action.filtered };
     default:
       return state;
   }
