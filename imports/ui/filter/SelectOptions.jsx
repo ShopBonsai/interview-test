@@ -35,7 +35,7 @@ class SelectOptions extends PureComponent {
           value={item}
           key={`select-item-${index * Math.random()}`}
         >
-          {helpers.titelize(helpers.adjustSizes(item))}
+          {helpers.titleize(helpers.adjustSizes(item))}
         </option>
       );
       return null;

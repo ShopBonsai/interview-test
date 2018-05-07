@@ -1,15 +1,15 @@
 const helpers = {
-  getBrandName: (id, brands) => {
+  getSingleRef: (id, array) => {
     let name = "No Data";
     try {
-      name = brands.filter(brand => brand._id === id)[0].name;
+      name = array.filter(item => item._id === id)[0].name;
     } catch (e) {
       null;
     }
     return name;
   },
   formatPrice: price => price.toString().replace(/(\.(\d+))/gi, "$10"),
-  titelize: string => {
+  titleize: string => {
     const hashed = string.replace(/\s+/gi, "###").split("###");
     return hashed
       .map(
@@ -47,6 +47,16 @@ const helpers = {
       null;
     }
     return id;
+  },
+  getMerchantProfile: (productUserId, users, merchants) => {
+    const productUserAccount = users.filter(
+      user => user._id === productUserId
+    )[0];
+    const productMerchantProfile = merchants.filter(
+      merchantProfile => merchantProfile._id === productUserAccount.profile
+    )[0];
+    // console.log(productMerchantProfile);
+    return productMerchantProfile;
   }
 };
 

@@ -18,6 +18,14 @@ class CheckBoxes extends Component {
     return true;
   }
   render() {
+    const setChecked = id => {
+      if (
+        Array.isArray(this.props.filtered) &&
+        this.props.filtered.includes(id)
+      ) {
+        return true;
+      }
+    };
     const setCheckBoxes = options => {
       if (options.length < 1) {
         return (
@@ -35,8 +43,9 @@ class CheckBoxes extends Component {
               id={item._id}
               name={this.props.name}
               value={item._id}
+              checked={setChecked(item._id)}
             />
-            {helpers.titelize(item.name)}
+            {helpers.titleize(item.name)}
           </label>
         </div>
       );

@@ -199,7 +199,7 @@ class SeedHelper {
           user: userId,
           published: true,
           price: product.price,
-          description: product.description,
+          description: product.description + " " + faker.lorem.paragraph(10),
           color: product.color,
           size: product.size,
           quantity: product.quantity,

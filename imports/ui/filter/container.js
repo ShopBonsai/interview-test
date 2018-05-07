@@ -4,7 +4,11 @@ import Filter from "./";
 import { setFilter, unsetFilter } from "../../redux/actions/ui";
 
 // sets properties from state into properties for components
-const mapStateToProps = (state, props) => ({});
+const mapStateToProps = (state, props) => ({
+  filteredBrands: state.ui.filter.brands,
+  filteredCategories: state.ui.filter.categories,
+  filteredMerchants: state.ui.filter.merchants
+});
 
 // sets dispatch functions to be sent down to components as properties
 const mapDispatchToProps = dispatch => ({

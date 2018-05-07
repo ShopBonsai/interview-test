@@ -44,14 +44,14 @@ class FormDropDown extends PureComponent {
       <FormGroup>
         <Label for={this.props.name} onClick={this.toggle}>
           <h5>
-            {helpers.titelize(this.props.name)}
+            {helpers.titleize(this.props.name)}
           </h5>
           <Badge color="secondary">
             {data.length}
           </Badge>
         </Label>
         <Collapse isOpen={this.state.collapse}>
-          <CheckBoxes options={data} name={this.props.name} />
+          <CheckBoxes options={data} name={this.props.name} filtered={this.props.filtered} />
         </Collapse>
       </FormGroup>
     );
