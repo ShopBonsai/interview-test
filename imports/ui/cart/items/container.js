@@ -6,6 +6,7 @@ import Items from "./";
 import Brands from "../../../api/brands/collection";
 import Merchants from "../../../api/merchants/collection";
 import Products from "../../../api/products/collection";
+import { updateCartItem } from "../../../redux/actions/cart";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -17,7 +18,9 @@ const mapStateToProps = (state, props) => ({
 });
 
 // sets dispatch functions to be sent down to components as properties
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  updateCartItem: item => dispatch(updateCartItem(item))
+});
 
 // connects redux statefull containers to presentational components
 const ItemsContainer = connect(mapStateToProps, mapDispatchToProps)(Items);

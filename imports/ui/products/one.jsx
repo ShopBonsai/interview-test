@@ -3,6 +3,7 @@ import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 import { Container, Row, Col, Button, Table } from "reactstrap";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 // components
 import Brands from "../../api/brands/collection";
 import Products from "../../api/products/collection";
@@ -26,14 +27,13 @@ const One = ({ ...props }) => {
   return (
     <div id="products-one">
       <Row noGutters id="back-to-all-products">
-        <Col xs="12">
-          <Button onClick={props.viewAll}>
-            Back to All Products
-          </Button>
+        <Col xs="12" onClick={props.viewAll}>
+          <FontAwesomeIcon icon="chevron-circle-left" />
+          All Products
         </Col>
       </Row>
-      <Container>
-        <Row noGutters id="product-show">
+      <Container id="product-show">
+        <Row noGutters>
           <Col xs="12">
             <h1>
               {helpers.titleize(product.name)}
@@ -67,7 +67,7 @@ const One = ({ ...props }) => {
             <Table>
               <thead>
                 <tr>
-                  <th>Price</th>
+                  <th>Price $</th>
                   <th>Color</th>
                   <th>Size</th>
                   <th>In Stock</th>
@@ -76,7 +76,7 @@ const One = ({ ...props }) => {
               <tbody>
                 <tr>
                   <td>
-                    $ {helpers.formatPrice(product.price)}
+                    {helpers.formatPrice(product.price)}
                   </td>
                   <td>
                     {helpers.titleize(product.color)}

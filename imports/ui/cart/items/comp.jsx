@@ -8,7 +8,7 @@ import ItemList from "./itemList";
 const ItemsComp = ({ ...props }) =>
   <Row id="cart-items" noGutters>
     <Col xs="12">
-      <h2>SmartCart Items</h2>
+      <h2>Items</h2>
     </Col>
     <Col xs="12">
       <ItemList
@@ -17,6 +17,7 @@ const ItemsComp = ({ ...props }) =>
         merchants={props.merchants}
         products={props.products}
         users={props.users}
+        updateQuantity={props.updateQuantity}
       />
     </Col>
   </Row>;

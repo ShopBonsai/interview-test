@@ -11,13 +11,24 @@
 
 #products-one {
   #back-to-all-products {
-    background-color: lightgray;
-    div {
-      padding: 1rem;
+    background-color: gray;
+    cursor: pointer;
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+    color: lightgray;
+    &:hover {
+      color: white;
+    }
+    svg {
+      margin-right: 0.5rem;
     }
   }
   #product-show {
-    margin-top: 10rem;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
     h1 {
       color: @color-1;
     }
@@ -67,7 +78,10 @@
     text-align: center;
   }
   #product-buttons {
-    padding: 1rem 0 10rem 0;
+    padding: 1rem 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @media @phones {
       padding: 0 0 1rem 0;
     }
@@ -75,10 +89,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      label, input {
+      label, select {
         margin: 0 1rem 0 0;
+        display: inline-block;
+        text-align: right;
       }
-      input {
+      select {
         width: 4rem;
       }
       svg {

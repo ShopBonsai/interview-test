@@ -1,31 +1,30 @@
 // import modules
 import React from "react";
-import { Form, Label, Input, Button } from "reactstrap";
+import { Form, Label, Button } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import QuantitySelect from "./QuantitySelect";
 
 // define component
 const AddToCart = ({ ...props }) => {
-  const setButton = () =>
-    props.quantity > 0
-      ? <Button color="primary" type="submit">
-          <FontAwesomeIcon icon="cart-plus" />
-          Add to Cart
-        </Button>
-      : <Button disabled color="danger" type="submit">
-          Sold Out
-        </Button>;
+  if (props.quantity < 1) {
+    return (
+      <Button disabled color="danger" type="submit">
+        Sold Out
+      </Button>
+    );
+  }
   return (
     <Form onSubmit={props.addToCart} data-proudctid={props.id}>
       <Label htmlFor="quantity">Quantity to Add</Label>
-      <Input
-        type="number"
-        id="quantity"
-        min="1"
-        max={props.quantity}
-        placeholder={props.quantity}
+      <QuantitySelect
         name="quantity"
+        maxQuantity={props.quantity}
+        currentValue="0"
       />
-      {setButton()}
+      <Button color="primary" type="submit">
+        <FontAwesomeIcon icon="cart-plus" />
+        Add to Cart
+      </Button>
     </Form>
   );
 };
