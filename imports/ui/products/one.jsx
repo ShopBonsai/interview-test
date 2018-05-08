@@ -32,8 +32,8 @@ const One = ({ ...props }) => {
           All Products
         </Col>
       </Row>
-      <Container>
-        <Row noGutters id="product-show">
+      <Container id="product-show">
+        <Row noGutters>
           <Col xs="12">
             <h1>
               {helpers.titleize(product.name)}
