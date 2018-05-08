@@ -1,6 +1,6 @@
 // import modules
 import { connect } from "react-redux";
-import Products from "./index.jsx";
+import Products from "./";
 import { unsetProductShow, setFilter } from "../../redux/actions/ui";
 
 // sets properties from state into properties for components

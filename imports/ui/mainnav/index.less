@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  color: white;
+  color: whitesmoke;
   #nav-brand {
     .nav-link {
       padding: 2rem 0 0 2rem;
@@ -23,6 +23,12 @@
     .nav-link {
       padding: 0 0 0 2rem;
       font-size: 1rem;
+      &:hover {
+        color: white;
+      }
+      svg {
+        margin-right: 0.5rem;
+      }
       @media @phones {
         padding: 0 0 0 1rem;
       }

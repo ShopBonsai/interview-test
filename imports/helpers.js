@@ -31,14 +31,16 @@ const helpers = {
     }
   },
   getMerchantProfile: (productUserId, users, merchants) => {
+    // console.log('%c TEST', 'color: yellow; font-size: 1rem', productUserId, users.length, merchants.length);
     if (users.length > 0) {
       const productUserAccount = users.filter(
         user => user._id === productUserId
       )[0];
+      // console.log('%c TEST', 'color: yellow; font-size: 1rem', productUserAccount);
       const productMerchantProfile = merchants.filter(
         merchantProfile => merchantProfile._id === productUserAccount.profile
       )[0];
-      // console.log(productMerchantProfile);
+      // console.log('%c TEST', 'color: yellow; font-size: 1rem', productMerchantProfile);
       return productMerchantProfile;
     }
   },

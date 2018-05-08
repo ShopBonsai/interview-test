@@ -1,12 +1,22 @@
 // import modules
 import { connect } from "react-redux";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 import Filter from "./";
+import Merchants from "../../api/merchants/collection";
+import Products from "../../api/products/collection";
 import { setFilter, unsetFilter } from "../../redux/actions/ui";
 import helpers from "../../helpers";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
-  filterResults: state.ui.filterResults
+  filterResults: state.ui.filterResults,
+  filterValues: helpers.getFilterResultsValues(
+    state.ui.filterResults,
+    props.merchants,
+    props.users
+  ),
+  productsCount: props.productsCount
 });
 
 // sets dispatch functions to be sent down to components as properties
@@ -19,4 +29,13 @@ const mapDispatchToProps = dispatch => ({
 const FilterContainer = connect(mapStateToProps, mapDispatchToProps)(Filter);
 
 // export container for app
-export default FilterContainer;
+export default withTracker(() => {
+  Meteor.subscribe("merchants");
+  Meteor.subscribe("products");
+  Meteor.subscribe("users");
+  return {
+    users: Meteor.users.find().fetch(),
+    merchants: Merchants.find().fetch(),
+    productsCount: Products.find().fetch()
+  };
+})(FilterContainer);
