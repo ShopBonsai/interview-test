@@ -16,7 +16,11 @@ const AddToCart = ({ ...props }) => {
   return (
     <Form onSubmit={props.addToCart} data-proudctid={props.id}>
       <Label htmlFor="quantity">Quantity to Add</Label>
-      <QuantitySelect name="quantity" maxQuantity={props.quantity} />
+      <QuantitySelect
+        name="quantity"
+        maxQuantity={props.quantity}
+        currentValue="0"
+      />
       <Button color="primary" type="submit">
         <FontAwesomeIcon icon="cart-plus" />
         Add to Cart

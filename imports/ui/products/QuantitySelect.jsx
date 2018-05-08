@@ -27,7 +27,7 @@ const QuantitySelect = ({ ...props }) => {
       id={props.name}
       min="1"
       max={props.maxQuantity}
-      defaultValue="0"
+      defaultValue={props.currentValue}
     >
       {setOptions(props.maxQuantity)}
     </Input>

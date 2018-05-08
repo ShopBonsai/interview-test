@@ -5,19 +5,18 @@ import {
   faUser,
   faGem,
   faCartPlus,
-  faCogs as iconComponents
+  faChevronCircleLeft
 } from "@fortawesome/fontawesome-free-solid";
 
 // define funtcion
 const faSetup = () => {
-  iconComponents.iconName = "components";
   // create font awesome library
   return fontawesome.library.add(
     faShoppingCart,
     faUser,
     faGem,
     faCartPlus,
-    iconComponents
+    faChevronCircleLeft
   );
 };
 

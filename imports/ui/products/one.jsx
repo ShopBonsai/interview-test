@@ -3,6 +3,7 @@ import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 import { Container, Row, Col, Button, Table } from "reactstrap";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 // components
 import Brands from "../../api/brands/collection";
 import Products from "../../api/products/collection";
@@ -28,7 +29,8 @@ const One = ({ ...props }) => {
       <Row noGutters id="back-to-all-products">
         <Col xs="12">
           <Button onClick={props.viewAll}>
-            Back to All Products
+            <FontAwesomeIcon icon="chevron-circle-left" />
+            All Products
           </Button>
         </Col>
       </Row>
