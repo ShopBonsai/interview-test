@@ -2,7 +2,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import NavHeader from "../navHeader/index.jsx";
+import NavHeader from "../common/navHeader/index.jsx";
 import ItemsContainer from "./items/container";
 
 // define component
