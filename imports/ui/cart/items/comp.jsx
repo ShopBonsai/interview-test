@@ -17,6 +17,7 @@ const ItemsComp = ({ ...props }) =>
         merchants={props.merchants}
         products={props.products}
         users={props.users}
+        updateQuantity={props.updateQuantity}
       />
     </Col>
   </Row>;

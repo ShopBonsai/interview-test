@@ -27,11 +27,9 @@ const One = ({ ...props }) => {
   return (
     <div id="products-one">
       <Row noGutters id="back-to-all-products">
-        <Col xs="12">
-          <Button onClick={props.viewAll}>
-            <FontAwesomeIcon icon="chevron-circle-left" />
-            All Products
-          </Button>
+        <Col xs="12" onClick={props.viewAll}>
+          <FontAwesomeIcon icon="chevron-circle-left" />
+          All Products
         </Col>
       </Row>
       <Container>

@@ -10,10 +10,10 @@ class Cart extends PureComponent {
   componentDidMount() {
     document.title = "Shopping SmartCart at Bonsai";
   }
-  viewAll(event) {
-    event.preventDefault();
-    const { currentTarget } = event;
-  }
+  // viewAll(event) {
+  //   event.preventDefault();
+  //   const { currentTarget } = event;
+  // }
   render() {
     return React.createElement(CartComp, {});
   }

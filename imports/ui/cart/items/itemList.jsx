@@ -34,10 +34,11 @@ const ItemsList = ({ ...props }) => {
             </h4>
           </div>
           <div className="quantity flex-item">
-            <Form onSubmit={props.updateQuantity} data-proudctid={props.id}>
-              <Label htmlFor="quantity">
-                Quantity
-              </Label>
+            <Form
+              onChange={props.updateQuantity}
+              data-productid={cartProduct._id}
+            >
+              <Label htmlFor="quantity">Quantity</Label>
               <QuantitySelect
                 name="quantity"
                 maxQuantity={cartProduct.quantity}
