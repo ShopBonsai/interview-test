@@ -48,22 +48,26 @@ const helpers = {
     const brands = [];
     const categories = [];
     const merchants = [];
-    filtered.forEach(product => {
-      if (!brands.includes(product.brand)) {
-        brands.push(product.brand);
-      }
-      if (!categories.includes(product.category)) {
-        categories.push(product.category);
-      }
-      const merchantProfile = helpers.getMerchantProfile(
-        product.user,
-        users,
-        merchantProfiles
-      );
-      if (!merchants.includes(merchantProfile._id)) {
-        merchants.push(merchantProfile._id);
-      }
-    });
+    try {
+      filtered.forEach(product => {
+        if (!brands.includes(product.brand)) {
+          brands.push(product.brand);
+        }
+        if (!categories.includes(product.category)) {
+          categories.push(product.category);
+        }
+        const merchantProfile = helpers.getMerchantProfile(
+          product.user,
+          users,
+          merchantProfiles
+        );
+        if (!merchants.includes(merchantProfile._id)) {
+          merchants.push(merchantProfile._id);
+        }
+      });
+    } catch (e) {
+      console.warn(e);
+    }
     // console.log(merchantProfiles.length, users.length);
     // console.log(brands.length, categories.length, merchants.length);
     return {

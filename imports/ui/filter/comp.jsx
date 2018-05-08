@@ -10,7 +10,7 @@ const FilterComp = ({ ...props }) =>
   <section id="products-filter">
     <h2>Product Filters</h2>
     <Form onSubmit={props.submitHandler} onReset={props.resetHandler}>
-      <ProductDropDown filtered={props.filterResults.length} productsCount={props.productsCount.length} />
+      <ProductDropDown filtered={props.filterResults.length} productsCount={props.productsCount} />
       <FormDropDown name="brands" filtered={props.filterValues.brands} />
       <FormDropDown name="categories" filtered={props.filterValues.categories} />
       <FormDropDown name="merchants" filtered={props.filterValues.merchants}/>

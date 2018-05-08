@@ -13,7 +13,7 @@ class Products extends PureComponent {
     this.addToCart = this.addToCart.bind(this);
   }
   componentDidMount() {
-    document.title = "Products at Bonsai Online Store";
+    document.title = "Shop Till You Drop with Bonsai";
   }
   viewAll(event) {
     event.preventDefault();

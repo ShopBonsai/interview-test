@@ -11,8 +11,8 @@ import defaultState from "../../redux/defaultState.json";
 const ProductsComp = ({ ...props }) =>
   <Container fluid id="products-page">
     <NavHeader
-      heading="Bonsai Products"
-      subtitle="Browse our full collection of exciting products here!"
+      heading="Bonsai Shop"
+      subtitle="Browse and shop our full collection of exciting products and get free shipping on orders over $99"
       id="products-head"
     />
     {props.productShow !== ""

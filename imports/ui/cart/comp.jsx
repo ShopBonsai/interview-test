@@ -8,8 +8,8 @@ import NavHeader from "../navHeader/index.jsx";
 const CartComp = ({ ...props }) =>
   <Container fluid id="cart-page">
     <NavHeader
-      heading="Bonsai Shopping Cart"
-      subtitle="Your Personal Shopping Cart"
+      heading="Bonsai SmartCart"
+      subtitle="Look sharp and stay smart with your Bonsai SmartCart"
       id="cart-head"
     />
     <Container>

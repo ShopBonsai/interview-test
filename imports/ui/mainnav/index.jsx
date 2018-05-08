@@ -34,7 +34,7 @@ const MainNav = () =>
       <NavItem>
         <Link to="/cart" href="/cart" className="nav-link">
           <FontAwesomeIcon icon="shopping-cart" />
-          Cart
+          SmartCart
         </Link>
       </NavItem>
     </Nav>

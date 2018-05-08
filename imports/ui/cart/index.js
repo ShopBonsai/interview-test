@@ -8,7 +8,7 @@ class Cart extends PureComponent {
     super(props);
   }
   componentDidMount() {
-    document.title = "Your Cart";
+    document.title = "Shopping SmartCart at Bonsai";
   }
   viewAll(event) {
     event.preventDefault();

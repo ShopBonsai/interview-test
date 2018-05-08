@@ -16,7 +16,7 @@ const mapStateToProps = (state, props) => ({
     props.merchants,
     props.users
   ),
-  productsCount: props.productsCount
+  productsCount: props.products.length
 });
 
 // sets dispatch functions to be sent down to components as properties
@@ -36,6 +36,6 @@ export default withTracker(() => {
   return {
     users: Meteor.users.find().fetch(),
     merchants: Merchants.find().fetch(),
-    productsCount: Products.find().fetch()
+    products: Products.find().fetch()
   };
 })(FilterContainer);
