@@ -2,6 +2,7 @@
 import { connect } from "react-redux";
 import Products from "./";
 import { unsetProductShow, setFilter } from "../../redux/actions/ui";
+import { addToCart } from "../../redux/actions/cart";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -11,7 +12,8 @@ const mapStateToProps = (state, props) => ({
 // sets dispatch functions to be sent down to components as properties
 const mapDispatchToProps = dispatch => ({
   unsetProductShow: () => dispatch(unsetProductShow()),
-  setFilter: filter => dispatch(setFilter(filter))
+  setFilter: filter => dispatch(setFilter(filter)),
+  addToCart: item => dispatch(addToCart(item))
 });
 
 // connects redux statefull containers to presentational components

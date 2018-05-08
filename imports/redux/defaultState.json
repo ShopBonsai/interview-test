@@ -15,5 +15,8 @@
     },
     "currentSort": "name",
     "productShow": ""
+  },
+  "cart": {
+    "items": []
   }
 }

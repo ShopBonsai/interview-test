@@ -91,6 +91,7 @@ class Products extends PureComponent {
     };
     if (item.quantity > 0) {
       console.log(item);
+      this.props.addToCart(item);
     }
   }
   render() {
