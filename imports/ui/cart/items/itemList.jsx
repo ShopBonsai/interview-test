@@ -2,7 +2,7 @@
 import React from "react";
 import { Row, Col, Form, Label, Button } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import QuantitySelect from "../../products/QuantitySelect";
+import QuantitySelect from "../../common/quantitySelect";
 import helpers from "../../../helpers";
 
 // define component
