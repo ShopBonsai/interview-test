@@ -17,10 +17,16 @@
   //   color: @sold-out;
   // }
   .product-card {
+    position: relative;
     background-color: whitesmoke;
     margin-bottom: 2rem;
     box-shadow: 0.25rem 0 1rem @browserShadow;
     margin-right: 2rem;
+    .badge {
+      position: absolute;
+      right: 0;
+      margin: 1rem;
+    }
     img {
       width: 100%;
       padding: 1rem;

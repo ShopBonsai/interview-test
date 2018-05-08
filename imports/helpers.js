@@ -4,7 +4,7 @@ const helpers = {
     try {
       name = array.filter(item => item._id === id)[0].name;
     } catch (e) {
-      null;
+      console.warn(e);
     }
     return name;
   },
@@ -31,14 +31,16 @@ const helpers = {
     }
   },
   getMerchantProfile: (productUserId, users, merchants) => {
+    // console.log('%c TEST', 'color: yellow; font-size: 1rem', productUserId, users.length, merchants.length);
     if (users.length > 0) {
       const productUserAccount = users.filter(
         user => user._id === productUserId
       )[0];
+      // console.log('%c TEST', 'color: yellow; font-size: 1rem', productUserAccount);
       const productMerchantProfile = merchants.filter(
         merchantProfile => merchantProfile._id === productUserAccount.profile
       )[0];
-      // console.log(productMerchantProfile);
+      // console.log('%c TEST', 'color: yellow; font-size: 1rem', productMerchantProfile);
       return productMerchantProfile;
     }
   },
@@ -46,22 +48,26 @@ const helpers = {
     const brands = [];
     const categories = [];
     const merchants = [];
-    filtered.forEach(product => {
-      if (!brands.includes(product.brand)) {
-        brands.push(product.brand);
-      }
-      if (!categories.includes(product.category)) {
-        categories.push(product.category);
-      }
-      const merchantProfile = helpers.getMerchantProfile(
-        product.user,
-        users,
-        merchantProfiles
-      );
-      if (!merchants.includes(merchantProfile._id)) {
-        merchants.push(merchantProfile._id);
-      }
-    });
+    try {
+      filtered.forEach(product => {
+        if (!brands.includes(product.brand)) {
+          brands.push(product.brand);
+        }
+        if (!categories.includes(product.category)) {
+          categories.push(product.category);
+        }
+        const merchantProfile = helpers.getMerchantProfile(
+          product.user,
+          users,
+          merchantProfiles
+        );
+        if (!merchants.includes(merchantProfile._id)) {
+          merchants.push(merchantProfile._id);
+        }
+      });
+    } catch (e) {
+      console.warn(e);
+    }
     // console.log(merchantProfiles.length, users.length);
     // console.log(brands.length, categories.length, merchants.length);
     return {
@@ -69,6 +75,13 @@ const helpers = {
       categories,
       merchants
     };
+  },
+  getCartQuantity: (productId, cartItems) => {
+    const item = cartItems.filter(
+      cartItem => cartItem.product === productId
+    )[0];
+    // console.log(item.quantity);
+    return item.quantity;
   }
 };
 

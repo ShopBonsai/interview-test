@@ -13,7 +13,7 @@ const {
 } = actionTypes;
 
 // define reducer for sets
-const filter = (state = defaultState.ui, action) => {
+const ui = (state = defaultState.ui, action) => {
   switch (action.type) {
     case SET_FILTER:
       return { ...state, filter: action.filter };
@@ -33,4 +33,4 @@ const filter = (state = defaultState.ui, action) => {
 };
 
 // export reducer
-export default filter;
+export default ui;

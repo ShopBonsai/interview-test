@@ -1,11 +1,6 @@
 // Framework
 import React, { PureComponent } from "react";
-import { Container } from "reactstrap";
-import MainNav from "../mainNav/index";
-import NavHeader from "../navHeader/index";
-import All from "./all";
-import One from "./one";
-import defaultState from "../../redux/defaultState.json";
+import ProductsComp from "./comp";
 
 // define component
 class Products extends PureComponent {
@@ -18,7 +13,7 @@ class Products extends PureComponent {
     this.addToCart = this.addToCart.bind(this);
   }
   componentDidMount() {
-    document.title = "Products at Bonsai Online Store";
+    document.title = "Shop Till You Drop with Bonsai";
   }
   viewAll(event) {
     event.preventDefault();
@@ -96,28 +91,18 @@ class Products extends PureComponent {
     };
     if (item.quantity > 0) {
       console.log(item);
+      this.props.addToCart(item);
     }
   }
   render() {
-    return (
-      <Container fluid id="products-page">
-        <NavHeader
-          heading="Bonsai Products"
-          subtitle="Browse our full collection of exciting products here!"
-          id="products-head"
-        />
-        {this.props.productShow !== ""
-          ? <One
-              productShow={this.props.productShow}
-              viewAll={this.viewAll}
-              viewBrand={this.viewBrand}
-              viewCategory={this.viewCategory}
-              viewMerchant={this.viewMerchant}
-              addToCart={this.addToCart}
-            />
-          : <All />}
-      </Container>
-    );
+    return React.createElement(ProductsComp, {
+      productShow: this.props.productShow,
+      viewAll: this.viewAll,
+      viewBrand: this.viewBrand,
+      viewCategory: this.viewCategory,
+      viewMerchant: this.viewMerchant,
+      addToCart: this.addToCart
+    });
   }
 }
 

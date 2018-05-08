@@ -26,7 +26,7 @@ class ProductDropDown extends PureComponent {
     return (
       <FormGroup>
         <Label onClick={this.toggle}>
-          <h5>Product</h5>
+          <h5>Products</h5>
           <CountBadge filtered={this.props.filtered} total={this.props.productsCount} />
         </Label>
         <Collapse isOpen={this.state.collapse} id="product-filter">

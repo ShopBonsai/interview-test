@@ -1,0 +1,116 @@
+#cart-page {
+  padding: 0;
+  .nav-header {
+    background-image: url("images/banner2.jpg");
+  }
+  #cart-intro {
+    margin-top: 2rem;
+    @media @phones {
+      margin-top: 1rem;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      svg {
+        margin-right: 1rem;
+      }
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+  #cart-items {
+    padding: 0;
+    margin-top: 2rem;
+    @media @phones {
+      margin-top: 1rem;
+    }
+    #cart-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        width: 100%;
+        background-color: whitesmoke;
+        padding: 2rem;
+        margin-top: 2rem;
+        @media @phones {
+          padding: 1rem;
+          margin-top: 1rem;
+        }
+        #no-items {
+          color: lightgray;
+          text-align: center;
+        }
+      }
+      .grid-item {
+        display: grid;
+        grid-template-columns: 10rem 1fr 10rem 10rem 10rem;
+        grid-template-rows: auto;
+        @media @phones {
+          grid-template-columns: auto;
+          grid-template-rows: 10rem repeat(4, auto);
+        }
+        .flex-item {
+          display: flex;
+          flex-flow: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .thumbnail {
+          grid-columns: 1 / 2;
+          grid-row: 1;
+          img {
+            width: 100%;
+            @media @phones {
+              height: 100%;
+              width: auto;
+            }
+          }
+          @media @phones {
+            grid-columns: 1 / 6;
+          }
+        }
+        .name {
+          grid-columns: 2 / 3;
+          grid-row: 1;
+          text-align: center;
+          h3 {
+            color: @color-1;
+          }
+          @media @phones {
+            grid-columns: 1 / 6;
+            grid-row: 2;
+            margin-top: 2rem;
+          }
+        }
+        .price {
+          grid-columns: 3 / 4;
+          grid-row: 1;
+          @media @phones {
+            grid-columns: 1 / 6;
+            grid-row: 3;
+            margin-top: 2rem;
+          }
+        }
+        .quantity {
+          grid-columns: 4 / 5;
+          grid-row: 1;
+          @media @phones {
+            grid-columns: 1 / 6;
+            grid-row: 4;
+            margin-top: 2rem;
+          }
+        }
+        .delete {
+          grid-columns: 5 / 6;
+          grid-row: 1;
+          @media @phones {
+            grid-columns: 1 / 6;
+            grid-row: 5;
+            margin: 2rem 0;
+          }
+        }
+      }
+    }
+  }
+}

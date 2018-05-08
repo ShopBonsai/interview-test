@@ -1,7 +1,7 @@
 // Framework
 import React, { PureComponent } from "react";
 import FilterComp from "./comp";
-import defaultState from "../../redux/defaultState.json";
+import helpers from "../../helpers";
 
 // define component
 class Filter extends PureComponent {
@@ -9,6 +9,17 @@ class Filter extends PureComponent {
     super(props);
     this.submitHandler = this.submitHandler.bind(this);
     this.resetHandler = this.resetHandler.bind(this);
+    // console.log('%c PROPS', 'color: yellow; font-size: 1rem', props);
+  }
+  shouldComponentUpdate(nextProps) {
+    // console.log('%c Should Component Update', 'color: yellow; font-size: 1rem', this.props, nextProps);
+    if (
+      this.props.filterResults.length !== nextProps.filterResults.length ||
+      this.props.productsCount !== nextProps.productsCount
+    ) {
+      return true;
+    }
+    return false;
   }
   submitHandler(event) {
     event.preventDefault();
@@ -38,7 +49,9 @@ class Filter extends PureComponent {
     return React.createElement(FilterComp, {
       submitHandler: this.submitHandler,
       resetHandler: this.resetHandler,
-      filterResults: this.props.filterResults
+      filterValues: this.props.filterValues,
+      filterResults: this.props.filterResults,
+      productsCount: this.props.productsCount
     });
   }
 }

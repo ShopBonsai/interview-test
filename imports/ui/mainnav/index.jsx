@@ -12,6 +12,7 @@ import {
   NavItem,
   NavLink
 } from "reactstrap";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 // define component
 const MainNav = () =>
@@ -25,13 +26,15 @@ const MainNav = () =>
     </Nav>
     <Nav id="nav-menu">
       <NavItem>
-        <Link to="#" className="nav-link">
-          My Account
+        <Link to="/shop" href="/shop" className="nav-link">
+          <FontAwesomeIcon icon="gem" />
+          Shop
         </Link>
       </NavItem>
       <NavItem>
-        <Link to="#" className="nav-link">
-          Cart
+        <Link to="/cart" href="/cart" className="nav-link">
+          <FontAwesomeIcon icon="shopping-cart" />
+          SmartCart
         </Link>
       </NavItem>
     </Nav>
