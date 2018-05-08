@@ -67,7 +67,7 @@ const One = ({ ...props }) => {
             <Table>
               <thead>
                 <tr>
-                  <th>Price</th>
+                  <th>Price $</th>
                   <th>Color</th>
                   <th>Size</th>
                   <th>In Stock</th>
@@ -76,7 +76,7 @@ const One = ({ ...props }) => {
               <tbody>
                 <tr>
                   <td>
-                    $ {helpers.formatPrice(product.price)}
+                    {helpers.formatPrice(product.price)}
                   </td>
                   <td>
                     {helpers.titleize(product.color)}

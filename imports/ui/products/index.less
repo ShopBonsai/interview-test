@@ -68,6 +68,9 @@
   }
   #product-buttons {
     padding: 1rem 0 10rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @media @phones {
       padding: 0 0 1rem 0;
     }
@@ -75,10 +78,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      label, input {
+      label, select {
         margin: 0 1rem 0 0;
+        display: inline-block;
+        text-align: right;
       }
-      input {
+      select {
         width: 4rem;
       }
       svg {
