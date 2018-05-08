@@ -12,7 +12,7 @@ const AddToCart = ({ ...props }) => {
           Add to Cart
         </Button>
       : <Button disabled color="danger" type="submit">
-          Out of Stock
+          Sold Out
         </Button>;
   return (
     <Form onSubmit={props.addToCart} data-proudctid={props.id}>

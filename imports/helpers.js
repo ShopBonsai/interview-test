@@ -82,7 +82,7 @@ const helpers = {
     )[0];
     // console.log(item.quantity);
     return item.quantity;
-  },
+  }
 };
 
 // epxort module

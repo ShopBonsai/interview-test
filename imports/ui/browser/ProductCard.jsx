@@ -1,13 +1,12 @@
 // import modules
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
-import { CardTitle, CardSubtitle, CardText } from "reactstrap";
+import { CardTitle, CardSubtitle, CardText, Badge } from "reactstrap";
 import helpers from "../../helpers";
 
 // define component
 const ProductCard = ({ ...props }) => {
   const card = (
-    <div className="product-card">
+    <div className="inner-card">
       <img
         width="100%"
         src={props.data.image}
@@ -27,10 +26,15 @@ const ProductCard = ({ ...props }) => {
     </div>
   );
   if (props.data.quantity > 0) {
-    return card;
+    return (
+      <div className="product-card">
+        {card}
+      </div>
+    );
   }
   return (
-    <div className="sold-out">
+    <div className="product-card">
+      <Badge color="danger">Sold Out</Badge>
       {card}
     </div>
   );
