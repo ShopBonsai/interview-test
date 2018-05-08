@@ -12,7 +12,13 @@ class Items extends PureComponent {
     const { currentTarget } = event;
   }
   render() {
-    return React.createElement(ItemsComp, {});
+    return React.createElement(ItemsComp, {
+      brands: this.props.brands,
+      cartItems: this.props.cartItems,
+      merchants: this.props.merchants,
+      products: this.props.products,
+      users: this.props.users
+    });
   }
 }
 

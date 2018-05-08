@@ -4,7 +4,7 @@ const helpers = {
     try {
       name = array.filter(item => item._id === id)[0].name;
     } catch (e) {
-      null;
+      console.warn(e);
     }
     return name;
   },
@@ -75,7 +75,14 @@ const helpers = {
       categories,
       merchants
     };
-  }
+  },
+  getCartQuantity: (productId, cartItems) => {
+    const item = cartItems.filter(
+      cartItem => cartItem.product === productId
+    )[0];
+    // console.log(item.quantity);
+    return item.quantity;
+  },
 };
 
 // epxort module

@@ -14,8 +14,8 @@ const CartComp = ({ ...props }) =>
       id="cart-head"
     />
     <Container>
-      <Row>
-        <Col id="cart-intro">
+      <Row id="cart-intro" noGutters>
+        <Col xs="12" md="6">
           <h2>
             <FontAwesomeIcon icon="shopping-cart" />SmartCart
           </h2>

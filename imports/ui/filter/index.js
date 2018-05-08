@@ -11,17 +11,16 @@ class Filter extends PureComponent {
     this.resetHandler = this.resetHandler.bind(this);
     // console.log('%c PROPS', 'color: yellow; font-size: 1rem', props);
   }
-  // shouldComponentUpdate(nextProps) {
-  //   // console.log('%c Should Component Update', 'color: yellow; font-size: 1rem', this.props, nextProps);
-  //   // if (
-  //   //   this.props.filterResults.length !== nextProps.filterResults.length
-  //   //   || JSON.stringify(this.props.productsCount) !==
-  //   //     JSON.stringify(nextProps.productsCount)
-  //   // ) {
-  //     return true;
-  //   // }
-  //   // return false;
-  // }
+  shouldComponentUpdate(nextProps) {
+    // console.log('%c Should Component Update', 'color: yellow; font-size: 1rem', this.props, nextProps);
+    if (
+      this.props.filterResults.length !== nextProps.filterResults.length ||
+      this.props.productsCount !== nextProps.productsCount
+    ) {
+      return true;
+    }
+    return false;
+  }
   submitHandler(event) {
     event.preventDefault();
     const { currentTarget, target } = event;

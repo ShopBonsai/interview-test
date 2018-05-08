@@ -12,7 +12,10 @@ class BrowserComp extends Component {
     this.props.setFiltered(this.props.filtered);
   }
   shouldComponentUpdate(nextProps) {
-    if (this.props.filtered.length !== nextProps.filtered.length) {
+    if (
+      this.props.filtered.length !== nextProps.filtered.length ||
+      this.props.brands.length !== nextProps.brands.length
+    ) {
       return true;
     }
     if (
@@ -33,7 +36,8 @@ class BrowserComp extends Component {
   }
   render() {
     const renderFiltered = filtered => {
-      if (filtered.length < 1) {
+      // console.log(this.props.brands);
+      if (filtered.length < 1 || this.props.brands < 1) {
         return <h2 id="no-match-error">No Matching Products Found</h2>;
       }
       return filtered.map(product =>
