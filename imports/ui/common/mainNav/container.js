@@ -2,7 +2,7 @@
 import { connect } from "react-redux";
 import MainNav from "./";
 import helpers from "../../../helpers";
-// import { unsetProductShow, setFilter } from "../../redux/actions/ui";
+import { unsetProductShow, unsetFilter } from "../../../redux/actions/ui";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -10,7 +10,10 @@ const mapStateToProps = (state, props) => ({
 });
 
 // sets dispatch functions to be sent down to components as properties
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  unsetProductShow: () => dispatch(unsetProductShow()),
+  unsetFilter: () => dispatch(unsetFilter())
+});
 
 // connects redux statefull containers to presentational components
 const MainNavContainer = connect(mapStateToProps, mapDispatchToProps)(MainNav);

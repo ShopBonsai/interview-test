@@ -33,7 +33,12 @@ const MainNavComp = ({ ...props }) => {
       </Nav>
       <Nav id="nav-menu">
         <NavItem>
-          <Link to="/shop" href="/shop" className="nav-link">
+          <Link
+            to="/shop"
+            href="/shop"
+            className="nav-link"
+            onClick={props.shopLink}
+          >
             <FontAwesomeIcon icon="gem" />
             Shop
           </Link>

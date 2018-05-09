@@ -11,7 +11,7 @@ const { ADD_TO_CART, UPDATE_CART_ITEMS } = actionTypes;
 export const addToCart = item => (dispatch, getState) => {
   const cartItems = getState().cart.items;
   const cartItemIds = cartItems.map(item => item.product);
-  console.log(cartItemIds);
+  // console.log(cartItemIds);
   if (cartItemIds.includes(item.product)) {
     return alert("Item already in cart. Update quantity in cart instead.");
   }

@@ -6,14 +6,16 @@ import MainNavComp from "./comp";
 class MainNav extends PureComponent {
   constructor(props) {
     super(props);
+    this.shopLink = this.shopLink.bind(this);
   }
-  viewAll(event) {
-    event.preventDefault();
-    const { currentTarget } = event;
+  shopLink(event) {
+    this.props.unsetFilter();
+    this.props.unsetProductShow();
   }
   render() {
     return React.createElement(MainNavComp, {
-      cartItemsLength: this.props.cartItemsLength
+      cartItemsLength: this.props.cartItemsLength,
+      shopLink: this.shopLink
     });
   }
 }
