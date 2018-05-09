@@ -83,6 +83,18 @@ const helpers = {
     )[0];
     // console.log(item.quantity);
     return item.quantity;
+  },
+  getTotalCartItems: array => {
+    let total = 0;
+    const quantities = array.map(item => item.quantity);
+    // console.log(quantities);
+    try {
+      total = quantities.reduce((acc, cur) => acc + parseInt(cur), 0);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      return total;
+    }
   }
 };
 

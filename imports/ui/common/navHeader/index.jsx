@@ -1,13 +1,13 @@
 // Framework
 import React from "react";
 import { Row, Col, Jumbotron } from "reactstrap";
-import MainNav from "../mainNav/index";
+import MainNavContainer from "../mainNav/container";
 
 // define component
 const NavHeader = ({ ...props }) =>
   <Row noGutters className="nav-header">
     <Col>
-      <MainNav />
+      <MainNavContainer />
       <Jumbotron>
         <h1 className="display-3">
           {props.heading}
