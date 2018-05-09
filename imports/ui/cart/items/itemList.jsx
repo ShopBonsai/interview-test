@@ -13,7 +13,7 @@ const ItemsList = ({ ...props }) => {
       const cartProducts = props.products.filter(product =>
         cartItemIds.includes(product._id)
       );
-      console.log("Cart Items:", cartProducts);
+      // console.log("Cart Items:", cartProducts);
       return cartProducts.map(cartProduct =>
         <li className="grid-item" key={cartProduct._id}>
           <div className="thumbnail flex-item">
@@ -50,7 +50,13 @@ const ItemsList = ({ ...props }) => {
             </Form>
           </div>
           <div className="delete flex-item">
-            <Button color="danger">Delete</Button>
+            <Button
+              color="danger"
+              onClick={props.deleteItem}
+              data-productid={cartProduct._id}
+            >
+              Delete
+            </Button>
           </div>
         </li>
       );

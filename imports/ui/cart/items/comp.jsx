@@ -18,6 +18,7 @@ const ItemsComp = ({ ...props }) =>
         products={props.products}
         users={props.users}
         updateQuantity={props.updateQuantity}
+        deleteItem={props.deleteItem}
       />
     </Col>
   </Row>;

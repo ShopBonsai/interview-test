@@ -7,6 +7,7 @@ class Items extends PureComponent {
   constructor(props) {
     super(props);
     this.updateQuantity = this.updateQuantity.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
   updateQuantity(event) {
     event.preventDefault();
@@ -19,6 +20,12 @@ class Items extends PureComponent {
     // console.log(item);
     this.props.updateCartItem(item);
   }
+  deleteItem(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    // console.log(currentTarget.dataset.productid);
+    this.props.deleteItem(currentTarget.dataset.productid);
+  }
   render() {
     return React.createElement(ItemsComp, {
       brands: this.props.brands,
@@ -26,7 +33,8 @@ class Items extends PureComponent {
       merchants: this.props.merchants,
       products: this.props.products,
       users: this.props.users,
-      updateQuantity: this.updateQuantity
+      updateQuantity: this.updateQuantity,
+      deleteItem: this.deleteItem
     });
   }
 }
