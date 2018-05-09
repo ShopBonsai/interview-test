@@ -17,9 +17,10 @@ class Summary extends PureComponent {
   //   return true;
   // }
   render() {
-    // console.log('%c SUMMARY SHOULD', 'color: yellow; font-size: 1rem', this.props.cartItems);
+    // console.log('%c SUMMARY PROPS', 'color: yellow; font-size: 1rem', this.props);
     return React.createElement(SummaryComp, {
-      cartItems: this.props.cartItems
+      cartItems: this.props.cartItems,
+      products: this.props.products
     });
   }
 }

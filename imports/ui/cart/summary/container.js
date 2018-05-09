@@ -5,7 +5,8 @@ import Summary from "./";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
-  cartItems: state.cart.items
+  cartItems: state.cart.items,
+  products: props.products
 });
 
 // sets dispatch functions to be sent down to components as properties

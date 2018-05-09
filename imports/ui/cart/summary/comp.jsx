@@ -13,8 +13,9 @@ const SummaryComp = ({ ...props }) =>
       <div id="subtotal">
         <h6>Subtotal</h6>
         <p>
-          {JSON.stringify(props.cartItems)}
-          {helpers.getCartSubtotal(props.cartItems)}
+          {helpers.formatPrice(
+            helpers.getCartSubtotal(props.cartItems, props.products)
+          )}
         </p>
       </div>
       <div id="itemCount">

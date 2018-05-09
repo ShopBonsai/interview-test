@@ -27,7 +27,7 @@ const CartComp = ({ ...props }) =>
           </article>
         </Col>
         <Col xs="12" md="6" id="order-summary">
-          <SummaryContainer />
+          <SummaryContainer products={props.products} />
         </Col>
       </Row>
       <Row id="cart-items" noGutters>
