@@ -1,24 +1,19 @@
 // import modules
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import SummaryComp from "./comp";
+import OrderScreen from "./";
 import { setTaxRate } from "../../../redux/actions/cart";
 
 // sets properties from state into properties for components
-const mapStateToProps = (state, props) => ({
-  cartItems: state.cart.items,
-  products: props.products,
-  toggleOrderScreen: props.toggleOrderScreen,
-  orderScreen: props.orderScreen
-});
+const mapStateToProps = (state, props) => ({});
 
 // sets dispatch functions to be sent down to components as properties
 const mapDispatchToProps = dispatch => ({});
 
 // connects redux statefull containers to presentational components
-const SummaryContainer = connect(mapStateToProps, mapDispatchToProps)(
-  SummaryComp
+const OrderScreenContainer = connect(mapStateToProps, mapDispatchToProps)(
+  OrderScreen
 );
 
 // export container for app
-export default withRouter(SummaryContainer);
+export default withRouter(OrderScreenContainer);
