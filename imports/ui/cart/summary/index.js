@@ -6,21 +6,18 @@ import SummaryComp from "./comp";
 class Summary extends PureComponent {
   constructor(props) {
     super(props);
-    // this.shopLink = this.shopLink.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
   }
-  // shopLink(event) {
-  //   this.props.unsetFilter();
-  //   this.props.unsetProductShow();
-  // }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('%c SUMMARY SHOULD', 'color: yellow; font-size: 1rem', this.props.cartItems, nextProps.cartItems);
-  //   return true;
-  // }
+  clickHandler(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    console.log(currentTarget);
+  }
   render() {
-    // console.log('%c SUMMARY PROPS', 'color: yellow; font-size: 1rem', this.props);
     return React.createElement(SummaryComp, {
       cartItems: this.props.cartItems,
-      products: this.props.products
+      products: this.props.products,
+      clickHandler: this.clickHandler
     });
   }
 }

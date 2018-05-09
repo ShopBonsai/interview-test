@@ -2,6 +2,7 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Summary from "./";
+import { setTaxRate } from "../../../redux/actions/cart";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({

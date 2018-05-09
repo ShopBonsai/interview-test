@@ -1,31 +1,45 @@
 // Framework
 import React from "react";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import { Table, Button } from "reactstrap";
 import helpers from "../../../helpers";
 
 // define component
-const SummaryComp = ({ ...props }) =>
-  <article>
-    <h2>
-      <FontAwesomeIcon icon="boxes" />Order Summary
-    </h2>
-    <section>
-      <div id="subtotal">
-        <h6>Subtotal</h6>
-        <p>
-          {helpers.formatPrice(
-            helpers.getCartSubtotal(props.cartItems, props.products)
-          )}
-        </p>
-      </div>
-      <div id="itemCount">
-        <h6>Items</h6>
-        <p>
-          {helpers.getTotalCartItems(props.cartItems)}
-        </p>
-      </div>
-    </section>
-  </article>;
+const SummaryComp = ({ ...props }) => {
+  const itemCount = helpers.getTotalCartItems(props.cartItems);
+  const subtotal = helpers.getCartSubtotal(props.cartItems, props.products);
+  return (
+    <article>
+      <h2>Summary</h2>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>Items</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {itemCount}
+            </td>
+            <td>
+              $ {helpers.formatPrice(subtotal)}
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+      <Button
+        color="primary"
+        onClick={props.clickHandler}
+        size="lg"
+        block
+        disabled={itemCount < 1 ? true : false}
+      >
+        Place Order
+      </Button>
+    </article>
+  );
+};
 
 // export component
 export default SummaryComp;
