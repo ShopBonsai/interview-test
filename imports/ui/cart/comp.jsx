@@ -4,14 +4,14 @@ import { Container, Row, Col } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import ItemsListContainer from "./itemsList/container";
 import SummaryContainer from "./summary/container";
-import OrderScreenContainer from "./orderScreen/container";
+import CheckoutContainer from "./checkout/container";
 import NavHeader from "../common/navHeader/index.jsx";
 
 // define component
 const CartComp = ({ ...props }) => {
-  const showOrderScreen = orderScreen => {
-    if (orderScreen) {
-      return <OrderScreenContainer />;
+  const viewCheckout = status => {
+    if (status) {
+      return <CheckoutContainer />;
     }
     return (
       <Row id="cart-items" noGutters>
@@ -44,10 +44,10 @@ const CartComp = ({ ...props }) => {
             </article>
           </Col>
           <Col xs="12" md="6" id="order-summary">
-            <SummaryContainer products={props.products} toggleOrderScreen={props.toggleOrderScreen} orderScreen={props.orderScreen} />
+            <SummaryContainer products={props.products} toggleCheckout={props.toggleCheckout} checkoutVisible={props.checkoutVisible} />
           </Col>
         </Row>
-        {showOrderScreen(props.orderScreen)}
+        {viewCheckout(props.checkoutVisible)}
       </Container>
     </Container>
   );

@@ -8,8 +8,8 @@ import { setTaxRate } from "../../../redux/actions/cart";
 const mapStateToProps = (state, props) => ({
   cartItems: state.cart.items,
   products: props.products,
-  toggleOrderScreen: props.toggleOrderScreen,
-  orderScreen: props.orderScreen
+  toggleCheckout: props.toggleCheckout,
+  checkoutVisible: props.checkoutVisible
 });
 
 // sets dispatch functions to be sent down to components as properties

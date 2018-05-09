@@ -29,13 +29,13 @@ const SummaryComp = ({ ...props }) => {
         </tbody>
       </Table>
       <Button
-        color={props.orderScreen ? "warning" : "primary"}
-        onClick={props.toggleOrderScreen}
+        color={props.checkoutVisible ? "warning" : "primary"}
+        onClick={props.toggleCheckout}
         size="lg"
         block
         disabled={itemCount < 1 ? true : false}
       >
-        {props.orderScreen ? "Edit Items" : "Proceed to Checkout"}
+        {props.checkoutVisible ? "Edit Items" : "Proceed to Checkout"}
       </Button>
     </article>
   );

@@ -1,16 +1,16 @@
 // Framework
 import React, { PureComponent } from "react";
-import OrderScreenComp from "./comp";
+import CheckoutComp from "./comp";
 
 // define component
-class OrderScreen extends PureComponent {
+class Checkout extends PureComponent {
   constructor(props) {
     super(props);
   }
   render() {
-    return React.createElement(OrderScreenComp, {});
+    return React.createElement(CheckoutComp, {});
   }
 }
 
 // export component
-export default OrderScreen;
+export default Checkout;

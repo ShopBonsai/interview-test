@@ -9,26 +9,26 @@ import Products from "../../api/products/collection";
 class Cart extends Component {
   constructor(props) {
     super(props);
-    this.toggleOrderScreen = this.toggleOrderScreen.bind(this);
+    this.toggleCheckout = this.toggleCheckout.bind(this);
     this.state = {
-      orderScreen: false
+      checkoutVisible: false
     };
   }
   componentDidMount() {
     document.title = "Shopping SmartCart at Bonsai";
   }
-  toggleOrderScreen(event) {
+  toggleCheckout(event) {
     event.preventDefault();
     const { currentTarget } = event;
     console.log(this.props.cartItems);
-    this.setState({ orderScreen: !this.state.orderScreen });
+    this.setState({ checkoutVisible: !this.state.checkoutVisible });
   }
   render() {
     // console.log(this.props);
     return React.createElement(CartComp, {
       products: this.props.products,
-      orderScreen: this.state.orderScreen,
-      toggleOrderScreen: this.toggleOrderScreen
+      checkoutVisible: this.state.checkoutVisible,
+      toggleCheckout: this.toggleCheckout
     });
   }
 }
