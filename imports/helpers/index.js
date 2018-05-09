@@ -103,6 +103,7 @@ const helpers = {
   getCartSubtotal: (cartItems, products) => {
     let subtotal = "";
     console.log(cartItems);
+    return subtotal;
   }
 };
 

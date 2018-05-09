@@ -1,12 +1,11 @@
 // Framework
 import React from "react";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Form, Label, Button } from "reactstrap";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import QuantitySelect from "../../common/quantitySelect";
 import Brands from "../../../api/brands/collection";
-import Merchants from "../../../api/merchants/collection";
 import Products from "../../../api/products/collection";
 import helpers from "../../../helpers";
 
@@ -86,16 +85,11 @@ const ItemsListComp = ({ ...props }) => {
 };
 
 // export component
-export default withTracker(({ ...props }) => {
+export default withTracker(() => {
   Meteor.subscribe("brands");
-  Meteor.subscribe("merchants");
   Meteor.subscribe("products");
-  Meteor.subscribe("users");
   return {
-    cartItems: props.cartItems,
     brands: Brands.find().fetch(),
-    merchants: Merchants.find().fetch(),
-    products: Products.find().fetch(),
-    users: Meteor.users.find().fetch()
+    products: Products.find().fetch()
   };
 })(ItemsListComp);
