@@ -86,15 +86,23 @@ const helpers = {
   },
   getTotalCartItems: array => {
     let total = 0;
-    const quantities = array.map(item => item.quantity);
-    // console.log(quantities);
+    const quantities = array.map(item => parseInt(item.quantity));
+    // console.log('%c QUANTITIES', 'color: yellow; font-size: 1rem', quantities, Array.isArray(quantities));
     try {
-      total = quantities.reduce((acc, cur) => acc + parseInt(cur), 0);
+      total = quantities.reduce((acc, cur) => {
+        // console.log('%c ACC', 'color: yellow; font-size: 1rem', acc, typeof acc, typeof parseInt(acc));
+        // console.log('%c CUR', 'color: yellow; font-size: 1rem', cur, typeof cur, typeof parseInt(cur));
+        return acc + cur;
+      }, 0);
     } catch (e) {
       console.error(e);
-    } finally {
-      return total;
     }
+    // console.log('%c TEST', 'color: yellow; font-size: 1rem', total, typeof total);
+    return total;
+  },
+  getCartSubtotal: array => {
+    let subtotal = "";
+    console.log(array);
   }
 };
 
