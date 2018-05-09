@@ -2,18 +2,18 @@
 import React from "react";
 import { Row, Col, Form, Label, Button } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import QuantitySelect from "../../common/quantitySelect";
-import helpers from "../../../helpers";
+import QuantitySelect from "../common/quantitySelect";
+import helpers from "../../helpers";
 
 // define component
 const ItemsList = ({ ...props }) => {
-  const setItems = () => {
-    if (props.cartItems.length > 0 && props.brands.length > 0) {
-      const cartItemIds = props.cartItems.map(item => item.product);
-      const cartProducts = props.products.filter(product =>
+  const setItems = (cartItems, brands, products) => {
+    if (cartItems.length > 0 && brands.length > 0) {
+      const cartItemIds = cartItems.map(item => item.product);
+      const cartProducts = products.filter(product =>
         cartItemIds.includes(product._id)
       );
-      console.log("Cart Items:", cartProducts);
+      // console.log("Cart Items:", cartProducts);
       return cartProducts.map(cartProduct =>
         <li className="grid-item" key={cartProduct._id}>
           <div className="thumbnail flex-item">
@@ -24,7 +24,7 @@ const ItemsList = ({ ...props }) => {
               {helpers.titleize(cartProduct.name)}
             </h3>
             <h5>
-              by {helpers.getSingleRef(cartProduct.brand, props.brands)}
+              by {helpers.getSingleRef(cartProduct.brand, brands)}
             </h5>
           </div>
           <div className="price flex-item">
@@ -44,13 +44,19 @@ const ItemsList = ({ ...props }) => {
                 maxQuantity={cartProduct.quantity}
                 currentValue={helpers.getCartQuantity(
                   cartProduct._id,
-                  props.cartItems
+                  cartItems
                 )}
               />
             </Form>
           </div>
           <div className="delete flex-item">
-            <Button color="danger">Delete</Button>
+            <Button
+              color="danger"
+              onClick={props.deleteItem}
+              data-productid={cartProduct._id}
+            >
+              Delete
+            </Button>
           </div>
         </li>
       );
@@ -63,7 +69,7 @@ const ItemsList = ({ ...props }) => {
   };
   return (
     <ul id="cart-list">
-      {setItems(props.items)}
+      {setItems(props.cartItems, props.brands, props.products)}
     </ul>
   );
 };

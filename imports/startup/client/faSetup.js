@@ -5,7 +5,8 @@ import {
   faUser,
   faGem,
   faCartPlus,
-  faChevronCircleLeft
+  faChevronCircleLeft,
+  faBoxes
 } from "@fortawesome/fontawesome-free-solid";
 
 // define funtcion
@@ -16,7 +17,8 @@ const faSetup = () => {
     faUser,
     faGem,
     faCartPlus,
-    faChevronCircleLeft
+    faChevronCircleLeft,
+    faBoxes
   );
 };
 

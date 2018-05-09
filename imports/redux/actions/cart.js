@@ -39,3 +39,14 @@ export const updateCartItem = item => (dispatch, getState) => {
     cartItems
   });
 };
+
+// define class for creating default actions for base store state objects
+export const deleteItem = id => (dispatch, getState) => {
+  // console.log(id);
+  const cartItems = getState().cart.items.filter(item => item.product !== id);
+  // console.log(cartItems);
+  return dispatch({
+    type: UPDATE_CART_ITEMS,
+    cartItems
+  });
+};
