@@ -16,10 +16,15 @@
     }
   }
   #order-summary {
+    margin-top: 2rem;
     padding: 2rem;
     background-color: lightgray;
     svg {
       margin-right: 1rem;
+    }
+    @media @phones {
+      margin-top: 1rem;
+      padding: 1rem;
     }
   }
   #cart-items {
@@ -51,7 +56,7 @@
         grid-template-columns: 10rem 1fr 10rem 10rem 10rem;
         grid-template-rows: auto;
         @media @phones {
-          grid-template-columns: auto;
+          grid-template-columns: 1fr;
           grid-template-rows: 10rem repeat(4, auto);
         }
         .flex-item {
@@ -59,6 +64,9 @@
           flex-flow: column;
           justify-content: center;
           align-items: center;
+          @media @phones {
+            max-width: 100%;
+          }
         }
         .thumbnail {
           grid-columns: 1 / 2;
@@ -81,6 +89,9 @@
           h3 {
             color: @color-1;
             margin-bottom: 1rem;
+          }
+          p {
+            margin: 0;
           }
           @media @phones {
             grid-columns: 1 / 6;

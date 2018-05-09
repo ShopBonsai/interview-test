@@ -17,8 +17,17 @@
   }
   #nav-menu {
     padding: 2rem 2rem 0 0;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
     @media @phones {
       padding: 1rem 1rem 0 0;
+      flex-flow: column nowrap;
+      align-items: flex-end;
+      justify-content: center;
+      .nav-link {
+        margin-bottom: 0.5rem;
+      }
     }
     .nav-link {
       padding: 0 0 0 2rem;
@@ -28,9 +37,6 @@
       }
       svg {
         margin-right: 0.5rem;
-      }
-      @media @phones {
-        padding: 0 0 0 1rem;
       }
     }
   }

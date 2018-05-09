@@ -26,6 +26,12 @@ const ItemsList = ({ ...props }) => {
             <h5>
               by {helpers.getSingleRef(cartProduct.brand, brands)}
             </h5>
+            <p>
+              Size: {helpers.titleize(helpers.adjustSizes(cartProduct.size))}
+            </p>
+            <p>
+              Colour: {helpers.titleize(cartProduct.color)}
+            </p>
           </div>
           <div className="price flex-item">
             <p>Price</p>
