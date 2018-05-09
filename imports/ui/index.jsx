@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Admin from "./admin/index";
 import Home from "./home/index";
 import ShopContainer from "./shop/container";
-import CartContainer from "./cart/container";
+import Cart from "./cart";
 import faSetup from "../startup/client/faSetup";
 
 // defint component
@@ -16,7 +16,7 @@ const Ui = () =>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/shop" component={ShopContainer} />
-        <Route exact path="/cart" component={CartContainer} />
+        <Route exact path="/cart" component={Cart} />
       </Switch>
     </BrowserRouter>
   </div>;
