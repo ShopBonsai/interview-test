@@ -128,6 +128,26 @@ const helpers = {
     // console.log(cartItems, products, cartProducts);
     // console.log(subtotal);
     return subtotal;
+  },
+  formatDate: (desired, date) => {
+    // console.log(desired, date, typeof date);
+    const year = date.getFullYear().toString();
+    const monthIndex = date.getMonth() + 1;
+    const fixMonth = number =>
+      number.toString().length === 1
+        ? `0${number.toString()}`
+        : number.toString();
+    const month = fixMonth(monthIndex);
+    let result = "";
+    switch (desired) {
+      case "yyyy-mm":
+        result = `${year}-${month}`;
+        break;
+      default:
+        date;
+    }
+    // console.log(result);
+    return result;
   }
 };
 

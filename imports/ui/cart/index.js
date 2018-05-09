@@ -20,7 +20,6 @@ class Cart extends Component {
   toggleCheckout(event) {
     event.preventDefault();
     const { currentTarget } = event;
-    console.log(this.props.cartItems);
     this.setState({ checkoutVisible: !this.state.checkoutVisible });
   }
   render() {
