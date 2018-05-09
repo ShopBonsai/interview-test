@@ -1,12 +1,16 @@
-// import modules
+// Framework
 import React from "react";
-import { Row, Col, Form, Label, Button } from "reactstrap";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
+import { Form, Label, Button } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import QuantitySelect from "../common/quantitySelect";
-import helpers from "../../helpers";
+import QuantitySelect from "../../common/quantitySelect";
+import Brands from "../../../api/brands/collection";
+import Products from "../../../api/products/collection";
+import helpers from "../../../helpers";
 
 // define component
-const ItemsList = ({ ...props }) => {
+const ItemsListComp = ({ ...props }) => {
   const setItems = (cartItems, brands, products) => {
     if (cartItems.length > 0 && brands.length > 0) {
       const cartItemIds = cartItems.map(item => item.product);
@@ -26,6 +30,12 @@ const ItemsList = ({ ...props }) => {
             <h5>
               by {helpers.getSingleRef(cartProduct.brand, brands)}
             </h5>
+            <p>
+              Size: {helpers.titleize(helpers.adjustSizes(cartProduct.size))}
+            </p>
+            <p>
+              Colour: {helpers.titleize(cartProduct.color)}
+            </p>
           </div>
           <div className="price flex-item">
             <p>Price</p>
@@ -75,4 +85,11 @@ const ItemsList = ({ ...props }) => {
 };
 
 // export component
-export default ItemsList;
+export default withTracker(() => {
+  Meteor.subscribe("brands");
+  Meteor.subscribe("products");
+  return {
+    brands: Brands.find().fetch(),
+    products: Products.find().fetch()
+  };
+})(ItemsListComp);

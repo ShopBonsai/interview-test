@@ -1,46 +1,27 @@
 // Framework
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 import CartComp from "./comp";
+import Products from "../../api/products/collection";
 
 // define component
-class Cart extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.updateQuantity = this.updateQuantity.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-  }
+class Cart extends Component {
   componentDidMount() {
     document.title = "Shopping SmartCart at Bonsai";
   }
-  updateQuantity(event) {
-    event.preventDefault();
-    const { currentTarget } = event;
-    const formData = new FormData(currentTarget);
-    const item = {
-      product: currentTarget.dataset.productid,
-      quantity: formData.get("quantity")
-    };
-    // console.log(item);
-    this.props.updateCartItem(item);
-  }
-  deleteItem(event) {
-    event.preventDefault();
-    const { currentTarget } = event;
-    // console.log(currentTarget.dataset.productid);
-    this.props.deleteItem(currentTarget.dataset.productid);
-  }
   render() {
+    // console.log(this.props);
     return React.createElement(CartComp, {
-      brands: this.props.brands,
-      cartItems: this.props.cartItems,
-      merchants: this.props.merchants,
-      products: this.props.products,
-      users: this.props.users,
-      updateQuantity: this.updateQuantity,
-      deleteItem: this.deleteItem
+      products: this.props.products
     });
   }
 }
 
 // export component
-export default Cart;
+export default withTracker(() => {
+  Meteor.subscribe("products");
+  return {
+    products: Products.find().fetch()
+  };
+})(Cart);

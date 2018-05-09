@@ -2,8 +2,8 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import ItemsList from "./itemsList";
-import OrderSummary from "./orderSummary";
+import ItemsListContainer from "./itemsList/container";
+import SummaryContainer from "./summary/container";
 import NavHeader from "../common/navHeader/index.jsx";
 
 // define component
@@ -27,7 +27,7 @@ const CartComp = ({ ...props }) =>
           </article>
         </Col>
         <Col xs="12" md="6" id="order-summary">
-          <OrderSummary cartItems={props.cartItems} />
+          <SummaryContainer products={props.products} />
         </Col>
       </Row>
       <Row id="cart-items" noGutters>
@@ -35,15 +35,7 @@ const CartComp = ({ ...props }) =>
           <h2>My Items</h2>
         </Col>
         <Col xs="12">
-          <ItemsList
-            brands={props.brands}
-            cartItems={props.cartItems}
-            merchants={props.merchants}
-            products={props.products}
-            users={props.users}
-            updateQuantity={props.updateQuantity}
-            deleteItem={props.deleteItem}
-          />
+          <ItemsListContainer />
         </Col>
       </Row>
     </Container>

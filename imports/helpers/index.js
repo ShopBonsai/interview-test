@@ -1,3 +1,6 @@
+// import modules
+import { Meteor } from "meteor/meteor";
+
 // define module
 const helpers = {
   getSingleRef: (id, array) => {
@@ -9,7 +12,17 @@ const helpers = {
     }
     return name;
   },
-  formatPrice: price => price.toString().replace(/(\.(\d+))/gi, "$10"),
+  formatPrice: price => {
+    const string = (Math.round(price * 100) / 100).toString();
+    const [a, b] = string.split(".");
+    if (b === undefined) {
+      return `${a}.00`;
+    } else if (b.length === 1) {
+      return `${a}.${b}0`;
+    } else {
+      return `${a}.${b.substr(0, 2)}`;
+    }
+  },
   titleize: string => {
     const hashed = string.replace(/\s+/gi, "###").split("###");
     return hashed
@@ -100,9 +113,21 @@ const helpers = {
     // console.log('%c TEST', 'color: yellow; font-size: 1rem', total, typeof total);
     return total;
   },
-  getCartSubtotal: array => {
+  getCartSubtotal: (cartItems, products) => {
     let subtotal = "";
-    console.log(array);
+    const cartItemIds = cartItems.map(item => item.product);
+    const cartProducts = products.filter(product =>
+      cartItemIds.includes(product._id)
+    );
+    subtotal = cartProducts.reduce((acc, cur) => {
+      const orderQuantity = cartItems.filter(
+        item => item.product === cur._id
+      )[0].quantity;
+      return acc + parseInt(orderQuantity) * parseFloat(cur.price);
+    }, 0);
+    // console.log(cartItems, products, cartProducts);
+    // console.log(subtotal);
+    return subtotal;
   }
 };
 

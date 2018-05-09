@@ -8,6 +8,9 @@ class MainNav extends PureComponent {
     super(props);
     this.shopLink = this.shopLink.bind(this);
   }
+  // componentDidUpdate(prevProps) {
+  //   console.log("MAIN NAV", prevProps.cartItemsLength, this.props.cartItemsLength);
+  // }
   shopLink(event) {
     this.props.unsetFilter();
     this.props.unsetProductShow();
