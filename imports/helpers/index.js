@@ -100,9 +100,9 @@ const helpers = {
     // console.log('%c TEST', 'color: yellow; font-size: 1rem', total, typeof total);
     return total;
   },
-  getCartSubtotal: array => {
+  getCartSubtotal: (cartItems, products) => {
     let subtotal = "";
-    console.log(array);
+    console.log(cartItems);
   }
 };
 
