@@ -32,7 +32,7 @@ const CartComp = ({ ...props }) => {
         id="cart-head"
       />
       <Container>
-        <Row noGutters>
+        <Row>
           <Col xs="12" md="6" id="cart-intro">
             <article>
               <h2>

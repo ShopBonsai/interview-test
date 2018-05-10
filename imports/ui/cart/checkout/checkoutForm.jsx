@@ -9,7 +9,7 @@ const CheckoutForm = ({ ...props }) =>
     <Row>
       <Col xs="12" md="6">
         <section className="form-section" id="customer">
-          <h4>Customer Profile</h4>
+          <h5>Customer Profile</h5>
           <FormGroup row>
             <Label htmlFor="firstName" sm={4}>
               First Name
@@ -84,10 +84,10 @@ const CheckoutForm = ({ ...props }) =>
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label htmlFor="password-confirm" sm={4}>
-              Password
+            <Label htmlFor="password-confirm" sm={5}>
+              Password Confirmation
             </Label>
-            <Col sm={8}>
+            <Col sm={7}>
               <Input
                 type="password"
                 minLength="8"
@@ -102,7 +102,7 @@ const CheckoutForm = ({ ...props }) =>
       </Col>
       <Col xs="12" md="6">
         <section className="form-section" id="address">
-          <h4>Destination Address</h4>
+          <h5>Destination Address</h5>
           <FormGroup row>
             <Label htmlFor="address-unit" sm={4}>
               Unit
@@ -195,9 +195,9 @@ const CheckoutForm = ({ ...props }) =>
       </Col>
     </Row>
     <Row>
-      <Col xs="12">
+      <Col xs="12" md={{ size: 6, offset: 3}}>
         <section className="form-section" id="credit-card">
-          <h4>Credit Card</h4>
+          <h5>Credit Card</h5>
           <FormGroup row>
             <Label htmlFor="card-type" sm={4}>
               Type
@@ -234,7 +234,7 @@ const CheckoutForm = ({ ...props }) =>
           </FormGroup>
           <FormGroup row>
             <Label htmlFor="card-number" sm={4}>
-              Card Number
+              Number
             </Label>
             <Col sm={8}>
               <Input
@@ -280,10 +280,10 @@ const CheckoutForm = ({ ...props }) =>
           </FormGroup>
         </section>
       </Col>
-      <Col xs="12">
+      <Col xs="12" md={{ size: 6, offset: 3}}>
         <section id="order-buttons">
           <Button type="submit" color="primary">
-            Place Order!
+            Place Order
           </Button>
           <Button type="reset" color="danger">
             Clear
