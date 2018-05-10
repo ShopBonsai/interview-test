@@ -3,7 +3,7 @@ import React from "react";
 import { Container, Row, Col, Jumbotron, Table } from "reactstrap";
 
 // define component
-const Stats = ({ ...props }) => {
+const DetailsComp = ({ ...props }) => {
   const {
     brands,
     categories,
@@ -14,7 +14,7 @@ const Stats = ({ ...props }) => {
     products,
     profileTypes,
     users
-  } = props.props;
+  } = props;
   return (
     <Table responsive>
       <thead>
@@ -84,4 +84,4 @@ const Stats = ({ ...props }) => {
 };
 
 // export component
-export default Stats;
+export default DetailsComp;

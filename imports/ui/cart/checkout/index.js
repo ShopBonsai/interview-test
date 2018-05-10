@@ -91,7 +91,7 @@ class Checkout extends PureComponent {
             currentTarget.reset();
             this.props.resetCart();
             this.props.resetUi();
-            return this.props.history.push("/");
+            return this.props.history.push("/shop");
           })
           .catch(err =>
             alert("Order could not be created. Please try again later.")

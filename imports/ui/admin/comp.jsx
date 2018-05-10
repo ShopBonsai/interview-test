@@ -1,10 +1,10 @@
 // import modules
 import React from "react";
 import { Container, Row, Col, Jumbotron, Table } from "reactstrap";
-import Stats from "./stats.jsx";
+import Details from "./details";
 
 // define component
-const AdminComp = ({ ...props }) =>
+const AdminComp = () =>
   <div id="admin-page">
     <Container fluid>
       <Row>
@@ -17,9 +17,9 @@ const AdminComp = ({ ...props }) =>
     </Container>
     <Container>
       <Row>
-        <Col id="stats">
-          <h2>Collection Stats</h2>
-          <Stats props={props} />
+        <Col id="details">
+          <h2>Collection Details</h2>
+          <Details />
         </Col>
       </Row>
     </Container>
