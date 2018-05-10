@@ -9,10 +9,6 @@ class ItemsList extends Component {
     this.updateQuantity = this.updateQuantity.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
-  // shouldComponentUpdate(nextProps) {
-  //   console.log('%c ITEMS LIST SHOULD', 'color: yellow; font-size: 1rem', this.props, nextProps);
-  //   return true;
-  // }
   updateQuantity(event) {
     event.preventDefault();
     const { currentTarget } = event;

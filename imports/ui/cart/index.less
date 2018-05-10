@@ -4,37 +4,97 @@
     background-image: url("images/banner2.jpg");
   }
   #cart-intro {
-    padding: 2rem 2rem 0 0;
+    margin: 4rem 0 0 0;
+    text-align: right;
+    @media @phones {
+      margin: 2rem 0 0 0;
+      text-align: left;
+    }
     h2 {
       margin-bottom: 1rem;
       svg {
-        margin-right: 1rem;
+        margin-right: 0.5rem;
       }
     }
     p {
-      margin-bottom: 0;
+      @media @phones {
+        margin: 0;
+      }
+    }
+  }
+  #checkout {
+    @media @phones {
+      margin: 2rem 0 0 0;
+    }
+    .container {
+      padding: 2rem 0;
+      @media @phones {
+        padding: 1rem 0;
+      }
+      form {
+        .row {
+          align-items: flex-end;
+        }
+        .form-section {
+          padding: 2rem;
+          background-color: whitesmoke;
+          margin-bottom: 2rem;
+          @media @phones {
+            margin-bottom: 1rem;
+            padding: 1rem;
+          }
+          label {
+            text-align: right;
+            @media @phones {
+              text-align: left;
+            }
+          }
+          p {
+            text-align: center;
+            color: gray;
+            margin: 0;
+          }
+          h5 {
+            margin-bottom: 1rem;
+          }
+        }
+        #order-buttons {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+          grid-column-gap: 2rem;
+          @media @phones {
+            grid-column-gap: 1rem;
+          }
+          button {
+            width: 100%;
+          }
+        }
+      }
     }
   }
   #order-summary {
-    padding: 2rem;
-    background-color: whitesmoke;
+    margin: 2rem 0 0 0;
+    article {
+      padding: 2rem;
+      background-color: whitesmoke;
+      @media @phones {
+        padding: 1rem;
+      }
+    }
     table {
       margin-top: 2rem;
       text-align: center;
-    }
-    svg {
-      margin-right: 1rem;
-    }
-    @media @phones {
-      margin-top: 1rem;
-      padding: 1rem;
+      th, td {
+        border: none;
+      }
     }
   }
   #cart-items {
     padding: 0;
-    margin: 2rem 0;
+    margin: 0;
     @media @phones {
-      margin: 1rem 0;
+      margin: 2rem 0 1rem 0;
     }
     #cart-list {
       margin: 0;

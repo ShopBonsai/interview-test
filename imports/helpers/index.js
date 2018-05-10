@@ -59,31 +59,28 @@ const helpers = {
     }
   },
   getFilterResultsValues: (filtered, merchantProfiles, users) => {
-    const brands = [];
-    const categories = [];
-    const merchants = [];
-    try {
-      filtered.forEach(product => {
-        if (!brands.includes(product.brand)) {
-          brands.push(product.brand);
-        }
-        if (!categories.includes(product.category)) {
-          categories.push(product.category);
-        }
-        const merchantProfile = helpers.getMerchantProfile(
-          product.user,
-          users,
-          merchantProfiles
-        );
-        if (!merchants.includes(merchantProfile._id)) {
-          merchants.push(merchantProfile._id);
-        }
-      });
-    } catch (e) {
-      console.warn(e);
-    }
-    // console.log(merchantProfiles.length, users.length);
-    // console.log(brands.length, categories.length, merchants.length);
+    let brands = [];
+    let categories = [];
+    let merchants = [];
+    // console.log(filtered);
+    // console.log(users.length, merchantProfiles.length);
+    filtered.forEach(product => {
+      if (!brands.includes(product.brand)) {
+        brands.push(product.brand);
+      }
+      if (!categories.includes(product.category)) {
+        categories.push(product.category);
+      }
+      const merchantProfile = helpers.getMerchantProfile(
+        product.user,
+        users,
+        merchantProfiles
+      );
+      // console.log('%c TEST', 'color: yellow; font-size: 1rem', merchantProfile._id);
+      if (!merchants.includes(merchantProfile._id)) {
+        merchants.push(merchantProfile._id);
+      }
+    });
     return {
       brands,
       categories,
@@ -128,6 +125,140 @@ const helpers = {
     // console.log(cartItems, products, cartProducts);
     // console.log(subtotal);
     return subtotal;
+  },
+  formatDate: (desired, date) => {
+    // console.log(desired, date, typeof date);
+    const year = date.getFullYear().toString();
+    const monthIndex = date.getMonth() + 1;
+    const fixMonth = number =>
+      number.toString().length === 1
+        ? `0${number.toString()}`
+        : number.toString();
+    const month = fixMonth(monthIndex);
+    let result = "";
+    switch (desired) {
+      case "yyyy-mm":
+        result = `${year}-${month}`;
+        break;
+      default:
+        date;
+    }
+    // console.log(result);
+    return result;
+  },
+  getCartProductQuantities: (cartItems, products) => {
+    // prep order data
+    const cartItemIds = cartItems.map(item => item.product);
+    const cartProducts = products.filter(product =>
+      cartItemIds.includes(product._id)
+    );
+    // console.log('%c CART PRODUCTS', 'color: yellow; font-size: 1rem', cartProducts, cartProducts.length === cartItems.length);
+    const cartQuantities = cartProducts.map(product => {
+      if (cartItemIds.includes(product._id)) {
+        const current = product;
+        try {
+          current.cartQuantity = cartItems.filter(
+            item => item.product === current._id
+          )[0].quantity;
+          return current;
+        } catch (e) {
+          console.warn("Cant find cart quantity for cart item");
+        }
+      }
+    });
+    // console.log('%c CART QUANTITIES', 'color: yellow; font-size: 1rem', cartQuantities);
+    return cartQuantities;
+  },
+  validateEmail: email => {
+    const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // console.log(email.match(pattern));
+    const test = email.match(pattern);
+    if (test[0] === email) {
+      return true;
+    }
+    alert("Email address invalid. Please try again.");
+    return false;
+  },
+  validateCard: orderData => {
+    const { cardType, cardholder, cardNumber, expiry, code } = orderData;
+    if (
+      cardType === "visa" &&
+      cardNumber === "1234567812345678" &&
+      expiry === "2018-08" &&
+      code === "321"
+    ) {
+      return true;
+    }
+    alert("Credit card invalid. Please try again.");
+    return false;
+  },
+  validatePasswords: orderData => {
+    const { password, passwordConfirm } = orderData;
+    if (password === passwordConfirm) {
+      return true;
+    }
+    alert("Password and password confirmation do not match. Please try again.");
+    return false;
+  },
+  buildOrder: (orderData, cartItems, orderStatus, profileTypes, products) => {
+    const {
+      firstName,
+      lastName,
+      email,
+      username,
+      password,
+      passwordConfirm,
+      unit,
+      civic,
+      city,
+      prov,
+      postal,
+      cardType,
+      cardholder,
+      cardNumber,
+      expiry,
+      code
+    } = orderData;
+
+    // result item
+    let result = {};
+
+    // build customer profile
+    // console.log('%c PROFILE TYPES', 'color: yellow; font-size: 1rem', profileTypes);
+    const customerProfile = {
+      firstName,
+      lastName,
+      profileType: profileTypes.filter(item => item.name === "customer")[0]._id
+    };
+    result.customerProfile = customerProfile;
+    // console.log('%c CUSTOMER PROFILE', 'color: yellow; font-size: 1rem', customerProfile);
+
+    // console.log('%c ORDER STATUS', 'color: yellow; font-size: 1rem', orderStatus);
+    const status = orderStatus.filter(item => item.name === "paid")[0]._id;
+    result.orderStatus = status;
+    // console.log('%c STATUS', 'color: yellow; font-size: 1rem', status);
+
+    // get cart product quantities
+    const cartProductsWithQuantities = helpers.getCartProductQuantities(
+      cartItems,
+      products
+    );
+    result.products = cartProductsWithQuantities;
+    // console.log('%c CART PRODUCTS', 'color: yellow; font-size: 1rem', cartProductsWithQuantities);
+
+    // get order shipping address
+    let destination;
+    const address = `${civic}, ${city}, ${prov} ${postal}`;
+    if (unit === "") {
+      destination = address;
+    } else {
+      destination = `${unit} - ${address}`;
+    }
+    result.destination = destination;
+    // console.log('%c CART DESTINATION', 'color: yellow; font-size: 1rem', destination);
+
+    // console.log('%c BUILT ORDER', 'color: yellow; font-size: 1rem', result);
+    return result;
   }
 };
 
