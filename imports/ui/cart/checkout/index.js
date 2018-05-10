@@ -14,21 +14,22 @@ class Checkout extends PureComponent {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     const values = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
+      firstName: formData.get("firstName").toLowerCase(),
+      lastName: formData.get("lastName").toLowerCase(),
+      email: formData.get("email").toLowerCase(),
       username: formData.get("username"),
       password: formData.get("password"),
-      unit: formData.get("address-unit"),
-      civic: formData.get("address-civic"),
-      city: formData.get("address-city"),
-      prov: formData.get("address-prov"),
-      postal: formData.get("address-postal"),
-      cardType: formData.get("card-type"),
-      cardholder: formData.get("cardholder"),
-      cardNumber: formData.get("card-number"),
-      expiry: formData.get("expiry"),
-      code: formData.get("code")
+      passwordConfirm: formData.get("password-confirm"),
+      unit: formData.get("address-unit").toLowerCase(),
+      civic: formData.get("address-civic").toLowerCase(),
+      city: formData.get("address-city").toLowerCase(),
+      prov: formData.get("address-prov").toLowerCase(),
+      postal: formData.get("address-postal").toLowerCase(),
+      cardType: formData.get("card-type").toLowerCase(),
+      cardholder: formData.get("cardholder").toLowerCase(),
+      cardNumber: formData.get("card-number").toLowerCase(),
+      expiry: formData.get("expiry").toLowerCase(),
+      code: formData.get("code").toLowerCase()
     };
     console.log(values);
   }

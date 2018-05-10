@@ -1,7 +1,11 @@
 // Framework
 import React, { PureComponent } from "react";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 import FilterComp from "./comp";
 import helpers from "../../../helpers";
+import Merchants from "../../../api/merchants/collection";
+import Products from "../../../api/products/collection";
 
 // define component
 class Filter extends PureComponent {
@@ -9,17 +13,39 @@ class Filter extends PureComponent {
     super(props);
     this.submitHandler = this.submitHandler.bind(this);
     this.resetHandler = this.resetHandler.bind(this);
+    this.state = {
+      filterValues: {
+        brands: [],
+        categories: [],
+        merchants: []
+      }
+    };
     // console.log('%c PROPS', 'color: yellow; font-size: 1rem', props);
   }
   shouldComponentUpdate(nextProps) {
-    // console.log('%c Should Component Update', 'color: yellow; font-size: 1rem', this.props, nextProps);
     if (
-      this.props.filterResults.length !== nextProps.filterResults.length ||
+      this.props.filterResults !== nextProps.filterResults ||
+      this.props.users.length !== nextProps.users.length ||
+      this.props.merchants.length !== nextProps.merchants.length ||
       this.props.productsCount !== nextProps.productsCount
     ) {
+      // console.log('%c COMPONENT SHOULD UPDATE', 'color: yellow; font-size: 1rem', this.props, nextProps);
       return true;
     }
     return false;
+  }
+  componentWillReceiveProps(nextProps) {
+    // console.log('%c COMPONENT DID UPDATE', 'color: yellow; font-size: 1rem', prevProps, this.props);
+    if (nextProps.users.length > 0 && nextProps.merchants.length > 0) {
+      // console.log('%c TEST', 'color: yellow; font-size: 1rem', nextProps.users.length, nextProps.merchants.length);
+      const filterValues = helpers.getFilterResultsValues(
+        nextProps.filterResults,
+        nextProps.merchants,
+        nextProps.users
+      );
+      // console.log(filterValues);
+      this.setState({ filterValues });
+    }
   }
   submitHandler(event) {
     event.preventDefault();
@@ -46,15 +72,25 @@ class Filter extends PureComponent {
     // this.props.setFilter(defaultState.ui.filter);
   }
   render() {
+    // console.log('%c RENDER', 'color: yellow; font-size: 1rem', this.state);
     return React.createElement(FilterComp, {
       submitHandler: this.submitHandler,
       resetHandler: this.resetHandler,
-      filterValues: this.props.filterValues,
+      filterValues: this.state.filterValues,
       filterResults: this.props.filterResults,
-      productsCount: this.props.productsCount
+      productsCount: this.props.products.length
     });
   }
 }
 
 // export component
-export default Filter;
+export default withTracker(() => {
+  Meteor.subscribe("merchants");
+  Meteor.subscribe("products");
+  Meteor.subscribe("users");
+  return {
+    users: Meteor.users.find().fetch(),
+    merchants: Merchants.find().fetch(),
+    products: Products.find().fetch()
+  };
+})(Filter);

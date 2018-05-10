@@ -83,6 +83,20 @@ const CheckoutForm = ({ ...props }) =>
               />
             </Col>
           </FormGroup>
+          <FormGroup row>
+            <Label htmlFor="password-confirm" sm={4}>
+              Password
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="password"
+                minLength="8"
+                name="password-confirm"
+                id="password-confirm"
+                placeholder="Optional"
+              />
+            </Col>
+          </FormGroup>
           <p>If username and password are submitted, an account for the store will be created for future access to past orders and more!</p>
         </section>
       </Col>

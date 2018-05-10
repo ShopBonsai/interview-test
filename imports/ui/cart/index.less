@@ -4,19 +4,24 @@
     background-image: url("images/banner2.jpg");
   }
   #cart-intro {
-    padding: 2rem 2rem 0 0;
+    margin: 2rem 0 0 0;
     h2 {
       margin-bottom: 1rem;
       svg {
-        margin-right: 1rem;
+        margin-right: 0.5rem;
       }
     }
     p {
-      margin-bottom: 0;
+      margin: 0 2rem 0 0;
+      @media @phones {
+        margin: 0;
+      }
     }
   }
   #checkout {
-    margin-top: 2rem;
+    @media @phones {
+      margin: 2rem 0 0 0;
+    }
     .container {
       padding: 2rem 0;
       @media @phones {
@@ -62,6 +67,7 @@
     }
   }
   #order-summary {
+    margin-top: 2rem;
     padding: 2rem;
     background-color: whitesmoke;
     table {
@@ -75,16 +81,12 @@
       margin-right: 1rem;
     }
     @media @phones {
-      margin-top: 1rem;
       padding: 1rem;
     }
   }
   #cart-items {
     padding: 0;
     margin: 2rem 0;
-    @media @phones {
-      margin: 1rem 0;
-    }
     #cart-list {
       margin: 0;
       padding: 0;
