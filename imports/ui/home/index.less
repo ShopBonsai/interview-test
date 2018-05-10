@@ -2,15 +2,22 @@
   padding: 0;
   .jumbotron {
     margin: 0;
-    background-image: url("https://previews.123rf.com/images/epicstockmedia/epicstockmedia1511/epicstockmedia151100083/48345335-happy-father-and-son-having-fun-playing-soccer-on-the-beach-at-sunset.jpg");
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("images/banner1.jpg");
     background-size: cover;
     background-position: center;
     background-blend-mode: luminosity;
     background-color: @color-1;
-    color: white;
-    border-radius: 0;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px @shadow;
+    img, button {
+      width: 50%;
+    }
+    button {
+      margin-top: 2rem;
+    }
   }
   .store-button {
     display: flex;
@@ -30,17 +37,5 @@
         padding: 5rem 0;
       }
     }
-  }
-  #shop-by-brands {
-    background-color: @color-2;
-  }
-  #shop-by-categories {
-    background-color: @color-3;
-  }
-  #shop-by-merchants {
-    background-color: @color-4;
-  }
-  #shop-all-products {
-    background-color: @color-5;
   }
 }

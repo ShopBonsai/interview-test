@@ -11,14 +11,14 @@ const MainNavComp = ({ ...props }) => {
       return (
         <Link to="/cart" href="/cart" className="nav-link">
           <FontAwesomeIcon icon="shopping-cart" />
-          SmartCart
+          Cart
         </Link>
       );
     }
     return (
       <Link to="/cart" href="/cart" className="nav-link">
         <FontAwesomeIcon icon="cart-plus" />
-        SmartCart ({length})
+        Cart ({length})
       </Link>
     );
   };

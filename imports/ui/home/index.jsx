@@ -5,55 +5,26 @@ import { Container, Row, Col, Jumbotron, Table, Button } from "reactstrap";
 
 // define component
 class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.enterShop = this.enterShop.bind(this);
+  }
   componentDidMount() {
     document.title = "Store Front at Bonsai Online Store";
+  }
+  enterShop(event) {
+    event.preventDefault();
+    this.props.history.push("/shop");
   }
   render() {
     return (
       <Container fluid id="store">
         <Jumbotron>
-          <h1 className="display-3">Bonsai Online Store</h1>
-          <p className="lead">Welcome to the Bonsai online store! Check out our great deals on fantastic products sourced from all over the world.</p>
-          <hr className="my-2" />
-          <p>Save big on all Beachwear and get free shipping all summer long!</p>
-          <p className="lead">
-            <Button color="primary">
-              <Link to="/categories/beachwear">Shop Beachwear Now</Link>
-            </Button>
-          </p>
+          <img src="icon/bonsai-white.svg" />
+          <Button color="secondary" size="lg" block onClick={this.enterShop}>
+            Enter Shop
+          </Button>
         </Jumbotron>
-        <Row className="store-row">
-          <Col xs="12" sm="4" className="store-button">
-            <Link to="/brands">
-              <Button size="lg" block id="shop-by-brands">
-                Shop by Brands
-              </Button>
-            </Link>
-          </Col>
-          <Col xs="12" sm="4" className="store-button">
-            <Link to="/categories">
-              <Button size="lg" block id="shop-by-categories">
-                Shop by Categories
-              </Button>
-            </Link>
-          </Col>
-          <Col xs="12" sm="4" className="store-button">
-            <Link to="/merchants">
-              <Button size="lg" block id="shop-by-merchants">
-                Shop by Merchants
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-        <Row className="store-row">
-          <Col xs="12" className="store-button">
-            <Link to="/shop">
-              <Button size="lg" block id="shop-all-products">
-                Shop All
-              </Button>
-            </Link>
-          </Col>
-        </Row>
       </Container>
     );
   }
