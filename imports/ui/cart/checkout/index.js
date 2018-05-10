@@ -16,38 +16,22 @@ class Checkout extends PureComponent {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     const orderData = {
-      // firstName: formData.get("firstName"),
-      // lastName: formData.get("lastName"),
-      // email: formData.get("email"),
-      // username: formData.get("username"),
-      // password: formData.get("password"),
-      // passwordConfirm: formData.get("password-confirm"),
-      // unit: formData.get("address-unit"),
-      // civic: formData.get("address-civic"),
-      // city: formData.get("address-city"),
-      // prov: formData.get("address-prov"),
-      // postal: formData.get("address-postal"),
-      // cardType: formData.get("card-type"),
-      // cardholder: formData.get("cardholder"),
-      // cardNumber: formData.get("card-number"),
-      // expiry: formData.get("expiry"),
-      // code: formData.get("code")
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
       email: formData.get("email"),
       username: formData.get("username"),
-      password: "asdfasdf",
-      passwordConfirm: "asdfasdf",
+      password: formData.get("password"),
+      passwordConfirm: formData.get("password-confirm"),
       unit: formData.get("address-unit"),
       civic: formData.get("address-civic"),
       city: formData.get("address-city"),
       prov: formData.get("address-prov"),
       postal: formData.get("address-postal"),
-      cardType: "visa",
+      cardType: formData.get("card-type"),
       cardholder: formData.get("cardholder"),
-      cardNumber: "1234567812345678",
-      expiry: "2018-08",
-      code: "321"
+      cardNumber: formData.get("card-number"),
+      expiry: formData.get("expiry"),
+      code: formData.get("code")
     };
     const validEmail = helpers.validateEmail(orderData.email);
     const validCard = helpers.validateCard(orderData);
@@ -77,21 +61,51 @@ class Checkout extends PureComponent {
       };
       const orderId = await calls.insertOrder(Meteor, order);
 
-      // insert new user if username and passwords were supplied
-      if (orderData.username.length > 2 && orderData.password.length >= 8) {
+      // add order to customer profile
+      const added = await calls.addOrderToCustomer(customer, orderId);
+
+      // check for exisiting user account with order email
+      const existingUserId = await calls.checkForAccount(
+        Meteor,
+        orderData.email
+      );
+
+      // add new user account if user email doesnt have account already
+      if (!existingUserId) {
+        // insert new user with default username as email, and default password
         const newUser = {
           email: orderData.email,
-          username: orderData.username,
-          password: orderData.password,
+          username: orderData.email,
+          password: "asdfasfd",
           profile: customer
         };
-        const userId = await calls.insertUser(Meteor, newUser).then(id => {
+        // if username and meail supplied, set newUser username and password
+        if (orderData.username.length > 2 && orderData.password.length >= 8) {
+          newUser.username = orderData.username;
+          newUser.password = orderData.password;
+        }
+        const userId = await calls
+          .insertUser(Meteor, newUser)
+          .then(id => {
+            alert("Order placed successfully. Thanks for shopping at Bonsai!");
+            currentTarget.reset();
+            this.props.resetCart();
+            this.props.resetUi();
+            return this.props.history.push("/");
+          })
+          .catch(err =>
+            alert("Order could not be created. Please try again later.")
+          );
+      } else {
+        // user already exisits
+        if (orderId.length !== 0 && added === 1) {
           alert("Order placed successfully. Thanks for shopping at Bonsai!");
           currentTarget.reset();
           this.props.resetCart();
           this.props.resetUi();
-          this.props.history.push("/");
-        });
+          return this.props.history.push("/");
+        }
+        return alert("Order could not be created. Please try again later.");
       }
     }
   }

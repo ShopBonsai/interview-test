@@ -245,6 +245,7 @@ const CheckoutForm = ({ ...props }) =>
                 id="card-number"
                 required
                 placeholder="Required"
+                defaultValue="1234567812345678"
               />
             </Col>
           </FormGroup>
@@ -258,7 +259,7 @@ const CheckoutForm = ({ ...props }) =>
                 name="expiry"
                 id="expiry"
                 required
-                defaultValue={helpers.formatDate("yyyy-mm", new Date())}
+                defaultValue={"2018-08"}
               />
             </Col>
           </FormGroup>
@@ -275,6 +276,7 @@ const CheckoutForm = ({ ...props }) =>
                 id="code"
                 required
                 placeholder="Required"
+                defaultValue="321"
               />
             </Col>
           </FormGroup>
