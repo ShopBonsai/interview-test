@@ -17,6 +17,7 @@ const Ui = () =>
         <Route exact path="/" component={Home} />
         <Route exact path="/shop" component={ShopContainer} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/admin" component={Admin} />
       </Switch>
     </BrowserRouter>
   </div>;
