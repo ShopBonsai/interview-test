@@ -7,9 +7,9 @@ import Categories from "../../api/categories/collection";
 import Brands from "../../api/brands/collection";
 import Merchants from "../../api/merchants/collection";
 import Products from "../../api/products/collection";
-// import OrderStatus from "../../api/orderStatus/collection";
-// import Customers from "../../api/customers/collection";
-// import Orders from "../../api/orders/collection";
+import OrderStatus from "../../api/orderStatus/collection";
+import Customers from "../../api/customers/collection";
+import Orders from "../../api/orders/collection";
 
 // startup function
 Meteor.startup(() => {
@@ -19,7 +19,10 @@ Meteor.startup(() => {
   Meteor.publish("categories", () => Categories.find());
   Meteor.publish("brands", () => Brands.find());
   Meteor.publish("merchants", () => Merchants.find());
+  Meteor.publish("customers", () => Customers.find());
+  Meteor.publish("orders", () => Orders.find());
   Meteor.publish("products", () => Products.find());
+  Meteor.publish("orderStatus", () => OrderStatus.find());
   Meteor.publish("users", () =>
     Meteor.users.find(
       {},

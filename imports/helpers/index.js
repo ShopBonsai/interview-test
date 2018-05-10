@@ -145,6 +145,123 @@ const helpers = {
     }
     // console.log(result);
     return result;
+  },
+  getCartProductQuantities: (cartItems, products) => {
+    // prep order data
+    const cartItemIds = cartItems.map(item => item.product);
+    const cartProducts = products.filter(product =>
+      cartItemIds.includes(product._id)
+    );
+    // console.log('%c CART PRODUCTS', 'color: yellow; font-size: 1rem', cartProducts, cartProducts.length === cartItems.length);
+    const cartQuantities = cartProducts.map(product => {
+      if (cartItemIds.includes(product._id)) {
+        const current = product;
+        try {
+          current.cartQuantity = cartItems.filter(
+            item => item.product === current._id
+          )[0].quantity;
+          return current;
+        } catch (e) {
+          console.warn("Cant find cart quantity for cart item");
+        }
+      }
+    });
+    // console.log('%c CART QUANTITIES', 'color: yellow; font-size: 1rem', cartQuantities);
+    return cartQuantities;
+  },
+  validateOrder: orderData => {
+    const {
+      password,
+      passwordConfirm,
+      cardType,
+      cardholder,
+      cardNumber,
+      expiry,
+      code
+    } = orderData;
+    if (password !== passwordConfirm) {
+      alert(
+        "Password and password confirmation do not match. Please try again."
+      );
+      return false;
+    }
+    if (
+      cardType !== "visa" &&
+      cardNumber !== "1234567812345678" &&
+      expiry !== "2018-08" &&
+      code !== "321"
+    ) {
+      alert("Credit card invalid. Please try again.");
+      return false;
+    }
+    return true;
+  },
+  buildOrder: (
+    orderData,
+    cartItems,
+    products,
+    profileTypes,
+    orderStatus,
+    customers
+  ) => {
+    const {
+      firstName,
+      lastName,
+      email,
+      username,
+      password,
+      passwordConfirm,
+      unit,
+      civic,
+      city,
+      prov,
+      postal,
+      cardType,
+      cardholder,
+      cardNumber,
+      expiry,
+      code
+    } = orderData;
+
+    // result item
+    let result = {};
+
+    // build customer profile
+    // console.log('%c PROFILE TYPES', 'color: yellow; font-size: 1rem', profileTypes);
+    const customerProfile = {
+      firstName,
+      lastName,
+      profileType: profileTypes.filter(item => item.name === "customer")[0]._id
+    };
+    result.customerProfile = customerProfile;
+    // console.log('%c CUSTOMER PROFILE', 'color: yellow; font-size: 1rem', customerProfile);
+
+    // console.log('%c ORDER STATUS', 'color: yellow; font-size: 1rem', orderStatus);
+    const status = orderStatus.filter(item => item.name === "paid")[0]._id;
+    result.orderStatus = status;
+    // console.log('%c STATUS', 'color: yellow; font-size: 1rem', status);
+
+    // get cart product quantities
+    const cartProductsWithQuantities = helpers.getCartProductQuantities(
+      cartItems,
+      products
+    );
+    result.products = cartProductsWithQuantities;
+    // console.log('%c CART PRODUCTS', 'color: yellow; font-size: 1rem', cartProductsWithQuantities);
+
+    // get order shipping address
+    let destination;
+    const address = `${civic}, ${city}, ${prov} ${postal}`;
+    if (unit === "") {
+      destination = address;
+    } else {
+      destination = `${unit} - ${address}`;
+    }
+    result.destination = destination;
+    // console.log('%c CART DESTINATION', 'color: yellow; font-size: 1rem', destination);
+
+    // console.log('%c BUILT ORDER', 'color: yellow; font-size: 1rem', result);
+    return result;
   }
 };
 

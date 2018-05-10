@@ -1,6 +1,7 @@
 // Framework
 import React, { PureComponent } from "react";
 import CheckoutComp from "./comp";
+import helpers from "../../../helpers";
 
 // define component
 class Checkout extends PureComponent {
@@ -13,25 +14,55 @@ class Checkout extends PureComponent {
     event.preventDefault();
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
-    const values = {
-      firstName: formData.get("firstName").toLowerCase(),
-      lastName: formData.get("lastName").toLowerCase(),
-      email: formData.get("email").toLowerCase(),
+    const orderData = {
+      // firstName: formData.get("firstName"),
+      // lastName: formData.get("lastName"),
+      // email: formData.get("email"),
+      // username: formData.get("username"),
+      // password: formData.get("password"),
+      // passwordConfirm: formData.get("password-confirm"),
+      // unit: formData.get("address-unit"),
+      // civic: formData.get("address-civic"),
+      // city: formData.get("address-city"),
+      // prov: formData.get("address-prov"),
+      // postal: formData.get("address-postal"),
+      // cardType: formData.get("card-type"),
+      // cardholder: formData.get("cardholder"),
+      // cardNumber: formData.get("card-number"),
+      // expiry: formData.get("expiry"),
+      // code: formData.get("code")
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
       username: formData.get("username"),
-      password: formData.get("password"),
-      passwordConfirm: formData.get("password-confirm"),
-      unit: formData.get("address-unit").toLowerCase(),
-      civic: formData.get("address-civic").toLowerCase(),
-      city: formData.get("address-city").toLowerCase(),
-      prov: formData.get("address-prov").toLowerCase(),
-      postal: formData.get("address-postal").toLowerCase(),
-      cardType: formData.get("card-type").toLowerCase(),
-      cardholder: formData.get("cardholder").toLowerCase(),
-      cardNumber: formData.get("card-number").toLowerCase(),
-      expiry: formData.get("expiry").toLowerCase(),
-      code: formData.get("code").toLowerCase()
+      password: "",
+      passwordConfirm: "",
+      unit: formData.get("address-unit"),
+      civic: formData.get("address-civic"),
+      city: formData.get("address-city"),
+      prov: formData.get("address-prov"),
+      postal: formData.get("address-postal"),
+      cardType: "visa",
+      cardholder: formData.get("cardholder"),
+      cardNumber: "1234567812345678",
+      expiry: "2018-08",
+      code: "321"
     };
-    console.log(values);
+    // console.log(orderData);
+    const validated = helpers.validateOrder(orderData);
+    console.log(validated);
+    if (validated) {
+      const builtOrder = helpers.buildOrder(
+        orderData,
+        this.props.cartItems,
+        this.props.products,
+        this.props.profileTypes,
+        this.props.orderStatus,
+        this.props.customers
+      );
+      console.log(builtOrder);
+    }
+    console.log("exited");
   }
   resetHandler(event) {
     const { currentTarget } = event;

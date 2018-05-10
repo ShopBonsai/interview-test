@@ -11,7 +11,14 @@ import NavHeader from "../common/navHeader/index.jsx";
 const CartComp = ({ ...props }) => {
   const viewCheckout = status => {
     if (status) {
-      return <CheckoutContainer />;
+      return (
+        <CheckoutContainer
+          products={props.products}
+          profileTypes={props.profileTypes}
+          orderStatus={props.orderStatus}
+          customers={props.customers}
+        />
+      );
     }
     return (
       <Row id="cart-items" noGutters>
