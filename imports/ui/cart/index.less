@@ -2,6 +2,7 @@
   padding: 0;
   .nav-header {
     background-image: url("images/banner2.jpg");
+    background-color: @color-1;
   }
   #cart-intro {
     margin: 4rem 0 0 0;
@@ -97,9 +98,12 @@
       margin: 2rem 0 1rem 0;
     }
     #cart-list {
-      margin: 0;
+      margin: 0 0 2rem 0;
       padding: 0;
       list-style: none;
+      @media @phones {
+        margin: 0;
+      }
       li {
         width: 100%;
         background-color: whitesmoke;
@@ -127,18 +131,15 @@
           flex-flow: column;
           justify-content: center;
           align-items: center;
-          @media @phones {
-            max-width: 100%;
-          }
+          text-align: center;
         }
         .thumbnail {
           grid-columns: 1 / 2;
           grid-row: 1;
           img {
-            width: 100%;
+            max-width: 10rem;
             @media @phones {
-              height: 100%;
-              width: auto;
+              max-height: 100%;
             }
           }
           @media @phones {
@@ -150,6 +151,7 @@
           grid-row: 1;
           text-align: center;
           h3 {
+            display: inline-block;
             color: @color-1;
             margin-bottom: 1rem;
           }

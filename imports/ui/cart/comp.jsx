@@ -33,8 +33,8 @@ const CartComp = ({ ...props }) => {
   return (
     <Container fluid id="cart-page">
       <NavHeader
-        heading="Bonsai SmartCart"
-        subtitle="Look sharp and stay smart with your own Bonsai SmartCart"
+        heading="Bonsai Cart"
+        subtitle="Look sharp and stay smart with Bonsai Cart"
         id="cart-head"
       />
       <Container>
@@ -42,7 +42,7 @@ const CartComp = ({ ...props }) => {
           <Col xs="12" md="6" id="cart-intro">
             <article>
               <h2>
-                <FontAwesomeIcon icon="shopping-cart" />SmartCart
+                <FontAwesomeIcon icon="shopping-cart" />Cart
               </h2>
               <p>
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
