@@ -10,6 +10,9 @@ const CustomerSchema = new SimpleSchema({
   profileType: { type: String },
   firstName: { type: String },
   lastName: { type: String },
+  email: { type: String },
+  orders: { type: Array },
+  "orders.$": { type: String },
   createdAt: {
     type: Date,
     defaultValue: new Date()

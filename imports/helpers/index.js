@@ -228,7 +228,9 @@ const helpers = {
     const customerProfile = {
       firstName,
       lastName,
-      profileType: profileTypes.filter(item => item.name === "customer")[0]._id
+      email,
+      profileType: profileTypes.filter(item => item.name === "customer")[0]._id,
+      orders: []
     };
     result.customerProfile = customerProfile;
     // console.log('%c CUSTOMER PROFILE', 'color: yellow; font-size: 1rem', customerProfile);
