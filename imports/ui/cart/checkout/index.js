@@ -100,6 +100,10 @@ class Checkout extends PureComponent {
         // user already exisits
         if (orderId.length !== 0 && added === 1) {
           alert("Order placed successfully. Thanks for shopping at Bonsai!");
+          const dropped = await calls.dropQuantities(
+            Meteor,
+            builtOrder.products
+          );
           currentTarget.reset();
           this.props.resetCart();
           this.props.resetUi();

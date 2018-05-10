@@ -15,3 +15,4 @@ import "../../api/orders/collection";
 import "../../api/customers/methods";
 import "../../api/orders/methods";
 import "../../api/users/methods";
+import "../../api/products/methods";

@@ -7,7 +7,7 @@ const calls = {
           alert("Error saving customer profile.");
           return reject(err);
         }
-        alert("Customer profile saved successfully " + doc);
+        // alert("Customer profile saved successfully " + doc);
         return resolve(doc);
       });
     }),
@@ -18,7 +18,7 @@ const calls = {
           alert("Error saving order");
           return reject(err);
         }
-        alert("Order saved successfully " + doc);
+        // alert("Order saved successfully " + doc);
         return resolve(doc);
       });
     }),
@@ -29,7 +29,7 @@ const calls = {
           alert("Error saving user");
           return reject(err);
         }
-        alert("User saved successfully " + doc);
+        // alert("User saved successfully " + doc);
         return resolve(doc);
       });
     }),
@@ -40,7 +40,7 @@ const calls = {
           alert("Error adding order to customer profile.");
           return reject(err);
         }
-        alert("Order added successfully " + doc);
+        // alert("Order added successfully " + doc);
         return resolve(doc);
       });
     }),
@@ -51,8 +51,19 @@ const calls = {
           alert("Error checking for account for email: " + email);
           return reject(err);
         }
-        alert("Check for account with email response: " + doc._id);
+        // alert("Check for account with email response: " + doc._id);
         return resolve(doc);
+      });
+    }),
+  dropQuantities: (Meteor, products) =>
+    new Promise((resolve, reject) => {
+      Meteor.call("dropQuantities", products, (err, result) => {
+        if (err) {
+          alert("Error dropping product quantities");
+          return reject(err);
+        }
+        // alert("Dropped quantities successfully");
+        return resolve(result);
       });
     })
 };
