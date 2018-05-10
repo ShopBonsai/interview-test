@@ -11,7 +11,8 @@ const {
   SET_SORT,
   SET_PRODUCT_SHOW,
   UNSET_PRODUCT_SHOW,
-  SET_FILTERED
+  SET_FILTERED,
+  RESET_UI
 } = actionTypes;
 
 // define class for creating default actions for base store state objects
@@ -47,4 +48,9 @@ export const setFiltered = filtered => dispatch =>
   dispatch({
     type: SET_FILTERED,
     filtered
+  });
+// define function for setting a single product to display
+export const resetUi = () => dispatch =>
+  dispatch({
+    type: RESET_UI
   });

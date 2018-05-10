@@ -10,3 +10,8 @@ import "../../api/products/collection";
 import "../../api/merchants/collection";
 import "../../api/customers/collection";
 import "../../api/orders/collection";
+
+// methods
+import "../../api/customers/methods";
+import "../../api/orders/methods";
+import "../../api/users/methods";

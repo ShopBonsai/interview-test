@@ -3,10 +3,9 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import CartComp from "./comp";
-import Products from "../../api/products/collection";
 import OrderStatus from "../../api/orderStatus/collection";
 import ProfileTypes from "../../api/profileTypes/collection";
-import Customers from "../../api/customers/collection";
+import Products from "../../api/products/collection";
 
 // define component
 class Cart extends Component {
@@ -28,10 +27,9 @@ class Cart extends Component {
   render() {
     // console.log(this.props);
     return React.createElement(CartComp, {
-      products: this.props.products,
-      customers: this.props.customers,
-      profileTypes: this.props.profileTypes,
       orderStatus: this.props.orderStatus,
+      profileTypes: this.props.profileTypes,
+      products: this.props.products,
       checkoutVisible: this.state.checkoutVisible,
       toggleCheckout: this.toggleCheckout
     });
@@ -40,14 +38,12 @@ class Cart extends Component {
 
 // export component
 export default withTracker(() => {
-  Meteor.subscribe("products");
-  Meteor.subscribe("profileTypes");
   Meteor.subscribe("orderStatus");
-  Meteor.subscribe("customers");
+  Meteor.subscribe("profileTypes");
+  Meteor.subscribe("products");
   return {
-    customers: Customers.find().fetch(),
-    profileTypes: ProfileTypes.find().fetch(),
     orderStatus: OrderStatus.find().fetch(),
+    profileTypes: ProfileTypes.find().fetch(),
     products: Products.find().fetch()
   };
 })(Cart);

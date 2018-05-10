@@ -7,12 +7,12 @@ const Orders = new Mongo.Collection("orders");
 
 // set schema for players
 const OrderSchema = new SimpleSchema({
-  customerProfile: { type: String },
+  customer: { type: String },
   products: Array,
   "products.$": Object,
   destination: { type: String },
   trackingNumber: { type: String, optional: true },
-  orderStatus: { type: String },
+  status: { type: String },
   createdAt: {
     type: Date,
     defaultValue: new Date()

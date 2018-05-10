@@ -1,16 +1,17 @@
 // Framework
 import React, { PureComponent } from "react";
+import { Meteor } from "meteor/meteor";
 import CheckoutComp from "./comp";
 import helpers from "../../../helpers";
+import calls from "../../../helpers/calls";
 
 // define component
 class Checkout extends PureComponent {
   constructor(props) {
     super(props);
     this.submitHandler = this.submitHandler.bind(this);
-    this.resetHandler = this.resetHandler.bind(this);
   }
-  submitHandler(event) {
+  async submitHandler(event) {
     event.preventDefault();
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
@@ -35,8 +36,8 @@ class Checkout extends PureComponent {
       lastName: formData.get("lastName"),
       email: formData.get("email"),
       username: formData.get("username"),
-      password: "",
-      passwordConfirm: "",
+      password: "asdfasdf",
+      passwordConfirm: "asdfasdf",
       unit: formData.get("address-unit"),
       civic: formData.get("address-civic"),
       city: formData.get("address-city"),
@@ -48,30 +49,55 @@ class Checkout extends PureComponent {
       expiry: "2018-08",
       code: "321"
     };
-    // console.log(orderData);
-    const validated = helpers.validateOrder(orderData);
-    console.log(validated);
-    if (validated) {
+    const validEmail = helpers.validateEmail(orderData.email);
+    const validCard = helpers.validateCard(orderData);
+    const validPasswords = helpers.validatePasswords(orderData);
+    if (validEmail && validCard) {
       const builtOrder = helpers.buildOrder(
         orderData,
         this.props.cartItems,
-        this.props.products,
-        this.props.profileTypes,
         this.props.orderStatus,
-        this.props.customers
+        this.props.profileTypes,
+        this.props.products
       );
-      console.log(builtOrder);
+      // console.log("%c TEST", "color: yellow; font-size: 1rem", builtOrder);
+
+      // insert customer profile
+      const customer = await calls.insertCustomer(
+        Meteor,
+        builtOrder.customerProfile
+      );
+
+      // build and insert final order
+      const order = {
+        customer,
+        products: builtOrder.products,
+        destination: builtOrder.destination,
+        status: builtOrder.orderStatus
+      };
+      const orderId = await calls.insertOrder(Meteor, order);
+
+      // insert new user if username and passwords were supplied
+      if (orderData.username.length > 2 && orderData.password.length >= 8) {
+        const newUser = {
+          email: orderData.email,
+          username: orderData.username,
+          password: orderData.password,
+          profile: customer
+        };
+        const userId = await calls.insertUser(Meteor, newUser).then(id => {
+          alert("Order placed successfully. Thanks for shopping at Bonsai!");
+          currentTarget.reset();
+          this.props.resetCart();
+          this.props.resetUi();
+          this.props.history.push("/");
+        });
+      }
     }
-    console.log("exited");
-  }
-  resetHandler(event) {
-    const { currentTarget } = event;
-    console.log(currentTarget);
   }
   render() {
     return React.createElement(CheckoutComp, {
-      submitHandler: this.submitHandler,
-      resetHandler: this.resetHandler
+      submitHandler: this.submitHandler
     });
   }
 }

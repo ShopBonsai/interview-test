@@ -5,7 +5,7 @@ import helpers from "../../../helpers";
 
 // define component
 const CheckoutForm = ({ ...props }) =>
-  <Form onSubmit={props.submitHandler} onReset={props.resetHandler}>
+  <Form onSubmit={props.submitHandler}>
     <Row>
       <Col xs="12" md="6">
         <section className="form-section" id="customer">

@@ -13,10 +13,9 @@ const CartComp = ({ ...props }) => {
     if (status) {
       return (
         <CheckoutContainer
-          products={props.products}
-          profileTypes={props.profileTypes}
           orderStatus={props.orderStatus}
-          customers={props.customers}
+          profileTypes={props.profileTypes}
+          products={props.products}
         />
       );
     }

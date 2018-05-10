@@ -5,7 +5,7 @@ import store from "../store";
 // destructure getState from store
 const { getState } = store;
 
-const { ADD_TO_CART, UPDATE_CART_ITEMS } = actionTypes;
+const { ADD_TO_CART, UPDATE_CART_ITEMS, RESET_CART } = actionTypes;
 
 // define class for creating default actions for base store state objects
 export const addToCart = item => (dispatch, getState) => {
@@ -48,5 +48,12 @@ export const deleteItem = id => (dispatch, getState) => {
   return dispatch({
     type: UPDATE_CART_ITEMS,
     cartItems
+  });
+};
+
+// define class for creating default actions for base store state objects
+export const resetCart = () => dispatch => {
+  dispatch({
+    type: RESET_CART
   });
 };

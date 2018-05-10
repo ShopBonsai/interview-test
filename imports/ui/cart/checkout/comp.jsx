@@ -15,7 +15,6 @@ const CheckoutComp = ({ ...props }) =>
     <Container>
       <CheckoutForm
         submitHandler={props.submitHandler}
-        resetHandler={props.resetHandler}
       />
     </Container>
   </section>;

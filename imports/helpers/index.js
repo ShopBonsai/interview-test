@@ -169,41 +169,38 @@ const helpers = {
     // console.log('%c CART QUANTITIES', 'color: yellow; font-size: 1rem', cartQuantities);
     return cartQuantities;
   },
-  validateOrder: orderData => {
-    const {
-      password,
-      passwordConfirm,
-      cardType,
-      cardholder,
-      cardNumber,
-      expiry,
-      code
-    } = orderData;
-    if (password !== passwordConfirm) {
-      alert(
-        "Password and password confirmation do not match. Please try again."
-      );
-      return false;
+  validateEmail: email => {
+    const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // console.log(email.match(pattern));
+    const test = email.match(pattern);
+    if (test[0] === email) {
+      return true;
     }
-    if (
-      cardType !== "visa" &&
-      cardNumber !== "1234567812345678" &&
-      expiry !== "2018-08" &&
-      code !== "321"
-    ) {
-      alert("Credit card invalid. Please try again.");
-      return false;
-    }
-    return true;
+    alert("Email address invalid. Please try again.");
+    return false;
   },
-  buildOrder: (
-    orderData,
-    cartItems,
-    products,
-    profileTypes,
-    orderStatus,
-    customers
-  ) => {
+  validateCard: orderData => {
+    const { cardType, cardholder, cardNumber, expiry, code } = orderData;
+    if (
+      cardType === "visa" &&
+      cardNumber === "1234567812345678" &&
+      expiry === "2018-08" &&
+      code === "321"
+    ) {
+      return true;
+    }
+    alert("Credit card invalid. Please try again.");
+    return false;
+  },
+  validatePasswords: orderData => {
+    const { password, passwordConfirm } = orderData;
+    if (password === passwordConfirm) {
+      return true;
+    }
+    alert("Password and password confirmation do not match. Please try again.");
+    return false;
+  },
+  buildOrder: (orderData, cartItems, orderStatus, profileTypes, products) => {
     const {
       firstName,
       lastName,
