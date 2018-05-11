@@ -14,8 +14,8 @@ import {
   Col,
   Badge
 } from "reactstrap";
-import SingleTab from "./tabs/single.jsx";
-import OrdersTab from "./tabs/orders.jsx";
+import SingleTab from "./single.jsx";
+import OrdersTab from "./orders.jsx";
 
 // define component
 const DetailsComp = ({ ...props }) => {
@@ -65,7 +65,10 @@ const DetailsComp = ({ ...props }) => {
       <TabContent activeTab={activeTab}>
         <SingleTab data={data.brands} />
         <SingleTab data={data.categories} />
-        <OrdersTab data={data.orders} />
+        <OrdersTab
+          data={data.orders}
+          orderStatus={data.orderStatus}
+        />
         <SingleTab data={data.orderStatus} />
         <SingleTab data={data.profileTypes} />
       </TabContent>
