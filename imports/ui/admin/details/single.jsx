@@ -1,8 +1,8 @@
 // import moduels
 import React from "react";
 import { TabPane, Row, Col, Table } from "reactstrap";
-import Aligner from "../../../../helpers/aligner";
-import formatter from "../../../../helpers/formatter";
+import Aligner from "../../../helpers/aligner";
+import formatter from "../../../helpers/formatter";
 
 // define component
 const SingleTab = ({ ...props }) => {

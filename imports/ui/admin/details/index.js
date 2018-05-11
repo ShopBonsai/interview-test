@@ -29,7 +29,8 @@ class Details extends PureComponent {
     }
   }
   render() {
-    if (this.props.users.length < 1) return null;
+    if (this.props.users.length < 1 || this.props.orderStatus.length < 1)
+      return null;
     return React.createElement(DetailsComp, {
       brands: this.props.brands,
       categories: this.props.categories,
@@ -63,7 +64,12 @@ export default withTracker(() => {
     categories: Categories.find().fetch(),
     customers: Customers.find().fetch(),
     merchants: Merchants.find().fetch(),
-    orders: Orders.find().fetch(),
+    orders: Orders.find(
+      {},
+      {
+        sort: { updatedAt: "desc" }
+      }
+    ).fetch(),
     orderStatus: OrderStatus.find().fetch(),
     products: Products.find().fetch(),
     profileTypes: ProfileTypes.find().fetch(),

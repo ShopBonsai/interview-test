@@ -20,6 +20,9 @@
     h2 {
       margin: 0 0 2rem 0;
     }
+    .nav {
+      background-color: whitesmoke;
+    }
     .nav-tabs {
       border: none;
       .nav-items {
@@ -48,16 +51,64 @@
     }
     .tab-content {
       margin: 2rem 0;
-      padding: 2rem;
-      background-color: whitesmoke;
+      // padding: 2rem;
+      // background-color: whitesmoke;
       h4 {
-        margin: 0 0 1rem 0;
+        margin: 0 1rem;
       }
       table {
         th, td {
           text-align: center;
         }
       }
+    }
+    .collapse-doc {
+      margin: 1rem 0 0 0;
+      .collapse-head {
+        cursor: pointer;
+        background-color: whitesmoke;
+        section {
+          padding: 1rem;
+          div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h6 {
+              margin: 0;
+            }
+            p {
+              margin: 0;
+            }
+          }
+        }
+      }
+      .collapse {
+        section {
+          margin: 1rem 0;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          div {
+            padding: 1rem;
+            margin-right: 1rem;
+            background-color: lightyellow;
+            &:last-child {
+              margin-right: 0;
+            }
+            p {
+              color: gray;
+              width: 50%;
+              margin: 0;
+            }
+            h6 {
+              margin-top: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+    #orders {
+
     }
   }
 }

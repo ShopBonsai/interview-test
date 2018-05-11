@@ -12,6 +12,14 @@ const helpers = {
     }
     return name;
   },
+  getCustomerProfile: (orderCustomer, customers) => {
+    // console.log('%c PROFILE', 'color: yellow; font-size: 1rem', orderCustomer, customers);
+    const profiles = customers.filter(
+      customer => customer._id === orderCustomer
+    );
+    // console.log('%c PROFILE', 'color: yellow; font-size: 1rem', profile);
+    return profiles[0];
+  },
   formatPrice: price => {
     const string = (Math.round(price * 100) / 100).toString();
     const [a, b] = string.split(".");
@@ -125,6 +133,10 @@ const helpers = {
     // console.log(cartItems, products, cartProducts);
     // console.log(subtotal);
     return subtotal;
+  },
+  getOrderValue: products => {
+    // console.log('%c PRODUCTS', 'color: yellow; font-size: 1rem', products);
+    return "$ 0.00";
   },
   formatDate: (desired, date) => {
     // console.log(desired, date, typeof date);
