@@ -55,9 +55,9 @@ const calls = {
         return resolve(doc);
       });
     }),
-  dropQuantities: (Meteor, products) =>
+  dropQuantities: (Meteor, orderProducts) =>
     new Promise((resolve, reject) => {
-      Meteor.call("dropQuantities", products, (err, result) => {
+      Meteor.call("dropQuantities", orderProducts, (err, result) => {
         if (err) {
           alert("Error dropping product quantities");
           return reject(err);

@@ -23,29 +23,25 @@ class Checkout extends PureComponent {
       // username: formData.get("username"),
       // password: formData.get("password"),
       // passwordConfirm: formData.get("password-confirm"),
-      // unit: formData.get("address-unit"),
-      // civic: formData.get("address-civic"),
-      // city: formData.get("address-city"),
-      // prov: formData.get("address-prov"),
-      // postal: formData.get("address-postal"),
+      unit: formData.get("address-unit"),
+      civic: formData.get("address-civic"),
+      city: formData.get("address-city"),
+      prov: formData.get("address-prov"),
+      postal: formData.get("address-postal"),
       // cardType: formData.get("card-type"),
-      // cardholder: formData.get("cardholder"),
+      cardholder: formData.get("cardholder"),
       // cardNumber: formData.get("card-number"),
       // expiry: formData.get("expiry"),
       // code: formData.get("code")
+
+      // testing setup
       firstName: "colin",
       lastName: "hire",
       email: "colin@hire.ca",
       username: "",
       password: "",
       passwordConfirm: "",
-      unit: formData.get("address-unit"),
-      civic: formData.get("address-civic"),
-      city: formData.get("address-city"),
-      prov: formData.get("address-prov"),
-      postal: formData.get("address-postal"),
       cardType: "visa",
-      cardholder: formData.get("cardholder"),
       cardNumber: "1234567812345678",
       expiry: "2018-08",
       code: "321"
@@ -102,32 +98,47 @@ class Checkout extends PureComponent {
           newUser.username = orderData.username;
           newUser.password = orderData.password;
         }
-        const userId = await calls
-          .insertUser(Meteor, newUser)
-          .then(id => {
+        const to = await setTimeout(async () => {
+          const userId = await calls
+            .insertUser(Meteor, newUser)
+            .then(async id => {
+              if (orderId.length !== 0 && added === 1) {
+                alert(
+                  "Order placed successfully. Thanks for shopping at Bonsai!"
+                );
+                const dropped = await calls.dropQuantities(
+                  Meteor,
+                  builtOrder.products
+                );
+                currentTarget.reset();
+                this.props.resetCart();
+                this.props.resetUi();
+                return this.props.history.push("/shop");
+              }
+              return alert(
+                "Order could not be created. Please try again later."
+              );
+            })
+            .catch(err =>
+              alert("Order could not be created. Please try again later.")
+            );
+        }, Math.random() * 3000);
+      } else {
+        // user already exisits
+        const to = await setTimeout(async () => {
+          if (orderId.length !== 0 && added === 1) {
             alert("Order placed successfully. Thanks for shopping at Bonsai!");
+            const dropped = await calls.dropQuantities(
+              Meteor,
+              builtOrder.products
+            );
             currentTarget.reset();
             this.props.resetCart();
             this.props.resetUi();
             return this.props.history.push("/shop");
-          })
-          .catch(err =>
-            alert("Order could not be created. Please try again later.")
-          );
-      } else {
-        // user already exisits
-        if (orderId.length !== 0 && added === 1) {
-          alert("Order placed successfully. Thanks for shopping at Bonsai!");
-          const dropped = await calls.dropQuantities(
-            Meteor,
-            builtOrder.products
-          );
-          currentTarget.reset();
-          this.props.resetCart();
-          this.props.resetUi();
-          return this.props.history.push("/shop");
-        }
-        return alert("Order could not be created. Please try again later.");
+          }
+          return alert("Order could not be created. Please try again later.");
+        }, Math.random() * 3000);
       }
     }
   }
