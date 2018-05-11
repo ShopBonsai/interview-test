@@ -1,6 +1,6 @@
 // import moduels
 import React from "react";
-import { TabPane, Row, Col } from "reactstrap";
+import { TabPane, Row, Col, Table } from "reactstrap";
 import CollapseDoc from "./collapseDoc";
 import helpers from "../../../helpers";
 import formatter from "../../../helpers/formatter";
@@ -28,11 +28,28 @@ const OrdersTab = ({ ...props }) => {
           $ {formatter.price(helpers.getCartSubtotal(order.products, products))}
         </h6>
       </div>
-      <div>
+      <div className="product-quantities">
         <p>Products</p>
-        <h6>
-          {order.products.length}
-        </h6>
+        <Table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.products.map(item =>
+              <tr>
+                <td>
+                  {item.id}
+                </td>
+                <td>
+                  {item.quantity}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
       </div>
       <div>
         <p>Customer Profile ID</p>
