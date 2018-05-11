@@ -1,7 +1,6 @@
 // Framework
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Jumbotron, Table, Button } from "reactstrap";
+import { Button } from "reactstrap";
 
 // define component
 class Home extends PureComponent {
@@ -10,7 +9,7 @@ class Home extends PureComponent {
     this.enterShop = this.enterShop.bind(this);
   }
   componentDidMount() {
-    document.title = "Store Front at Bonsai Online Store";
+    document.title = "Bonsai Shop Home";
   }
   enterShop(event) {
     event.preventDefault();
@@ -18,14 +17,14 @@ class Home extends PureComponent {
   }
   render() {
     return (
-      <Container fluid id="store">
-        <Jumbotron>
+      <div id="homepage">
+        <div>
           <img src="icon/bonsai-white.svg" />
           <Button color="secondary" size="lg" block onClick={this.enterShop}>
             Enter Shop
           </Button>
-        </Jumbotron>
-      </Container>
+        </div>
+      </div>
     );
   }
 }

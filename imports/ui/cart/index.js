@@ -17,7 +17,7 @@ class Cart extends Component {
     };
   }
   componentDidMount() {
-    document.title = "Shopping SmartCart at Bonsai";
+    document.title = "Shopping Cart at Bonsai";
   }
   toggleCheckout(event) {
     event.preventDefault();

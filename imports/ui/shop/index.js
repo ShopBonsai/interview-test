@@ -13,7 +13,7 @@ class Shop extends PureComponent {
     this.addToCart = this.addToCart.bind(this);
   }
   componentDidMount() {
-    document.title = "Shop Till You Drop with Bonsai";
+    document.title = "Shop 'Till You Drop with Bonsai";
   }
   viewAll(event) {
     event.preventDefault();

@@ -1,0 +1,63 @@
+#admin-page {
+  min-width: 100vw;
+  min-height: 100vh;
+  .row {
+  }
+  .col {
+    padding: 0;
+  }
+  .jumbotron {
+    margin: 0;
+    padding: 10rem 2rem;
+    background-image: url("images/banner1.jpg");
+    background-position: center;
+    background-size: cover;
+    color: white;
+  }
+  #details {
+    height: 100vh;
+    margin: 2rem;
+    h2 {
+      margin: 0 0 2rem 0;
+    }
+    .nav-tabs {
+      border: none;
+      .nav-items {
+        margin: 0;
+      }
+      .nav-link {
+        border: none;
+      }
+    }
+    .tab-label {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 0;
+      &:hover {
+        border: none;
+        background-color: white;
+      }
+      .active {
+        background-color: whitesmoke;
+      }
+      .badge {
+        margin-left: 1rem;
+      }
+    }
+    .tab-content {
+      margin: 2rem 0;
+      padding: 2rem;
+      background-color: whitesmoke;
+      h4 {
+        margin: 0 0 1rem 0;
+      }
+      table {
+        th, td {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

@@ -1,41 +1,25 @@
-#store {
+#homepage {
   padding: 0;
-  .jumbotron {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    background-image: url("images/banner1.jpg");
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: luminosity;
-    background-color: @color-1;
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("images/banner1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: luminosity;
+  background-color: @color-1;
+  div {
+    width: 50%;
+    max-width: 500px;
     img, button {
-      width: 50%;
+      width: 100%;
     }
     button {
       margin-top: 2rem;
-    }
-  }
-  .store-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: luminosity;
-    background-color: whitesmoke;
-    padding: 0;
-    a {
-      width: 100%;
-      button {
-        border-radius: 0;
-        border: none;
-        padding: 5rem 0;
-      }
     }
   }
 }
