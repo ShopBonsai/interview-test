@@ -3,7 +3,7 @@ import React from "react";
 import { TabPane, Row, Col } from "reactstrap";
 
 // define component
-const BrandsTab = ({ ...props }) => {
+const OrdersTab = ({ ...props }) => {
   const [name, data] = props.data;
   return (
     <TabPane tabId={name}>
@@ -21,4 +21,4 @@ const BrandsTab = ({ ...props }) => {
 };
 
 // export component
-export default BrandsTab;
+export default OrdersTab;

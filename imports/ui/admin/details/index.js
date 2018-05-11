@@ -29,6 +29,7 @@ class Details extends PureComponent {
     }
   }
   render() {
+    if (this.props.users.length < 1) return null;
     return React.createElement(DetailsComp, {
       brands: this.props.brands,
       categories: this.props.categories,

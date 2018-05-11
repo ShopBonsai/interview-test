@@ -22,8 +22,6 @@
     }
     .nav-tabs {
       border: none;
-      background-color: lightgray;
-      justify-content: center;
       .nav-items {
         margin: 0;
       }
@@ -33,7 +31,7 @@
     }
     .tab-label {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       cursor: pointer;
       border-radius: 0;
@@ -49,15 +47,15 @@
       }
     }
     .tab-content {
-      margin: 0 0 2rem 0;
-      .row {
-        margin: 0;
-        .col {
-          padding: 2rem;
-          background-color: whitesmoke;
-          p {
-            margin: 0;
-          }
+      margin: 2rem 0;
+      padding: 2rem;
+      background-color: whitesmoke;
+      h4 {
+        margin: 0 0 1rem 0;
+      }
+      table {
+        th, td {
+          text-align: center;
         }
       }
     }
