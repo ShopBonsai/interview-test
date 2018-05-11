@@ -32,8 +32,10 @@ Orders.deny({
 // set schema for players
 const OrderSchema = new SimpleSchema({
   customer: { type: String },
-  products: Array,
-  "products.$": Object,
+  products: { type: Array },
+  "products.$": { type: Object },
+  "products.$.id": { type: String },
+  "products.$.quantity": { type: Number },
   destination: { type: String },
   trackingNumber: { type: String, optional: true },
   status: { type: String },
