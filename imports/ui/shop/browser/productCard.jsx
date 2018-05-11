@@ -2,6 +2,7 @@
 import React, { PureComponent } from "react";
 import { CardTitle, CardSubtitle, CardText, Badge } from "reactstrap";
 import helpers from "../../../helpers";
+import formatter from "../../../helpers/formatter";
 
 // define component
 const ProductCard = ({ ...props }) => {
@@ -16,7 +17,7 @@ const ProductCard = ({ ...props }) => {
           {helpers.getSingleRef(props.data.brand, props.allBrands)}
         </CardSubtitle>
         <CardText>
-          $ {helpers.formatPrice(props.data.price)}
+          $ {formatter.price(props.data.price)}
         </CardText>
       </section>
     </div>

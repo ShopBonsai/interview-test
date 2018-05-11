@@ -8,12 +8,13 @@ import QuantitySelect from "../../common/quantitySelect";
 import Brands from "../../../api/brands/collection";
 import Products from "../../../api/products/collection";
 import helpers from "../../../helpers";
+import formatter from "../../../helpers/formatter";
 
 // define component
 const ItemsListComp = ({ ...props }) => {
   const setItems = (cartItems, brands, products) => {
     if (cartItems.length > 0 && brands.length > 0) {
-      const cartItemIds = cartItems.map(item => item.product);
+      const cartItemIds = cartItems.map(item => item.id);
       const cartProducts = products.filter(product =>
         cartItemIds.includes(product._id)
       );
@@ -40,7 +41,7 @@ const ItemsListComp = ({ ...props }) => {
           <div className="price flex-item">
             <p>Price</p>
             <h4>
-              $ {helpers.formatPrice(cartProduct.price)}
+              $ {formatter.price(cartProduct.price)}
             </h4>
           </div>
           <div className="quantity flex-item">

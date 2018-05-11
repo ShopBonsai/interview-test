@@ -20,17 +20,6 @@ const helpers = {
     // console.log('%c PROFILE', 'color: yellow; font-size: 1rem', profile);
     return profiles[0];
   },
-  formatPrice: price => {
-    const string = (Math.round(price * 100) / 100).toString();
-    const [a, b] = string.split(".");
-    if (b === undefined) {
-      return `${a}.00`;
-    } else if (b.length === 1) {
-      return `${a}.${b}0`;
-    } else {
-      return `${a}.${b.substr(0, 2)}`;
-    }
-  },
   titleize: string => {
     const hashed = string.replace(/\s+/gi, "###").split("###");
     return hashed
@@ -96,9 +85,7 @@ const helpers = {
     };
   },
   getCartQuantity: (productId, cartItems) => {
-    const item = cartItems.filter(
-      cartItem => cartItem.product === productId
-    )[0];
+    const item = cartItems.filter(cartItem => cartItem.id === productId)[0];
     // console.log(item.quantity);
     return item.quantity;
   },
@@ -120,14 +107,13 @@ const helpers = {
   },
   getCartSubtotal: (cartItems, products) => {
     let subtotal = "";
-    const cartItemIds = cartItems.map(item => item.product);
+    const cartItemIds = cartItems.map(item => item.id);
     const cartProducts = products.filter(product =>
       cartItemIds.includes(product._id)
     );
     subtotal = cartProducts.reduce((acc, cur) => {
-      const orderQuantity = cartItems.filter(
-        item => item.product === cur._id
-      )[0].quantity;
+      const orderQuantity = cartItems.filter(item => item.id === cur._id)[0]
+        .quantity;
       return acc + parseInt(orderQuantity) * parseFloat(cur.price);
     }, 0);
     // console.log(cartItems, products, cartProducts);
@@ -160,7 +146,7 @@ const helpers = {
   },
   getCartProductQuantities: (cartItems, products) => {
     // prep order data
-    const cartItemIds = cartItems.map(item => item.product);
+    const cartItemIds = cartItems.map(item => item.id);
     const cartProducts = products.filter(product =>
       cartItemIds.includes(product._id)
     );
@@ -170,7 +156,7 @@ const helpers = {
         const current = product;
         try {
           current.cartQuantity = cartItems.filter(
-            item => item.product === current._id
+            item => item.id === current._id
           )[0].quantity;
           return current;
         } catch (e) {

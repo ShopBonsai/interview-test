@@ -26,7 +26,9 @@ const buildOrder = (
   } = orderData;
 
   // result item
-  let result = {};
+  let result = {
+    products: cartItems
+  };
 
   // build customer profile
   // console.log('%c PROFILE TYPES', 'color: yellow; font-size: 1rem', profileTypes);
@@ -44,14 +46,6 @@ const buildOrder = (
   const status = orderStatus.filter(item => item.name === "paid")[0]._id;
   result.orderStatus = status;
   // console.log('%c STATUS', 'color: yellow; font-size: 1rem', status);
-
-  // get cart product quantities
-  const updatedProductToId = cartItems.map(item => {
-    const id = item.product;
-    return { id, quantity: item.quantity };
-  });
-  // console.log('%c CART PRODUCTS', 'color: yellow; font-size: 1rem', updatedProductToId);
-  result.products = updatedProductToId;
 
   // get order shipping address
   let destination;

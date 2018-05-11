@@ -67,6 +67,7 @@ const DetailsComp = ({ ...props }) => {
         <SingleTab data={data.categories} />
         <OrdersTab
           data={data.orders}
+          products={data.products}
           orderStatus={data.orderStatus}
         />
         <SingleTab data={data.orderStatus} />

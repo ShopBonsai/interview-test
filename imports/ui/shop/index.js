@@ -86,7 +86,7 @@ class Shop extends PureComponent {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     const item = {
-      product: currentTarget.dataset.proudctid,
+      id: currentTarget.dataset.proudctid,
       quantity: parseInt(formData.get("quantity"))
     };
     if (item.quantity > 0) {

@@ -4,27 +4,44 @@ import Products from "./collection";
 
 // set server methods
 Meteor.methods({
-  dropQuantities: products => {
-    const promises = products.map(
-      product =>
+  dropQuantities: orderProducts => {
+    // console.log("ORDER PRODUCTS".magenta, orderProducts);
+    const promises = orderProducts.map(
+      orderItem =>
         new Promise((resolve, reject) => {
-          const newQuantity =
-            parseInt(product.quantity) - parseInt(product.cartQuantity);
-          // console.log("New Quantity".magenta, newQuantity, typeof newQuantity);
+          // console.log("ORDER ITEM".magenta, orderItem);
+          const stockProducts = Products.find({ _id: orderItem.id }).fetch();
+          if (stockProducts.length < 1) {
+            return reject("No Product");
+          }
+          // console.log("STOCK PRODUCTS",  stockProducts);
+          const stockProduct = stockProducts[0];
+          // console.log("STOCK PRODUCT".magenta, stockProduct.quantity, typeof stockProduct.quantity, orderItem.quantity, typeof orderItem.quantity);
+          let newQuantity =
+            parseInt(stockProduct.quantity) - parseInt(orderItem.quantity);
+          if (newQuantity < 0) {
+            newQuantity = 0;
+          }
+          // console.log("NEW QUANTITY".magenta, newQuantity, typeof newQuantity);
           try {
-            const result = Products.update(product._id, {
-              $set: { quantity: newQuantity }
+            const update = Products.update(orderItem.id, {
+              $set: {
+                quantity: newQuantity
+              }
             });
-            // console.log("TRY".magenta, result);
-            debugger;
-            return resolve(result);
+            // console.log("UPDATE".yellow, update);
+            if (update !== 1) return reject(update);
+            return resolve(update);
           } catch (e) {
             return reject(e);
           }
         })
     );
     return Promise.all(promises)
-      .then(result => result)
-      .catch(err => Meteor.error(err));
+      .then(status => {
+        // console.log("STATUS".magenta, status);
+        return status;
+      })
+      .catch(err => Meteor.Error(err));
   }
 });

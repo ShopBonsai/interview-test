@@ -17,8 +17,6 @@
     "productShow": ""
   },
   "cart": {
-    "items": [
-      { "product": "qKTN9xGLodFWfpbkW", "quantity": 1 }
-    ]
+    "items": []
   }
 }

@@ -10,9 +10,9 @@ const { ADD_TO_CART, UPDATE_CART_ITEMS, RESET_CART } = actionTypes;
 // define class for creating default actions for base store state objects
 export const addToCart = item => (dispatch, getState) => {
   const cartItems = getState().cart.items;
-  const cartItemIds = cartItems.map(item => item.product);
+  const cartItemIds = cartItems.map(item => item.id);
   // console.log(cartItemIds);
-  if (cartItemIds.includes(item.product)) {
+  if (cartItemIds.includes(item.id)) {
     return alert("Item already in cart. Update quantity in cart instead.");
   }
   dispatch({
@@ -27,7 +27,7 @@ export const updateCartItem = item => (dispatch, getState) => {
   const cartItems = getState().cart.items;
   let position = "";
   cartItems.forEach((cartItem, index) => {
-    if (item.product === cartItem.product) {
+    if (item.id === cartItem.id) {
       position = index;
     }
   });
@@ -43,7 +43,7 @@ export const updateCartItem = item => (dispatch, getState) => {
 // define class for creating default actions for base store state objects
 export const deleteItem = id => (dispatch, getState) => {
   // console.log(id);
-  const cartItems = getState().cart.items.filter(item => item.product !== id);
+  const cartItems = getState().cart.items.filter(item => item.id !== id);
   // console.log(cartItems);
   return dispatch({
     type: UPDATE_CART_ITEMS,
