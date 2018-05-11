@@ -1,14 +1,14 @@
 // import moduels
 import React from "react";
 import { TabPane, Row, Col } from "reactstrap";
-import formatter from "../../../helpers/formatter";
-import helpers from "../../../helpers";
 import CollapseDoc from "./collapseDoc";
+import helpers from "../../../helpers";
+import formatter from "../../../helpers/formatter";
 
 // define component
 const OrdersTab = ({ ...props }) => {
   const [name, data] = props.data;
-  const { orderStatus } = props;
+  const { products, orderStatus } = props;
   const setHead = order =>
     <section>
       <div>
@@ -20,12 +20,12 @@ const OrdersTab = ({ ...props }) => {
         </p>
       </div>
     </section>;
-  const setBody = (order, orderStatus) =>
+  const setBody = (order, products, orderStatus) =>
     <section>
       <div>
         <p>Value</p>
         <h6>
-          {helpers.getOrderValue(order.products)}
+          $ {formatter.price(helpers.getCartSubtotal(order.products, products))}
         </h6>
       </div>
       <div>
@@ -64,17 +64,19 @@ const OrdersTab = ({ ...props }) => {
       <Row>
         <Col sm="12">
           <h4>
-            {name}
+            {data.length > 0 ? name : `No ${name}`}
           </h4>
         </Col>
       </Row>
       <Row noGutters>
         <Col sm="12">
-          {data.map(order => {
-            const head = setHead(order);
-            const body = setBody(order, orderStatus[1]);
-            return <CollapseDoc key={order._id} head={head} body={body} />;
-          })}
+          {data.length > 0
+            ? data.map(order => {
+                const head = setHead(order);
+                const body = setBody(order, products[1], orderStatus[1]);
+                return <CollapseDoc key={order._id} head={head} body={body} />;
+              })
+            : null}
         </Col>
       </Row>
     </TabPane>

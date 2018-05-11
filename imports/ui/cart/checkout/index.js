@@ -4,6 +4,7 @@ import { Meteor } from "meteor/meteor";
 import CheckoutComp from "./comp";
 import helpers from "../../../helpers";
 import calls from "../../../helpers/calls";
+import buildOrder from "../../../helpers/buildOrder";
 
 // define component
 class Checkout extends PureComponent {
@@ -16,28 +17,44 @@ class Checkout extends PureComponent {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     const orderData = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      username: formData.get("username"),
-      password: formData.get("password"),
-      passwordConfirm: formData.get("password-confirm"),
+      // firstName: formData.get("firstName"),
+      // lastName: formData.get("lastName"),
+      // email: formData.get("email"),
+      // username: formData.get("username"),
+      // password: formData.get("password"),
+      // passwordConfirm: formData.get("password-confirm"),
+      // unit: formData.get("address-unit"),
+      // civic: formData.get("address-civic"),
+      // city: formData.get("address-city"),
+      // prov: formData.get("address-prov"),
+      // postal: formData.get("address-postal"),
+      // cardType: formData.get("card-type"),
+      // cardholder: formData.get("cardholder"),
+      // cardNumber: formData.get("card-number"),
+      // expiry: formData.get("expiry"),
+      // code: formData.get("code")
+      firstName: "colin",
+      lastName: "hire",
+      email: "colin@hire.ca",
+      username: "",
+      password: "",
+      passwordConfirm: "",
       unit: formData.get("address-unit"),
       civic: formData.get("address-civic"),
       city: formData.get("address-city"),
       prov: formData.get("address-prov"),
       postal: formData.get("address-postal"),
-      cardType: formData.get("card-type"),
+      cardType: "visa",
       cardholder: formData.get("cardholder"),
-      cardNumber: formData.get("card-number"),
-      expiry: formData.get("expiry"),
-      code: formData.get("code")
+      cardNumber: "1234567812345678",
+      expiry: "2018-08",
+      code: "321"
     };
     const validEmail = helpers.validateEmail(orderData.email);
     const validCard = helpers.validateCard(orderData);
     const validPasswords = helpers.validatePasswords(orderData);
     if (validEmail && validCard) {
-      const builtOrder = helpers.buildOrder(
+      const builtOrder = buildOrder(
         orderData,
         this.props.cartItems,
         this.props.orderStatus,
@@ -59,6 +76,7 @@ class Checkout extends PureComponent {
         destination: builtOrder.destination,
         status: builtOrder.orderStatus
       };
+      // console.log("%c TEST", "color: yellow; font-size: 1rem", order);
       const orderId = await calls.insertOrder(Meteor, order);
 
       // add order to customer profile

@@ -2,6 +2,7 @@
 import React from "react";
 import { Table, Button } from "reactstrap";
 import helpers from "../../../helpers";
+import formatter from "../../../helpers/formatter";
 
 // define component
 const SummaryComp = ({ ...props }) => {
@@ -23,7 +24,7 @@ const SummaryComp = ({ ...props }) => {
               {itemCount}
             </td>
             <td>
-              $ {helpers.formatPrice(subtotal)}
+              $ {formatter.price(subtotal)}
             </td>
           </tr>
         </tbody>

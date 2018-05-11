@@ -7,6 +7,7 @@ import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 // components
 import AddToCart from "./addToCart";
 import helpers from "../../helpers";
+import formatter from "../../helpers/formatter";
 import Brands from "../../api/brands/collection";
 import Categories from "../../api/categories/collection";
 import Products from "../../api/products/collection";
@@ -76,7 +77,7 @@ const One = ({ ...props }) => {
               <tbody>
                 <tr>
                   <td>
-                    {helpers.formatPrice(product.price)}
+                    {formatter.price(product.price)}
                   </td>
                   <td>
                     {helpers.titleize(product.color)}

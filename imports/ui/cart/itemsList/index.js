@@ -14,7 +14,7 @@ class ItemsList extends Component {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     const item = {
-      product: currentTarget.dataset.productid,
+      id: currentTarget.dataset.productid,
       quantity: formData.get("quantity")
     };
     // console.log(item);

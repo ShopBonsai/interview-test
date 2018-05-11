@@ -55,6 +55,17 @@ const formatter = {
     } else {
       return `${hours} hours and ${mins} minutes ago`;
     }
+  },
+  price: price => {
+    const string = (Math.round(price * 100) / 100).toString();
+    const [a, b] = string.split(".");
+    if (b === undefined) {
+      return `${a}.00`;
+    } else if (b.length === 1) {
+      return `${a}.${b}0`;
+    } else {
+      return `${a}.${b.substr(0, 2)}`;
+    }
   }
 };
 
