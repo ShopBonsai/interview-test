@@ -1,6 +1,20 @@
 // import modules
 import React from "react";
-import { Container, Row, Col, Jumbotron, Table } from "reactstrap";
+import {
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
+  Card,
+  Button,
+  CardTitle,
+  CardText,
+  Row,
+  Col,
+  Badge
+} from "reactstrap";
+import BrandsTab from "./tabs/brands.jsx";
 
 // define component
 const DetailsComp = ({ ...props }) => {
@@ -9,77 +23,48 @@ const DetailsComp = ({ ...props }) => {
     categories,
     customers,
     merchants,
-    orderStatus,
     orders,
+    orderStatus,
     products,
     profileTypes,
-    users
+    users,
+    toggleTab,
+    activeTab
   } = props;
+  const data = {
+    brands: ["Brands", brands],
+    categories: ["Categories", categories],
+    customers: ["Customers", customers],
+    merchants: ["Merchants", merchants],
+    orders: ["Orders", orders],
+    orderStatus: ["Order Status", orderStatus],
+    products: ["Products", products],
+    profileTypes: ["Profile Types", profileTypes],
+    users: ["Users", users]
+  };
+  const setNavItems = data =>
+    Object.values(data).map(item =>
+      <NavItem key={item[1].length * Math.random() + Math.random()}>
+        <NavLink
+          className={activeTab === item[0] ? "tab-label active" : "tab-label"}
+          onClick={() => toggleTab(item[0])}
+        >
+          {item[0]}
+          <Badge color="primary">
+            {item[1].length}
+          </Badge>
+        </NavLink>
+      </NavItem>
+    );
   return (
-    <Table responsive>
-      <thead>
-        <tr>
-          <th>Collection</th>
-          <th>Items</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Brands</td>
-          <td>
-            {brands.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Categories</td>
-          <td>
-            {categories.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Customers</td>
-          <td>
-            {customers.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Merchants</td>
-          <td>
-            {merchants.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Orders</td>
-          <td>
-            {orders.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Order Status</td>
-          <td>
-            {orderStatus.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Products</td>
-          <td>
-            {products.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Profile Types</td>
-          <td>
-            {profileTypes.length}
-          </td>
-        </tr>
-        <tr>
-          <td>Users</td>
-          <td>
-            {users.length}
-          </td>
-        </tr>
-      </tbody>
-    </Table>
+    <div>
+      <Nav tabs>
+        {setNavItems(data)}
+      </Nav>
+      <TabContent activeTab={activeTab}>
+        <BrandsTab data={data.brands} />
+      </TabContent>
+    </div>
   );
 };
 

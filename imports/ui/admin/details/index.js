@@ -14,6 +14,20 @@ import ProfileTypes from "../../../api/profileTypes/collection";
 
 // define component
 class Details extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.toggleTab = this.toggleTab.bind(this);
+    this.state = {
+      activeTab: "brands"
+    };
+  }
+  toggleTab(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
   render() {
     return React.createElement(DetailsComp, {
       brands: this.props.brands,
@@ -24,7 +38,9 @@ class Details extends PureComponent {
       orderStatus: this.props.orderStatus,
       products: this.props.products,
       profileTypes: this.props.profileTypes,
-      users: this.props.users
+      users: this.props.users,
+      toggleTab: this.toggleTab,
+      activeTab: this.state.activeTab
     });
   }
 }

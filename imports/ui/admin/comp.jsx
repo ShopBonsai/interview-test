@@ -15,7 +15,7 @@ const AdminComp = () =>
         </Col>
       </Row>
     </Container>
-    <Container>
+    <Container fluid>
       <Row>
         <Col id="details">
           <h2>Collection Details</h2>
