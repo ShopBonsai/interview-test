@@ -18,6 +18,7 @@ import SingleTab from "./single.jsx";
 import CustomersTab from "./customers.jsx";
 import MerchantsTab from "./merchants.jsx";
 import OrdersTab from "./orders.jsx";
+import ProductsTab from "./products.jsx";
 
 // define component
 const DetailsComp = ({ ...props }) => {
@@ -86,6 +87,13 @@ const DetailsComp = ({ ...props }) => {
           orderStatus={data.orderStatus}
         />
         <SingleTab data={data.orderStatus} />
+        <ProductsTab
+          data={data.products}
+          brands={data.brands}
+          categories={data.categories}
+          merchants={data.merchants}
+          users={data.users}
+        />
         <SingleTab data={data.profileTypes} />
       </TabContent>
     </div>
