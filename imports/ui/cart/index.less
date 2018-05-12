@@ -54,6 +54,9 @@
             text-align: center;
             color: gray;
             margin: 0;
+            @media @phones {
+              text-align: left;
+            }
           }
           h5 {
             margin-bottom: 1rem;
@@ -70,6 +73,14 @@
           button {
             width: 100%;
           }
+        }
+      }
+      #checkout-instructions {
+        h2 {
+          margin: 2rem 0 1rem 0;
+        }
+        p:last-child {
+          margin-bottom: 0;
         }
       }
     }

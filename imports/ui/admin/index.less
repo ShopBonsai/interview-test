@@ -8,15 +8,25 @@
   }
   .jumbotron {
     margin: 0;
-    padding: 10rem 2rem;
+    padding: 15rem 2rem;
     background-image: url("images/banner1.jpg");
     background-position: center;
     background-size: cover;
     color: white;
+    @media @phones {
+      padding: 5rem 2rem;
+    }
   }
   #details {
-    height: 100vh;
+    // height: 100vh;
     margin: 2rem;
+    #admin-loading {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      min-height: 100%;
+      justify-content: center;
+    }
     @media @phones {
       margin: 1rem;
     }
@@ -61,8 +71,13 @@
     }
     .tab-content {
       margin: 2rem 0 0 0;
-      #single, #customers, #merchants, #orders, #products, #users {
+      #single, #customers, #merchants, #orders, #products, #users, #noSelection {
         max-width: 100vw;
+      }
+      #noSelection {
+        text-align: center;
+        color: lightgray;
+        margin-bottom: 1rem;
       }
       h4 {
         margin: 0 1rem;

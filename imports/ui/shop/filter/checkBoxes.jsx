@@ -1,14 +1,12 @@
 // Framework
 import React, { Component } from "react";
 import helpers from "../../../helpers";
+import Sorter from "../../../helpers/sorter";
 
 // define component
 class CheckBoxes extends Component {
   constructor(props) {
     super(props);
-  }
-  shouldComponentUpdate() {
-    return true;
   }
   render() {
     const setChecked = (id, ifTrue) => {
@@ -28,7 +26,8 @@ class CheckBoxes extends Component {
         );
       }
       // console.log(data);
-      return options.map(item =>
+      const sorted = new Sorter(options).alphabetical(this.props.sortBy);
+      return sorted.map(item =>
         <div key={item._id} className="check-box">
           <label
             htmlFor={item._id}

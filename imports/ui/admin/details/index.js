@@ -3,6 +3,7 @@ import React, { PureComponent } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 import DetailsComp from "./comp.jsx";
+import LoadingComp from "./loading.jsx";
 import Brands from "../../../api/brands/collection";
 import Categories from "../../../api/categories/collection";
 import Customers from "../../../api/customers/collection";
@@ -18,7 +19,7 @@ class Details extends PureComponent {
     super(props);
     this.toggleTab = this.toggleTab.bind(this);
     this.state = {
-      activeTab: "brands"
+      activeTab: "noSelection"
     };
   }
   toggleTab(tab) {
@@ -29,8 +30,17 @@ class Details extends PureComponent {
     }
   }
   render() {
-    if (this.props.users.length < 1 || this.props.orderStatus.length < 1)
-      return null;
+    if (
+      this.props.brands.length < 1 ||
+      this.props.categories.length < 1 ||
+      this.props.merchants.length < 1 ||
+      this.props.orderStatus.length < 1 ||
+      this.props.products.length < 1 ||
+      this.props.profileTypes.length < 1
+      // || this.props.orders.length < 1
+    ) {
+      return React.createElement(LoadingComp, {});
+    }
     return React.createElement(DetailsComp, {
       brands: this.props.brands,
       categories: this.props.categories,

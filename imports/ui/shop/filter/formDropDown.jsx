@@ -20,9 +20,6 @@ class FormDropDown extends PureComponent {
   toggle() {
     this.setState({ collapse: !this.state.collapse });
   }
-  shouldComponentUpdate() {
-    return true;
-  }
   render() {
     let data = [];
     switch (this.props.name) {
@@ -52,6 +49,7 @@ class FormDropDown extends PureComponent {
             options={data}
             name={this.props.name}
             filtered={this.props.filtered}
+            sortBy="name"
           />
         </Collapse>
       </FormGroup>

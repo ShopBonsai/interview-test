@@ -102,6 +102,13 @@ const DetailsComp = ({ ...props }) => {
           merchants={data.merchants}
           profileTypes={data.profileTypes}
         />
+        <TabPane tabId="noSelection" id="noSelection">
+          <Row>
+            <Col sm="12">
+              <h4>Choose A Collection</h4>
+            </Col>
+          </Row>
+        </TabPane>
       </TabContent>
     </div>
   );

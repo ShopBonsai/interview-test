@@ -6,7 +6,8 @@ import {
   faGem,
   faCartPlus,
   faChevronCircleLeft,
-  faBoxes
+  faBoxes,
+  faSpinner
 } from "@fortawesome/fontawesome-free-solid";
 
 // define funtcion
@@ -18,7 +19,8 @@ const faSetup = () => {
     faGem,
     faCartPlus,
     faChevronCircleLeft,
-    faBoxes
+    faBoxes,
+    faSpinner
   );
 };
 

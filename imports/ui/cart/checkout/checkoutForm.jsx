@@ -1,6 +1,7 @@
 // Framework
 import React from "react";
 import { Form, Row, Col, FormGroup, Label, Input, Button } from "reactstrap";
+import faker from "faker";
 import helpers from "../../../helpers";
 
 // define component
@@ -21,6 +22,7 @@ const CheckoutForm = ({ ...props }) =>
                 name="firstName"
                 id="firstName"
                 required
+                defaultValue={faker.name.firstName()}
                 placeholder="Required"
               />
             </Col>
@@ -36,6 +38,7 @@ const CheckoutForm = ({ ...props }) =>
                 name="lastName"
                 id="lastName"
                 required
+                defaultValue={faker.name.lastName()}
                 placeholder="Required"
               />
             </Col>
@@ -97,7 +100,10 @@ const CheckoutForm = ({ ...props }) =>
               />
             </Col>
           </FormGroup>
-          <p>If username and password are submitted, an account for the store will be created for future access to past orders and more!</p>
+          <p>
+            If username and password are submitted, an account for the store
+            will be created for future access to past orders and more!
+          </p>
         </section>
       </Col>
       <Col xs="12" md="6">
@@ -127,6 +133,7 @@ const CheckoutForm = ({ ...props }) =>
                 name="address-civic"
                 id="address-civic"
                 required
+                defaultValue={faker.address.streetAddress()}
                 placeholder="Required"
               />
             </Col>
@@ -142,6 +149,7 @@ const CheckoutForm = ({ ...props }) =>
                 name="address-city"
                 id="address-city"
                 required
+                defaultValue={faker.address.city()}
                 placeholder="Required"
               />
             </Col>
@@ -187,6 +195,14 @@ const CheckoutForm = ({ ...props }) =>
                 name="address-postal"
                 id="address-postal"
                 required
+                defaultValue={`
+                  ${faker.random.word().substr(0, 1)}
+                  ${faker.random.number({ min: 0, max: 9 })}
+                  ${faker.random.word().substr(0, 1)}
+                  ${faker.random.number({ min: 0, max: 9 })}
+                  ${faker.random.word().substr(0, 1)}
+                  ${faker.random.number({ min: 0, max: 9 })}
+                `.replace(/\W+/gi, "")}
                 placeholder="Required"
               />
             </Col>
@@ -195,7 +211,7 @@ const CheckoutForm = ({ ...props }) =>
       </Col>
     </Row>
     <Row>
-      <Col xs="12" md={{ size: 6, offset: 3}}>
+      <Col xs="12" md={{ size: 6, offset: 3 }}>
         <section className="form-section" id="credit-card">
           <h5>Credit Card</h5>
           <FormGroup row>
@@ -228,6 +244,7 @@ const CheckoutForm = ({ ...props }) =>
                 name="cardholder"
                 id="cardholder"
                 required
+                defaultValue={`${faker.name.firstName()} ${faker.name.lastName()}`}
                 placeholder="Required"
               />
             </Col>
@@ -280,6 +297,11 @@ const CheckoutForm = ({ ...props }) =>
               />
             </Col>
           </FormGroup>
+          <p>
+            Valid credit card details are pre-filled for testing purposes.
+            To simulate an invalid card, change any field besides "cardholder"
+            and the order will fail.
+          </p>
         </section>
       </Col>
       <Col xs="12" md={{ size: 6, offset: 3}}>
