@@ -80,7 +80,7 @@
         margin-bottom: 1rem;
       }
       h4 {
-        margin: 0 1rem;
+        margin: 0 1rem 1rem 1rem;
       }
       table {
         th, td {
@@ -89,7 +89,10 @@
       }
     }
     .collapse-doc {
-      margin: 1rem 0 0 0;
+      margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
       .collapse-head {
         cursor: pointer;
         background-color: lightgray;
@@ -123,27 +126,23 @@
           flex-wrap: wrap;
           justify-content: flex-start;
           align-items: flex-start;
-          margin: 0 0 2rem 0;
+          margin: 0;
           @media @phones {
-            margin: 0 0 1rem 0;
             justify-content: center;
           }
           div {
             flex-shrink: 0;
             padding: 1rem;
             max-width: 100%;
-            margin-right: 1rem;
-            margin-top: 1rem;
             background-color: whitesmoke;
             cursor: pointer;
+            margin: 1rem 1rem 0 0;
             @media @phones {
-              margin: 1rem 0 0 0;
+              position: relative;
+              left: 0.5rem;
             }
             &:last-child {
               margin: 1rem 0 0 0;
-              @media @phones {
-                margin: 1rem 0 0 1rem;
-              }
             }
             &:hover {
               background-color: lightgray;
