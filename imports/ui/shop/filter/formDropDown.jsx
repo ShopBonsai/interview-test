@@ -20,9 +20,6 @@ class FormDropDown extends PureComponent {
   toggle() {
     this.setState({ collapse: !this.state.collapse });
   }
-  shouldComponentUpdate() {
-    return true;
-  }
   render() {
     let data = [];
     switch (this.props.name) {
