@@ -26,7 +26,7 @@ class CheckBoxes extends Component {
         );
       }
       // console.log(data);
-      const sorted = new Sorter(options).alphabetical();
+      const sorted = new Sorter(options).alphabetical(this.props.sortBy);
       return sorted.map(item =>
         <div key={item._id} className="check-box">
           <label

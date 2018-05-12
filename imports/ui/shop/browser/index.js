@@ -69,10 +69,12 @@ class Browser extends Component {
         products = highLow;
         break;
       case "brand":
-        const sorter = new Sorter(byName);
-        products = sorter.byBrand(brands);
+        const withBrands = helpers.addBrandNames(byName, brands);
+        const sorter = new Sorter(withBrands);
+        products = sorter.alphabetical("brandName");
         break;
     }
+    // console.log('%c PRODUCTS', 'color: yellow; font-size: 1rem', byName[0], products[0]);
 
     // set filtered results holder
     let filtered = [];

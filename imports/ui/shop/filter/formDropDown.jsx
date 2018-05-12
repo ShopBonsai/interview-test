@@ -49,6 +49,7 @@ class FormDropDown extends PureComponent {
             options={data}
             name={this.props.name}
             filtered={this.props.filtered}
+            sortBy="name"
           />
         </Collapse>
       </FormGroup>

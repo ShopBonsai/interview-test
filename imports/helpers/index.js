@@ -264,6 +264,16 @@ const helpers = {
       return "No Data";
     }
     return "No Data";
+  },
+  addBrandNames(products, brands) {
+    // add brand name ref to products that only have brand ids
+    return products.map(product => {
+      const withBrandName = product;
+      withBrandName.brandName = brands.filter(
+        brand => brand._id === product.brand
+      )[0].name;
+      return withBrandName;
+    });
   }
 };
 
