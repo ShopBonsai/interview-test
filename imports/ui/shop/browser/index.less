@@ -3,19 +3,18 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: lightgray;
   min-height: 100%;
   #no-match-error {
     color: @browserShadow;
     text-align: center;
+    margin-top: 25vh;
     @media @phones {
+      margin-top: 0;
       padding: 0 2rem 2rem 0;
     }
   }
-  // .sold-out {
-  //   color: @sold-out;
-  // }
   .product-card {
     position: relative;
     background-color: whitesmoke;
