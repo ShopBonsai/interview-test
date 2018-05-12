@@ -35,7 +35,7 @@ const CustomersTab = ({ ...props }) => {
         </h6>
       </div>
       <div>
-        <p>Profile ID</p>
+        <p>Profile Type ID</p>
         <h6>
           {customer.profileType}
         </h6>

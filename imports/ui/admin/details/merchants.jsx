@@ -35,7 +35,7 @@ const MerchantsTab = ({ ...props }) => {
         </h6>
       </div>
       <div>
-        <p>Profile ID</p>
+        <p>Profile Type ID</p>
         <h6>
           {merchant.profileType}
         </h6>

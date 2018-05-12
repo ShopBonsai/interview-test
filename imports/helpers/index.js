@@ -247,6 +247,23 @@ const helpers = {
     );
     // console.log(userAccount, merchantProducts);
     return merchantProducts;
+  },
+  getUserProfileType: (userProfileId, customers, merchants, profileTypes) => {
+    // console.log(userProfileId, customers, merchants, profileTypes);
+    const matches = [...customers, ...merchants].filter(
+      profile => profile._id === userProfileId
+    );
+    // console.log(matches, matches[0]);
+    if (matches.length === 1) {
+      const profileType = profileTypes.filter(
+        item => item._id === matches[0].profileType
+      );
+      if (profileType.length === 1) {
+        return profileType[0];
+      }
+      return "No Data";
+    }
+    return "No Data";
   }
 };
 
