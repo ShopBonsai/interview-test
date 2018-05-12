@@ -8,7 +8,7 @@ class UpdateStatus extends PureComponent {
   constructor(props) {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);
-    console.log(props);
+    // console.log(props);
   }
   async changeHandler(event) {
     event.preventDefault();
