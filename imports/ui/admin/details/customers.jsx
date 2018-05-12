@@ -34,6 +34,12 @@ const CustomersTab = ({ ...props }) => {
           {customer._id}
         </h6>
       </div>
+      <div>
+        <p>Profile ID</p>
+        <h6>
+          {customer.profileType}
+        </h6>
+      </div>
       <div className="product-quantities">
         <p>Orders</p>
         <Table>
@@ -64,7 +70,7 @@ const CustomersTab = ({ ...props }) => {
         <p>Name</p>
         <h6>
           {helpers.titleize(
-            `${customer.firstName} ${customer.lastName}`  
+            `${customer.firstName} ${customer.lastName}`
           )}
         </h6>
       </div>
@@ -76,7 +82,7 @@ const CustomersTab = ({ ...props }) => {
       </div>
     </section>;
   return (
-    <TabPane tabId={name} id="orders">
+    <TabPane tabId={name} id="customers">
       <Row>
         <Col sm="12">
           <h4>

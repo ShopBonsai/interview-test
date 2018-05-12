@@ -238,6 +238,15 @@ const helpers = {
       (acc, cur) => parseFloat(acc) + parseFloat(cur),
       0
     );
+  },
+  getMerchantProducts: (merchantId, products, users) => {
+    // console.log(merchantId, products, users);
+    const userAccount = users.filter(user => merchantId === user.profile)[0];
+    const merchantProducts = products.filter(
+      product => product.user === userAccount._id
+    );
+    // console.log(userAccount, merchantProducts);
+    return merchantProducts;
   }
 };
 

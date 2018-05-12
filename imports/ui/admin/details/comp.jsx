@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 import SingleTab from "./single.jsx";
 import CustomersTab from "./customers.jsx";
+import MerchantsTab from "./merchants.jsx";
 import OrdersTab from "./orders.jsx";
 
 // define component
@@ -71,6 +72,13 @@ const DetailsComp = ({ ...props }) => {
           profileTypes={data.profileTypes}
           orders={data.orders}
           products={data.products}
+        />
+        <MerchantsTab
+          data={data.merchants}
+          brands={data.brands}
+          profileTypes={data.profileTypes}
+          products={data.products}
+          users={data.users}
         />
         <OrdersTab
           data={data.orders}
