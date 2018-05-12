@@ -197,6 +197,47 @@ const helpers = {
     }
     alert("Password and password confirmation do not match. Please try again.");
     return false;
+  },
+  getProductTotals: (order, products) =>
+    order.products.map(orderProduct => {
+      const { price } = products.filter(
+        product => product._id === orderProduct.id
+      )[0];
+      return price * orderProduct.quantity;
+    }),
+  getOrderValue: (orderId, orders, products) => {
+    const thisOrder = orders.filter(order => order._id === orderId);
+    // console.log("THIS ORDER", thisOrder);
+    const productTotals = helpers.getProductTotals(thisOrder[0], products);
+    // console.log("PRODUCT TOTALS", productTotals);
+    return productTotals.reduce(
+      (acc, cur) => parseFloat(acc) + parseFloat(cur),
+      0
+    );
+  },
+  getClv: (customer, orders, products) => {
+    // console.log(customer, orders);
+    const customerOrders = orders.filter(
+      order => order.customer === customer._id
+    );
+    // console.log(customerOrders);
+    const orderTotals = customerOrders.map(order => {
+      const productTotals = order.products.map(orderProduct => {
+        const { price } = products.filter(
+          product => orderProduct.id === product._id
+        )[0];
+        return price * orderProduct.quantity;
+      });
+      return productTotals.reduce(
+        (acc, cur) => parseFloat(acc) + parseFloat(cur),
+        0
+      );
+    });
+    // console.log("Order Totals", orderTotals);
+    return orderTotals.reduce(
+      (acc, cur) => parseFloat(acc) + parseFloat(cur),
+      0
+    );
   }
 };
 

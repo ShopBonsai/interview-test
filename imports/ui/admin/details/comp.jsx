@@ -15,6 +15,7 @@ import {
   Badge
 } from "reactstrap";
 import SingleTab from "./single.jsx";
+import CustomersTab from "./customers.jsx";
 import OrdersTab from "./orders.jsx";
 
 // define component
@@ -65,6 +66,12 @@ const DetailsComp = ({ ...props }) => {
       <TabContent activeTab={activeTab}>
         <SingleTab data={data.brands} />
         <SingleTab data={data.categories} />
+        <CustomersTab
+          data={data.customers}
+          profileTypes={data.profileTypes}
+          orders={data.orders}
+          products={data.products}
+        />
         <OrdersTab
           data={data.orders}
           products={data.products}

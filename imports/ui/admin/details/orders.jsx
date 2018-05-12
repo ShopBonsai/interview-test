@@ -60,7 +60,7 @@ const OrdersTab = ({ ...props }) => {
         <Table>
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Quantity</th>
             </tr>
           </thead>
