@@ -65,6 +65,34 @@ const calls = {
         // alert("Dropped quantities successfully");
         return resolve(result);
       });
+    }),
+  updateStatus: (orderId, newStatus, tracking) =>
+    new Promise((resolve, reject) => {
+      Meteor.call(
+        "updateStatus",
+        orderId,
+        newStatus,
+        tracking,
+        (err, result) => {
+          if (err) {
+            alert("Error updating order status");
+            return reject(err);
+          }
+          // alert("Order status updated successfully");
+          return resolve(result);
+        }
+      );
+    }),
+  updatePublished: (id, newStatus) =>
+    new Promise((resolve, reject) => {
+      Meteor.call("updatePublished", id, newStatus, (err, result) => {
+        if (err) {
+          alert("Error updating product published status");
+          return reject(err);
+        }
+        // alert("Order status updated successfully");
+        return resolve(result);
+      });
     })
 };
 

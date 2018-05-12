@@ -7,12 +7,7 @@ class CollapseDoc extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.state = {
-      collapse: false,
-      style: {
-        display: "none"
-      }
-    };
+    this.state = { collapse: true };
   }
   toggle() {
     this.setState({ collapse: !this.state.collapse });

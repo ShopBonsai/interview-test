@@ -8,5 +8,15 @@ Meteor.methods({
     // console.log("TEST".magenta, order);
     const doc = Orders.insert(order);
     return doc;
+  },
+  updateStatus: (orderId, newStatus, tracking) => {
+    const doc = Orders.update(orderId, {
+      $set: {
+        status: newStatus,
+        trackingNumber: tracking,
+        updatedAt: new Date()
+      }
+    });
+    return doc;
   }
 });

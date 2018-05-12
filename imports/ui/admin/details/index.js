@@ -67,7 +67,7 @@ export default withTracker(() => {
     orders: Orders.find(
       {},
       {
-        sort: { updatedAt: "desc" }
+        sort: { createdAt: "desc" }
       }
     ).fetch(),
     orderStatus: OrderStatus.find().fetch(),

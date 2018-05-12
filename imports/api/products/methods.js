@@ -43,5 +43,10 @@ Meteor.methods({
         return status;
       })
       .catch(err => Meteor.Error(err));
+  },
+  updatePublished: (id, newStatus) => {
+    const update = Products.update(id, { $set: { published: newStatus } });
+    // console.log("UPDATE".yellow, update);
+    return update;
   }
 });

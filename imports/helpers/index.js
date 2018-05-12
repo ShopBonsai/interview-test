@@ -197,6 +197,73 @@ const helpers = {
     }
     alert("Password and password confirmation do not match. Please try again.");
     return false;
+  },
+  getProductTotals: (order, products) =>
+    order.products.map(orderProduct => {
+      const { price } = products.filter(
+        product => product._id === orderProduct.id
+      )[0];
+      return price * orderProduct.quantity;
+    }),
+  getOrderValue: (orderId, orders, products) => {
+    const thisOrder = orders.filter(order => order._id === orderId);
+    // console.log("THIS ORDER", thisOrder);
+    const productTotals = helpers.getProductTotals(thisOrder[0], products);
+    // console.log("PRODUCT TOTALS", productTotals);
+    return productTotals.reduce(
+      (acc, cur) => parseFloat(acc) + parseFloat(cur),
+      0
+    );
+  },
+  getClv: (customer, orders, products) => {
+    // console.log(customer, orders);
+    const customerOrders = orders.filter(
+      order => order.customer === customer._id
+    );
+    // console.log(customerOrders);
+    const orderTotals = customerOrders.map(order => {
+      const productTotals = order.products.map(orderProduct => {
+        const { price } = products.filter(
+          product => orderProduct.id === product._id
+        )[0];
+        return price * orderProduct.quantity;
+      });
+      return productTotals.reduce(
+        (acc, cur) => parseFloat(acc) + parseFloat(cur),
+        0
+      );
+    });
+    // console.log("Order Totals", orderTotals);
+    return orderTotals.reduce(
+      (acc, cur) => parseFloat(acc) + parseFloat(cur),
+      0
+    );
+  },
+  getMerchantProducts: (merchantId, products, users) => {
+    // console.log(merchantId, products, users);
+    const userAccount = users.filter(user => merchantId === user.profile)[0];
+    const merchantProducts = products.filter(
+      product => product.user === userAccount._id
+    );
+    // console.log(userAccount, merchantProducts);
+    return merchantProducts;
+  },
+  getUserProfileType: (userProfileId, customers, merchants, profileTypes) => {
+    // console.log(userProfileId, customers, merchants, profileTypes);
+    const matches = [...customers, ...merchants].filter(
+      profile => profile._id === userProfileId
+    );
+    // console.log(matches, matches[0]);
+    if (matches.length === 1) {
+      const profileType = profileTypes.filter(
+        item => item._id === matches[0].profileType
+      );
+      if (profileType.length === 1) {
+        return profileType[0];
+      }
+      return "No Data";
+    }
+    return "No Data";
   }
 };
 

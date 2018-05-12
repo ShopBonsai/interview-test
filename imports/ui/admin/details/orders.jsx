@@ -1,23 +1,50 @@
 // import moduels
 import React from "react";
-import { TabPane, Row, Col } from "reactstrap";
+import { TabPane, Row, Col, Table, Badge } from "reactstrap";
 import CollapseDoc from "./collapseDoc";
 import helpers from "../../../helpers";
 import formatter from "../../../helpers/formatter";
+import UpdateStatus from "./updateStatus";
 
 // define component
 const OrdersTab = ({ ...props }) => {
   const [name, data] = props.data;
   const { products, orderStatus } = props;
-  const setHead = order =>
+  const setBadge = (order, orderStatus) => {
+    const status = helpers.getSingleRef(order.status, orderStatus);
+    let color = "secondary";
+    switch (status) {
+      case "paid":
+        color = "primary";
+        break;
+      case "collecting":
+        color = "warning";
+        break;
+      case "shipped":
+        color = "success";
+        break;
+    }
+    return (
+      <Badge color={color}>
+        {helpers.titleize(status)}
+      </Badge>
+    );
+  };
+  const setHead = (order, orderStatus) =>
     <section>
       <div>
         <h6>
           {order._id}
         </h6>
-        <p>
-          {formatter.hoursSince(order.updatedAt)}
-        </p>
+        <div>
+          <p>
+            <span className="updatedBadge">Updated</span>
+            &ensp;
+            {formatter.timeSince(order.updatedAt)}
+            &ensp;
+          </p>
+          {setBadge(order, orderStatus)}
+        </div>
       </div>
     </section>;
   const setBody = (order, products, orderStatus) =>
@@ -28,11 +55,28 @@ const OrdersTab = ({ ...props }) => {
           $ {formatter.price(helpers.getCartSubtotal(order.products, products))}
         </h6>
       </div>
-      <div>
+      <div className="inner-table">
         <p>Products</p>
-        <h6>
-          {order.products.length}
-        </h6>
+        <Table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.products.map(item =>
+              <tr key={item.id}>
+                <td>
+                  {item.id}
+                </td>
+                <td>
+                  {item.quantity}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
       </div>
       <div>
         <p>Customer Profile ID</p>
@@ -49,9 +93,21 @@ const OrdersTab = ({ ...props }) => {
       <div>
         <p>Order Status</p>
         <h6>
-          {helpers.getSingleRef(order.status, orderStatus)}
+          <UpdateStatus
+            orderId={order._id}
+            status={order.status}
+            orderStatus={orderStatus}
+          />
         </h6>
       </div>
+      {order.trackingNumber && order.trackingNumber.length > 0
+        ? <div>
+            <p>Tracking Number</p>
+            <h6>
+              {order.trackingNumber}
+            </h6>
+          </div>
+        : null}
       <div>
         <p>Created</p>
         <h6>
@@ -72,7 +128,7 @@ const OrdersTab = ({ ...props }) => {
         <Col sm="12">
           {data.length > 0
             ? data.map(order => {
-                const head = setHead(order);
+                const head = setHead(order, orderStatus[1]);
                 const body = setBody(order, products[1], orderStatus[1]);
                 return <CollapseDoc key={order._id} head={head} body={body} />;
               })

@@ -55,7 +55,7 @@ const seedData = {
     misc: []
   },
   profileTypes: ["merchant", "customer", "admin"],
-  orderStatus: ["paid", "collecting", "shipped", "received"],
+  orderStatus: ["paid", "collecting", "shipped"],
   productImages: [
     "coat.png",
     "hat.png",

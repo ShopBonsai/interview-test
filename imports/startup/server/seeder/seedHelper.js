@@ -54,7 +54,7 @@ class SeedHelper {
       profileType: type._id,
       name: mock.merchant,
       commission: parseInt(mock.commissionFee.replace(/(\d+)/gi, "$1")),
-      logo: "http://lorempixel.com/200/200/",
+      logo: "https://placem.at/things?w=100&h=100&random=some_seed",
       phone: mock.phone,
       address: mock.address,
       description: mock.companyDescription.replace("\r\n", "")

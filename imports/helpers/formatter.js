@@ -42,18 +42,24 @@ const formatter = {
     const date = new Date(unixDate);
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate(0)}`;
   },
-  hoursSince: input => {
+  timeSince: input => {
     const unixDate = Date.parse(input);
     const date = new Date(unixDate);
     const since = Math.round((Date.now() - date) / 1000 / 60);
     const hours = Math.round(since / 60);
     const mins = Math.round(since % 60);
-    if (since < 60) {
+    if (since < 2) {
+      return `${since} minute ago`;
+    } else if (since < 60) {
       return `${since} minutes ago`;
     } else if (hours < 1) {
       return `${mins} minutes ago`;
-    } else {
+    } else if (hours < 24 && mins < 2) {
+      return `${hours} hours and ${mins} minute ago`;
+    } else if (hours < 24) {
       return `${hours} hours and ${mins} minutes ago`;
+    } else {
+      return input.toString().replace(/\sGMT-.*$/, "");
     }
   },
   price: price => {
