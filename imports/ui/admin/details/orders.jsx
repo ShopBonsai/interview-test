@@ -100,6 +100,14 @@ const OrdersTab = ({ ...props }) => {
           />
         </h6>
       </div>
+      {order.trackingNumber && order.trackingNumber.length > 0
+        ? <div>
+            <p>Tracking Number</p>
+            <h6>
+              {order.trackingNumber}
+            </h6>
+          </div>
+        : null}
       <div>
         <p>Created</p>
         <h6>

@@ -9,10 +9,11 @@ Meteor.methods({
     const doc = Orders.insert(order);
     return doc;
   },
-  updateStatus: (orderId, newStatus) => {
+  updateStatus: (orderId, newStatus, tracking) => {
     const doc = Orders.update(orderId, {
       $set: {
         status: newStatus,
+        trackingNumber: tracking,
         updatedAt: new Date()
       }
     });
