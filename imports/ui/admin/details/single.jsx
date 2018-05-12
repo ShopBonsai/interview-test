@@ -39,7 +39,7 @@ const SingleTab = ({ ...props }) => {
       </div>
     </section>;
   return (
-    <TabPane tabId={name}>
+    <TabPane tabId={name} id="single">
       <Row>
         <Col sm="12">
           <h4>

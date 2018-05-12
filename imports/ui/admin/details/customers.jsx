@@ -40,7 +40,7 @@ const CustomersTab = ({ ...props }) => {
           {customer.profileType}
         </h6>
       </div>
-      <div className="product-quantities">
+      <div className="inner-table">
         <p>Orders</p>
         <Table>
           <thead>

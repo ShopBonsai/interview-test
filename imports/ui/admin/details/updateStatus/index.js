@@ -30,10 +30,9 @@ class UpdateStatus extends PureComponent {
           newStatus,
           tracking
         );
-        if (update === 1) {
-          return alert("Order status updated successfully");
+        if (update !== 1) {
+          return alert("Order status update failed");
         }
-        return alert("Order status update failed");
       }
     } else {
       const update = await calls.updateStatus(
@@ -41,10 +40,9 @@ class UpdateStatus extends PureComponent {
         newStatus,
         tracking
       );
-      if (update === 1) {
-        return alert("Order status updated successfully");
+      if (update !== 1) {
+        return alert("Order status update failed");
       }
-      return alert("Order status update failed");
     }
   }
   render() {

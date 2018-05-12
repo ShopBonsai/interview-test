@@ -82,6 +82,17 @@ const calls = {
           return resolve(result);
         }
       );
+    }),
+  updatePublished: (id, newStatus) =>
+    new Promise((resolve, reject) => {
+      Meteor.call("updatePublished", id, newStatus, (err, result) => {
+        if (err) {
+          alert("Error updating product published status");
+          return reject(err);
+        }
+        // alert("Order status updated successfully");
+        return resolve(result);
+      });
     })
 };
 

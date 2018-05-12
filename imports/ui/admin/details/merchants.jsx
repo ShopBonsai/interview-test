@@ -68,7 +68,7 @@ const MerchantsTab = ({ ...props }) => {
         <p>Logo</p>
         <img src={merchant.logo} />
       </div>
-      <div className="product-quantities">
+      <div className="inner-table">
         <p>Brands</p>
         <Table>
           <thead>
@@ -95,7 +95,7 @@ const MerchantsTab = ({ ...props }) => {
           </tbody>
         </Table>
       </div>
-      <div className="product-quantities">
+      <div className="inner-table">
         <p>Products</p>
         <Table>
           <thead>

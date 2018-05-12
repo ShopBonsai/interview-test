@@ -55,7 +55,7 @@ const OrdersTab = ({ ...props }) => {
           $ {formatter.price(helpers.getCartSubtotal(order.products, products))}
         </h6>
       </div>
-      <div className="product-quantities">
+      <div className="inner-table">
         <p>Products</p>
         <Table>
           <thead>
