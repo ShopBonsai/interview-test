@@ -17,34 +17,22 @@ class Checkout extends PureComponent {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     const orderData = {
-      // firstName: formData.get("firstName"),
-      // lastName: formData.get("lastName"),
-      // email: formData.get("email"),
-      // username: formData.get("username"),
-      // password: formData.get("password"),
-      // passwordConfirm: formData.get("password-confirm"),
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      username: formData.get("username"),
+      password: formData.get("password"),
+      passwordConfirm: formData.get("password-confirm"),
       unit: formData.get("address-unit"),
       civic: formData.get("address-civic"),
       city: formData.get("address-city"),
       prov: formData.get("address-prov"),
       postal: formData.get("address-postal"),
-      // cardType: formData.get("card-type"),
+      cardType: formData.get("card-type"),
       cardholder: formData.get("cardholder"),
-      // cardNumber: formData.get("card-number"),
-      // expiry: formData.get("expiry"),
-      // code: formData.get("code")
-
-      // testing setup
-      firstName: "colin",
-      lastName: "hire",
-      email: "colin@hire.ca",
-      username: "",
-      password: "",
-      passwordConfirm: "",
-      cardType: "visa",
-      cardNumber: "1234567812345678",
-      expiry: "2018-08",
-      code: "321"
+      cardNumber: formData.get("card-number"),
+      expiry: formData.get("expiry"),
+      code: formData.get("code")
     };
     const validEmail = helpers.validateEmail(orderData.email);
     const validCard = helpers.validateCard(orderData);

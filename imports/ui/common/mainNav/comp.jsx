@@ -26,7 +26,7 @@ const MainNavComp = ({ ...props }) => {
     <nav id="main-nav">
       <Nav id="nav-brand">
         <NavItem>
-          <Link to="/" className="nav-link">
+          <Link to="/" href="/" className="nav-link" onClick={props.shopLink}>
             <img src="icon/bonsai-white.svg" />
           </Link>
         </NavItem>
