@@ -65,6 +65,17 @@ const calls = {
         // alert("Dropped quantities successfully");
         return resolve(result);
       });
+    }),
+  updateStatus: (orderId, newStatus) =>
+    new Promise((resolve, reject) => {
+      Meteor.call("updateStatus", orderId, newStatus, (err, result) => {
+        if (err) {
+          alert("Error updating order status");
+          return reject(err);
+        }
+        // alert("Order status updated successfully");
+        return resolve(result);
+      });
     })
 };
 
