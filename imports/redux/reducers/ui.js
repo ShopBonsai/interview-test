@@ -31,7 +31,13 @@ const ui = (state = defaultState.ui, action) => {
     case SET_FILTERED:
       return { ...state, filterResults: action.filtered };
     case RESET_UI:
-      return { ...state, ...defaultState.ui };
+      return {
+        ...state,
+        filterResults: defaultState.ui.filterResults,
+        filter: defaultState.ui.filter,
+        currentSort: defaultState.ui.currentSort,
+        productShow: defaultState.ui.productShow
+      };
     case SHOW_MODAL:
       return {
         ...state,

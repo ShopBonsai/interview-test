@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Checkout from "./";
 import { resetCart } from "../../../redux/actions/cart";
-import { resetUi } from "../../../redux/actions/ui";
+import { resetUi, showModal } from "../../../redux/actions/ui";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -16,7 +16,8 @@ const mapStateToProps = (state, props) => ({
 // sets dispatch functions to be sent down to components as properties
 const mapDispatchToProps = dispatch => ({
   resetCart: () => dispatch(resetCart()),
-  resetUi: () => dispatch(resetUi())
+  resetUi: () => dispatch(resetUi()),
+  showModal: (kind, message) => dispatch(showModal(kind, message))
 });
 
 // connects redux statefull containers to presentational components

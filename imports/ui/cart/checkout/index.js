@@ -48,29 +48,59 @@ class Checkout extends PureComponent {
       // console.log("%c TEST", "color: yellow; font-size: 1rem", builtOrder);
 
       // insert customer profile
-      const customer = await calls.insertCustomer(
-        Meteor,
-        builtOrder.customerProfile
-      );
+      const customerId = await calls
+        .insertCustomer(Meteor, builtOrder.customerProfile)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            "Error saving customer profile. Please try again later."
+          );
+        });
+        console.log("%c CUSTOMER PROFILE ID", "color: yellow; font-size: 1rem", customerId);
 
       // build and insert final order
       const order = {
-        customer,
+        customer: customerId,
         products: builtOrder.products,
         destination: builtOrder.destination,
         status: builtOrder.orderStatus
       };
       // console.log("%c TEST", "color: yellow; font-size: 1rem", order);
-      const orderId = await calls.insertOrder(Meteor, order);
+      const orderId = await calls
+        .insertOrder(Meteor, order)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            "Error saving order. Please try again later."
+          );
+        });
+        console.log("%c ORDER ID", "color: yellow; font-size: 1rem", orderId);
 
       // add order to customer profile
-      const added = await calls.addOrderToCustomer(customer, orderId);
+      const orderAddedToCustomerProfile = await calls
+        .addOrderToCustomer(customerId, orderId)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            "Error adding order to customer profile. Please try again later."
+          );
+        });
+        console.log("%c ORDER ADDED TO CUSTOMER PROFILE RESPONSE", "color: yellow; font-size: 1rem", orderAddedToCustomerProfile);
 
       // check for exisiting user account with order email
-      const existingUserId = await calls.checkForAccount(
-        Meteor,
-        orderData.email
-      );
+      const existingUserId = await calls
+        .checkForAccount(Meteor, orderData.email)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            `Error checking for account for email: ${email}. Please try again later.`
+          );
+        });
+        console.log("%c EXISTING USER ACCOUNT?", "color: yellow; font-size: 1rem", existingUserId);
 
       // add new user account if user email doesnt have account already
       if (!existingUserId) {
@@ -79,7 +109,7 @@ class Checkout extends PureComponent {
           email: orderData.email,
           username: orderData.email,
           password: "asdfasfd",
-          profile: customer
+          profile: customerId
         };
         // if username and meail supplied, set newUser username and password
         if (orderData.username.length > 2 && orderData.password.length >= 8) {
@@ -87,45 +117,60 @@ class Checkout extends PureComponent {
           newUser.password = orderData.password;
         }
         const to = await setTimeout(async () => {
-          const userId = await calls
+          calls
             .insertUser(Meteor, newUser)
-            .then(async id => {
-              if (orderId.length !== 0 && added === 1) {
-                alert(
+            .then(id => {
+              if (orderId.length === 17 && orderAddedToCustomerProfile === 1) {
+                this.props.showModal(
+                  "alert",
                   "Order placed successfully. Thanks for shopping at Bonsai!"
                 );
-                const dropped = await calls.dropQuantities(
-                  Meteor,
-                  builtOrder.products
-                );
+                calls
+                  .dropQuantities(Meteor, builtOrder.products)
+                  .then(res => res)
+                  .catch(err =>
+                    console.error("Error dropping quantities", err.reason)
+                  );
                 currentTarget.reset();
                 this.props.resetCart();
                 this.props.resetUi();
                 return this.props.history.push("/shop");
               }
-              return alert(
+              return this.props.showModal(
+                "alert",
                 "Order could not be created. Please try again later."
               );
             })
             .catch(err =>
-              alert("Order could not be created. Please try again later.")
+              this.props.showModal(
+                "alert",
+                "Error saving user. Please try again later."
+              )
             );
         }, Math.random() * 3000);
       } else {
         // user already exisits
         const to = await setTimeout(async () => {
-          if (orderId.length !== 0 && added === 1) {
-            alert("Order placed successfully. Thanks for shopping at Bonsai!");
-            const dropped = await calls.dropQuantities(
-              Meteor,
-              builtOrder.products
+          if (orderId.length === 17 && orderAddedToCustomerProfile === 1) {
+            this.props.showModal(
+              "alert",
+              "Order placed successfully. Thanks for shopping at Bonsai!"
             );
+            calls
+              .dropQuantities(Meteor, builtOrder.products)
+              .then(res => res)
+              .catch(err =>
+                console.error("Error dropping quantities", err.reason)
+              );
             currentTarget.reset();
             this.props.resetCart();
             this.props.resetUi();
             return this.props.history.push("/shop");
           }
-          return alert("Order could not be created. Please try again later.");
+          return this.props.showModal(
+            "alert",
+            "Order could not be created. Please try again later."
+          );
         }, Math.random() * 3000);
       }
     }
