@@ -268,10 +268,12 @@ const helpers = {
   addBrandNames(products, brands) {
     // add brand name ref to products that only have brand ids
     return products.map(product => {
-      const withBrandName = product;
-      withBrandName.brandName = brands.filter(
-        brand => brand._id === product.brand
-      )[0].name;
+      let withBrandName = product;
+      if (brands.length > 0) {
+        withBrandName.brandName = brands.filter(
+          brand => brand._id === product.brand
+        )[0].name;
+      }
       return withBrandName;
     });
   }

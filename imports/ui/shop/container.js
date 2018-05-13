@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Shop from "./";
 import { unsetProductShow, setFilter } from "../../redux/actions/ui";
 import { addToCart } from "../../redux/actions/cart";
+import { showModal } from "../../redux/actions/ui";
 
 // sets properties from state into properties for components
 const mapStateToProps = (state, props) => ({
@@ -13,7 +14,8 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = dispatch => ({
   unsetProductShow: () => dispatch(unsetProductShow()),
   setFilter: filter => dispatch(setFilter(filter)),
-  addToCart: item => dispatch(addToCart(item))
+  addToCart: item => dispatch(addToCart(item)),
+  showModal: (kind, message) => dispatch(showModal(kind, message))
 });
 
 // connects redux statefull containers to presentational components

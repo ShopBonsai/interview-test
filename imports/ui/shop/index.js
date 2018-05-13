@@ -1,6 +1,7 @@
 // Framework
 import React, { PureComponent } from "react";
 import ShopComp from "./comp";
+import Modal from "../common/modal";
 
 // define component
 class Shop extends PureComponent {
@@ -90,8 +91,9 @@ class Shop extends PureComponent {
       quantity: parseInt(formData.get("quantity"))
     };
     if (item.quantity > 0) {
-      console.log(item);
-      this.props.addToCart(item);
+      const res = this.props.addToCart(item);
+      // console.log(res);
+      return this.props.showModal("alert", res.message);
     }
   }
   render() {

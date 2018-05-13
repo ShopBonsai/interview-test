@@ -10,7 +10,7 @@ import Cart from "./cart";
 import faSetup from "../startup/client/faSetup";
 
 // defint component
-const Ui = () =>
+const UiComp = () =>
   <div id="router">
     <BrowserRouter>
       <Switch>
@@ -23,4 +23,4 @@ const Ui = () =>
   </div>;
 
 // export component
-export default Ui;
+export default UiComp;

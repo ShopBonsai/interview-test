@@ -1,5 +1,10 @@
 {
   "ui": {
+    "modal": {
+      "status": false,
+      "kind": "",
+      "message": ""
+    },
     "filterResults": [],
     "filter": {
       "product": {

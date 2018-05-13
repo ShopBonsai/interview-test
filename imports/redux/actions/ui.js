@@ -12,7 +12,9 @@ const {
   SET_PRODUCT_SHOW,
   UNSET_PRODUCT_SHOW,
   SET_FILTERED,
-  RESET_UI
+  RESET_UI,
+  SHOW_MODAL,
+  CLOSE_MODAL
 } = actionTypes;
 
 // define class for creating default actions for base store state objects
@@ -53,4 +55,19 @@ export const setFiltered = filtered => dispatch =>
 export const resetUi = () => dispatch =>
   dispatch({
     type: RESET_UI
+  });
+
+// open modal with kind and message
+export const showModal = (kind, message) => dispatch =>
+  dispatch({
+    type: SHOW_MODAL,
+    status: true,
+    kind,
+    message
+  });
+
+// open modal with kind and message
+export const closeModal = () => dispatch =>
+  dispatch({
+    type: CLOSE_MODAL
   });

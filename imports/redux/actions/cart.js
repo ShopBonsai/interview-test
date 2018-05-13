@@ -13,13 +13,19 @@ export const addToCart = item => (dispatch, getState) => {
   const cartItemIds = cartItems.map(item => item.id);
   // console.log(cartItemIds);
   if (cartItemIds.includes(item.id)) {
-    return alert("Item already in cart. Update quantity in cart instead.");
+    return {
+      res: "fail",
+      message: "Item already in cart. Update quantity in cart instead."
+    };
   }
   dispatch({
     type: ADD_TO_CART,
     item
   });
-  return alert(`${item.quantity} items added to cart.`);
+  return {
+    res: "pass",
+    message: `${item.quantity} items added to cart.`
+  };
 };
 
 // define class for creating default actions for base store state objects

@@ -10,7 +10,9 @@ const {
   SET_PRODUCT_SHOW,
   UNSET_PRODUCT_SHOW,
   SET_FILTERED,
-  RESET_UI
+  RESET_UI,
+  SHOW_MODAL,
+  CLOSE_MODAL
 } = actionTypes;
 
 // define reducer for sets
@@ -30,6 +32,24 @@ const ui = (state = defaultState.ui, action) => {
       return { ...state, filterResults: action.filtered };
     case RESET_UI:
       return { ...state, ...defaultState.ui };
+    case SHOW_MODAL:
+      return {
+        ...state,
+        modal: {
+          status: action.status,
+          kind: action.kind,
+          message: action.message
+        }
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        modal: {
+          status: defaultState.ui.modal.status,
+          kind: defaultState.ui.modal.kind,
+          message: defaultState.ui.modal.message
+        }
+      };
     default:
       return state;
   }
