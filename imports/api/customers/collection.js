@@ -39,11 +39,11 @@ const CustomerSchema = new SimpleSchema({
   "orders.$": { type: String },
   createdAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: () => new Date()
   },
   updatedAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: () => new Date()
   }
 });
 

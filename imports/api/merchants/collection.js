@@ -16,11 +16,11 @@ const MerchantSchema = new SimpleSchema({
   description: { type: String },
   createdAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: () => new Date()
   },
   updatedAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: () => new Date()
   }
 });
 

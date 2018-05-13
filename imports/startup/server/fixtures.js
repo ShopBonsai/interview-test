@@ -7,11 +7,13 @@ import Products from "../../api/products/collection";
 // startup function
 Meteor.startup(() => {
   // clear and seed all database
-  seed(process.env.SEED_QUANTITY);
+  if (process.env.SEED_QUANTITY > 0) {
+    return seed(process.env.SEED_QUANTITY);
+  }
 
   // clear and seed amount only if db empty
-  // if (Products.find().count() <= 0) {
-  //   console.log("Server starting without seeding".yellow);
-  //   return seed(10);
-  // }
+  if (process.env.SEED_QUANTITY === undefined && Products.find().count() < 1) {
+    return seed(10);
+  }
+  return console.log("Server starting without seeding".yellow);
 });

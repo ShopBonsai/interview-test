@@ -44,11 +44,11 @@ const ProductSchema = new SimpleSchema({
   image: { type: String },
   createdAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: () => new Date()
   },
   updatedAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: () => new Date()
   }
 });
 
