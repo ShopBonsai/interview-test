@@ -16,10 +16,12 @@ class UpdatePublished extends PureComponent {
     // console.log(currentTarget, currentTarget.checked, currentTarget.value);
     let newStatus = currentTarget.checked;
     // console.log(this.props.id, newStatus);
-    const update = await calls.updatePublished(this.props.id, newStatus);
-    if (update !== 1) {
-      return alert("Published state change failed");
-    }
+    const update = await calls
+      .updatePublished(this.props.id, newStatus)
+      .then(res => res)
+      .catch(err =>
+        this.props.showModal("alert", "Error updating product published status")
+      );
   }
   render() {
     return React.createElement(UpdatePublishedComp, {

@@ -53,23 +53,16 @@ const calls = {
         newStatus,
         tracking,
         (err, result) => {
-          if (err) {
-            showModal("alert", "Error updating order status");
-            return reject(err);
-          }
-          showModal("alert", "Order status updated successfully");
-          return resolve(result);
+          if (err) return reject(err);
+          return reject("test");
+          // return resolve(result);
         }
       );
     }),
   updatePublished: (id, newStatus) =>
     new Promise((resolve, reject) => {
       Meteor.call("updatePublished", id, newStatus, (err, result) => {
-        if (err) {
-          showModal("alert", "Error updating product published status");
-          return reject(err);
-        }
-        showModal("alert", "Order status updated successfully");
+        if (err) return reject(err);
         return resolve(result);
       });
     })

@@ -25,24 +25,20 @@ class UpdateStatus extends PureComponent {
         currentTarget.childNodes[0].value = this.props.status;
         return alert("You must enter a tracking number for shipped orders");
       } else {
-        const update = await calls.updateStatus(
-          this.props.orderId,
-          newStatus,
-          tracking
-        );
-        if (update !== 1) {
-          return alert("Order status update failed");
-        }
+        const update = await calls
+          .updateStatus(this.props.orderId, newStatus, tracking)
+          .then(res => res)
+          .catch(err =>
+            this.props.showModal("alert", "Error updating order status")
+          );
       }
     } else {
-      const update = await calls.updateStatus(
-        this.props.orderId,
-        newStatus,
-        tracking
-      );
-      if (update !== 1) {
-        return alert("Order status update failed");
-      }
+      const update = await calls
+        .updateStatus(this.props.orderId, newStatus, tracking)
+        .then(res => res)
+        .catch(err =>
+          this.props.showModal("alert", "Error updating order status")
+        );
     }
   }
   render() {

@@ -2,7 +2,7 @@
 import React from "react";
 import { TabPane, Row, Col, Table, Badge } from "reactstrap";
 import CollapseDoc from "./collapseDoc";
-import UpdatePublished from "./updatePublished";
+import UpdatePublishedContainer from "./updatePublished/container";
 import helpers from "../../../helpers";
 import formatter from "../../../helpers/formatter";
 
@@ -68,7 +68,7 @@ const ProductsTab = ({ ...props }) => {
       </div>
       <div>
         <p>Published</p>
-        <UpdatePublished status={product.published} id={product._id} />
+        <UpdatePublishedContainer status={product.published} id={product._id} />
       </div>
       <div>
         <p>Price</p>
