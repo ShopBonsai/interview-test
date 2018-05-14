@@ -6,6 +6,7 @@ import ItemsListContainer from "./itemsList/container";
 import SummaryContainer from "./summary/container";
 import CheckoutContainer from "./checkout/container";
 import NavHeader from "../common/navHeader/index.jsx";
+import ModalContainer from "../common/modal/container";
 
 // define component
 const CartComp = ({ ...props }) => {
@@ -32,6 +33,7 @@ const CartComp = ({ ...props }) => {
   };
   return (
     <Container fluid id="cart-page">
+      <ModalContainer />
       <NavHeader
         heading="Bonsai Cart"
         subtitle="Look sharp and stay smart with Bonsai Cart"

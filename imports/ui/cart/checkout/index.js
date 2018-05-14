@@ -34,9 +34,27 @@ class Checkout extends PureComponent {
       expiry: formData.get("expiry"),
       code: formData.get("code")
     };
-    const validEmail = helpers.validateEmail(orderData.email);
-    const validCard = helpers.validateCard(orderData);
-    const validPasswords = helpers.validatePasswords(orderData);
+    let validEmail = helpers.validateEmail(orderData.email);
+    if (validEmail === false) {
+      return this.props.showModal(
+        "alert",
+        "Email address invalid. Please try again."
+      );
+    }
+    let validCard = helpers.validateCard(orderData);
+    if (validCard === false) {
+      return this.props.showModal(
+        "alert",
+        "Credit card invalid. Please try again."
+      );
+    }
+    let validPasswords = helpers.validatePasswords(orderData);
+    if (validPasswords === false) {
+      return this.props.showModal(
+        "alert",
+        "Password and password confirmation do not match. Please try again."
+      );
+    }
     if (validEmail && validCard) {
       const builtOrder = buildOrder(
         orderData,

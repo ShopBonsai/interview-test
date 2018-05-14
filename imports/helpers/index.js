@@ -171,11 +171,11 @@ const helpers = {
     const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     // console.log(email.match(pattern));
     const test = email.match(pattern);
-    if (test[0] === email) {
-      return true;
+    console.log(test);
+    if (test === null || test[0] !== email) {
+      return false;
     }
-    alert("Email address invalid. Please try again.");
-    return false;
+    return true;
   },
   validateCard: orderData => {
     const { cardType, cardholder, cardNumber, expiry, code } = orderData;
@@ -187,7 +187,6 @@ const helpers = {
     ) {
       return true;
     }
-    alert("Credit card invalid. Please try again.");
     return false;
   },
   validatePasswords: orderData => {
@@ -195,7 +194,6 @@ const helpers = {
     if (password === passwordConfirm) {
       return true;
     }
-    alert("Password and password confirmation do not match. Please try again.");
     return false;
   },
   getProductTotals: (order, products) =>
