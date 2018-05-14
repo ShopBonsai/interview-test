@@ -1,16 +1,19 @@
+// import modules
 import { Meteor } from "meteor/meteor";
-import { Merchants } from "../../api/merchants/collection.js";
-import { Orders } from "../../api/orders/collection.js";
-import mockMerchantData from "./mockMerchantData.json";
+// import components
+import seed from "./seeder";
+import Products from "../../api/products/collection";
 
+// startup function
 Meteor.startup(() => {
-  // If DB is empty, add mock data
-  if (Merchants.find().count() === 0) {
-    // Create a new database document for each merchant.
-    mockMerchantData.forEach((merchantData, i) =>
-      Merchants.insert({
-        ...merchantData
-      })
-    );
+  // clear and seed all database
+  if (process.env.SEED_QUANTITY > 0) {
+    return seed(process.env.SEED_QUANTITY);
   }
+
+  // clear and seed amount only if db empty
+  if (process.env.SEED_QUANTITY === undefined && Products.find().count() < 1) {
+    return seed(33);
+  }
+  return console.log("Server starting without seeding".yellow);
 });

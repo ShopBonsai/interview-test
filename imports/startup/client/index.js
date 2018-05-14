@@ -1,17 +1,24 @@
 // Framework
 import React from "react";
-import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { Meteor } from "meteor/meteor";
 
 // Libraries
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Client Imports
-import Routes from "../../ui/Routes.jsx";
+import store from "../../redux/store";
+import Ui from "../../ui";
 
 // Actual Rendering Function
 const renderApp = () =>
-  render(<Routes />, document.getElementById("render-target"));
+  render(
+    <Provider store={store}>
+      <Ui />
+    </Provider>,
+    document.getElementById("render-target")
+  );
 
 // Start App
 Meteor.startup(() => {

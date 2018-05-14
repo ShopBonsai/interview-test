@@ -1,50 +1,22 @@
-// @flow
-
-// Framework
+// import modules
 import { Meteor } from "meteor/meteor";
+import Orders from "./collection";
 
-// Collections
-import { Orders } from "./collection";
-
-/**
- * Get the most recently created order, not safe for production
- *
- * @returns {Object} A single order object.
- */
-export const getLastOrder = () => {
-  const options = { sort: { createdAt: -1 }, limit: 1 };
-  try {
-    const lastOrderCursor = Products.find({}, options);
-    const lastOrder = lastOrderCursor.fetch()[0];
-    return lastOrder;
-  } catch (error) {
-    throw new Meteor.Error(
-      `${__filename}:getLastOrder.findOrFetchError`,
-      `Could not find or fetch product. Got error: ${error}`,
-      error
-    );
-  }
-};
-
-/**
- * Get an order by id
- *
- * @returns {Object} A single order object.
- */
-export const getOrderById = orderId => {
-  try {
-    return Products.findOne(orderId);
-  } catch (error) {
-    throw new Meteor.Error(
-      `${__filename}:getOrderById.findOrFetchError`,
-      `Could not find or fetch product with order id: '${orderId}'`,
-      error
-    );
-  }
-};
-
-// Register meteor methods.
+// set server methods
 Meteor.methods({
-  "orders.getLastOrder": getLastOrder,
-  "orders.getOrderById": getOrderById
+  insertOrder: order => {
+    // console.log("TEST".magenta, order);
+    const doc = Orders.insert(order);
+    return doc;
+  },
+  updateStatus: (orderId, newStatus, tracking) => {
+    const doc = Orders.update(orderId, {
+      $set: {
+        status: newStatus,
+        trackingNumber: tracking,
+        updatedAt: new Date()
+      }
+    });
+    return doc;
+  }
 });

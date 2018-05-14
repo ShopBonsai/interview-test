@@ -11,21 +11,34 @@
     "prepush": "meteor npm run lint"
   },
   "dependencies": {
-    "babel-runtime": "6.25.0",
-    "bootstrap": "4.0.0-alpha.6",
+    "@fortawesome/fontawesome": "^1.1.7",
+    "@fortawesome/fontawesome-free-solid": "^5.0.12",
+    "@fortawesome/react-fontawesome": "^0.0.19",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^2.0.1",
+    "bootstrap": "^4.1.1",
+    "colors": "^1.2.3",
+    "faker": "^4.1.0",
+    "jquery": "^3.3.1",
     "meteor-node-stubs": "0.2.4",
+    "popper.js": "^1.14.3",
     "react": "15.6.1",
     "react-addons-css-transition-group": "15.6.0",
+    "react-addons-pure-render-mixin": "^15.6.2",
     "react-addons-transition-group": "15.6.0",
     "react-dom": "15.6.1",
+    "react-redux": "^5.0.7",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
     "react-transition-group": "1.1.2",
-    "reactstrap": "4.8.0"
+    "reactstrap": "4.8.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
+    "simpl-schema": "^1.5.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
-    "babel-eslint": "7.2.3",
+    "babel-eslint": "^8.2.3",
     "eslint": "4.3.0",
     "eslint-config-prettier": "2.3.0",
     "eslint-import-resolver-meteor": "0.4.0",
@@ -65,15 +78,6 @@
     },
     "rules": {
       "prettier/prettier": "error",
-      "no-console": [
-        "error",
-        {
-          "allow": [
-            "warn",
-            "error"
-          ]
-        }
-      ],
       "react/prop-types": "off"
     },
     "settings": {

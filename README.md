@@ -1,70 +1,51 @@
-# Bonsai Interview Test
+# Bonsai Interview Test Submission
 
-Welcome to the creative interview test at Shop Bonsai.
+Live version at https://gochoose.herokuapp.com/ on sleeper dyno
+<br>Portfolio https://www.colinnebocat.ca/
+<br>GitHub https://github.com/colinnebocat/
+<br>Linkedin https://www.linkedin.com/in/colinnebocat/
+<br>Word Multiplier https://www.wordmultiplier.com/
 
-This interview test simulates an environment that is similar to working at Shop Bonsai (very similar tech stack we run today). 
+### Routes
+1. Home `/`
+2. Shop `/shop`
+3. Cart `/cart`
+4. Admin panel `/admin`
 
-Scenario:
-You joined as the new member of a small start-up team. Together we are building a new app to sell cool 3rd party products! So far, the sales team worked tirelessly and managed to acquire over 50 merchants who each have different brands and products offerings. The developers have also been working hard and have created a home page and shop page to welcome the users and display the products of the newly acquired merchants.
+### Key Features
+1. Structured data model and seeding program to normalize mock data with schema-ed collections
+2. New homepage
+3. New shop page layout with tags for sold out products
+4. Filter to filter products out of shop based on user selection
+5. Sort feature to sort filtered products based on user selection
+6. Redux to hold filter/sort selections, filter results, cart items, other ui state
+7. New product show page with quantity-limited add to cart button, links back to pre-defined filter states for brands or category
+8. Cart page with editable item list, total quantities and order subtotal
+10. Checkout feature activated when more than one product is added to cart
+11. Optional store account creation. Customers don't have to create an account to order. Orders stored under email address only if no account desired.
+11. Order placement upon valid email and credit card
+12. Placed orders decrease ordered product stock
+13. Admin page to view new orders with their product ids and quantities for shipping, and stats for all docs in all collections
+14. Admin functions to change order status or product published status
+15. Clear responsive design using Reactstrap for mobile and web views
+16. Custom modal alert for errors or notices
 
-Goal:
-Your task is to add a new complete working feature that you feel will best demonstrate your capabilities as a team-member and have the largest positive impact on our customer. This implies that JUST updating the es-lint rules to include trailing commas, switching all space-characters in the code-base to tab-characters, and/or updating the .gitignore will score low. However, non-customer facing features such as validating data, unit-testing, creating a automatic-backups of the database, can score very high if done well.
+### Assumptions
+- Mock data was not modified, but only vital props transferred to new data model
+- Only approx. 100 products are seeded in live version
+- Credit card data will not be stored in our database. Credit card verification setup for using third-party processing like Stripe.
+- Sold out items can be shown even though they can't be ordered so customers can see they are carried
+- Product images don't match category
+- Customers shouldn't have to hold an account to order. Orders can be retrieved by emails and added to accounts later.
+- Store employees need to see orders to package up and ship out orders
+- No login for admin panel yet, although merchants have accounts
+- Ship to only Canadian addresses
 
-Here are some ideas for features that are missing from the app:
- - Clicking Buy does SOMETHING! This should add data to the database in a meaningful way and communicate to the user that such an action took place.
- - Ability to select a quantity to buy. The quantity should be stored in the database in a meaningful way, this data should be retrieved and displayed somewhere for the user.
- - Add a profile page to display user-related data. This data should be stored in the database and retrieved.
- - Allow users to login using social media. A record of the user being logged in should be stored in the database, retrieved and displayed (perhaps on a special admin-only page).
- - Select multiple items to buy together. Which items get selected/submitted should be stored meaningfully in the database.
- - Add a cart object to display selected items the user wants to buy. Store this information meaningfully in the database.
- - Organize the shop page for better browsing experience, adding filters for brands/merchants/products.
- - Ability to 'like' an item. Store which items got liked in the database, retrieve this information.
- - Searching for product by name/brand/merchant. Store searches meaningfully in the database.
- - Add loading-images so the screen isn't empty while data is loading. Add page visits and loading times to the database in a meaningful way.
- - Add a react testing-framework and create a test. Record the results in separate database for the QA team!
+### Dev Notes
+- First project using Meteor and Less
+- Not official production version; debugging variations and consoles commented out, not removed
+- Tried to follow folder structure/naming as much as possible
+- Provided UI was pretty barebones so I just built my own
+- Collapsible collection docs in admin panel are expanded by default so all records are searchable using browser "find" feature
 
-The following should be noted:
-1. Assume that if a piece of code/function is not working, it is a bug in the app (oh no!)
-2. Work with the data as if it were real. (Do not manipulate/transform the mockData files)
-3. You can make additional assumptions, please note them if they are critical to understanding the way a feature is implemented
-4. You can add multiple small features or one large feature
-5. Please document your changes well and make as many atomic commits as you feel are necessary for someone to track your changes
-
-Of your submission, the following will be evaluated:
-- Ability to work in a pre-existing React environment (front-end)
-- Ability to use existing data in the database (back-end)
-- Ability add/store/retrieve new data in the database (back-end)
-- Completeness of feature, works as a user would expect such a feature to work
-- Adopting and using best practices
-- Coding style
-- Attention to detail
-- Clarity in communicating the feature implemented (I highly recommend taking pictures and gifs)
-
-High scorers will be contacted via email within a week of acknowledgement of PR submission.
-Thank you and good luck for everyone who applied and submitted a PR.
-
-## Install
-1. Ensure `npm` is installed.
-2. Ensure `meteor` is installed
-3. `meteor npm install`
-
-## Database setup (Mongo) on a Mac
-1. Download and install MongoDB: `brew install mongodb`
-    - create a directory to store your local DB `sudo mkdir -p /data/db`
-    - run mongod (The process that hosts your local db) `sudo mongod` (Note: This process needs to run the entire time in the background while you are developing)
-2. Run the app at least once `meteor npm run start`
-3. Download and run 'Robo 3T' to explore the data that gets created
-
-## Run
-1. `meteor npm run start`
-2. View at `http://localhost:3000/`
-
-It should look like this initially:
-![Home Page Default Look](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/homePage.png)
-
-Clicking on 'Go Shopping' button should display the shop page:
-![Shop Page Default Look and browse](https://raw.githubusercontent.com/ShopBonsai/interview-test/master/docs/shopPage.gif)
-
-## Lint
-1. `meteor npm run lint`
-2. Before pushing linting is automatically run.
+### Thanks, Colin

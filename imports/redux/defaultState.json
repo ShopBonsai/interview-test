@@ -1,0 +1,27 @@
+{
+  "ui": {
+    "modal": {
+      "status": false,
+      "kind": "",
+      "message": ""
+    },
+    "filterResults": [],
+    "filter": {
+      "product": {
+        "color": "any",
+        "name": "",
+        "priceMax": "",
+        "priceMin": "",
+        "size": "any"
+      },
+      "brands": [],
+      "categories": [],
+      "merchants": []
+    },
+    "currentSort": "name",
+    "productShow": ""
+  },
+  "cart": {
+    "items": []
+  }
+}

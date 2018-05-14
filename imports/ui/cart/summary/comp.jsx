@@ -1,0 +1,46 @@
+// Framework
+import React from "react";
+import { Table, Button } from "reactstrap";
+import helpers from "../../../helpers";
+import formatter from "../../../helpers/formatter";
+
+// define component
+const SummaryComp = ({ ...props }) => {
+  const itemCount = helpers.getTotalCartItems(props.cartItems);
+  const subtotal = helpers.getCartSubtotal(props.cartItems, props.products);
+  return (
+    <article>
+      <h2>Summary</h2>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>Items</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {itemCount}
+            </td>
+            <td>
+              $ {formatter.price(subtotal)}
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+      <Button
+        color={props.checkoutVisible ? "warning" : "primary"}
+        onClick={props.toggleCheckout}
+        size="lg"
+        block
+        disabled={itemCount < 1 ? true : false}
+      >
+        {props.checkoutVisible ? "Edit Items" : "Proceed to Checkout"}
+      </Button>
+    </article>
+  );
+};
+
+// export component
+export default SummaryComp;

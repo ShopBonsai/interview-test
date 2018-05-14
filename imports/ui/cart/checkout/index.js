@@ -1,0 +1,204 @@
+// Framework
+import React, { PureComponent } from "react";
+import { Meteor } from "meteor/meteor";
+import CheckoutComp from "./comp";
+import helpers from "../../../helpers";
+import calls from "../../../helpers/calls";
+import buildOrder from "../../../helpers/buildOrder";
+
+// define component
+class Checkout extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+  async submitHandler(event) {
+    event.preventDefault();
+    const { currentTarget } = event;
+    const formData = new FormData(currentTarget);
+    const orderData = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      username: formData.get("username"),
+      password: formData.get("password"),
+      passwordConfirm: formData.get("password-confirm"),
+      unit: formData.get("address-unit"),
+      civic: formData.get("address-civic"),
+      city: formData.get("address-city"),
+      prov: formData.get("address-prov"),
+      postal: formData.get("address-postal"),
+      cardType: formData.get("card-type"),
+      cardholder: formData.get("cardholder"),
+      cardNumber: formData.get("card-number"),
+      expiry: formData.get("expiry"),
+      code: formData.get("code")
+    };
+    let validEmail = helpers.validateEmail(orderData.email);
+    if (validEmail === false) {
+      return this.props.showModal(
+        "alert",
+        "Email address invalid. Please try again."
+      );
+    }
+    let validCard = helpers.validateCard(orderData);
+    if (validCard === false) {
+      return this.props.showModal(
+        "alert",
+        "Credit card invalid. Please try again."
+      );
+    }
+    let validPasswords = helpers.validatePasswords(orderData);
+    if (validPasswords === false) {
+      return this.props.showModal(
+        "alert",
+        "Password and password confirmation do not match. Please try again."
+      );
+    }
+    if (validEmail && validCard) {
+      const builtOrder = buildOrder(
+        orderData,
+        this.props.cartItems,
+        this.props.orderStatus,
+        this.props.profileTypes,
+        this.props.products
+      );
+      // console.log("%c TEST", "color: yellow; font-size: 1rem", builtOrder);
+
+      // insert customer profile
+      const customerId = await calls
+        .insertCustomer(Meteor, builtOrder.customerProfile)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            "Error saving customer profile. Please try again later."
+          );
+        });
+      // console.log("%c CUSTOMER PROFILE ID", "color: yellow; font-size: 1rem", customerId);
+
+      // build and insert final order
+      const order = {
+        customer: customerId,
+        products: builtOrder.products,
+        destination: builtOrder.destination,
+        status: builtOrder.orderStatus
+      };
+      // console.log("%c TEST", "color: yellow; font-size: 1rem", order);
+      const orderId = await calls
+        .insertOrder(Meteor, order)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            "Error saving order. Please try again later."
+          );
+        });
+      // console.log("%c ORDER ID", "color: yellow; font-size: 1rem", orderId);
+
+      // add order to customer profile
+      const orderAddedToCustomerProfile = await calls
+        .addOrderToCustomer(customerId, orderId)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            "Error adding order to customer profile. Please try again later."
+          );
+        });
+      // console.log("%c ORDER ADDED TO CUSTOMER PROFILE RESPONSE", "color: yellow; font-size: 1rem", orderAddedToCustomerProfile);
+
+      // check for exisiting user account with order email
+      const existingUserId = await calls
+        .checkForAccount(Meteor, orderData.email)
+        .then(res => res)
+        .catch(err => {
+          this.props.showModal(
+            "alert",
+            `Error checking for account for email: ${email}. Please try again later.`
+          );
+        });
+      // console.log("%c EXISTING USER ACCOUNT?", "color: yellow; font-size: 1rem", existingUserId);
+
+      // add new user account if user email doesnt have account already
+      if (!existingUserId) {
+        // insert new user with default username as email, and default password
+        const newUser = {
+          email: orderData.email,
+          username: orderData.email,
+          password: "asdfasfd",
+          profile: customerId
+        };
+        // if username and meail supplied, set newUser username and password
+        if (orderData.username.length > 2 && orderData.password.length >= 8) {
+          newUser.username = orderData.username;
+          newUser.password = orderData.password;
+        }
+        const to = await setTimeout(async () => {
+          calls
+            .insertUser(Meteor, newUser)
+            .then(id => {
+              if (orderId.length === 17 && orderAddedToCustomerProfile === 1) {
+                this.props.showModal(
+                  "alert",
+                  "Order placed successfully. Thanks for shopping at Bonsai!"
+                );
+                calls
+                  .dropQuantities(Meteor, builtOrder.products)
+                  .then(res => res)
+                  .catch(err =>
+                    console.error("Error dropping quantities", err.reason)
+                  );
+                currentTarget.reset();
+                this.props.resetCart();
+                this.props.resetUi();
+                return this.props.history.push("/shop");
+              }
+              return this.props.showModal(
+                "alert",
+                "Order could not be created. Please try again later."
+              );
+            })
+            .catch(err =>
+              this.props.showModal(
+                "alert",
+                "Error saving user. Please try again later."
+              )
+            );
+        }, Math.random() * 3000);
+      } else {
+        // user already exisits
+        const to = await setTimeout(async () => {
+          if (orderId.length === 17 && orderAddedToCustomerProfile === 1) {
+            this.props.showModal(
+              "alert",
+              "Order placed successfully. Thanks for shopping at Bonsai!"
+            );
+            calls
+              .dropQuantities(Meteor, builtOrder.products)
+              .then(res => res)
+              .catch(err =>
+                console.error("Error dropping quantities", err.reason)
+              );
+            currentTarget.reset();
+            this.props.resetCart();
+            this.props.resetUi();
+            return this.props.history.push("/shop");
+          }
+          return this.props.showModal(
+            "alert",
+            "Order could not be created. Please try again later."
+          );
+        }, Math.random() * 3000);
+      }
+    }
+  }
+  render() {
+    return React.createElement(CheckoutComp, {
+      submitHandler: this.submitHandler
+    });
+  }
+}
+
+// export component
+export default Checkout;
