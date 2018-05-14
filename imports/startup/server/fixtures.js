@@ -13,7 +13,7 @@ Meteor.startup(() => {
 
   // clear and seed amount only if db empty
   if (process.env.SEED_QUANTITY === undefined && Products.find().count() < 1) {
-    return seed(10);
+    return seed(33);
   }
   return console.log("Server starting without seeding".yellow);
 });
