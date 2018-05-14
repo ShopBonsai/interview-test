@@ -42,6 +42,7 @@ const ui = (state = defaultState.ui, action) => {
       return {
         ...state,
         modal: {
+          ...state.modal,
           status: action.status,
           kind: action.kind,
           message: action.message
@@ -51,6 +52,7 @@ const ui = (state = defaultState.ui, action) => {
       return {
         ...state,
         modal: {
+          ...state.modal,
           status: defaultState.ui.modal.status,
           kind: defaultState.ui.modal.kind,
           message: defaultState.ui.modal.message

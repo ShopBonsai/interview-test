@@ -1,15 +1,17 @@
 // import modules
 import React from "react";
 import { Container } from "reactstrap";
-import MainNav from "../common/mainNav/index";
-import NavHeader from "../common/navHeader/index";
 import All from "./all";
 import One from "./one";
+import MainNav from "../common/mainNav/index";
+import ModalContainer from "../common/modal/container";
+import NavHeader from "../common/navHeader/index";
 import defaultState from "../../redux/defaultState.json";
 
 // define component
 const ShopComp = ({ ...props }) =>
   <Container fluid id="products-page">
+    <ModalContainer />
     <NavHeader
       heading="Bonsai Shop"
       subtitle="Browse and shop our full collection of exciting products and get free shipping on orders over $99"

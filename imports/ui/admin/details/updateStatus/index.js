@@ -21,9 +21,12 @@ class UpdateStatus extends PureComponent {
     let tracking = "";
     if (newStatus === shippedId) {
       tracking = prompt("Please enter the tracking number");
-      if (tracking === null || tracking.length < 1) {
+      if (tracking === null || tracking.length < 7) {
         currentTarget.childNodes[0].value = this.props.status;
-        return alert("You must enter a tracking number for shipped orders");
+        return this.props.showModal(
+          "alert",
+          "You must enter a tracking number longer than 8 characters for shipped orders"
+        );
       } else {
         const update = await calls
           .updateStatus(this.props.orderId, newStatus, tracking)

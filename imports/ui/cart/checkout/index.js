@@ -57,7 +57,7 @@ class Checkout extends PureComponent {
             "Error saving customer profile. Please try again later."
           );
         });
-        console.log("%c CUSTOMER PROFILE ID", "color: yellow; font-size: 1rem", customerId);
+      // console.log("%c CUSTOMER PROFILE ID", "color: yellow; font-size: 1rem", customerId);
 
       // build and insert final order
       const order = {
@@ -76,7 +76,7 @@ class Checkout extends PureComponent {
             "Error saving order. Please try again later."
           );
         });
-        console.log("%c ORDER ID", "color: yellow; font-size: 1rem", orderId);
+      // console.log("%c ORDER ID", "color: yellow; font-size: 1rem", orderId);
 
       // add order to customer profile
       const orderAddedToCustomerProfile = await calls
@@ -88,7 +88,7 @@ class Checkout extends PureComponent {
             "Error adding order to customer profile. Please try again later."
           );
         });
-        console.log("%c ORDER ADDED TO CUSTOMER PROFILE RESPONSE", "color: yellow; font-size: 1rem", orderAddedToCustomerProfile);
+      // console.log("%c ORDER ADDED TO CUSTOMER PROFILE RESPONSE", "color: yellow; font-size: 1rem", orderAddedToCustomerProfile);
 
       // check for exisiting user account with order email
       const existingUserId = await calls
@@ -100,7 +100,7 @@ class Checkout extends PureComponent {
             `Error checking for account for email: ${email}. Please try again later.`
           );
         });
-        console.log("%c EXISTING USER ACCOUNT?", "color: yellow; font-size: 1rem", existingUserId);
+      // console.log("%c EXISTING USER ACCOUNT?", "color: yellow; font-size: 1rem", existingUserId);
 
       // add new user account if user email doesnt have account already
       if (!existingUserId) {

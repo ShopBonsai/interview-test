@@ -1,21 +1,21 @@
 #modal {
-  background-image: url("images/banner1.jpg");
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: multiply;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
+  position: fixed;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   min-width: 100vw;
   section {
-    background-color: rgba(255,255,255, 0.5);
+    background-color: rgba(255,255,255, 0.75);
     padding: 2rem;
     text-align: center;
     border-radius: 1rem;
     h4 {
       margin: 0 0 1rem 0;
+    }
+    button {
+      cursor: pointer;
     }
   }
 }

@@ -9,13 +9,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // Client Imports
 import store from "../../redux/store";
-import UiContainer from "../../ui/container";
+import Ui from "../../ui";
 
 // Actual Rendering Function
 const renderApp = () =>
   render(
     <Provider store={store}>
-      <UiContainer />
+      <Ui />
     </Provider>,
     document.getElementById("render-target")
   );

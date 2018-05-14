@@ -2,12 +2,12 @@
 import React from "react";
 import { TabPane, Row, Col, Table, Badge } from "reactstrap";
 import CollapseDoc from "./collapseDoc";
+import UpdateStatusContainer from "./updateStatus/container";
 import helpers from "../../../helpers";
 import formatter from "../../../helpers/formatter";
-import UpdateStatus from "./updateStatus";
 
 // define component
-const OrdersTab = ({ ...props }) => {
+const OrdersTabComp = ({ ...props }) => {
   const [name, data] = props.data;
   const { products, orderStatus } = props;
   const setBadge = (order, orderStatus) => {
@@ -93,7 +93,7 @@ const OrdersTab = ({ ...props }) => {
       <div>
         <p>Order Status</p>
         <h6>
-          <UpdateStatus
+          <UpdateStatusContainer
             orderId={order._id}
             status={order.status}
             orderStatus={orderStatus}
@@ -140,4 +140,4 @@ const OrdersTab = ({ ...props }) => {
 };
 
 // export component
-export default OrdersTab;
+export default OrdersTabComp;

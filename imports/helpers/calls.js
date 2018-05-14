@@ -54,8 +54,7 @@ const calls = {
         tracking,
         (err, result) => {
           if (err) return reject(err);
-          return reject("test");
-          // return resolve(result);
+          return resolve(result);
         }
       );
     }),

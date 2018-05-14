@@ -2,10 +2,12 @@
 import React from "react";
 import { Container, Row, Col, Jumbotron, Table } from "reactstrap";
 import Details from "./details";
+import ModalContainer from "../common/modal/container";
 
 // define component
 const AdminComp = () =>
   <div id="admin-page">
+    <ModalContainer />
     <Container fluid>
       <Row>
         <Col>
