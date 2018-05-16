@@ -21,12 +21,19 @@ class Shop extends Component {
       if (error) {
         this.setState(() => ({ error: error }));
       } else {
-        this.setState(() => ({ merchants: response }));
+        this.setState(() => ({
+          merchants: response
+        }));
       }
     });
   }
 
-  goBack = () => this.props.history.push("/");
+  componentDidMount() {
+    this.props.currentUser;
+  }
+
+  goBack = () => this.props.history.goBack();
+  goProfile = () => this.props.history.push("/profile");
 
   render() {
     const { merchants, error } = this.state;
@@ -43,7 +50,12 @@ class Shop extends Component {
     );
 
     return (
-      <Page pageTitle="shop" history goBack={this.goBack}>
+      <Page
+        pageTitle="shop"
+        history
+        goBack={this.goBack}
+        goProfile={this.goProfile}
+      >
         <div className="shop-page">
           {products.map(({ id, ...product }) =>
             <Product {...product} key={id} />

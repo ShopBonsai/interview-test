@@ -5,19 +5,52 @@ import React, { PureComponent } from "react";
 import Button from "../components/Button.jsx";
 
 class Product extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      liked: false
+    };
+  }
+
   handleBuyProduct = () => {
     alert("This button does nothing!");
   };
 
+  likeProduct = event => {
+    const { name, brand, price, image } = this.props;
+    event.preventDefault();
+    if (!this.state.liked) {
+      this.setState(() => ({
+        liked: true
+      }));
+      Meteor.call("likedProducts.addLikedProduct", name, brand, price, image);
+    } else {
+      this.setState(() => ({
+        liked: false
+      }));
+      Meteor.call(
+        "likedProducts.removeLikedProduct",
+        name,
+        brand,
+        price,
+        image
+      );
+    }
+  };
+
   render() {
+    const { liked } = this.state;
     const {
       name = "Product",
+      id,
       image,
       brand,
       color,
       description,
       price,
-      size
+      size,
+      location
     } = this.props;
 
     const info = [
@@ -32,23 +65,35 @@ class Product extends PureComponent {
     return (
       <div className="product">
         <img alt={name} src={image} />
-        <div className="details">
-          <div className="info">
-            {info.map(({ label, value }) =>
-              <div className="info-row" key={`${name}-${label}-${value}`}>
-                <div className="label">
-                  {label}:
-                </div>
-                <div className="value">
-                  {value}
-                </div>
-              </div>
-            )}
+        <div className="meta-container">
+          <div className="meta-wrapper">
+            <p className="price">
+              {"$" + price}
+            </p>
+            <p className="brand">
+              {brand}
+            </p>
+            <p className="price">
+              {lodash.startCase(lodash.toLower(name))}
+            </p>
           </div>
-          <Button onClick={this.handleBuyProduct}>
-            Buy {name}
-          </Button>
+          <i
+            onClick={this.likeProduct}
+            className={
+              !liked && window.location.pathname !== "/profile"
+                ? "ion-ios-heart-outline icon-button"
+                : "ion-ios-heart icon-button"
+            }
+          />
         </div>
+
+        <Button
+          className="bonsai-button"
+          name={name}
+          onClick={this.handleBuyProduct}
+        >
+          Add to Cart
+        </Button>
       </div>
     );
   }
